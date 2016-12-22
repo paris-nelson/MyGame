@@ -2,11 +2,11 @@ ID: 227
 Type: Johto
 Event: N/A
 Trainers: 
-Trainer: 66 Bug Catcher Don 775 300 C:\Users\paris.nelson\Documents\PT\PT\Sprites\BugCatcher.png
+Trainer: 66 Bug Catcher Don 775 300 Sprites\BugCatcher.png
    Pokemon: 10 15 3 0 -1 70 false false null null Female [209 40 40, 224 35 35, null, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[15, 6, 7, 6, 6, 7]
    Pokemon: 10 15 3 0 -1 70 false false null null Male [209 40 40, 224 35 35, null, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[15, 6, 7, 6, 6, 7]
  End Trainer
-Trainer: 67 Youngster Mikey 775 200 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Youngster.png
+Trainer: 67 Youngster Mikey 775 200 Sprites\Youngster.png
    Pokemon: 16 13 2 0 -1 70 false false null null Male [224 35 35, null, null, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[13, 6, 6, 6, 6, 7]
    Pokemon: 19 16 4 0 -1 70 false false null null Female [225 30 30, 224 35 35, null, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[16, 9, 7, 7, 7, 10]
  End Trainer

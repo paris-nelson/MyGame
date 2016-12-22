@@ -2,13 +2,13 @@ ID: 235
 Type: Johto
 Event: N/A
 Trainers: 
-Trainer: 86 PokeFan Derek 220 75 C:\Users\paris.nelson\Documents\PT\PT\Sprites\PokeFan.png
+Trainer: 86 PokeFan Derek 220 75 Sprites\PokeFan.png
    Pokemon: 25 39 17 0 -1 70 false false null null Female [47 15 15, 155 30 30, 231 20 20, 225 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[39, 24, 15, 22, 18, 35]
    Pokemon: 25 39 17 0 -1 70 false false null null Female [47 15 15, 155 30 30, 231 20 20, 225 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[39, 24, 15, 22, 18, 35]
    Pokemon: 26 52 19 0 -1 70 false false null null Male [232 15 15, 155 30 30, 225 30 30, 234 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[52, 39, 26, 39, 35, 43]
    Pokemon: 52 42 18 0 -1 70 false false null null Female [17 25 25, 82 40 40, 177 35 35, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[42, 21, 17, 19, 19, 37]
  End Trainer
-Trainer: 87 Sailor Eugene 240 120 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Sailor.png
+Trainer: 87 Sailor Eugene 240 120 Sprites\Sailor.png
    Pokemon: 20 48 18 0 -1 70 false false null null Female [96 15 15, 155 30 30, 225 30 30, 224 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[48, 34, 26, 23, 30, 40]
    Pokemon: 61 51 18 0 -1 70 false false null null Male [244 25 25, 97 20 20, 23 30 30, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[51, 28, 28, 23, 23, 37]
    Pokemon: 98 39 18 0 -1 70 false false null null Male [86 30 30, 241 30 30, 107 30 30, 23 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[39, 43, 37, 14, 14, 23]

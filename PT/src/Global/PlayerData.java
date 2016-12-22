@@ -286,6 +286,7 @@ public class PlayerData {
 		for(int i=0;i<sarray.length;i++){
 			Scanner reader=new Scanner(sarray[i]);
 			toReturn[i]=reader.nextBoolean();
+			reader.close();
 		}
 		return toReturn;
 	}

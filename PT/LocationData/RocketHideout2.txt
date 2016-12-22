@@ -2,7 +2,7 @@ ID: 254
 Type: TeamRocket GoldenrodCity 39,35
 Event: RocketEncounter3
 Trainers: 
-Trainer: 45 Rocket Grunt 120 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\RocketGruntM.png
+Trainer: 45 Rocket Grunt 120 270 Sprites\RocketGruntM.png
    Pokemon: 20 84 31 0 -1 70 false false null null Female [154 20 20, 176 10 10, 96 15 15, 155 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[84, 62, 47, 40, 54, 73]
    Pokemon: 20 84 31 0 -1 70 false false null null Male [154 20 20, 176 10 10, 96 15 15, 155 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[84, 62, 47, 40, 54, 73]
    Pokemon: 42 98 31 0 -1 70 false false null null Male [248 35 35, 28 10 10, 17 25 25, 216 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[98, 61, 54, 51, 58, 68]
@@ -10,7 +10,7 @@ Trainer: 45 Rocket Grunt 120 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\R
    Pokemon: 137 91 31 0 -1 70 false false null null Genderless [110 5 5, 182 30 30, 161 20 20, 150 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[91, 47, 54, 65, 58, 33]
    Pokemon: 42 98 31 0 -1 70 false false null null Female [248 35 35, 28 10 10, 17 25 25, 216 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[98, 61, 54, 51, 58, 68]
  End Trainer
-Trainer: 46 Rocket Grunt 660 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\RocketGruntF.png
+Trainer: 46 Rocket Grunt 660 270 Sprites\RocketGruntF.png
    Pokemon: 24 89 32 0 -1 70 false false null null Male [178 10 10, 81 30 30, 17 25 25, 144 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[89, 66, 55, 52, 62, 63]
    Pokemon: 44 89 32 0 -1 70 false false null null Male [130 5 5, 2 30 30, 189 15 15, 211 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[89, 52, 56, 66, 59, 34]
    Pokemon: 110 93 32 0 -1 70 false false null null Female [87 30 30, 194 20 20, 191 20 20, 180 5 5]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[93, 70, 92, 66, 56, 48]
@@ -18,7 +18,7 @@ Trainer: 46 Rocket Grunt 660 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\R
    Pokemon: 89 122 32 0 -1 70 false false null null Female [86 30 30, 178 10 10, 126 20 20, 146 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[122, 81, 59, 52, 77, 41]
    Pokemon: 89 122 32 0 -1 70 false false null null Male [86 30 30, 178 10 10, 126 20 20, 146 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[122, 81, 59, 52, 77, 41]
  End Trainer
-Trainer: 47 Rocket Execs 1200 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\RocketExecs.png
+Trainer: 47 Rocket Execs 1200 270 Sprites\RocketExecs.png
    Pokemon: 24 89 32 0 -1 70 false false null null Male [178 10 10, 81 30 30, 17 25 25, 144 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[89, 66, 55, 52, 62, 63]
    Pokemon: 45 105 34 0 -1 70 false false null null Male [141 20 20, 211 30 30, 220 20 20, 1 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[105, 66, 70, 81, 74, 43]
    Pokemon: 198 92 33 0 -1 70 false false null null Female [62 25 25, 133 15 15, 87 30 30, 154 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[92, 68, 36, 68, 36, 73]

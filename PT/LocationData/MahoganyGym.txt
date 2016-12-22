@@ -2,7 +2,7 @@ ID: 279
 Type: Gym MahoganyTown 87,11
 Event: MahoganyGym
 Trainers: 
-Trainer: 29 Boarder Brad 120 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Boarder.png
+Trainer: 29 Boarder Brad 120 270 Sprites\Boarder.png
    Pokemon: 220 80 32 0 -1 70 false false null null Male [226 20 20, 59 10 10, 147 25 25, 224 35 35]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[80, 41, 34, 27, 27, 41]
    Pokemon: 220 80 32 0 -1 70 false false null null Male [226 20 20, 59 10 10, 147 25 25, 224 35 35]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[80, 41, 34, 27, 27, 41]
    Pokemon: 87 107 32 0 -1 70 false false null null Male [226 20 20, 163 10 10, 9 20 20, 82 40 40]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[107, 54, 61, 54, 71, 54]
@@ -10,7 +10,7 @@ Trainer: 29 Boarder Brad 120 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\B
    Pokemon: 91 80 32 0 -1 70 false false null null Female [202 20 20, 149 10 10, 9 20 20, 216 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[80, 71, 129, 64, 37, 54]
    Pokemon: 91 80 32 0 -1 70 false false null null Male [202 20 20, 149 10 10, 9 20 20, 216 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[80, 71, 129, 64, 37, 54]
  End Trainer
-EliteTrainer: 30 Gym Leader Pryce 1200 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\GymLeaderPryce.png 7
+EliteTrainer: 30 Gym Leader Pryce 1200 270 Sprites\GymLeaderPryce.png 7
    Pokemon: 86 97 32 0 -1 70 false false null null Male [226 20 20, 163 10 10, 9 20 20, 82 40 40]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[97, 42, 49, 42, 60, 42]
    Pokemon: 87 115 32 0 -1 70 false false null null Male [226 20 20, 163 10 10, 9 20 20, 82 40 40]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[115, 60, 67, 60, 78, 60]
    Pokemon: 221 129 34 0 -1 70 false false null null Female [76 20 20, 226 20 20, 59 10 10, 147 25 25]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[129, 86, 71, 55, 55, 48]

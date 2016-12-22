@@ -2,7 +2,7 @@ ID: 295
 Type: Johto
 Event: N/A
 Trainers: 
-Trainer: 92 Bug Catcher Troy 575 85 C:\Users\paris.nelson\Documents\PT\PT\Sprites\BugCatcher.png
+Trainer: 92 Bug Catcher Troy 575 85 Sprites\BugCatcher.png
    Pokemon: 166 46 17 0 -1 70 false false null null Male [27 15 15, 216 20 20, 224 35 35, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[46, 17, 22, 24, 42, 34]
    Pokemon: 168 51 17 0 -1 70 false false null null Male [133 15 15, 30 35 35, 176 10 10, 209 40 40]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[51, 35, 29, 25, 25, 18]
    Pokemon: 12 47 17 0 -1 70 false false null null Male [189 15 15, 211 30 30, 145 35 35, 29 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[47, 20, 22, 32, 32, 29]

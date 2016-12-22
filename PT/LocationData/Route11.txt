@@ -2,7 +2,7 @@ ID: 210
 Type: Kanto
 Event: N/A
 Trainers: 
-Trainer: 48 Psychic Herman 975 290 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Psychic.png
+Trainer: 48 Psychic Herman 975 290 Sprites\Psychic.png
    Pokemon: 102 94 38 0 -1 70 false false null null Female [189 15 15, 145 35 35, 211 30 30, 29 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[94, 36, 66, 51, 39, 36]
    Pokemon: 102 94 38 0 -1 70 false false null null Female [189 15 15, 145 35 35, 211 30 30, 29 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[94, 36, 66, 51, 39, 36]
    Pokemon: 103 120 38 0 -1 70 false false null null Female [56 10 10, 207 20 20, 29 25 25, 97 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[120, 77, 70, 100, 55, 47]

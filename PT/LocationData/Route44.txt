@@ -2,7 +2,7 @@ ID: 239
 Type: Johto
 Event: N/A
 Trainers: 
-Trainer: 97 Cooltrainer Allen 920 85 C:\Users\paris.nelson\Documents\PT\PT\Sprites\CooltrainerM.png
+Trainer: 97 Cooltrainer Allen 920 85 Sprites\CooltrainerM.png
    Pokemon: 12 92 34 0 -1 70 false false null null Female [150 20 20, 85 35 35, 247 20 20, 216 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[92, 39, 42, 64, 64, 57]
    Pokemon: 182 103 35 0 -1 70 false false null null Male [141 20 20, 211 30 30, 220 20 20, 1 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[103, 64, 68, 72, 79, 42]
    Pokemon: 5 90 35 0 -1 70 false false null null Female [70 15 15, 176 10 10, 156 20 20, 194 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[90, 53, 48, 64, 53, 64]

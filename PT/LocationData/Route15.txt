@@ -2,7 +2,7 @@ ID: 214
 Type: Kanto
 Event: N/A
 Trainers: 
-Trainer: 52 Schoolboy Billy 800 450 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Schoolboy.png
+Trainer: 52 Schoolboy Billy 800 450 Sprites\Schoolboy.png
    Pokemon: 61 98 38 0 -1 70 false false null null Male [19 15 15, 157 5 5, 49 10 10, 244 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[98, 55, 55, 43, 43, 74]
    Pokemon: 105 94 38 0 -1 70 false false null null Female [156 20 20, 22 10 10, 73 30 30, 107 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[94, 66, 89, 43, 66, 39]
    Pokemon: 105 94 38 0 -1 70 false false null null Male [156 20 20, 22 10 10, 73 30 30, 107 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[94, 66, 89, 43, 66, 39]
@@ -10,7 +10,7 @@ Trainer: 52 Schoolboy Billy 800 450 C:\Users\paris.nelson\Documents\PT\PT\Sprite
    Pokemon: 82 86 38 0 -1 70 false false null null Male [237 10 10, 110 5 5, 231 20 20, 198 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[86, 51, 77, 96, 58, 58]
    Pokemon: 53 98 38 0 -1 70 false false null null Male [178 10 10, 62 25 25, 138 20 20, 17 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[98, 58, 51, 55, 55, 93]
  End Trainer
-Trainer: 53 PokeManiac Jim 850 450 C:\Users\paris.nelson\Documents\PT\PT\Sprites\PokeManiac.png
+Trainer: 53 PokeManiac Jim 850 450 Sprites\PokeManiac.png
    Pokemon: 115 122 36 0 -1 70 false false null null Female [156 20 20, 119 20 20, 225 30 30, 17 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[122, 74, 63, 34, 63, 70]
    Pokemon: 115 122 36 0 -1 70 false false null null Female [156 20 20, 119 20 20, 225 30 30, 17 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[122, 74, 63, 34, 63, 70]
    Pokemon: 241 115 36 0 -1 70 false false null null Female [171 20 20, 15 10 10, 123 10 10, 207 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[115, 63, 81, 34, 56, 77]

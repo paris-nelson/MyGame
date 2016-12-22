@@ -2,7 +2,7 @@ ID: 205
 Type: Kanto
 Event: N/A
 Trainers: 
-Trainer: 102 PokeFan Rex 775 250 C:\Users\paris.nelson\Documents\PT\PT\Sprites\PokeFan.png
+Trainer: 102 PokeFan Rex 775 250 Sprites\PokeFan.png
    Pokemon: 175 70 38 0 -1 70 false false null null Male [173 25 25, 58 5 5, 219 10 10, 122 10 10]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[70, 19, 51, 33, 51, 19]
    Pokemon: 183 94 38 0 -1 70 false false null null Female [48 15 15, 24 20 20, 171 20 20, 244 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[94, 19, 40, 19, 40, 33]
    Pokemon: 190 84 38 0 -1 70 false false null null Female [221 20 20, 78 15 15, 12 40 40, 174 15 15]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[84, 54, 44, 33, 44, 65]

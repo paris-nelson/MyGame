@@ -76,6 +76,7 @@ public class PCMenu implements Menu {
 			while(s.hasNextLine()){
 				entries.add(Pokemon.readInPokemon(s.nextLine()));
 			}
+			s.close();
 		}
 		catch(Exception e){
 			e.printStackTrace();

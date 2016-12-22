@@ -2,7 +2,7 @@ ID: 212
 Type: Kanto
 Event: N/A
 Trainers: 
-Trainer: 50 PokeFan Kenny 1000 370 C:\Users\paris.nelson\Documents\PT\PT\Sprites\PokeFan.png
+Trainer: 50 PokeFan Kenny 1000 370 Sprites\PokeFan.png
    Pokemon: 34 110 38 0 -1 70 false false null null Male [229 20 20, 144 35 35, 46 30 30, 92 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[110, 75, 64, 70, 62, 70]
    Pokemon: 76 109 38 0 -1 70 false false null null Male [171 20 20, 86 30 30, 180 5 5, 114 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[109, 89, 104, 47, 55, 39]
    Pokemon: 76 109 38 0 -1 70 false false null null Male [171 20 20, 86 30 30, 180 5 5, 114 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[109, 89, 104, 47, 55, 39]

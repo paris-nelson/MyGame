@@ -84,7 +84,7 @@ public class Trainer{
 		}
 		int currx=Integer.parseInt(temp);
 		int curry=s.nextInt();
-		String currfilelocation=s.next();
+		String currfilelocation=Constants.PATH+s.next();
 		s.nextLine();//empty end of line
 		temp=s.nextLine();
 		ArrayList<Pokemon> currlist=new ArrayList<Pokemon>();

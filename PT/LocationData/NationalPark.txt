@@ -2,13 +2,13 @@ ID: 291
 Type: Forest GoldenrodCity 39,35
 Event: N/A
 Trainers: 
-Trainer: 33 PokeFan William 400 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\PokeFan.png
+Trainer: 33 PokeFan William 400 270 Sprites\PokeFan.png
    Pokemon: 26 41 14 0 -1 70 false false null null Male [232 15 15, 155 30 30, 225 30 30, 234 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[41, 30, 20, 30, 27, 33]
    Pokemon: 43 36 14 0 -1 70 false false null null Male [145 35 35, 220 20 20, 1 20 20, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[36, 19, 20, 26, 23, 13]
    Pokemon: 104 38 14 0 -1 70 false false null null Female [88 15 15, 20 20 20, 225 30 30, 82 40 40]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[38, 19, 31, 16, 19, 15]
    Pokemon: 209 41 14 0 -1 70 false false null null Male [17 25 25, 25 20 20, 225 30 30, 176 10 10]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[41, 27, 19, 16, 16, 13]
  End Trainer
-Trainer: 34 Bug Catcher Jack 700 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\BugCatcher.png
+Trainer: 34 Bug Catcher Jack 700 270 Sprites\BugCatcher.png
    Pokemon: 48 41 14 0 -1 70 false false null null Male [216 20 20, 74 40 40, 44 20 20, 224 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[41, 20, 19, 16, 20, 17]
    Pokemon: 48 41 14 0 -1 70 false false null null Female [216 20 20, 74 40 40, 44 20 20, 224 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[41, 20, 19, 16, 20, 17]
    Pokemon: 127 47 16 0 -1 70 false false null null Female [16 20 20, 73 30 30, 241 30 30, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[47, 45, 37, 22, 27, 32]

@@ -2,7 +2,7 @@ ID: 283
 Type: Gym CeruleanCity 80,15
 Event: CeruleanGym
 Trainers: 
-Trainer: 9 Swimmer Aurora 120 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\SwimmerF.png
+Trainer: 9 Swimmer Aurora 120 270 Sprites\SwimmerF.png
    Pokemon: 171 138 38 0 -1 70 false false null null Male [28 10 10, 199 20 20, 244 25 25, 68 15 15]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[138, 48, 48, 61, 61, 55]
    Pokemon: 222 87 38 0 -1 70 false false null null Male [201 15 15, 24 20 20, 161 20 20, 23 30 30]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[87, 46, 68, 53, 68, 32]
    Pokemon: 222 87 38 0 -1 70 false false null null Male [201 15 15, 24 20 20, 161 20 20, 23 30 30]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[87, 46, 68, 53, 68, 32]
@@ -10,7 +10,7 @@ Trainer: 9 Swimmer Aurora 120 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\
    Pokemon: 226 94 38 0 -1 70 false false null null Male [5 30 30, 226 20 20, 24 20 20, 216 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[94, 35, 57, 64, 107, 57]
    Pokemon: 171 138 38 0 -1 70 false false null null Female [28 10 10, 199 20 20, 244 25 25, 68 15 15]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[138, 48, 48, 61, 61, 55]
  End Trainer
-EliteTrainer: 10 Gym Leader Misty 1200 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\GymLeaderMisty.png 8
+EliteTrainer: 10 Gym Leader Misty 1200 270 Sprites\GymLeaderMisty.png 8
    Pokemon: 55 125 42 0 -1 70 false false null null Male [151 10 10, 152 10 10, 217 15 15, 44 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[125, 79, 76, 90, 78, 82]
    Pokemon: 121 119 47 0 -1 70 false false null null Genderless [28 10 10, 217 15 15, 161 20 20, 98 10 10]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[119, 82, 91, 105, 91, 119]
    Pokemon: 131 185 47 0 -1 70 false false null null Male [157 5 5, 217 15 15, 140 5 5, 18 5 5]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[185, 91, 86, 91, 100, 67]

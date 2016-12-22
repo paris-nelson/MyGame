@@ -632,11 +632,13 @@ public class Pokemon {
 			else{
 				Scanner s2=new Scanner(movearray[i]);
 				moves[i]=new Move(s2.nextInt(),s2.nextInt(),s2.nextInt());
+				s2.close();
 			}
 		}
 		int[] ivs=GameData.readIntArray(arrays[1]);
 		int[] evs=GameData.readIntArray(arrays[2]);
 		int[] stats=GameData.readIntArray(arrays[3]);
+		s.close();
 		return new Pokemon(num,name,ivs,evs,stats,currhp,pcondition,level,exp,wild,heldid,helditemboosttype,moves,happiness,fainted,gender);
 	}
 	

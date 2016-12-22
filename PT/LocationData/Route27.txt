@@ -2,7 +2,7 @@ ID: 224
 Type: Kanto
 Event: N/A
 Trainers: 
-Trainer: 64 Cooltrainer Reena 50 370 C:\Users\paris.nelson\Documents\PT\PT\Sprites\CooltrainerF.png
+Trainer: 64 Cooltrainer Reena 50 370 Sprites\CooltrainerF.png
    Pokemon: 1 73 33 0 -1 70 false false null null Female [83 40 40, 220 20 20, 159 25 25, 189 15 15]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[73, 38, 38, 48, 48, 35]
    Pokemon: 2 85 34 0 -1 70 false false null null Male [220 20 20, 159 25 25, 189 15 15, 145 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[85, 47, 48, 60, 60, 46]
    Pokemon: 3 101 35 0 -1 70 false false null null Female [220 20 20, 159 25 25, 189 15 15, 145 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[101, 63, 63, 75, 75, 61]
@@ -10,7 +10,7 @@ Trainer: 64 Cooltrainer Reena 50 370 C:\Users\paris.nelson\Documents\PT\PT\Sprit
    Pokemon: 102 85 34 0 -1 70 false false null null Male [145 35 35, 211 30 30, 29 25 25, 106 10 10]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[85, 32, 60, 46, 36, 32]
    Pokemon: 195 112 35 0 -1 70 false false null null Male [55 10 10, 6 20 20, 187 20 20, 225 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[112, 65, 65, 51, 51, 30]
  End Trainer
-Trainer: 65 Cooltrainer Blake 135 370 C:\Users\paris.nelson\Documents\PT\PT\Sprites\CooltrainerM.png
+Trainer: 65 Cooltrainer Blake 135 370 Sprites\CooltrainerM.png
    Pokemon: 83 82 35 0 -1 70 false false null null Male [5 30 30, 222 30 30, 76 20 20, 107 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[82, 51, 44, 46, 49, 47]
    Pokemon: 28 98 35 0 -1 70 false false null null Male [221 20 20, 188 20 20, 144 35 35, 174 15 15]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[98, 75, 82, 37, 44, 51]
    Pokemon: 121 87 35 0 -1 70 false false null null Genderless [24 20 20, 161 20 20, 158 40 40, 224 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[87, 58, 65, 75, 65, 86]

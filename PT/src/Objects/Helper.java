@@ -1,14 +1,11 @@
 package Objects;
 
 
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import Engines.GlobalEngine;
 import Engines.MapEngine;
 import Enums.Stat;
-import Global.Constants;
 import Global.GameData;
 import Global.PlayerData;
 
@@ -17,6 +14,7 @@ public class Helper {
 
 
 	public static void main(String[] args) throws IOException{
+		System.out.println(System.getProperty("user.dir"));
 		GlobalEngine.initialize();
 		MapEngine.initialize(PlayerData.getLocation());
 		

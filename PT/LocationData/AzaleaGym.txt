@@ -2,23 +2,23 @@ ID: 274
 Type: Gym AzaleaTown 52,51
 Event: AzaleaGym
 Trainers: 
-Trainer: 1 Bug Catcher Al 120 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\BugCatcher.png
+Trainer: 1 Bug Catcher Al 120 270 Sprites\BugCatcher.png
    Pokemon: 165 29 10 0 -1 70 false false null null Male [216 20 20, 224 35 35, null, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[29, 10, 12, 14, 22, 17]
    Pokemon: 167 29 10 0 -1 70 false false null null Female [176 10 10, 209 40 40, 144 35 35, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[29, 18, 14, 14, 14, 12]
    Pokemon: 46 31 12 0 -1 70 false false null null Male [211 30 30, 177 35 35, null, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[31, 23, 19, 17, 19, 12]
  End Trainer
-Trainer: 2 Bug Catcher Benny 480 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\BugCatcher.png
+Trainer: 2 Bug Catcher Benny 480 270 Sprites\BugCatcher.png
    Pokemon: 13 23 7 0 -1 70 false false null null Female [209 40 40, 144 35 35, null, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[23, 10, 9, 8, 8, 12]
    Pokemon: 14 28 9 0 -1 70 false false null null Male [86 30 30, null, null, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[28, 10, 14, 10, 10, 12]
    Pokemon: 15 38 12 0 -1 70 false false null null Female [76 20 20, null, null, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[38, 25, 15, 17, 25, 24]
  End Trainer
-Trainer: 3 Bug Catcher Roy 840 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\BugCatcher.png
+Trainer: 3 Bug Catcher Roy 840 270 Sprites\BugCatcher.png
    Pokemon: 10 24 7 0 -1 70 false false null null Male [209 40 40, 224 35 35, null, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[24, 9, 10, 8, 8, 12]
    Pokemon: 10 24 7 0 -1 70 false false null null Female [209 40 40, 224 35 35, null, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[24, 9, 10, 8, 8, 12]
    Pokemon: 15 38 12 0 -1 70 false false null null Female [76 20 20, null, null, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[38, 25, 15, 17, 25, 24]
    Pokemon: 12 37 12 0 -1 70 false false null null Female [29 25 25, null, null, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[37, 17, 18, 25, 25, 23]
  End Trainer
-EliteTrainer: 4 Gym Leader Bugsy 1200 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\GymLeaderBugsy.png 2
+EliteTrainer: 4 Gym Leader Bugsy 1200 270 Sprites\GymLeaderBugsy.png 2
    Pokemon: 11 39 14 0 -1 70 false false null null Female [86 30 30, 209 40 40, 224 35 35, null]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[39, 12, 22, 13, 13, 15]
    Pokemon: 14 38 14 0 -1 70 false false null null Female [86 30 30, 209 40 40, 144 35 35, null]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[38, 13, 20, 13, 13, 16]
  End Trainer

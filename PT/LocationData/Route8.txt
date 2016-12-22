@@ -2,7 +2,7 @@ ID: 207
 Type: Kanto
 Event: N/A
 Trainers: 
-Trainer: 103 Biker Zeke 950 210 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Biker.png
+Trainer: 103 Biker Zeke 950 210 Sprites\Biker.png
    Pokemon: 109 73 38 0 -1 70 false false null null Female [87 30 30, 194 20 20, 191 20 20, 180 5 5]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[73, 51, 72, 47, 37, 30]
    Pokemon: 109 73 38 0 -1 70 false false null null Female [87 30 30, 194 20 20, 191 20 20, 180 5 5]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[73, 51, 72, 47, 37, 30]
    Pokemon: 89 122 38 0 -1 70 false false null null Female [86 30 30, 178 10 10, 126 20 20, 146 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[122, 81, 59, 52, 77, 41]

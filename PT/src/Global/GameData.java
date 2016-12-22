@@ -61,12 +61,14 @@ public class GameData {
 			for(int i=0;i<accevastages.length;i++){
 				accevastages[i]=Double.parseDouble(s.nextLine());
 			}
+			s.close();
 			f=new File("InitializeData\\critstages.txt");
 			s=new Scanner(f);
 			System.out.println(f.exists());
 			for(int i=0;i<critstages.length;i++){
 				critstages[i]=Integer.parseInt(s.nextLine());
 			}
+			s.close();
 			f=new File("InitializeData\\typechart.txt");
 			s=new Scanner(f);
 			Type[] typesordered={Type.Normal,Type.Fighting,Type.Flying,Type.Poison,Type.Ground,Type.Rock,Type.Bug,Type.Ghost,Type.Steel,Type.Fire,Type.Water,Type.Grass,Type.Electric,Type.Psychic,Type.Ice,Type.Dragon,Type.Dark};
@@ -78,6 +80,7 @@ public class GameData {
 				s.nextLine();
 				typechart.put(typesordered[i],thistype);
 			}
+			s.close();
 			f=new File("InitializeData\\statstages.txt");
 			s=new Scanner(f);
 			for(int i=0;i<statstages.length;i++){
@@ -517,6 +520,7 @@ public class GameData {
 		for(int i=0;i<sarray.length;i++){
 			Scanner reader=new Scanner(sarray[i]);
 			toReturn[i]=reader.nextInt();
+			reader.close();
 		}
 		return toReturn;
 	}

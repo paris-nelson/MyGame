@@ -2,20 +2,20 @@ ID: 229
 Type: Johto
 Event: N/A
 Trainers: 
-Trainer: 69 Youngster Albert 640 220 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Youngster.png
+Trainer: 69 Youngster Albert 640 220 Sprites\Youngster.png
    Pokemon: 19 21 7 0 -1 70 false false null null Female [155 30 30, 225 30 30, 224 35 35, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[21, 12, 10, 8, 10, 15]
    Pokemon: 41 24 8 0 -1 70 false false null null Female [216 20 20, 105 15 15, null, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[24, 12, 10, 9, 11, 13]
  End Trainer
-Trainer: 70 Picnicker Liz 640 285 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Picnicker.png
+Trainer: 70 Picnicker Liz 640 285 Sprites\Picnicker.png
    Pokemon: 29 26 8 0 -1 70 false false null null Female [177 35 35, 224 35 35, 82 40 40, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[26, 12, 13, 11, 11, 11]
    Pokemon: 32 25 8 0 -1 70 false false null null Male [92 25 25, 224 35 35, 107 30 30, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[25, 14, 11, 11, 11, 13]
  End Trainer
-Trainer: 71 Bird Keeper Peter 640 350 C:\Users\paris.nelson\Documents\PT\PT\Sprites\BirdKeeper.png
+Trainer: 71 Bird Keeper Peter 640 350 Sprites\BirdKeeper.png
    Pokemon: 16 22 7 0 -1 70 false false null null Male [174 15 15, 224 35 35, null, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[22, 11, 10, 10, 10, 12]
    Pokemon: 16 22 7 0 -1 70 false false null null Female [174 15 15, 224 35 35, null, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[22, 11, 10, 10, 10, 12]
    Pokemon: 21 24 8 0 -1 70 false false null null Male [107 30 30, 82 40 40, 139 35 35, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[24, 14, 9, 10, 10, 16]
  End Trainer
-Trainer: 72 Fisherman Henry 640 415 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Fisherman.png
+Trainer: 72 Fisherman Henry 640 415 Sprites\Fisherman.png
    Pokemon: 60 22 7 0 -1 70 false false null null Female [97 20 20, 23 30 30, null, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[22, 12, 10, 10, 10, 17]
    Pokemon: 60 22 7 0 -1 70 false false null null Female [97 20 20, 23 30 30, null, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[22, 12, 10, 10, 10, 17]
    Pokemon: 118 23 7 0 -1 70 false false null null Male [225 30 30, 139 35 35, null, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[23, 14, 13, 10, 12, 13]

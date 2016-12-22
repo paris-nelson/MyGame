@@ -4,7 +4,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import Engines.InventoryEngine;
-import Engines.ShopEngine;
 import Global.ControlsConfig;
 
 public class InventoryKeyListener implements KeyListener {

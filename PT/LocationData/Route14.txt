@@ -2,7 +2,7 @@ ID: 213
 Type: Kanto
 Event: N/A
 Trainers: 
-Trainer: 51 PokeFan Trevor 925 390 C:\Users\paris.nelson\Documents\PT\PT\Sprites\PokeFan.png
+Trainer: 51 PokeFan Trevor 925 390 Sprites\PokeFan.png
    Pokemon: 2 94 38 0 -1 70 false false null null Female [83 40 40, 220 20 20, 159 25 25, 189 15 15]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[94, 52, 53, 66, 66, 51]
    Pokemon: 5 92 38 0 -1 70 false false null null Female [70 15 15, 176 10 10, 156 20 20, 194 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[92, 54, 49, 66, 55, 66]
    Pokemon: 8 93 38 0 -1 70 false false null null Female [157 5 5, 149 10 10, 158 40 40, 17 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[93, 53, 66, 55, 66, 49]

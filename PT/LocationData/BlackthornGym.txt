@@ -2,7 +2,7 @@ ID: 280
 Type: Gym BlackthornCity 108,11
 Event: BlackthornGym
 Trainers: 
-Trainer: 5 Cooltrainer Lola 120 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\CooltrainerF.png
+Trainer: 5 Cooltrainer Lola 120 270 Sprites\CooltrainerF.png
    Pokemon: 147 81 35 0 -1 70 false false null null Male [5 30 30, 187 20 20, 50 10 10, 240 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[81, 55, 41, 45, 45, 45]
    Pokemon: 147 81 35 0 -1 70 false false null null Female [5 30 30, 187 20 20, 50 10 10, 240 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[81, 55, 41, 45, 45, 45]
    Pokemon: 147 81 35 0 -1 70 false false null null Female [5 30 30, 187 20 20, 50 10 10, 240 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[81, 55, 41, 45, 45, 45]
@@ -10,7 +10,7 @@ Trainer: 5 Cooltrainer Lola 120 270 C:\Users\paris.nelson\Documents\PT\PT\Sprite
    Pokemon: 148 96 36 0 -1 70 false false null null Female [5 30 30, 187 20 20, 50 10 10, 240 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[96, 71, 56, 60, 60, 60]
    Pokemon: 117 92 36 0 -1 70 false false null null Male [240 20 20, 244 25 25, 107 30 30, 194 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[92, 56, 79, 79, 41, 71]
  End Trainer
-EliteTrainer: 6 Gym Leader Clair 1200 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\GymLeaderClair.png 8
+EliteTrainer: 6 Gym Leader Clair 1200 270 Sprites\GymLeaderClair.png 8
    Pokemon: 148 104 37 0 -1 70 false false null null Female [98 10 10, 187 20 20, 231 20 20, 51 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[104, 77, 62, 66, 66, 66]
    Pokemon: 148 104 37 0 -1 70 false false null null Female [217 15 15, 187 20 20, 231 20 20, 51 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[104, 77, 62, 66, 66, 66]
    Pokemon: 148 104 37 0 -1 70 false false null null Male [232 15 15, 187 20 20, 231 20 20, 51 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[104, 77, 62, 66, 66, 66]

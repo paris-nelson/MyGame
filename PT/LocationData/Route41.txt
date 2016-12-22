@@ -2,7 +2,7 @@ ID: 237
 Type: Johto
 Event: N/A
 Trainers: 
-Trainer: 91 Swimmer Charlie 137 365 C:\Users\paris.nelson\Documents\PT\PT\Sprites\SwimmerM.png
+Trainer: 91 Swimmer Charlie 137 365 Sprites\SwimmerM.png
    Pokemon: 73 70 26 0 -1 70 false false null null Female [2 30 30, 30 35 35, 216 20 20, 144 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[70, 37, 35, 42, 60, 51]
    Pokemon: 121 61 26 0 -1 70 false false null null Genderless [24 20 20, 161 20 20, 158 40 40, 224 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[61, 39, 44, 51, 44, 58]
    Pokemon: 130 77 26 0 -1 70 false false null null Male [17 25 25, 229 20 20, null, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[77, 62, 41, 33, 51, 42]

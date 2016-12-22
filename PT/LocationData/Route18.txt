@@ -2,7 +2,7 @@ ID: 216
 Type: Kanto
 Event: N/A
 Trainers: 
-Trainer: 55 Bird Keeper Boris 600 450 C:\Users\paris.nelson\Documents\PT\PT\Sprites\BirdKeeper.png
+Trainer: 55 Bird Keeper Boris 600 450 Sprites\BirdKeeper.png
    Pokemon: 164 124 38 0 -1 70 false false null null Female [226 20 20, 162 20 20, 97 20 20, 139 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[124, 43, 43, 63, 78, 58]
    Pokemon: 164 124 38 0 -1 70 false false null null Female [226 20 20, 162 20 20, 97 20 20, 139 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[124, 43, 43, 63, 78, 58]
    Pokemon: 85 94 38 0 -1 70 false false null null Female [53 20 20, 156 20 20, 237 10 10, 76 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[94, 89, 58, 51, 51, 81]

@@ -502,6 +502,7 @@ public class MapEngine {
 		for(int i=0;i<sarray.length;i++){
 			Scanner reader=new Scanner(sarray[i]);
 			toReturn[i]=reader.nextShort();
+			reader.close();
 		}
 		return toReturn;
 	}

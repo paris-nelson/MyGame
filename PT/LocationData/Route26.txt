@@ -2,7 +2,7 @@ ID: 223
 Type: Kanto
 Event: N/A
 Trainers: 
-Trainer: 61 Cooltrainer Beth 160 320 C:\Users\paris.nelson\Documents\PT\PT\Sprites\CooltrainerF.png
+Trainer: 61 Cooltrainer Beth 160 320 Sprites\CooltrainerF.png
    Pokemon: 211 86 33 0 -1 70 false false null null Female [142 20 20, 244 25 25, 126 20 20, 86 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[86, 68, 55, 41, 41, 61]
    Pokemon: 211 86 33 0 -1 70 false false null null Male [142 20 20, 244 25 25, 126 20 20, 86 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[86, 68, 55, 41, 41, 61]
    Pokemon: 119 99 34 0 -1 70 false false null null Female [76 20 20, 68 15 15, 92 25 25, 216 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[99, 68, 49, 49, 60, 51]
@@ -10,7 +10,7 @@ Trainer: 61 Cooltrainer Beth 160 320 C:\Users\paris.nelson\Documents\PT\PT\Sprit
    Pokemon: 9 103 36 0 -1 70 false false null null Male [149 10 10, 158 40 40, 17 25 25, 244 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[103, 65, 77, 66, 81, 61]
    Pokemon: 212 94 35 0 -1 70 false false null null Female [121 35 35, 5 30 30, 63 40 40, 154 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[94, 96, 75, 44, 61, 51]
  End Trainer
-Trainer: 62 Cooltrainer Gavin 160 260 C:\Users\paris.nelson\Documents\PT\PT\Sprites\CooltrainerM.png
+Trainer: 62 Cooltrainer Gavin 160 260 Sprites\CooltrainerM.png
    Pokemon: 71 101 35 0 -1 70 false false null null Male [159 25 25, 220 20 20, 189 15 15, 242 10 10]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[101, 79, 51, 75, 47, 54]
    Pokemon: 99 84 35 0 -1 70 false false null null Male [84 5 5, 207 20 20, 86 30 30, 241 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[84, 96, 86, 40, 40, 58]
    Pokemon: 192 98 35 0 -1 70 false false null null Female [141 20 20, 214 5 5, 159 25 25, 83 40 40]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[98, 58, 44, 79, 65, 26]
@@ -18,7 +18,7 @@ Trainer: 62 Cooltrainer Gavin 160 260 C:\Users\paris.nelson\Documents\PT\PT\Spri
    Pokemon: 55 101 35 0 -1 70 false false null null Male [151 10 10, 178 10 10, 29 25 25, 44 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[101, 63, 60, 72, 61, 65]
    Pokemon: 78 91 35 0 -1 70 false false null null Female [226 20 20, 66 15 15, 207 20 20, 57 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[91, 75, 54, 61, 61, 79]
  End Trainer
-Trainer: 63 Kimono Girl Sayo 160 140 C:\Users\paris.nelson\Documents\PT\PT\Sprites\KimonoGirl.png
+Trainer: 63 Kimono Girl Sayo 160 140 Sprites\KimonoGirl.png
    Pokemon: 133 84 35 0 -1 70 false false null null Male [17 25 25, 155 30 30, 82 40 40, 174 15 15]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[84, 44, 40, 37, 51, 44]
    Pokemon: 134 136 35 0 -1 70 false false null null Male [17 25 25, 155 30 30, 244 25 25, 174 15 15]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[136, 51, 47, 82, 72, 51]
    Pokemon: 135 91 35 0 -1 70 false false null null Male [46 30 30, 155 30 30, 234 30 30, 174 15 15]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[91, 51, 47, 82, 72, 96]

@@ -2,14 +2,14 @@ ID: 292
 Type: OlivineTower OlivineCity 25,19
 Event: N/A
 Trainers: 
-Trainer: 37 Gentleman Alfred 120 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Gentleman.png
+Trainer: 37 Gentleman Alfred 120 270 Sprites\Gentleman.png
    Pokemon: 163 52 19 0 -1 70 false false null null Female [97 20 20, 139 35 35, 74 40 40, 82 40 40]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[52, 16, 16, 19, 26, 24]
    Pokemon: 163 52 19 0 -1 70 false false null null Female [97 20 20, 139 35 35, 74 40 40, 82 40 40]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[52, 16, 16, 19, 26, 24]
    Pokemon: 164 70 20 0 -1 70 false false null null Female [97 20 20, 139 35 35, 74 40 40, 82 40 40]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[70, 25, 25, 35, 43, 33]
    Pokemon: 58 50 19 0 -1 70 false false null null Female [107 30 30, 57 25 25, 166 20 20, 17 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[50, 31, 22, 31, 24, 28]
    Pokemon: 58 50 19 0 -1 70 false false null null Male [107 30 30, 57 25 25, 166 20 20, 17 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[50, 31, 22, 31, 24, 28]
  End Trainer
-Trainer: 38 Sailor Ernest 660 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Sailor.png
+Trainer: 38 Sailor Ernest 660 270 Sprites\Sailor.png
    Pokemon: 61 56 20 0 -1 70 false false null null Male [49 10 10, 244 25 25, 97 20 20, 23 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[56, 31, 31, 25, 25, 41]
    Pokemon: 66 55 19 0 -1 70 false false null null Male [179 20 20, 103 25 25, 73 30 30, 107 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[55, 35, 24, 18, 18, 18]
    Pokemon: 98 42 20 0 -1 70 false false null null Female [86 30 30, 241 30 30, 107 30 30, 23 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[42, 47, 41, 15, 15, 25]
@@ -17,7 +17,7 @@ Trainer: 38 Sailor Ernest 660 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\
    Pokemon: 66 55 19 0 -1 70 false false null null Male [179 20 20, 103 25 25, 73 30 30, 107 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[55, 35, 24, 18, 18, 18]
    Pokemon: 98 42 20 0 -1 70 false false null null Male [86 30 30, 241 30 30, 107 30 30, 23 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[42, 47, 41, 15, 15, 25]
  End Trainer
-Trainer: 39 Bird Keeper Denis 1200 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\BirdKeeper.png
+Trainer: 39 Bird Keeper Denis 1200 270 Sprites\BirdKeeper.png
    Pokemon: 16 44 19 0 -1 70 false false null null Female [155 30 30, 85 35 35, 174 15 15, 224 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[44, 22, 20, 18, 18, 26]
    Pokemon: 16 46 20 0 -1 70 false false null null Male [155 30 30, 85 35 35, 174 15 15, 224 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[46, 23, 21, 19, 19, 27]
    Pokemon: 17 57 21 0 -1 70 false false null null Female [155 30 30, 85 35 35, 174 15 15, 224 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[57, 30, 28, 26, 26, 35]

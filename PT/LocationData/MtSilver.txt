@@ -2,7 +2,7 @@ ID: 272
 Type: Cave Route28 4,23
 Event: N/A
 Trainers: 
-EliteTrainer: 125 Red 1200 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Red.png 8
+EliteTrainer: 125 Red 1200 270 Sprites\Red.png 8
    Pokemon: 25 159 81 0 -1 70 false false null null Male [109 30 30, 230 10 10, 5 30 30, 232 15 15]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[159, 105, 64, 97, 81, 162]
    Pokemon: 196 188 73 0 -1 70 false false null null Male [131 5 5, 152 10 10, 162 20 20, 132 10 10]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[188, 110, 102, 205, 153, 175]
    Pokemon: 143 335 75 0 -1 70 false false null null Female [6 20 20, 195 15 15, 19 15 15, 163 10 10]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[335, 180, 113, 113, 180, 60]

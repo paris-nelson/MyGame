@@ -2,7 +2,7 @@ ID: 236
 Type: Johto
 Event: N/A
 Trainers: 
-Trainer: 88 Swimmer Simon 160 210 C:\Users\paris.nelson\Documents\PT\PT\Sprites\SwimmerM.png
+Trainer: 88 Swimmer Simon 160 210 Sprites\SwimmerM.png
    Pokemon: 72 46 21 0 -1 70 false false null null Male [2 30 30, 30 35 35, 216 20 20, 144 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[46, 21, 19, 25, 45, 33]
    Pokemon: 72 46 21 0 -1 70 false false null null Female [2 30 30, 30 35 35, 216 20 20, 144 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[46, 21, 19, 25, 45, 33]
    Pokemon: 120 42 21 0 -1 70 false false null null Genderless [161 20 20, 158 40 40, 244 25 25, 86 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[42, 23, 27, 33, 27, 39]
@@ -10,7 +10,7 @@ Trainer: 88 Swimmer Simon 160 210 C:\Users\paris.nelson\Documents\PT\PT\Sprites\
    Pokemon: 90 45 23 0 -1 70 false false null null Female [9 20 20, 216 20 20, 249 40 40, 224 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[45, 34, 49, 25, 16, 23]
    Pokemon: 8 58 23 0 -1 70 false false null null Female [17 25 25, 244 25 25, 249 40 40, 23 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[58, 33, 40, 34, 40, 30]
  End Trainer
-Trainer: 89 Swimmer Kara 160 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\SwimmerF.png
+Trainer: 89 Swimmer Kara 160 270 Sprites\SwimmerF.png
    Pokemon: 116 42 21 0 -1 70 false false null null Female [107 30 30, 194 20 20, 23 30 30, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[42, 21, 33, 33, 15, 29]
    Pokemon: 116 42 21 0 -1 70 false false null null Male [107 30 30, 194 20 20, 23 30 30, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[42, 21, 33, 33, 15, 29]
    Pokemon: 116 42 21 0 -1 70 false false null null Male [107 30 30, 194 20 20, 23 30 30, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[42, 21, 33, 33, 15, 29]
@@ -18,7 +18,7 @@ Trainer: 89 Swimmer Kara 160 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\S
    Pokemon: 211 58 22 0 -1 70 false false null null Female [244 25 25, 126 20 20, 86 30 30, 144 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[58, 45, 36, 28, 28, 41]
    Pokemon: 212 60 22 0 -1 70 false false null null Male [63 40 40, 154 20 20, 73 30 30, 107 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[60, 60, 47, 28, 39, 32]
  End Trainer
-Trainer: 90 Swimmer Wendy 160 330 C:\Users\paris.nelson\Documents\PT\PT\Sprites\SwimmerF.png
+Trainer: 90 Swimmer Wendy 160 330 Sprites\SwimmerF.png
    Pokemon: 86 56 22 0 -1 70 false false null null Male [9 20 20, 82 40 40, 88 15 15, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[56, 23, 27, 23, 33, 23]
    Pokemon: 119 65 22 0 -1 70 false false null null Female [92 25 25, 216 20 20, 225 30 30, 139 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[65, 44, 32, 32, 39, 33]
    Pokemon: 223 44 22 0 -1 70 false false null null Female [110 5 5, 244 25 25, null, null]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[44, 31, 19, 31, 19, 31]

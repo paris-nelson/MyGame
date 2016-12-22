@@ -18,7 +18,8 @@ public class Constants {
 	public static final int LOGICAL_MAP_WIDTH=125;
 	public static final int LOGICAL_MAP_HEIGHT=58;
 	public static final int LOGICAL_MAP_RATIO=10;
-	public static final String PATH="C:\\Users\\paris.nelson\\Documents\\PT\\PT\\";
+	public static final String PATH=System.getProperty("user.dir")+"\\";
+			//"C:\\Users\\paris.nelson\\Documents\\PT\\PT\\";
 	public static final int MAX_MONEY=999999;
 	public static final int WILD_ENCOUNTER_RATE=18;
 	public static final int LEGEND_ENCOUNTER_RATE=50;

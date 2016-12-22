@@ -2,7 +2,7 @@ ID: 285
 Type: Gym FuchsiaCity 74,47
 Event: FuchsiaGym
 Trainers: 
-Trainer: 24 Camper Barry 120 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Camper.png
+Trainer: 24 Camper Barry 120 270 Sprites\Camper.png
    Pokemon: 44 95 38 0 -1 70 false false null null Male [130 5 5, 2 30 30, 189 15 15, 211 30 30]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[95, 56, 60, 71, 64, 37]
    Pokemon: 44 95 38 0 -1 70 false false null null Male [130 5 5, 2 30 30, 189 15 15, 211 30 30]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[95, 56, 60, 71, 64, 37]
    Pokemon: 31 118 38 0 -1 70 false false null null Female [19 15 15, 225 30 30, 46 30 30, 177 35 35]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[118, 69, 73, 64, 71, 65]
@@ -10,7 +10,7 @@ Trainer: 24 Camper Barry 120 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\C
    Pokemon: 24 95 38 0 -1 70 false false null null Female [178 10 10, 81 30 30, 17 25 25, 144 35 35]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[95, 71, 59, 56, 67, 68]
    Pokemon: 24 95 38 0 -1 70 false false null null Male [178 10 10, 81 30 30, 17 25 25, 144 35 35]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[95, 71, 59, 56, 67, 68]
  End Trainer
-EliteTrainer: 25 Gym Leader Janine 1200 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\GymLeaderJanine.png 8
+EliteTrainer: 25 Gym Leader Janine 1200 270 Sprites\GymLeaderJanine.png 8
    Pokemon: 110 107 40 0 -1 70 false false null null Male [193 20 20, 192 10 10, 235 10 10, 60 5 5]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[107, 82, 106, 78, 66, 58]
    Pokemon: 110 107 40 0 -1 70 false false null null Male [193 20 20, 192 10 10, 235 10 10, 60 5 5]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[107, 82, 106, 78, 66, 58]
    Pokemon: 49 111 40 0 -1 70 false false null null Female [152 10 10, 85 35 35, 211 30 30, 235 10 10]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[111, 62, 58, 82, 70, 82]

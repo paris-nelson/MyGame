@@ -2,7 +2,7 @@ ID: 222
 Type: Kanto
 Event: N/A
 Trainers: 
-Trainer: 59 Lass Ellen 850 50 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Lass.png
+Trainer: 59 Lass Ellen 850 50 Sprites\Lass.png
    Pokemon: 40 147 38 0 -1 70 false false null null Female [49 10 10, 40 40 40, 44 20 20, 183 15 15]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[147, 56, 38, 59, 41, 38]
    Pokemon: 115 119 38 0 -1 70 false false null null Female [156 20 20, 119 20 20, 225 30 30, 17 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[119, 72, 61, 33, 61, 68]
    Pokemon: 241 115 38 0 -1 70 false false null null Female [171 20 20, 15 10 10, 123 10 10, 207 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[115, 63, 81, 34, 56, 77]
@@ -10,7 +10,7 @@ Trainer: 59 Lass Ellen 850 50 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Lass
    Pokemon: 115 119 38 0 -1 70 false false null null Female [156 20 20, 119 20 20, 225 30 30, 17 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[119, 72, 61, 33, 61, 68]
    Pokemon: 128 98 38 0 -1 70 false false null null Male [163 10 10, 154 20 20, 176 10 10, 92 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[98, 75, 72, 33, 54, 82]
  End Trainer
-Trainer: 60 Cooltrainer Kevin 925 50 C:\Users\paris.nelson\Documents\PT\PT\Sprites\CooltrainerM.png
+Trainer: 60 Cooltrainer Kevin 925 50 Sprites\CooltrainerM.png
    Pokemon: 111 104 38 0 -1 70 false false null null Female [176 10 10, 76 20 20, 207 20 20, 225 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[104, 66, 74, 27, 27, 23]
    Pokemon: 113 226 38 0 -1 70 false false null null Female [56 10 10, 183 15 15, 126 20 20, 49 10 10]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[226, 9, 9, 30, 81, 41]
    Pokemon: 114 93 38 0 -1 70 false false null null Male [211 30 30, 117 10 10, 16 20 20, 242 10 10]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[93, 45, 88, 77, 34, 48]

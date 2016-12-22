@@ -7,7 +7,6 @@ import Engines.InventoryEngine;
 import Engines.MapEngine;
 import Engines.MenuEngine;
 import Enums.PartyMenuMode;
-import Global.PlayerData;
 
 public class PlayerMenu implements Menu {
 	

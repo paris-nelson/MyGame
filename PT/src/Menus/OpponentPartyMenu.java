@@ -6,7 +6,6 @@ import Engines.BattleEngine;
 import Engines.DetailsEngine;
 import Engines.MenuEngine;
 import Enums.DetailsEngineMode;
-import Global.PlayerData;
 import Objects.Pokemon;
 import Objects.Trainer;
 

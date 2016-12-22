@@ -70,6 +70,7 @@ public class BreedMenu implements Menu {
 			for(int i=0;i<parentnum;i++)
 				line=s.nextLine();
 			num=Integer.parseInt(line);
+			s.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}

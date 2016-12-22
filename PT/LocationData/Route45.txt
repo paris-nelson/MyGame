@@ -2,7 +2,7 @@ ID: 240
 Type: Johto
 Event: N/A
 Trainers: 
-Trainer: 98 Cooltrainer Quentin 1050 150 C:\Users\paris.nelson\Documents\PT\PT\Sprites\CooltrainerM.png
+Trainer: 98 Cooltrainer Quentin 1050 150 Sprites\CooltrainerM.png
    Pokemon: 18 106 34 0 -1 70 false false null null Male [248 35 35, 247 20 20, 155 30 30, 85 35 35]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[106, 63, 59, 56, 56, 71]
    Pokemon: 125 93 34 0 -1 70 false false null null Female [178 10 10, 221 20 20, 109 30 30, 233 15 15]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[93, 65, 46, 74, 66, 81]
    Pokemon: 8 89 34 0 -1 70 false false null null Female [149 10 10, 158 40 40, 17 25 25, 244 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[89, 51, 63, 52, 63, 47]
@@ -10,7 +10,7 @@ Trainer: 98 Cooltrainer Quentin 1050 150 C:\Users\paris.nelson\Documents\PT\PT\S
    Pokemon: 57 88 34 0 -1 70 false false null null Male [156 20 20, 73 30 30, 78 15 15, 103 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[88, 77, 46, 46, 53, 70]
    Pokemon: 128 100 34 0 -1 70 false false null null Male [163 10 10, 154 20 20, 176 10 10, 92 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[100, 77, 74, 34, 56, 84]
  End Trainer
-Trainer: 99 Hiker Timothy 1050 225 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Hiker.png
+Trainer: 99 Hiker Timothy 1050 225 Sprites\Hiker.png
    Pokemon: 95 70 35 0 -1 70 false false null null Female [156 20 20, 86 30 30, 169 15 15, 16 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[70, 37, 117, 26, 37, 54]
    Pokemon: 95 70 35 0 -1 70 false false null null Female [156 20 20, 86 30 30, 169 15 15, 16 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[70, 37, 117, 26, 37, 54]
    Pokemon: 67 101 35 0 -1 70 false false null null Male [243 10 10, 74 40 40, 179 20 20, 103 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[101, 75, 54, 40, 47, 37]
@@ -18,7 +18,7 @@ Trainer: 99 Hiker Timothy 1050 225 C:\Users\paris.nelson\Documents\PT\PT\Sprites
    Pokemon: 51 71 34 0 -1 70 false false null null Female [174 15 15, 43 10 10, 114 30 30, 82 40 40]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[71, 63, 41, 41, 56, 92]
    Pokemon: 51 71 34 0 -1 70 false false null null Male [174 15 15, 43 10 10, 114 30 30, 82 40 40]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[71, 63, 41, 41, 56, 92]
  End Trainer
-Trainer: 100 Hiker Kenji 1000 250 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Hiker.png
+Trainer: 100 Hiker Kenji 1000 250 Sprites\Hiker.png
    Pokemon: 74 71 34 0 -1 70 false false null null Female [171 20 20, 86 30 30, 180 5 5, 114 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[71, 60, 73, 26, 26, 19]
    Pokemon: 74 71 34 0 -1 70 false false null null Male [171 20 20, 86 30 30, 180 5 5, 114 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[71, 60, 73, 26, 26, 19]
    Pokemon: 74 71 34 0 -1 70 false false null null Male [171 20 20, 86 30 30, 180 5 5, 114 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[71, 60, 73, 26, 26, 19]
