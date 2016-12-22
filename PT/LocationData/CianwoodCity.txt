@@ -1,0 +1,13 @@
+ID: 255
+Type: Johto
+Event: N/A
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+PokeCenter,NONE
+PokeShop,NONE
+Use P.C.,NONE
+Enter Cianwood Gym,FogBadge
+Exit to Route 41,FogBadge,16,39
+End Menu

@@ -1,0 +1,31 @@
+ID: 282
+Type: Gym SaffronCity 80,23
+Event: SaffronGym
+Trainers: 
+Trainer: 106 Psychic Jared 120 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Psychic.png
+   Pokemon: 96 89 38 0 -1 70 false false null null Female [143 40 40, 88 15 15, 29 25 25, 44 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[89, 40, 38, 37, 70, 36]
+   Pokemon: 96 89 38 0 -1 70 false false null null Male [143 40 40, 88 15 15, 29 25 25, 44 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[89, 40, 38, 37, 70, 36]
+   Pokemon: 97 106 38 0 -1 70 false false null null Male [143 40 40, 88 15 15, 29 25 25, 44 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[106, 58, 56, 58, 87, 54]
+   Pokemon: 122 75 38 0 -1 70 false false null null Female [58 5 5, 162 20 20, 109 30 30, 49 10 10]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[75, 38, 52, 77, 91, 70]
+   Pokemon: 64 75 38 0 -1 70 false false null null Female [79 15 15, 161 20 20, 150 20 20, 44 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[75, 31, 28, 91, 56, 80]
+   Pokemon: 64 75 38 0 -1 70 false false null null Male [79 15 15, 161 20 20, 150 20 20, 44 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[75, 31, 28, 91, 56, 80]
+ End Trainer
+Trainer: 107 Sage Leng 660 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Sage.png
+   Pokemon: 80 113 38 0 -1 70 false false null null Female [88 15 15, 44 20 20, 29 25 25, 244 25 25]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[113, 59, 84, 77, 63, 28]
+   Pokemon: 80 113 38 0 -1 70 false false null null Male [88 15 15, 44 20 20, 29 25 25, 244 25 25]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[113, 59, 84, 77, 63, 28]
+   Pokemon: 102 89 38 0 -1 70 false false null null Male [145 35 35, 211 30 30, 29 25 25, 106 10 10]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[89, 35, 63, 49, 38, 35]
+   Pokemon: 102 89 38 0 -1 70 false false null null Male [145 35 35, 211 30 30, 29 25 25, 106 10 10]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[89, 35, 63, 49, 38, 35]
+   Pokemon: 177 75 38 0 -1 70 false false null null Male [79 15 15, 227 20 20, 133 15 15, 107 30 30]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[75, 42, 38, 56, 38, 56]
+   Pokemon: 178 92 38 0 -1 70 false false null null Male [79 15 15, 227 20 20, 133 15 15, 107 30 30]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[92, 59, 56, 73, 56, 73]
+ End Trainer
+EliteTrainer: 108 Gym Leader Sabrina 1200 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\GymLeaderSabrina.png 8
+   Pokemon: 196 122 46 0 -1 70 false false null null Female [152 10 10, 174 15 15, 221 20 20, 155 30 30]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[122, 71, 66, 131, 98, 112]
+   Pokemon: 65 113 46 0 -1 70 false false null null Female [162 20 20, 152 10 10, 79 15 15, 161 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[113, 57, 52, 135, 89, 121]
+   Pokemon: 122 103 48 0 -1 70 false false null null Female [173 25 25, 12 40 40, 152 10 10, 11 30 30]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[103, 54, 74, 107, 126, 98]
+   Pokemon: 196 122 46 0 -1 70 false false null null Male [152 10 10, 174 15 15, 221 20 20, 155 30 30]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[122, 71, 66, 131, 98, 112]
+   Pokemon: 65 113 46 0 -1 70 false false null null Female [162 20 20, 152 10 10, 79 15 15, 161 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[113, 57, 52, 135, 89, 121]
+ End Trainer
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+End Menu

@@ -1,0 +1,15 @@
+ID: 249
+Type: Johto
+Event: RivalEncounter3
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+PokeCenter,NONE
+PokeShop,NONE
+Use P.C.,NONE
+Enter Ecruteak Gym,PlainBadge
+Exit to Route 37,PlainBadge,53,13
+Exit to Route 38,PlainBadge,49,11
+Exit to Route 42A,PlainBadge,56,11
+End Menu

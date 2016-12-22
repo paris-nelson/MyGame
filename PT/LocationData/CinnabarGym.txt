@@ -1,0 +1,23 @@
+ID: 287
+Type: Gym CinnabarIsland 39,55
+Event: CinnabarGym
+Trainers: 
+Trainer: 14 Firebreather Bane 120 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Firebreather.png
+   Pokemon: 5 94 38 0 -1 70 false false null null Female [70 15 15, 176 10 10, 156 20 20, 194 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[94, 55, 51, 68, 56, 68]
+   Pokemon: 5 94 38 0 -1 70 false false null null Male [70 15 15, 176 10 10, 156 20 20, 194 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[94, 55, 51, 68, 56, 68]
+   Pokemon: 218 80 38 0 -1 70 false false null null Female [70 15 15, 6 20 20, 86 30 30, 169 15 15]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[80, 37, 37, 60, 37, 22]
+   Pokemon: 218 80 38 0 -1 70 false false null null Female [70 15 15, 6 20 20, 86 30 30, 169 15 15]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[80, 37, 37, 60, 37, 22]
+   Pokemon: 58 92 38 0 -1 70 false false null null Male [69 25 25, 226 20 20, 107 30 30, 57 25 25]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[92, 60, 41, 60, 45, 52]
+   Pokemon: 58 92 38 0 -1 70 false false null null Male [69 25 25, 226 20 20, 107 30 30, 57 25 25]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[92, 60, 41, 60, 45, 52]
+ End Trainer
+EliteTrainer: 15 Gym Leader Blaine 1200 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\GymLeaderBlaine.png 8
+   Pokemon: 219 106 45 0 -1 70 false false null null Male [70 15 15, 6 20 20, 193 20 20, 167 10 10]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[106, 56, 119, 83, 83, 38]
+   Pokemon: 126 119 45 0 -1 70 false false null null Female [70 15 15, 214 5 5, 233 15 15, 65 15 15]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[119, 96, 62, 101, 87, 95]
+   Pokemon: 78 132 50 0 -1 70 false false null null Female [5 30 30, 155 30 30, 64 5 5, 66 15 15]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[132, 112, 82, 92, 92, 117]
+   Pokemon: 78 132 50 0 -1 70 false false null null Male [5 30 30, 155 30 30, 64 5 5, 66 15 15]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[132, 112, 82, 92, 92, 117]
+   Pokemon: 38 127 45 0 -1 70 false false null null Female [66 15 15, 28 10 10, 173 25 25, 155 30 30]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[127, 79, 78, 84, 101, 101]
+ End Trainer
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+End Menu

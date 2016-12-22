@@ -1,0 +1,13 @@
+ID: 260
+Type: Kanto
+Event: RivalEncounter7
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+PokeCenter,NONE
+PokeShop,NONE
+Use P.C.,NONE
+Battle Elite Four,RisingBadge
+Exit to Victory Road,RisingBadge,20,5
+End Menu

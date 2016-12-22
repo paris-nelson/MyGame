@@ -1,0 +1,14 @@
+ID: 257
+Type: Johto
+Event: N/A
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu:
+PokeCenter,NONE
+PokeShop,NONE
+Use P.C.,NONE
+Enter Blackthorn Gym,RocketEncounterThreeBeaten
+Exit to Ice Path,RocketEncounterThreeBeaten,3,29
+Exit to Route 45,RocketEncounterThreeBeaten,107,13
+End Menu

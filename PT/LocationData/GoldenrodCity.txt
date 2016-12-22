@@ -1,0 +1,16 @@
+ID: 248
+Type: Johto
+Event: N/A
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+PokeCenter,NONE
+PokeShop,NONE
+Use P.C.,NONE
+Enter Rocket Hideout 2,GlacierBadge
+Enter National Park,InsectBadge
+Enter Goldenrod Gym,InsectBadge
+Exit to Route 34,InsectBadge,39,37
+Exit to Route 35,InsectBadge,39,32
+End Menu

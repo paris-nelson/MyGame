@@ -1,0 +1,15 @@
+ID: 241
+Type: Johto
+Event: N/A
+Trainers: 
+Trainer: 101 Picnicker Erin 990 300 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Picnicker.png
+   Pokemon: 207 93 34 0 -1 70 false false null null Female [188 20 20, 62 25 25, 155 30 30, 86 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[93, 59, 81, 30, 52, 66]
+   Pokemon: 207 93 34 0 -1 70 false false null null Female [188 20 20, 62 25 25, 155 30 30, 86 30 30]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[93, 59, 81, 30, 52, 66]
+   Pokemon: 77 82 34 0 -1 70 false false null null Female [226 20 20, 66 15 15, 207 20 20, 57 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[82, 66, 45, 52, 52, 70]
+   Pokemon: 77 82 34 0 -1 70 false false null null Female [226 20 20, 66 15 15, 207 20 20, 57 25 25]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[82, 66, 45, 52, 52, 70]
+   Pokemon: 84 70 35 0 -1 70 false false null null Female [53 20 20, 156 20 20, 237 10 10, 76 20 20]__[1, 1, 1, 1, 1, 1]__[0, 0, 0, 0, 0, 0]__[70, 65, 37, 30, 30, 58]
+ End Trainer
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+End Menu

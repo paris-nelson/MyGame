@@ -1,0 +1,130 @@
+Name,Item Type,Held?,Num
+Potion,Potion,N,20
+Super Potion,Potion,N,50
+Hyper Potion,Potion,N,200
+Max Potion,Potion,N,N/A
+Full Restore,Potion,N,N/A
+Full Heal,Status Cure,N,N/A
+Antidote,Status Cure,N,N/A
+Paralyze,Status Cure,N,N/A
+Awakening,Status Cure,N,N/A
+Burn Heal,Status Cure,N,N/A
+Ice Heal,Status Cure,N,N/A
+Pokeball,Ball,N,1
+Friend Ball,Ball,N,1
+Great Ball,Ball,N,1.5
+Ultra Ball,Ball,N,2
+Master Ball,Ball,N,N/A
+Repel,Repel,N,100
+Super Repel,Repel,N,200
+Max Repel,Repel,N,250
+Revive,Revive,N,0.5
+Max Revive,Revive,N,N/A
+Smoke Ball,Escape,N,N/A
+Fire Stone,Stone,N,N/A
+Water Stone,Stone,N,N/A
+Thunder Stone,Stone,N,N/A
+Leaf Stone,Stone,N,N/A
+Moon Stone,Stone,N,N/A
+Trade Stone,Stone,N,N/A
+Dragon Stone,Stone,N,N/A
+King Stone,Stone,N,N/A
+Metal Stone,Stone,N,N/A
+Upgrade Stone,Stone,N,N/A
+Ether,Ether,N,N/A
+Max Ether,Ether,N,N/A
+Elixir,Ether,N,N/A
+Max Elixir,Ether,N,N/A
+HP Up,Vitamin,N,N/A
+Protein,Vitamin,N,N/A
+Iron,Vitamin,N,N/A
+Calcium,Vitamin,N,N/A
+Zinc,Vitamin,N,N/A
+Carbos,Vitamin,N,N/A
+PP Up,PP UP,N,N/A
+PP Max,PP UP,N,N/A
+Rare Candy,Rare Candy,N,N/A
+TM01,TM,N,54
+TM02,TM,N,88
+TM03,TM,N,38
+TM04,TM,N,171
+TM05,TM,N,166
+TM06,TM,N,235
+TM07,TM,N,251
+TM08,TM,N,168
+TM09,TM,N,151
+TM10,TM,N,91
+TM11,TM,N,214
+TM12,TM,N,220
+TM13,TM,N,195
+TM14,TM,N,18
+TM15,TM,N,95
+TM16,TM,N,100
+TM17,TM,N,149
+TM18,TM,N,157
+TM19,TM,N,80
+TM20,TM,N,59
+TM21,TM,N,122
+TM22,TM,N,197
+TM23,TM,N,101
+TM24,TM,N,51
+TM25,TM,N,230
+TM26,TM,N,55
+TM27,TM,N,237
+TM28,TM,N,43
+TM29,TM,N,152
+TM30,TM,N,181
+TM31,TM,N,132
+TM32,TM,N,47
+TM33,TM,N,99
+TM34,TM,N,218
+TM35,TM,N,190
+TM36,TM,N,192
+TM37,TM,N,175
+TM38,TM,N,64
+TM39,TM,N,221
+TM40,TM,N,40
+TM41,TM,N,233
+TM42,TM,N,52
+TM43,TM,N,167
+TM44,TM,N,163
+TM45,TM,N,8
+TM46,TM,N,228
+TM47,TM,N,206
+TM48,TM,N,65
+TM49,TM,N,77
+TM50,TM,N,134
+HM01,HM,N,39
+HM02,HM,N,72
+HM03,HM,N,217
+HM04,HM,N,208
+HM05,HM,N,71
+HM06,HM,N,246
+HM07,HM,N,245
+Rematcher,Rematcher,N,N/A
+Cleanse Tag,Held,Y,N/A
+Everstone,Held,Y,N/A
+Leftovers,Held,Y,N/A
+Scope Lens,Held,Y,N/A
+Quick Claw,Held,Y,N/A
+Focus Band,Held,Y,N/A
+Amulet Coin,Held,Y,N/A
+King's Rock,Held,Y,N/A
+Itemfinder,Held,Y,N/A
+Dragon Fang,Type Boost,Y,Dragon
+Metal Coat,Type Boost,Y,Steel
+Black Belt,Type Boost,Y,Fighting
+Black Glasses,Type Boost,Y,Dark
+Charcoal,Type Boost,Y,Fire
+Hard Stone,Type Boost,Y,Rock
+Magnet,Type Boost,Y,Electric
+Miracle Seed,Type Boost,Y,Grass
+Mystic Water,Type Boost,Y,Water
+Never-Melt Ice,Type Boost,Y,Ice
+Pink Bow,Type Boost,Y,Normal
+Poison Barb,Type Boost,Y,Poison
+Sharp Beak,Type Boost,Y,Flying
+Silver Powder,Type Boost,Y,Bug
+Soft Sand,Type Boost,Y,Ground
+Spell Tag,Type Boost,Y,Ghost
+Twisted Spoon,Type Boost,Y,Psychic

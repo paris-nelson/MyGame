@@ -1,0 +1,854 @@
+stats: http://bulbapedia.bulbagarden.net/wiki/Statistic
+type chart: http://bulbapedia.bulbagarden.net/wiki/Type#Type_chart
+critical hit: http://bulbapedia.bulbagarden.net/wiki/Critical_hit
+damage: http://bulbapedia.bulbagarden.net/wiki/Damage#Damage_formula
+exp: http://bulbapedia.bulbagarden.net/wiki/Experience#Medium_Slow
+Bball: http://bulbapedia.bulbagarden.net/wiki/Catch_rate
+rate: http://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_by_catch_rate
+friendship: http://bulbapedia.bulbagarden.net/wiki/Friendship
+
+
+
+Damaging moves of the following types are considered physical:
+ Normal 
+ Fighting 
+ Flying 
+ Ground 
+ Rock 
+ Bug 
+ Ghost 
+ Poison 
+ Steel 
+
+Damaging moves of the following types are considered special
+ Water 
+ Grass 
+ Fire 
+ Ice 
+ Electric 
+ Psychic 
+ Dragon 
+ Dark 
+
+
+Happiness
+Wild pokemon have happiness of 70. Enemy trainer pokemon is irrelevant but will also default to 70.
+Pokemon that need happiness to evolve will evolve when happiness=220.
+Catching pokemon in Friend Ball sets happiness to 200.
+Evolving +10
+Gaining level or using vitamin will inc happiness +5
+Walking 100 steps inc happiness +1
+Fainting dec happiness -1
+
+If a Zubat were to, in the same battle, hit level 22 and 220 happiness, it will only evolve once
+to Golbat, then at it's next level up, it will evolve 
+
+
+Super effective=2x damage
+Not very effective=.5x damage
+Ineffective=0x damage
+
+Super effective against both types=4x damage
+Not very effective against both types=.25x damage
+Super effective against one type, not very effective against other=1x damage
+Ineffective against either or both types=0x damage
+
+same type attack bonus: move of the same type as one of the attacker's types 
+gets 50% bonus damage
+
+Burned attackers do 50% physical damage and lose 1/x (16 in gen 1, 8 in gen 2) of max health after attack
+
+Damage formula
+D=[((2*Level+10)/250)*Attack/Defense*Base+2]*Mod
+Mod=STAB*Type*Crit*Item*Rand
+Level:level of attacker
+Attack:relevant attack stat of attacker
+Defense:relevant defense stat of defender
+Base:base damage of move
+STAB:same type attack bonus. 1.5 if same type, 1 otherwise
+Type:modifier based on types of attacker/defender (see above)
+Crit:2 if crit hit, 1 otherwise)
+Item:1.2 or 1.1 based on item,1 otherwise
+Rand:random number from .85-1.0-1
+
+
+Stats
+HP
+Attack
+Defense
+Sp Attack
+Sp Defense
+Speed
+
+IV's. Rand num from 0-15 representing genetic variance in each pokemon's values
+EV's. When pokemon is defeated, defeating pokemon gets the defeated's base stats
+      in EV's. Represents a trained pokemon's additional expertise over wilds. 
+	  Max EV in any stat=65535=(256^2)-1, meaning that at lvl 100, max EVs contribute
+	  64 stat points.
+	  
+Stat Formula
+HP=Floor[((Base+IV)*2+Floor[Ceiling[Sqrt(EV)]/4])*Level/100]+Level+10
+Other=Floor[((Base+IV)*2+Floor[Ceiling[Sqrt(EV)]/4])*Level/100]+5
+
+Crit
+
+Stage	Chance of critical hit
++0	1/16 (6.25%)
++1	1/8 (12.5%)
++2	1/4 (25%)
++3	1/3 (33.3%)
++4 and above	1/2 (50%)
+
+Moves with increased chance of crit hit have 4x chance of critting (may decrease to 3x)
+
+
+Stage multipliers
+Stage	-6	-5	-4	-3	-2	-1	0	+1	+2	+3	+4	+5	+6
+GenI-II 25/100	28/100	33/100	40/100	50/100	66/100	100/100	150/100	200/100	250/100	300/100	350/100	400/100
+
+
+Chance of move hitting:
+or B*A*E
+B=Innate accuracy of move as percentage (0-1)
+A=Attacking pokemon's accuracy based on stages below
+E=Defending poekmon's evasion based on stages below
+
+For accuracy and evasion
+Stage multipliers
+Stage(acc)-6	-5	-4	-3	-2	-1	0	+1	+2	+3	+4	+5	+6
+Stage(eva)+6	+5	+4	+3	+2	+1	0	-1	-2	-3	-4	-5	-6
+Gen II	33/100	36/100	43/100	50/100	60/100	75/100	100/100	133/100	166/100	200/100	233/100	266/100	300/100
+
+
+exp required to reach level n (lookup tables should be used to prevent needless
+computation): 
+(4n^3)/5 in fast
+n^3 in med-fast
+6/5n^3-15n^2+100n-140 in med-slow (may not implement, 6% diff between mid fast)
+(5n^3)/4 in slow
+
+
+
+******REVISIT THIS AFTER PLAYING*********
+If level up prompts new moves / evolutoin, this happens after battle, which continues
+as normal.
+In battle a list of the player's pokemon that leveled up triggering a new move and/
+or evolution will be maintained. When the battle ends, this list will be checked and
+in the order that they occurred, these events will take place
+***********REVISIT THIS AFTER PLAYING***
+
+OR just have pokemon evolve/ learn moves when they level up regardless of in battle or not.
+if pokemon would learn move and evolve at same level, evolution happens instead
+after evolution, check if evolved form would learn a move at this level and if so, learn it (e.g. Abra->Kadabra lvl 16 Kadabra learns Confusion lvl 16)dd
+
+exp gained:
+(T*B*L)/7
+T:1.5 is pokemon owned by trainer, 1 otherwise
+B: base exp for pokemon
+L: level of pokemon
+
+catch rate
+R=[(3*HPmax-2*HPcurr)*rate*Bball/(3*HPmax)]*Bstatus
+rate:catch rate of pokemon, innate to species
+Bball:bonus provided by specific ball used
+Bstatus:2 for sleep/frozen,1.5 for paralyze/poison/burn,1 otherwise
+1<=R<=255.
+Generate random number n from 1-255. If R<n, pokemon escapes capture. 
+If R>=n, ball shakes. After (3/4?) shakes, pokemon is caught. May do R^2 
+instead and n 1-255^2 to amplify increases in R.
+
+
+The probability (P) of encountering a Pokémon after taking a step in an area is determined by a simple mathematical formula:
+P = x / 187.5
+where x is one of the values below describing how rare Pokémon are in the area.
+Encounter rarity	x
+Very common	10
+Common	8.5
+Semi-rare	6.75
+Rare	3.33
+Very rare	1.25
+
+Status conditions
+*NonVolatile Status-Remains between battles
+Burn-50% physical damage dealt by burned, lose 1/(10/12?) of max hp at end of turn. Moves
+ by %chance of burn: http://bulbapedia.bulbagarden.net/wiki/Burn_(status_condition). Fire
+ types immune
+Freeze-Unable to make move. 20% to cure itself per turn. Can't be frozen in sunny weather.
+ Ice types immune. http://bulbapedia.bulbagarden.net/wiki/Freeze_(status_condition)
+Paralyze-25% to be unable to make move. speed reduced 25%. moves by %chance here
+ http://bulbapedia.bulbagarden.net/wiki/Paralysis_(status_condition)
+Poison-lose health at same rate as burn. steel and poison immune. lose 1 hp per four steps
+ take outside of battle. http://bulbapedia.bulbagarden.net/wiki/Poison_(status_condition)
+Badly Poison-lose 1/16 health then 2/16, then 3/16 etc. reverts to normal poison outsie
+ of battle. Cuased by move Toxic
+Sleep-cannot take actions except snore or sleep talk. Lasts n turns, n random 1<=n<=5.
+ Wakes up before taking actions on turn
+*Volatile-Lasts only in battle
+Confusion-50% chance of attacking self with 40 power typeless physical attack
+ (no crit chance). Maybe moves randomly if movement is taken as well. Lasts n turns,
+ n random 1<=n<=4 http://bulbapedia.bulbagarden.net/wiki/List_of_moves_that_confuse
+Curse-50% max hit points of attacker taken on use. From then, cursed pokemon loses 25%
+ max hp every turn
+Encore-pokemon's last attack repeated for n turns, n random 2<=n<=5. 
+Flinch-one time effect, pokemon can't take action on next turn
+ http://bulbapedia.bulbagarden.net/wiki/List_of_moves_that_cause_flinching
+Foresight-foresight move removes ghost type immunity to fighting/normal attacks. 100% acc
+Attract-attract move used on opposite gender causes 50% unable to take action. 100% acc
+Nightmare-nightmare move causes 25% max hp lost per turn only if victim is asleep
+Trap-Bind or fire spin trap target. Cannot move but can attack. Take initial damage and 
+ 1/16 max hp for n turns, n random 2<=n<=5. player can't flee if pokemon is trapped (
+ unless one is holding smoke ball).
+ Full traps caused by mean look, spider web, arena trap, cause no move, but can attack.
+ Rapid spin will break the pokemon free
+Perish Song-perish song causes all pokemon in range of attack to faint in 3 turns (starts
+ at 3 when used, reduced by one at end of each later turn. at 0, faint)
+Seeding-leech seed drains 1/(10/12/16?) of max hp, performer gains that hp. grass immune
+
+
+
+
+Cannot flee trainer battles. Against wild pokemon,
+
+F=A*32/B + 30*C
+A=speed of active poke
+B=enemy speed, divided by 4, mod 256
+C=number of times flee attempted since active attack, including this attempt
+
+F>=255 means auto escape.
+Otherwise, generate random n 1-255. If F>=n, escape successful.Otherwise, fails
+
+To incorporate that into this game, I could have it so that A is replaced
+by highest of active speeds of non-fainted pokemon and B is replaced by highest of
+enemy speeds of non-fainted pokemon, divided by 4.
+
+
+General Design
+Main screen of game will be the region screen. Cities are represented by some symbol.
+Player is repped by green circle travelling along yellow paths connecting cities.
+Red circles along paths will rep trainers to fight. At any point along the path,
+when taking a step, a random chance of confronting wild pokemon. Encountering a wild
+pokemon or enemy trainer will launch combat screen.
+Maybe instead of red circles, trainers are represented by the icon of their highest
+ level pokemon (in case of tie, choose randomly or highest poke#) or leading pokemon
+ from the game
+Player can be represented by icon of pokemon with most experience, poke# to break 
+ties, or player can choose 'leading' pokemon on preference, defaulting to above.
+Some blockages will exist on a path (sudowoodo needing goldenrod badge, area
+ needing waterfall) and will be represented by yellow triangle 
+Arriving at a city will offer a dropdown including:
+Pokecenter: heals party
+Bill's PC: swap out active party members
+Shop: Buy potions, balls, etc
+Gym: Either opens dropdown, or new nav screen just for gym. Beat x trainers and
+     then gym leader to get badge.
+
+Combat screen will be a terrain split by a grid into tiles. Enemy pokemon will spawn
+on one side of field, player will place their pokemon on tiles from a subset on
+other side.
+May have terrains with special qualities, e.g.
+Different elevations, where only special moves can hit from above/below, maybe flying
+types can traverse as normal. Dig can traverse as normal. Otherwise must be climbed.
+Water type terrains where land pokemon can be on islands, but water can only be 
+traversed by water types/flying types. Maybe these types are each allowed to carry one
+non flyer/water with them across terrain.
+Similarly, fire/lava terrain is possible, underground terrain or thunderstorm 
+terrain where flyer mobility is limited.
+
+Trainers will have 4-6 pokemon, and player will select from the party the same
+number of pokemon as the enemy trainer has. Wild pokemon will have 1-3 pokemon
+(if multiple, maybe be copies of same?)
+
+Attacking an enemy from behind
+
+Either add movement as an attribute of all pokemon or have it be affected by 
+speed.
+Max speed in gen 1+2: Electrode 140 base speed at level 100=379 max speed
+So if min movement range=3 and max=8, then divide stat points 0-379 between
+movement ranges 3-8. Every 47.5 speed stat points = 1 point to movement range
+
+A movement range of x allows the character to move to any tile within x hor/vert
+movements. e.g. x=2 allows
+
+xxoxx
+xooox
+ooPoo
+xooox
+xxoxx
+
+and x=3 allows
+
+xxxoxxx
+xxoooxx
+xooooox
+oooPooo
+xooooox
+xxoooxx
+xxxoxxx
+
+Turn based actions
+
+
+
+Turns proceed by speed stat, starting with highest speed having pokemon on field.
+This is reevaluated every cycle. So if a pokemon is 5th in line out of 8 on the 
+field, and on it's turn, it uses a move to increase it's speed so that it 
+surpasses that of the 4th in line, then after all 8 pokemon have had a turn,
+that pokemon will now be 4th in line, shifting the rest down (assuming no other
+pokemon's speed stat was altered).
+Active character can (in any order)
+*Movement
+-move a number of tiles given by movement range, determined by speed
+*Action
+-use one of 4 known moves
+-use bag item, such as potion, pokeball, etc
+*Misc
+-player can attempt to flee*
+-player can go into inspection mode where cursor can go around map uninhibited. Can be used
+ to inspect enemy/team units and their stats, health, gear, etc
+
+So unit menu is move, attack, item, end turn
+
+Player can press start to get menu of Inspect, Flee, Save, Exit Menu, maybe a help option for player to
+access poke info like type chart, game help etc
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Need to find alternative for smoke ball since I've decided that escape from wilds is
+automatic. Perhaps escape rope that teleports player to last town they visited. Perhaps
+egg that can hatch into various pokemon.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+Player can take actions in any order they choose, but can only do 1 action item
+per turn.
+When movement/move is selected, tiles within character's range will be shaded 
+(green/grey?)
+Use arrow keys/ mouse to move highlighted tile (shaded green?) to desired position
+and left click/enter. If within range, character moves/attacks there, otherwise, tile 
+flashes red. Also if highlighted tile goes outside of range(if allowed at all), shades
+red.
+
+*flee
+will be a random check, presumably based on speed of player's and opponent's party. Cannot flee
+from trainer battles, only against wild pokemon. Something like average speed of each team compared
+
+-One route is to go FFTA route and get 1 move action and 1 standard action a turn, in any order
+-Allowed to move full range split up how you want in order around standard action (I don't like
+ this idea because it makes high range op. creature with range 6 can move forward 3, hit someone
+ and run away 3 and the victim might not have range to keep up every turn
+-D&D route of 2 actions per turn, at most 1 can be standard action, so you can double move or
+ move attack or attack move. Also has full actions which take up whole turn (could be executed
+ with moves like Hyper Beam, Solar Beam, Rollout, Outrage etc). Double move does mitigate the
+ power of high range creatures. Would be very good for say rock types who have low range but
+ can afford to take the hits of a turn off to get in range and land a strong attack Also allows
+ high range creatures with ranged move to traverse almost whole map, probably too good.
+
+Attack performed from behind enemy have +10% of base acc (rounded up)
+Attack performed from in front of enemy have -10% of base acc (rounded down)
+These are determined by drawing diagonal lines from the enemy towards the attacker.
+If the attacker is in the wedge formed by those lines, they are flanking/in front of
+pokemon and will get acc modification.
+This does not apply to dig/fly
+
+Items
+-Bag items are shared items potions, balls, unequipped hold items
+-Each pokemon can hold 1 hold item eg berry, item that enhances their stats
+Items can be bought from shop or dropped by defeated pokemon, which go into bag
+at end of battle
+
+
+
+
+Bag Items Sell for half of buy rate unless specified
+#Items that can be bought in store
+*Potions-Used in or out of battle
+-Potion:20HP B:300 L:1
+-Super:50HP B:700 1 badge L:10
+-Hyper: 200HP B:1200 5 badge L:27
+-Max: Full HP B:2500 7 badge L:40
+-Full Restore:Full HP cure stat conditions B:3000 8 badge L:48
+-Full Heal: cure stat conditions B:600 5 badge L:16
+-Antidote: cure poison B:100 L:4
+-Paralyze Heal: cure paralysis B:200 L:7
+-Awakening: cure sleep B:250 L:5
+-Burn Heal: cure burn B:250 L:6
+-Ice Heal: cure freeze B:250 L:5
+*Balls-Used in battle
+-Poke:1x B:200 L:5
+-Great:1.5x B:600 3 badge L:15
+-Ultra:2x B:1200 5 badge L:25
+-Master:N/A B:N/A
+-Safari:1.5x B:N/A only found in safari zone
+*Repels-Used out of battle
+-Repel: 100 steps B:350 1 badge L:10
+-Super: 200 steps B:500 3 badge L:18
+-Max: 250 steps B:700 7 badge L:26
+*Revives restore fainted, used by another pokemon in range on target-used in or out of battle
+-Revive: restore to 50% max hp 3 badge L:40
+*Escape used in battle only
+-Smoke Ball: Escape from wild pokemon battle B:150 S:50 14
+#Items that must be found in loot
+*Stones: Applied only outside of battle, causes immediate evolution.
+-Fire Vulpix,Growlithe,Eevee S:1050 23
+-Water Poliwhirl,Shellder,Staryu,Eevee S:1050 23
+-Thunder Pikachu, Eevee S:1050 23
+-Leaf Gloom,Weepinbell,Exeggcute S:1050 23
+-Sun Gloom,Sunkern S:1050 23
+-Moon Nidorina,Nidorino,Clefairy,Jigglypuff S:1050 23
+-Tradestone Haunter,Machoke,Kadabra, Simulates trades S:1050 25
+-Dragonstone Seadra S:1050 26 
+-Kingstone Poliwhirl,Slowpoke S:1050 27
+-Metalstone Onix,Scyther S:1050 28
+-Upgradestone Porygon S:1050 29
+*Ether-restore PP, num times move can be used used in or out of battle
+-Ether: 10pp one move S:600 20
+-Max Ether: allpp one move S:1000 30
+-Elixir: 10pp all moves S:1500 41
+-Max Elixir: allpp all moves S:2250 50
+*Revives restore fainted, used by another pokemon in range on target used in or out of battle
+-Max Revive: restore to max hp S:2000 48
+*Vitamins increase ev for stat by 2560. Cannot increase beyond 25600/ increase pp by 20%
+ base max. Cannot increase beyond 160% base max pp / gain level, set at 0 xp for that level
+ Use increase friendship all sell at 4900 used outside of battle
+-HP Up: hp stat 27
+-Protein: attack stat 29
+-Iron: defense stat 27
+-Calcium; sp attack 29
+-Zinc: sp defense 27
+-Carbos: speed 26
+-pp up: raises pp 20% base 36
+-pp max: sets pp to 160% base, cannot be increased from here 50
+-Rare candy: target gains level, using min exp required to get to next level 44
+*Held equipped outside of battle
+-Cleanse Tag: Encounter with wild pokes with lower level than holder reduced by 1/3.
+ (do not stack) S:100 18
+-Everstone: Holder can't evolve while holding. If would evolve at level x but is 
+ holding this when becomes level x, will not evolve. If it then removes the stone
+ and levels up to x+1, it will evolve then. S:100 13
+-Leftovers: Restore 1/16 max hp each turn S:100 33
+-Scope Lens: +1 crit hit stage S:100 24
+-Quick Claw: 20% to go first in turn order S:50 21
+-Focus Band: 10% mvoe that would cause <=0% HP reduces to 1HP instead. S:100 31
+-Amulet Coin: Doubles money earned from battle if holder participates S:50 29
+-King's Rock: 10% cause flinch if move has no other effects S:50 28
+-Itemfinder: when calculating loot, either add 5 to highest enemy level (do not stack)
+ or add 1 to enemy party size (do not stack) meaning party of 6 with highest=60
+ (normally <=60,<=40,<=20) now drop <=60,<=45,<=30,<=15. 40
+-Dragon Fang: 20% damage to dragon moves S:1050 33
+-Metal Coat:  20% damage to steel moves S:50 33
+-Black Belt:  20% damage to fighting moves S:100 33
+-Black Glasses:  20% damage to dark moves S:100 33
+-Charcoal:  20% damage to fire moves S:100 33
+-Hard Stone:  20% damage to rock moves S:100 33
+-Magnet:  20% damage to lightning moves S:100 33
+-Miracle Seed:  20% damage to grass moves S:100 33
+-Mystic Water:  20% damage to water moves S:100 33
+-Never-Melt Ice:  20% damage to ice moves S:100 33
+-Pink Bow:  12.5% damage to normal moves S:100 33
+-Poison Barb:  20% damage to poison moves S:100 33
+-Sharp Beak:  20% damage to flying moves S:100 33
+-Silver Powder:  20% damage to bug moves S:100 33
+-Soft Sand:  20% damage to ground moves S:100 33
+-Spell Tag:  20% damage to ghost moves S:100 33
+-Twisted Spoon:  20% damage to psychic moves S:100 33
+*TMs can be used to teach one pokemon the move. All sell for 1500 used outside of battle
+
+#	Move	Type
+01	DynamicPunch	Fighting 35
+02	Headbutt	Normal 18
+03	Curse	??? 28
+04	Rollout	Rock 23
+05	Roar	Normal 14
+06	Toxic	Poison 34
+07	Zap Cannon	Electric 45
+08	Rock Smash	Fighting 23
+09	Psych Up	Normal 19
+10	Hidden Power	Normal 30
+11	Sunny Day	Fire 21
+12	Sweet Scent	Normal 19
+13	Snore	Normal  35
+14	Blizzard	Ice 47
+15	Hyper Beam	Normal 55
+16	Icy Wind	Ice 36
+17	Protect	Normal 24
+18	Rain Dance	Water 21
+19	Giga Drain	Grass 27
+20	Endure	Normal 24
+21	Metronome	Normal 30
+22	SolarBeam	Grass 47
+23	Iron Tail	Steel 31
+24	DragonBreath	Dragon 37
+25	Thunder	Electric 47
+26	Earthquake	Ground 47
+27	Tri-Attack Normal 28
+28	Dig	Ground 24
+29	Psychic	Psychic 47
+30	Shadow Ball	Ghost 27
+31	Mud-Slap	Ground 18
+32	Double Team	Normal 20
+33	Ice Punch	Ice 22
+34	Swagger	Normal 33
+35	Sleep Talk	Normal 35
+36	Sludge Bomb	Poison 31
+37	Sandstorm	Rock 29
+38	Fire Blast	Fire 47
+39	Swift	Normal 21
+40	Defense Curl	Normal 14
+41	ThunderPunch	Electric 22
+42	Dream Eater	Psychic
+43	Rock Slide Rock 28
+44	Rest	Psychic 34
+45	Attract	Normal 17
+46	Thief	Dark 28
+47	Steel Wing	Steel 28
+48	Fire Punch	Fire 22
+49	Fury Cutter	Bug 15
+50	Nightmare	Ghost 20
+
+#Key Items given at specific points in game. Cannot be sold. used outside of battle
+*HMs once gained, can be used to teach any num of pokemon the move.
+-HM01: Cut gym leader ilex
+-HM02: Fly gym leader cianwood
+-HM03: Surf gym leader ecruteak
+-HM04: Strength gym leader goldenrod
+-HM05: Flash gym leader violet
+-HM06: Whirlpool gym leader mahogany
+-HM07: Waterfall gym leader blackthorn
+*Reusable item
+-Rematch finder? Use to get rematch trainers on path or within radius. Awarded
+ once beaten all gyms or maybe dropped by steel gymn, the only one that doesn't
+ give hm
+
+ 
+How to manage loot system
+Gym leaders guaranteed to drop their associated HM except for Steel gym
+ who will drop rematch finder instead
+Gym leaders have level, give 1 item based off their level
+ in addition to the loot based off their team.
+Gym leader level GLL= highest level of pokemon+badge# that they give and rolls 
+ random item whose level is between GLL*2/3 (rounded up) and GLL. 1<=Badge#<=8
+Enemies give $=max level of enemy pokemon * (60+10*num enemy pokemon)
+->All loot is given level, when team is beaten, take highest enemy level and roll 
+ random item whose level is less than or equal to that level. For every two enemies 
+ on enemy team over 1, do the same, but having the comparison level reduced by a third 
+ (round down).
+ E.g. 3 enemy team with highest =30 means 2 items one <=30 second <=20
+ 6 enemy team with highest=40 means one <=40, second <= 26, third <=13<-
+-Split loot into tiers and enemy levels into those matching tiers. At end of combat
+ highest enemy pokemon level gives guaranteed item of that tier at random. 
+ -Maybe one random item of each tier below as well. So tier 3 enemy gives rand item
+ of tiers 1,2 and 3. 
+-Or all loot is given level. When beating enemy, roll random level between 1 and
+ enemy's level. Get random loot of that level. If there is no loot of that level,
+ get loot of highest level less than that level. Could do this for highest enemy,
+ highest 2/3 enemies, or one for each enemy
+
+
+How experience works
+->Each pokemon who successfully landed a move on target gets even share of experience
+and each get the full value of evs as long as they are not fainted when the defeated
+pokemon faints?<-
+-Pokemon whose move finishes gets 100%, each other who did damage gets % of exp
+ equiv to % of damage they did (negated if healed), each other who did non damaging
+ move gets 10-20% (negated if stat condition undone or stat damage undone), each other
+ who buffed finisher gets 10-20% (negated if buff undone)?
+-Each pokemon gets even share of all enemies?
+-Each pokemon gets small exp for succesfully performing a move, then each who did
+ damage to enemy gets even share?
+
+
+Wild pokemon encounter spawns 1-3 enemies, each is one of the pokemon that can be
+found in that area (with appropriate rarity) and is a level randomly chosen from
+the possible area levels.
+Trainer pokemon can have any number of pokemon, but will probably be 3-6. 
+
+Player can deploy up to 6 pokemon in battle, regardless of number of pokemon enemy has.
+I may look into inflating some trainers to account for this.
+ 
+
+Would like to keep gym leaders same levels/pokemon as in video game, and balance the
+trainers/wild pokemon around that. 
+
+
+Rematches:
+Player can use RematchFinder to rechallenge trainers in the same location as them (does not
+work against gym leaders or rival, but I don't see why it shouldn't work for gym trainers).
+
+There will be multiple versions of each trainer stored on file
+0badge
+4badge
+8badge
+16badge?
+
+When rematchfinder is run, it checks for the version of the trainer based on the number
+of badges the player has acquired and pulls that version. That way trainers grow with player
+. Note that some trainers can only be encountered after 4 or 8 badges, in which case
+they will have no entry in lower versions. eg gym8 trainer won't have a 0 or 4badge version.
+
+
+
+Code
+Enum Type
+{Water,Fire,Grass,Electric,Fighting,Normal,Psychic,Ghost,Dark,Flying,Ice,Dragon,Ground,Rock,Steel,Bug,Poison}
+Enum PermCondition
+{Burned,Frozen,Poisoned,Paralyzed,Asleep,Badly Poisoned}
+Enum TempCondition
+{Confusion,Curse,Encore,Flinch,Foresight,Attract,Nightmare,Trap,DamageTrap,PerishSong,LeechSeed}
+
+
+All items will have an ID. List will correlate IDs to item info.
+One list holds all loot item IDs sorted by increasing level.
+Another points to the indices in the above list where next ilvl is hit. When loot is
+generated for lvl x, look to index list for starting point of level x+1 items and
+roll random item from item list below that point.
+
+
+Innate pokemon qualities(eg base stats,catch rate,icon)will be linked to poke# in an array
+Innate move qualities(type,accuracy,power,basepp,effect)be linked to move# in array
+
+Move- constructor sets currpp and maxpp to move's basepp, taking in move #
+int id:the move#
+int currpp
+int maxpp
+
+
+Pokemon- constructor takes in #+lvl+wild, random gens ivs, sets stats,range,defaults.
+ another constructor that takes in above in addition to moveset to set specific moves. non moveset
+ constructor will just take the 4 latest moves learned based on level and set that as moveset.
+ There will be an evolution constructor called when creating an evolutoin of an existing pokemon.
+ This will preserve the base pokemons ivs,evs,pcondition,level,exp,wild,heldid,typeboostedbyhelditem,
+ moveset,fainted, and happiness.
+int id: the corresponding pokemon number
+int[] ivs: 6 ivs, one for each stat
+int[] evs: 6 evs, one for each stat
+int[] stats: 6 actual stat values, computed based off of base,lvl,ivs,evs. Since evs
+ are only factored in on levelling up, and base,ivs are set, stats are recalculated
+ every level up and set for the pokemon so that they aren't being calculated every
+ time the stat is in question.
+int currhp
+Type[] types: 1 or 2 types (while this would normally be a static quality based on
+ species, the moves conversion 1/2 can change a pokemon's types, so this must be
+ dynamic. If I remove conversions from game, type can be kept in static lookup table)
+ Since the only way type can change is through two moves, it can only change in battle and 
+ will be held in Unit class. Also I think type is only ever relevant in battle, so it may
+ never even be check for outside of battle.
+PermCondition pcondition: can only have 1 nonvolatile condition at a time
+int level
+int exp
+boolean wild
+int heldid:id of item being held, -1 if nothing
+
+Type typeboostedbyhelditem:if held item is one of the 17 that boost a type of move,
+ set this to that type. This is set to null whenever item is unequipped. When a new
+ item is equipped, check is performed to set this if new item is one of the 17. This
+ allows for rapid checking of damage calculation since setting this on equip change
+ is likely fewer computations than checking every time damage is done. The problem with
+ this possibility is that the check if(typeboostedbyhelditem==Move.type) takes just as
+ long (if not longer) than just if(heldid-offset==
+
+Move[] moveset:the 1-4 moves the pokemon knows, null if no move in that slot
+boolean fainted
+int happiness: will always default to 70 on construction
+
+Unit- container for pokemon and parameters that are only applicable in battle
+ Constructor takes in pokemon and sets variables to defaults.When battle is over, this
+ object is discarded
+int[] modstages: 8 values, each repping the stage of modification for 5 non-hp stats,
+ evasion, accuracy, and crit ratio.
+int movementrange:factor of speed stat
+ArrayList<TempCondition> tconditions: can be multiple volatile conditions at once
+boolean controllable:some conditions like rollout,outrage make pokemon uncontrollable
+int directionfacing:1-4 represent the cardinal directions, for displaying icon and
+ factoring into flanking
+boolean hasmoved:if it's used a movement action for turn.Reset after turn cycle
+boolean hastakenaction: if it's used an attack/item for turn. Reset after turn cycle
+
+
+Trainer
+int id
+Image mapsymbol
+Pokemon[] team
+boolean active:inactive by default. Once the player arrives at their route, they 
+ will activate until beaten.
+Location: the location of the trainer (eg route23,viridiangym,etc) used for rematchfinder,
+ activation etc
+double x-coordinates for position on screen
+double y-coordinates for position on screen
+EliteTrainer extends Trainer (gymleaders,rival,elite 4) these are the ones that drop loot
+int lootmod: the bonus to level for loot awards. 1-8 for johto gym leaders equivalent to
+ badge num, 8 for kanto gym leaders and elite 4 members, 2-8 for different versions of rival
+override methods so that rematchfinder does not work on these trainers and elite 4 can
+never deactivate (gym leaders and rival can't be rematchfinder'ed and elite 4 and rival
+at indigo plateau can be fought as many times as wanted
+
+
+Ideas:
+Pokemon that can't be gotten in Crystal
+Bulbasaur,Ivysaur,Venusaur-Given at lvl 5 when Red is beaten
+Charmander,Charmeleon,Charizard-Given at lvl 5 when Red is beaten
+Squirtle,Wartortle,Blastoise-Given at lvl 5 when Red is beaten
+3 Birds-Unleashed like 3 Dogs
+Mew-lvl 58 loot item
+Mewto-lvl 58 loot item
+Celebi-lvl 58 loot item
+
+togepi-reward for beating rival in Azalea Town
+unown-
+
+cannot breed:
+ditto
+legendaries
+unown
+prevolutions (including togepi)
+
+BREED:
+I think any pokemon should be allowed to breed. To breed requires 
+1. Incense
+2. Pokemon of the desired species
+3. Pokemon of the same species but opposite gener OR ditto (for genderless pokemon or mono-gendered pokemon, ditto is only option)
+4. Both pokmeon f
+
+This will consume the incense and create a pokemon that is the earliest evolutionary form of the line of the 
+of the parents/non-ditto parent at level 5 it will be generated the same way a wild pokemon is
+moves are based on level, ivs are randomly generated, evs are 0. But then need to set wild to false (hasBeenCaught()) and inc happiness (I think bred pokemon should
+start with higher base happiness (maybe the friend ball level of 200, maybe lower like 150)
+
+
+The last 3 items can only be dropped by
+Cinnabar Gym
+Viridian Gym
+Elite Four Champion Lance (rematchable)
+Rival at Indigo Plateau (rematchable)
+
+Maybe have eggs as either loot or rewards from nemesis. Maybe allow breeding for prevolutions.
+Item like incense can be used to breed two pokemon of same species,opp gender or ditto+other.
+
+Arrays will track the player's team and their bag of items
+
+How to track moves pokemon will know at level x?
+Have a table with each pokemon's moves learned at levels. Either 100 length array with each move in the
+index repping the level learned at. When pokemon levels up, check it's array at the index and see if new 
+move will be learned. When wild pokemon at level x is generated, check it's array at x and moving back to
+1, take the first 4 moves encountered as a moveset.
+Also have an array with an entry for each pokemon with either the level the pokemon evolves at or the
+stone required to evolve it or Happiness if it requires happiness. Pokemon that have multiple possible
+evolutions will have the list, with one of the above conditions pointing to the number of the evolution
+pokemon. e.g. Pikachu's (25th) entry will have '26', and slowpoke's (79th) will have '37 80,King 199' 
+When a pokemon reaches 220 happiness or levels up, it will check it's array to see if that is the mode 
+by which it evolves. When a player pulls up a stone and attempts to use it, it will check the pokemon
+attempting to use it and see if that is the mode by which it evolves. If so, it will consume the item and
+evolve, otherwise it will give a prompt that this is not possible. Item descrips will explain the pokemon
+that they cause to evolve to prevent confusion as well.
+
+When evolution occurs, evolution method is called, passing the pokemon evolving and the number it should
+evolve into. Evolution method will return the new pokemon. It will check for an everstone and return null
+if held.
+
+When player enters town has option to :
+Use pokecenter, healing
+Use pokemart, shop
+Entery gym, battle
+Or pass through. There will usually be a blockage however that prevents the player from going too much
+farther without defeating the gym leader.
+In the case of olivine city, player will not be able to battle gym leader until defeating cianwood
+gym first (as in the game) this will be explained through a dialogue with olvine gym leader.
+
+Upon entering Cherrygrove,Azalea, Ecruteak, Goldenrod,Victory Road,Mt. Moon, player will get dialogue with nemesis 
+and either have team auto healed, or have the option to heal. Then they will enter battle with nemesis.
+
+Upon entering Mahogany player will get dialogue explaining that gym leader can't be fought until team
+rocket is rooted from their hideout. Player will get additional dropdown item for team rocket lair (may
+replace normal gym option). Once mahogany lair beaten, gym becomes available. 
+After defeating, another dialogue will tell player to go beat lair
+in goldenrod as well. They will encounter nemesis, beat lair and then path to pass through mahogany 
+will become available.
+Upon entering Azalea player will get dialogue explaining that gym leader can't be fought until team
+rocket is rooted from their hideout. Player will get additional dropdown item for team rocket lair (may
+replace normal gym option).(slowpoke well, with chance to catch the wild pokemon therein)
+Ecruteak will have option for Tin Tower. Cannot be entered until player has all 8 Johto badges. Once this
+is done, player can enter and will immediately encounter Ho-Oh. lvl 40
+
+Once Ecruteak city is reached, all three legendary dogs (lvl 40) will be released and can be encountered
+anywhere in Johto
+Their hp and volatile stat conditions will be constant between encounters, never healing.
+I also want to release legendary birds (zap,art,molt) when player enters Kanto region after beating elite
+four with same conditions as dogs (lvl 40, don't heal, same encounter rate, etc.)
+
+Kanto has Victory Road Cave, Diglett caves connecting
+
+Fly can be used outside of battle to travel to any town instantly (takes 0 steps). 
+Legendaries' positions will be kept track of by the game with invisible markers. They will spawn on a 
+random spot on a random route. Every x seconds, the legend will roll for a new location on that route,
+with a 10% chance of going to an adjacent route instead. When the player and legend are on the same spot 
+of a route, it will trigger an encounter (legend cannot move onto trainer spot or player spot directly.
+if it would, it rerolls new spot. This also prevents player from landing on trainer+legend at same time).
+If legend or player flee, legend will be sent to new random spawn on the map. If legend is fainted, it 
+will respawn at random spot on the map after elite four is beaten.
+
+Battle requires player's team and enemy team, which is either the team object of the
+trainer or a randomly generated team of wild pokemon from the area.
+
+Array will track legendaries and their locations
+Array will track badges that the player has
+
+Player will be repped on map by leading pokemon. Leading pokemon defaults to starter chosen. On faint,
+volatile condition, or replacement, this is replaced by next pokemon in queue. Player can also set leading
+pokemon themself.
+Trainers are repped by their icon
+
+Battle Engine will:f
+-Launch UI change to battle screen based on terrain param
+-Create BattlePokemon based on Pokemon params
+-Store Battle related params
+-Launch placement process of units
+-Launch turn based action management process which will take over the fight until conclusion
+-Close out BattlePokemon
+-Close UI
+
+
+
+options for pc pokemon
+-release
+-add to party
+
+options for party pokemon
+-release
+-use item
+-give item
+-take item
+
+
+player menu:
+party
+items
+save game
+
+item menu:
+use/give
+
+How to handle terrain movement
+
+-all units move on grass and dirt the same
+-water types can move on water tiles 
+-flying types can they move as normal over water/rocks? Can they stop midwater or have to traverse
+ all at once
+-ground types can they dig under rocks?
+-should dig/fly be allowed to use as moves/attacks
+
+-grass and dirt tiles are normal terrain
+-rock and tree tiles are blockages, have to be flown over or dug under
+-water tiles can be traversed as normal by water types
+-lava tiles can be traversed as normal by fire types
+-ice tiles are slippery, cause unit entering to continue on their entry trajectory until off ice
+ tiles
+-fly/dig can be used as an extra movement action that also allows passing blockages but they can
+ not stop mid blockage, must be able to cross it completely or not at all.
+
+
+
+
+
+
+

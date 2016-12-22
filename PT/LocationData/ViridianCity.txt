@@ -1,0 +1,15 @@
+ID: 262
+Type: Kanto
+Event: N/A
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+PokeCenter,NONE
+PokeShop,NONE
+Use P.C.,NONE
+Enter Viridian Gym,VolcanoBadge
+Battle Challenger,EarthBadge
+Exit to Route 1,EliteFourChampion,39,29
+Exit to Route 2,EliteFourChampion,39,24
+End Menu

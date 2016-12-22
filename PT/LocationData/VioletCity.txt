@@ -1,0 +1,15 @@
+ID: 244
+Type: Johto
+Event: N/A
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+PokeCenter,NONE
+PokeShop,NONE
+Use P.C.,NONE
+Enter Violet Gym,NONE
+Exit to Route 31,NONE,70,19
+Exit to Route 32,ZephyrBadge,66,21
+Exit to Route 36B,ZephyrBadge,62,19
+End Menu

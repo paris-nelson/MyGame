@@ -1,0 +1,14 @@
+ID: 267
+Type: Kanto
+Event: N/A
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+PokeCenter,NONE
+PokeShop,NONE
+Use P.C.,NONE
+Enter Vermilion Gym,CascadeBadge
+Exit to Route 6,EliteFourChampion,80,28
+Exit to Route 11,EliteFourChampion,84,31
+End Menu

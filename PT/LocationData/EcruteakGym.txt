@@ -1,0 +1,29 @@
+ID: 276
+Type: Gym EcruteakCity 53,11
+Event: EcruteakGym
+Trainers: 
+Trainer: 16 Sage Jeffrey 120 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Sage.png
+   Pokemon: 92 37 16 0 -1 70 false false null null Male [38 10 10, 115 5 5, 203 10 10, 108 30 30]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[37, 17, 16, 38, 17, 32]
+   Pokemon: 92 37 16 0 -1 70 false false null null Male [38 10 10, 115 5 5, 203 10 10, 108 30 30]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[37, 17, 16, 38, 17, 32]
+   Pokemon: 92 37 16 0 -1 70 false false null null Male [38 10 10, 115 5 5, 203 10 10, 108 30 30]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[37, 17, 16, 38, 17, 32]
+   Pokemon: 92 37 16 0 -1 70 false false null null Male [38 10 10, 115 5 5, 203 10 10, 108 30 30]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[37, 17, 16, 38, 17, 32]
+   Pokemon: 92 37 16 0 -1 70 false false null null Male [38 10 10, 115 5 5, 203 10 10, 108 30 30]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[37, 17, 16, 38, 17, 32]
+   Pokemon: 92 37 16 0 -1 70 false false null null Female [38 10 10, 115 5 5, 203 10 10, 108 30 30]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[37, 17, 16, 38, 17, 32]
+ End Trainer
+Trainer: 17 Sage Ping 660 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Sage.png
+   Pokemon: 92 37 16 0 -1 70 false false null null Female [38 10 10, 115 5 5, 203 10 10, 108 30 30]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[37, 17, 16, 38, 17, 32]
+   Pokemon: 92 37 16 0 -1 70 false false null null Male [38 10 10, 115 5 5, 203 10 10, 108 30 30]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[37, 17, 16, 38, 17, 32]
+   Pokemon: 92 37 16 0 -1 70 false false null null Male [38 10 10, 115 5 5, 203 10 10, 108 30 30]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[37, 17, 16, 38, 17, 32]
+   Pokemon: 93 46 18 0 -1 70 false false null null Male [38 10 10, 115 5 5, 203 10 10, 108 30 30]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[46, 24, 23, 48, 26, 41]
+   Pokemon: 93 46 18 0 -1 70 false false null null Female [38 10 10, 115 5 5, 203 10 10, 108 30 30]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[46, 24, 23, 48, 26, 41]
+   Pokemon: 93 46 18 0 -1 70 false false null null Female [38 10 10, 115 5 5, 203 10 10, 108 30 30]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[46, 24, 23, 48, 26, 41]
+ End Trainer
+EliteTrainer: 18 Gym Leader Morty 1200 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\GymLeaderMorty.png 4
+   Pokemon: 92 46 21 0 -1 70 false false null null Male [133 15 15, 38 10 10, 115 5 5, 203 10 10]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[46, 22, 20, 49, 22, 41]
+   Pokemon: 93 52 21 0 -1 70 false false null null Female [133 15 15, 38 10 10, 115 5 5, 203 10 10]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[52, 28, 26, 56, 31, 47]
+   Pokemon: 93 56 23 0 -1 70 false false null null Female [133 15 15, 38 10 10, 115 5 5, 203 10 10]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[56, 31, 28, 61, 33, 51]
+ End Trainer
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+End Menu

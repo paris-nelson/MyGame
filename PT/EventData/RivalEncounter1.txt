@@ -1,0 +1,4 @@
+126 Rival 0 0 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Rival.png 2
+   Pokemon: 19 18 5 0 -1 70 false false null null Male [225 30 30, 224 35 35, null, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[18, 10, 8, 7, 8, 12]
+   Pokemon: 41 19 5 0 -1 70 false false null null Female [105 15 15, null, null, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[19, 9, 8, 8, 9, 10]
+ End Trainer

@@ -1,0 +1,14 @@
+ID: 270
+Type: Kanto
+Event: N/A
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+PokeCenter,NONE
+PokeShop,NONE
+Use P.C.,NONE
+Enter Cinnabar Gym,SoulBadge
+Exit to Route 20,EliteFourChampion,43,55
+Exit to Route 21,EliteFourChampion,39,52
+End Menu

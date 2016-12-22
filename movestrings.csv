@@ -1,0 +1,251 @@
+Absorb,Grass,Restores the user's HP by 1/2 of the damage inflicted on the target
+Acid,Poison,Has a ~10% chance to lower the target's Defense by 1 stage
+Acid Armor,Poison,Raises the user's Defense by 2 stages
+Aeroblast,Flying,Has a high critical hit ratio
+Agility,Psychic,Raises the user's Speed by 2 stages
+Amnesia,Psychic,Raises the user's Special Defense by 2 stages
+Ancient Power,Rock,Has a ~10% chance to raise all of the user's stats by 1 stage
+Attract,Normal,Infatuates Pokemon of the opposite gender even if they have a Substitute causing a 50% chance for the target's attack to fail
+Aurora Beam,Ice,Has a ~10% chance to lower the target's Attack by 1 stage
+Barrage,Normal,Attacks 2-5 times in one turn; if one of these attacks breaks a target's Substitute the target will take damage for the rest of the hits. This move has a 3/8 chance to hit twice a 3/8 chance to hit three times a 1/8 chance to hit four times and a 1/8 chance to hit five times
+Barrier,Psychic,Raises the user's Defense by 2 stages
+Baton Pass,Normal,Swaps positions with other party member.all stat modifiers are passed between them as well as confusion Focus Energy Perish Song count Mist Leech Seed Ghost Curses Mind Reader Lock-On Mean Look Spider Web and Substitute to the replacement Pokemon. In-game Baton Pass also passes partial trapping moves (Bind Clamp Fire Spin and Wrap) Foresight Toxic if the replacement is poisoned and Nightmare if replacement is asleep.
+Beat Up,Dark,Each healthy (i.e. not fainted nor inflicted with a status condition) Pokemon in your party contributes a typeless 10 base power hit determined solely by their base Attack and Defense stats. No STAB or rand damage variation
+Belly Drum,Normal,The user maximizes its Attack but sacrifices 50% of its max HP
+Bide,Normal,The user absorbs all damage for 2-3 turns and then inflicts twice the absorbed damage on its target. This move ignores the target's type but still cannot hit Ghost-type Pokemon
+Bind,Normal,Traps the target for 2-5 turns causing damage equal to 1/12 of its max HP each turn; this trapped effect can be broken by Rapid Spin. The target can still switch out if it uses Baton Pass.
+Bite,Dark,Has a ~30% chance to make the target flinch
+Blizzard,Ice,Has a ~10% chance to freeze the target
+Body Slam,Normal,Has a ~30% chance to paralyze the target
+Bone Club,Ground,Has a ~10% chance to make the target flinch
+Bone Rush,Ground,Attacks 2-5 times in one turn; if one of these attacks breaks a target's Substitute the target will take damage for the rest of the hits. This move has a 3/8 chance to hit twice a 3/8 chance to hit three times a 1/8 chance to hit four times and a 1/8 chance to hit five times
+Bonemerang,Ground,Strikes twice; if the first hit breaks the target's Substitute the real Pokemon will take damage from the second hit
+Bubble,Water,Has a ~10% chance to lower the target's Speed by 1 stage
+Bubblebeam,Water,Has a ~10% chance to lower the target's Speed by 1 stage
+Charm,Normal,Lowers the target's Attack by 2 stages
+Clamp,Water,Traps the target for 2-5 turns causing damage equal to 1/16 of its max HP each turn; this trapped effect can be broken by Rapid Spin. The target can still switch out if it uses Baton Pass
+Comet Punch,Normal,Attacks 2-5 times in one turn; if one of these attacks breaks a target's Substitute the target will take damage for the rest of the hits. This move has a 3/8 chance to hit twice a 3/8 chance to hit three times a 1/8 chance to hit four times and a 1/8 chance to hit five times
+Confuse Ray,Ghost,Confuses the target
+Confusion,Psychic,Has a ~10% chance to confuse the target
+Constrict,Normal,Has a ~10% chance to lower the target's Speed by 1 stage
+Conversion,Normal,The user's type changes to match the type of one of its four attacks. This move fails if the user cannot change its type under this condition. Or changes type into target's type
+Conversion 2,Normal,The user's type changes to one that resists the type of the last attack that hit the user
+Cotton,Grass,Lowers the target's Speed by 2 stages
+Counter,Fighting,Almost always goes last; if an opponent strikes with a Physical attack before the user's turn the user retaliates for twice the damage it had endured
+Crabhammer,Water,Has a high critical hit ratio
+Cross Chop,Fighting,Has a high critical hit ratio
+Crunch,Dark,Has a ~20% chance to lower the target's Special Defense by 1 stage
+Curse,Normal,When used by a Ghost-type the user sacrifices half of its max HP to sap the target by 1/4 of its max HP per turn. When used by anything else the user's Speed is decreased by 1 stage and its Attack and Defense are increased by 1 stage
+Cut,Normal,Damages the target
+Defense Curl,Normal,Raises the user's Defense by 1 stage; after one use of this move the user's starting base power is doubled for every use of Rollout
+Destiny Bond,Ghost,Causes an opponent to faint if its next attack KOs the user
+Detect,Fighting,Almost always goes first. The user is protected from all attacks for one turn but the move's success rate halves with each consecutive use of Protect Detect or Endure
+Dig,Ground,On the first turn the user digs underground becoming uncontrollable and evades all attacks. Earthquake Magnitude and Fissure can hit underground with Earthquake and Magnitude having doubled power; the user may also be hit underground if it was previously targeted by Lock-On or Mind Reader. On the second turn the user attacks
+Disable,Normal,The target cannot choose its last move for 2-5 turns. Disable only works on one move at a time and fails if the target has not yet used a move or if its move has run out of PP. The target does nothing if it is about to use a move that becomes disabled
+Dizzy Punch,Normal,Has a ~20% chance to confuse the target
+Double Kick,Fighting,Strikes twice; if the first hit breaks the target's Substitute the real Pokemon will take damage from the second hit
+Double Team,Normal,Raises the user's Evasion by 1 stage
+Double-Edge,Normal,The user receives 1/4 recoil damage
+Double Slap,Normal,Attacks 2-5 times in one turn; if one of these attacks breaks a target's Substitute the target will take damage for the rest of the hits. This move has a 3/8 chance to hit twice a 3/8 chance to hit three times a 1/8 chance to hit four times and a 1/8 chance to hit five times
+Dragon Rage,Dragon,Always deals 40 points of damage
+Dragonbreath,Dragon,Has a ~30% chance to paralyze the target
+Dream Eater,Psychic,Restores the user's HP by 1/2 of the damage inflicted on the target but only works on a sleeping target
+Drill Peck,Flying,Damages the target
+Dynamicpunch,Fighting,Confuses the target
+Earthquake,Ground,Power doubles when performed against Pokemon using Dig. AoE?
+Egg Bomb,Normal,Damages the target
+Ember,Fire,Has a ~10% chance to burn the target
+Encore,Normal,The target is forced to use its last attack for the next 2-6 turns. The effects of this move will end immediately if the target runs out of PP for the repeated attack
+Endure,Normal,Almost always goes first. The user is left with at least 1 HP following any attacks for one turn but the move's success rate halves with each consecutive use of Protect Detect or Endure
+Explosion,Normal,The Defense stat of other Pokemon is halved against this attack essentially doubling the move's base power; causes the user to faint
+Extremespeed,Normal,20% increase speed 1 stage
+Faint Attack,Dark,Ignores Evasion and Accuracy modifiers and never misses except against Protect Detect or a target in the middle of Dig or Fly
+False Swipe,Normal,Leaves the target with at least 1 HP
+Fire Blast,Fire,Has a ~10% chance to burn the target
+Fire Punch,Fire,Has a ~10% chance to burn the target
+Fire Spin,Fire,Traps the target for 2-5 turns causing damage equal to 1/16 of its max HP each turn; this trapped effect can be broken by Rapid Spin. The target can still switch out if it uses Baton Pass
+Fissure,Ground,The target faints; doesn't work on higher-leveled Pokemon. However this move will hit Digging Pokemon. Accuracy determined by (userlvl-targetlvl+30)%. Does not factor in acc/eva changes
+Flail,Normal,Base power increases as the user's HP decreases
+Flame Wheel,Fire,Has a ~10% chance to burn the target; can be used while frozen which both attacks the target normally and thaws the user
+Flamethrower,Fire,Has a ~10% chance to burn the target
+Flash,Normal,Lowers the target's Accuracy by 1 stage
+Fly,Flying,On the first turn the user flies into the air becoming uncontrollable and evades most attacks. Gust Twister and Thunder have normal accuracy against a mid-air Pokemon with Gust and Twister also gaining doubled power. The user may also be hit in mid-air if it was previously targeted by Lock-On or Mind Reader. On the second turn the user attacks
+Focus Energy,Normal,Raises the user's chance for a critical hit by one stage
+Foresight,Normal,Until the target faints or switches the user's Accuracy modifiers and the target's Evasion modifiers are ignored. Ghost-type targets also lose their immunities against Normal-type and Fighting-type moves. Should this apply to only attacks between user and target?
+Frustration,Normal,Base power increases as the user's HP decreases
+Fury Attack,Normal,Attacks 2-5 times in one turn; if one of these attacks breaks a target's Substitute the target will take damage for the rest of the hits. This move has a 3/8 chance to hit twice a 3/8 chance to hit three times a 1/8 chance to hit four times and a 1/8 chance to hit five times
+Fury Cutter,Bug,The base power of this move doubles with each consecutive hit; however power is capped at a maximum 160 BP and remains there for any subsequent uses. If this move misses or if the user selects another move base power will be reset to 10 BP on the next turn
+Fury Swipes,Normal,Attacks 2-5 times in one turn; if one of these attacks breaks a target's Substitute the target will take damage for the rest of the hits. This move has a 3/8 chance to hit twice a 3/8 chance to hit three times a 1/8 chance to hit four times and a 1/8 chance to hit five times
+Future Sight,Psychic,This move even if the user and/or the target switch out will strike the active target at the end of the second turn after its use. This move cannot cause a critical hit and its damage is calculated by using the original user's Special Attack and the original target's Special Defense. The move's damage is typeless so it never receives STAB and ignores weaknesses resistances and immunities against this move's type. Only one instance of Future Sight may be active at a time; because it occurs at the end of the round it also hits through Protect Detect and Endure
+Giga Drain,Grass,Restores the user's HP by 1/2 of the damage inflicted on the target
+Glare,Normal,Paralyzes the target
+Growl,Normal,Lowers the target's Attack by 1 stage
+Growth,Normal,Raises the user's Special Attack by 1 stage
+Guillotine,Normal,Same mechanics as Fissure
+Gust,Flying,Power doubles if the target is in mid-air via Fly
+Harden,Normal,Raises the user's Defense by 1 stage
+Haze,Ice,Eliminates any stat modifiers from all active Pokemon
+Headbutt,Normal,Has a ~30% chance to make the target flinch
+Heal Bell,Normal,Every Pokemon in the user's party is cured of status conditions
+Hi Jump Kick,Fighting,"If this attack misses the target the user receives 1/8 ""recoil"" damage of what it would have inflicted"
+Hidden Power,Normal,Varies in power and type depending on the user's IVs; maximum 70 BP. Will run off the user's Attack or Special Attack depending on type. Calculations here http://bulbapedia.bulbagarden.net/wiki/Hidden_Power_(move)/Calculation
+Horn Attack,Normal,Damages the target
+Horn Drill,Normal,Same mechanics as Fissure
+Hydro Pump,Water,Damages the target
+Hyper Beam,Normal,The user recharges during its next turn; as a result until the end of the next turn the user becomes uncontrollable
+Hyper Fang,Normal,Has a ~10% chance to make the target flinch
+Hypnosis,Psychic,Puts the target to sleep
+Ice Beam,Ice,Has a ~10% chance to freeze the target
+Ice Punch,Ice,Has a ~10% chance to freeze the target
+Icy Wind,Ice,Lowers the target's Speed by 1 stage
+Iron Tail,Steel,Has a ~30% chance to lower the target's Defense by 1 stage
+Jump Kick,Fighting,"If this attack misses the target the user receives 1/8 ""recoil"" damage of what it would have inflicted"
+Karate Chop,Fighting,Has a high critical hit ratio
+Kinesis,Psychic,Lowers the target's Accuracy by 1 stage
+Leech Life,Bug,Restores the user's HP by 1/2 of the damage inflicted on the target
+Leech Seed,Grass,The user steals 1/8 of the target's max HP until the target is switched out is KO'ed or uses Rapid Spin; does not work against Grass-type Pokemon or Pokemon behind Substitutes
+Leer,Normal,Lowers the target's Defense by 1 stage
+Lick,Ghost,Has a ~30% chance to paralyze the target
+Light Screen,Psychic,All Pokemon in the user's party receive 1/2 damage from Special attacks for 5 turns
+Lock-On,Normal,This move ensures that the user's next attack will hit against its current target. Even if the user switches out its replacement's next move will always hit too. Lock-On fails against Pokemon in the middle of using Protect Detect Dig or Fly as well as Pokemon behind a Substitute
+Lovely Kiss,Normal,Puts the target to sleep
+Low Kick,Fighting,Has a ~30% chance to make the target flinch
+Mach Punch,Fighting,15% increase speed 1 stage
+Magnitude,Ground,Deals variable damage between 10 base power and 130 base power as well as double damage against Digging Pokemon http://bulbapedia.bulbagarden.net/wiki/Magnitude_(move)
+Mean Look,Normal,Target unable to take movement actions for 3 turns. This effect ends at the beginning of the target's 4th turn after the use. Cannot be used if the target is already in a trap move (Mean Look or Spider Web)
+Meditate,Psychic,Raises the user's Attack by 1 stage
+Mega Drain,Grass,Restores the user's HP by 1/2 of the damage inflicted on the target
+Mega Kick,Normal,Damages the target
+Mega Punch,Normal,Damages the target
+Megahorn,Bug,Damages the target
+Metal Claw,Steel,Has a ~10% chance to raise the user's Attack by 1 stage
+Metronome,Normal,The user performs a randomly selected move; almost any move in the game could be picked. Metronome cannot generate itself Sketch Struggle or any move that the user already knows
+Milk Drink,Normal,Restores 1/2 of the user's max HP
+Mimic,Normal,This move is temporarily replaced by the target's last move; the replacement move will have 5 PP and become part of the user's moveset until the user switches out or the battle ends. Mimic copies attacks even if they miss or the user has immunity toward their type; it cannot copy itself Struggle Transform Sketch Metronome or moves that the user already knows and it will fail if the target has yet to use a move
+Mind Reader,Normal,This move ensures that the user's next attack will hit against its current target. Even if the user switches out its replacement's next move will always hit too. Mind Reader fails against Pokemon in the middle of using Protect Detect Dig or Fly as well as Pokemon behind a Substitute
+Minimize,Normal,Raises the user's Evasion by 1 stage; however Stomp retains its normal accuracy and gains doubled power against Minimized Pokemon
+Mirror Coat,Psychic,Almost always goes last; if an opponent strikes with a Special attack before the user's turn the user retaliates for twice the damage it had endured
+Mirror Move,Flying,The user performs the last move executed by its target; if applicable an attack's damage is calculated with the user's stats level and type(s). This moves fails if the target has not yet used a move. Mirror Move cannot copy itself Metronome Mimic Sketch Sleep Talk Struggle Transform or moves that user already knows
+Mist,Ice,Protects the user from negative stat modifiers caused by other Pokemon but not by itself until it switches out; can be Baton Passed by user. The user's Accuracy and Evasion stats are also protected. Moves that cause negative stat modifiers as a secondary effect such as Psychic still deal their regular damage
+Moonlight,Normal,The user recovers 1/4 of its max HP during the morning or day and 1/2 of its max HP during the night. For all three time periods healing is doubled during Sunny Day and halved during Rain Dance and Sandstorm
+Morning Sun,Normal,The user recovers 1/4 of its max HP during the day or night and 1/2 of its max HP during the morning. For all three time periods healing is doubled during Sunny Day and halved during Rain Dance and Sandstorm
+Mud Slap,Ground,Lowers the target's Accuracy by 1 stage
+Night Shade,Ghost,Does damage equal to user's level
+Nightmare,Ghost,This move only works on a sleeping target; as long as the target remains asleep and in battle 1/4 of its max HP is sapped after each turn
+Octazooka,Water,Has a ~50% chance to lower the target's Accuracy by 1 stage
+Outrage,Dragon,The user attacks uncontrollably for 2-3 turns and then gets confused. Gives a slight bonus to movement range(+1?) and targets nearest enemy. If tie targets lowest health. Breaks further ties randomly
+Pain Split,Normal,Calculates the average of the user's current HP and the target's HP; the HP of both Pokemon is set to this average
+Pay Day,Normal,The player picks up extra money after in-game battles; the money received is equal to: [user's level * 2 * number of times Pay Day is used]. The player does not lose money if the opponent uses Pay Day but the player wins the battle
+Peck,Flying,Damages the target
+Perish Song,Normal,All active Pokemon will faint in 3 turns unless they are switched out
+Petal Dance,Grass,The user attacks uncontrollably for 2-3 turns and then gets confused
+Pin Missile,Bug,Attacks 2-5 times in one turn; if one of these attacks breaks a target's Substitute the target will take damage for the rest of the hits. This move has a 3/8 chance to hit twice a 3/8 chance to hit three times a 1/8 chance to hit four times and a 1/8 chance to hit five times
+Poison Gas,Poison,Poisons the target
+Poison Sting,Poison,Has a ~30% chance to poison the target
+Poison Powder,Poison,Poisons the target
+Pound,Normal,Damages the target
+Powder Snow,Ice,Has a ~10% chance to freeze the target
+Present,Normal,Randomly either attacks with a variable power between 40 base power and 120 base power or heals the target by 80 HP
+Protect,Normal,Almost always goes first. The user is protected from all attacks for one turn but the move's success rate halves with each consecutive use of Protect Detect or Endure
+Psybeam,Psychic,Has a ~10% chance to confuse the target
+Psych Up,Normal,The user copies all seven of the target's current stat modifiers
+Psychic,Psychic,Has a ~10% chance to lower the target's Special Defense by 1 stage
+Psywave,Psychic,Randomly inflicts set damage between a minimum of 1 HP and a maximum of [1.5x the user's level] HP
+Pursuit,Dark,Does 1.5x damage if flanking
+Quick Attack,Normal,15% chance to raise speed 1 stage
+Rage,Normal,The user's Attack rises by 1 stage if attacked before its next move
+Rain Dance,Water,Cancels all other weather moves. For 5 turns: the power of Water attacks is increased by 50% the power of Fire attacks is decreased by 50% Thunder becomes 100% accurate the power of Solarbeam is halved and the healing power of Morning Sun Synthesis and Moonlight is halved
+Rapid Spin,Normal,Removes Spikes and Leech Seed from the user's side of the field; also frees the user from Bind Clamp Fire Spin Whirlpool and Wrap. These side effects do not occur if the move misses or is used against Ghost-type Pokemon
+Razor Leaf,Grass,Has a high critical hit ratio
+Razor Wind,Normal,The user prepares on turn one becoming uncontrollable and then attacks on turn two. Has a high critical hit ratio
+Recover,Normal,Restores 1/2 of the user's max HP
+Reflect,Psychic,All Pokemon in the user's party receive 1/2 damage from Physical attacks for 5 turns
+Rest,Psychic,The user is cured of status effects (and confusion) and recovers full HP but falls asleep for 2 turns
+Return,Normal,Power increases as user's happiness increases; maximum 102 BP. Probably not going to incorporate happiness may remove attack altogether 
+Reversal,Fighting,Base power increases as the user's HP decreases
+Roar,Normal,Escape from wild battles. In trainer battles will knock enemy back
+Rock Slide,Rock,Has a ~30% chance to make the target flinch
+Rock Smash,Fighting,Has a ~50% chance to lower the target's Defense by 1 stage
+Rock Throw,Rock,Damages the target
+Rolling Kick,Fighting,Has a ~30% chance to make the target flinch
+Rollout,Rock,The user attacks uncontrollably for five turns; this move's power doubles after each turn and also if Defense Curl was used beforehand. Its power resets after five turns have ended or if the attack misses. Provides a slight increase in movement range (+1?) and will target the nearest enemy. If multiple enemies are equidistant it will choose the one with the least health. If still a tie it will choose randomly
+Sacred Fire,Fire,Has a ~50% chance to burn the target; can be used while frozen which both attacks the target normally and thaws the user
+Safeguard,Normal,Protects the user's entire team from status conditions for five turns
+Sand Attack,Ground,Lowers the target's Accuracy by 1 stage
+Sandstorm,Rock,Cancels all other weather moves. For 5 turns: each active Pokemon even when protected by a Substitute loses 1/16 of its max HP unless it is a Ground- Rock- or Steel-type and the healing power of Morning Sun Synthesis and Moonlight is halved
+Scary Face,Normal,Lowers the target's Speed by 2 stages
+Scratch,Normal,Damages the target
+Screech,Normal,Lowers the target's Defense by 2 stages
+Seismic Toss,Fighting,Does damage equal to user's level
+Selfdestruct,Normal,The Defense stat of other Pokemon is halved against this attack essentially doubling the move's base power; causes the user to faint
+Shadow Ball,Ghost,Has a ~20% chance to lower the target's Special Defense by 1 stage
+Sharpen,Normal,Raises the user's Attack by 1 stage
+Sing,Normal,Puts the target to sleep
+Sketch,Normal,The user permanently replaces Sketch with the last move used by the target. Sketch cannot copy itself Explosion Metronome Mimic Mirror Move Selfdestruct Sleep Talk Struggle or Transform. This move fails automatically when selected in link battles
+Skull Bash,Normal,The user prepares on turn one raising its Defense by 1 stage and becoming uncontrollable and then attacks on turn two
+Sky Attack,Flying,The user prepares on turn one becoming uncontrollable and then attacks on turn two
+Slam,Normal,Damages the target
+Slash,Normal,Has a high critical hit ratio
+Sleep Powder,Grass,Puts the target to sleep
+Sleep Talk,Normal,Does nothing if the user is awake. If the user asleep it randomly performs one of its attacks. If Rest is selected user recovers its HP and stays asleep for two more turns. Sleep Talk can choose an attack that has run out of PP; the generated attacks also do not cost PP and it cannot generate itself Bide Disabled attacks or two-turn attacks with a charge-up turn like Fly or Skull Bash. (Moves with a recharge turn like Hyper Beam can be generated
+Sludge,Poison,Has a ~30% chance to poison the target
+Sludge Bomb,Poison,Has a ~30% chance to poison the target
+Smog,Poison,Has a ~40% chance to poison the target
+Smokescreen,Normal,Lowers the target's Accuracy by 1 stage
+Snore,Normal,Has a ~30% chance to make the target flinch; fails if user is awake
+Softboiled,Normal,Restores 1/2 of the user's max HP
+Solar Beam,Grass,The user prepares on turn one becoming uncontrollable and then attacks on turn two. During Sunny Day this move fires immediately; during Rain Dance this move has half power
+Sonic Boom,Normal,Always deals 20 points of damage
+Spark,Electric,Has a ~30% chance to paralyze the target
+Spider Web,Bug,Target unable to take movement actions for 3 turns. This effect ends at the beginning of the target's 4th turn after the use. Cannot be used if the target is already in a trap move (Mean Look or Spider Web)
+Spike Cannon,Normal,Attacks 2-5 times in one turn; if one of these attacks breaks a target's Substitute the target will take damage for the rest of the hits. This move has a 3/8 chance to hit twice a 3/8 chance to hit three times a 1/8 chance to hit four times and a 1/8 chance to hit five times
+Spikes,Ground,Damages opponents unless they are Flying-type every time they are switched in; saps 1/8 of the opponent's max HP
+Spite,Ghost,The target's most recent move is reduced by 2-5 PP; this fails if the target has not yet performed a move if the target's last move has run out of PP or if the target can only use Struggle
+Splash,Normal,Doesn't do anything (but we still love it)
+Spore,Grass,Puts the target to sleep
+Steel Wing,Steel,Has a ~10% chance to raise the user's Defense by 1 stage
+Stomp,Normal,Has a ~30% chance to make the target flinch; also retains its normal accuracy and gains doubled power against Minimized Pokemon
+Strength,Normal,Damages the target
+String Shot,Bug,Lowers the target's Speed by 1 stage
+Struggle,Normal,Used automatically when all of the user's other moves have run out of PP or are otherwise inaccessible. The user receives 1/4 recoil damage. Struggle is classified as a typeless move and will hit any Pokemon including Rock- Steel- and Ghost-type Pokemon for normal damage
+Stun Spore,Grass,Paralyzes the target
+Submission,Fighting,The user receives 1/4 recoil damage
+Substitute,Normal,The user takes one-fourth of its maximum HP to create a substitute; this move fails if the user does not have enough HP for this. Until the substitute is broken it receives damage from all attacks made by other Pokemon and shields the user from status effects and stat modifiers caused by other Pokemon. The user is still affected by Sandstorm and Attract from behind its Substitute. If a Substitute breaks from a hit during a multistrike move such as Fury Attack the user takes damage from the remaining strikes
+Sunny Day,Fire,Cancels all other weather moves. For 5 turns: freezing is prevented the power of Fire attacks is increased by 50% the power of Water attacks is decreased by 50% Solarbeam fires immediately Thunder becomes 50% accurate and the healing power of Morning Sun Synthesis and Moonlight is doubled
+Super Fang,Normal,This move halves the target's current HP
+Supersonic,Normal,Confuses the target
+Surf,Water,Damages the target. Attack in straight line starting in front of user?
+Swagger,Normal,Confuses the target and raises its Attack by 2 stages
+Sweet Kiss,Normal,Confuses the target
+Sweet Scent,Normal,Lowers the target's Evasion by 1 stage
+Swift,Normal,Ignores Evasion and Accuracy modifiers and never misses except against Protect Detect or a target in the middle of Dig or Fly
+Swords Dance,Normal,Raises the user's Attack by 2 stages
+Synthesis,Grass,The user recovers 1/4 of its max HP during the morning or night and 1/2 of its max HP during the day. For all three time periods healing is doubled during Sunny Day and halved during Rain Dance and Sandstorm
+Tackle,Normal,Damages the target
+Tail Whip,Normal,Lowers the target's Defense by 1 stage
+Take Down,Normal,The user receives 1/4 recoil damage
+Teleport,Psychic,Allows teleportation to any spot on map
+Thief,Dark,50% chance of getting $=enemy lvl*10 
+Thrash,Normal,The user attacks uncontrollably for 2-3 turns and then gets confused
+Thunder,Electric,Has a ~30% chance to paralyze the target. Has 50% accuracy during Sunny Day and 100% accuracy during Rain Dance. Also has normal accuracy against mid-air Pokemon have used Fly
+Thunder Wave,Electric,Paralyzes the target
+Thunderbolt,Electric,Has a ~10% chance to paralyze the target
+Thunder Punch,Electric,Has a ~10% chance to paralyze the target
+Thunder Shock,Electric,Has a ~10% chance to paralyze the target
+Toxic,Poison,The target is badly poisoned with the damage caused by poison doubling after each turn. However Toxic poisoning will revert to normal poisoning if the poisoned Pokemon is switched out
+Transform,Normal,The user morphs into a near-exact copy of the target. Stats stat modifiers type moves Hidden Power data and appearance are changed; the user's level and HP remain the same and each copied move receives only 5 PP. (If Transform is used by Ditto the effects of Metal Powder stop working after transformation
+Tri Attack,Normal,Has a ~20% chance to burn paralyze or freeze the target
+Triple Kick,Fighting,Attacks three times in one turn adding 10 BP for each kick. If a kick misses the move ends instantly; if one of the kicks breaks a target's Substitute the real Pokemon will take damage for the remaining kicks
+Twineedle,Bug,Strikes twice; if the first hit breaks the target's Substitute the real Pokemon will take damage from the second hit. Has a ~20% chance to poison the target  even if it is a Steel-type Pokemon
+Twister,Dragon,Has a ~20% chance to make the target flinch; power doubles while the target is in mid-air via Fly
+Vicegrip,Normal,Damages the target
+Vine Whip,Grass,Damages the target
+Vital Throw,Fighting,This move usually goes last. It ignores Evasion and Accuracy modifiers and never misses except against Protect Detect or a target in the middle of Dig or Fly
+Water Gun,Water,Damages the target
+Waterfall,Water,Damages the target
+Whirlpool,Water,Traps the target for 2-5 turns causing damage equal to 1/16 of its max HP each turn; this trapped effect can be broken by Rapid Spin. The target can still switch out if it uses Baton Pass
+Whirlwind,Normal,Escape from wild battles. In trainer battles will knock enemy back
+Wing Attack,Flying,Damages the target
+Withdraw,Water,Raises the user's Defense by 1 stage
+Wrap,Normal,Traps the target for 2-5 turns causing damage equal to 1/16 of its max HP each turn; this trapped effect can be broken by Rapid Spin. The target can still switch out if it uses Baton Pass
+Zap Cannon,Electric,Paralyzes the target

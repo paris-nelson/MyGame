@@ -1,0 +1,14 @@
+ID: 263
+Type: Kanto
+Event: N/A
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+PokeCenter,NONE
+PokeShop,NONE
+Use P.C.,NONE
+Enter Pewter Gym,EliteFourChampion
+Exit to Route 2,EliteFourChampion,39,17
+Exit to Route 3,EliteFourChampion,43,15
+End Menu

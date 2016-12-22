@@ -1,0 +1,15 @@
+ID: 250
+Type: Johto
+Event: N/A
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+PokeCenter,NONE
+PokeShop,NONE
+Use P.C.,NONE
+Enter Olivine Tower,FogBadge
+Enter Olivine Gym,StormBadge
+Exit to Route 39,FogBadge,26,16
+Exit to Route 40,FogBadge,22,19
+End Menu

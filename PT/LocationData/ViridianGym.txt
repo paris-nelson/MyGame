@@ -1,0 +1,15 @@
+ID: 288
+Type: Gym ViridianCity 39,27
+Event: ViridianGym
+Trainers: 
+EliteTrainer: 124 Gym Leader Blue 1200 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\GymLeaderBlue.png 8
+   Pokemon: 18 166 56 0 -1 70 false false null null Male [5 30 30, 248 35 35, 247 20 20, 155 30 30]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[166, 102, 96, 91, 91, 114]
+   Pokemon: 112 191 56 0 -1 70 false false null null Female [175 10 10, 55 10 10, 167 10 10, 76 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[191, 158, 147, 63, 63, 57]
+   Pokemon: 65 130 54 0 -1 70 false false null null Female [162 20 20, 152 10 10, 44 20 20, 161 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[130, 66, 61, 158, 104, 142]
+   Pokemon: 130 186 58 0 -1 70 false false null null Female [95 5 5, 229 20 20, 94 5 5, 240 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[186, 158, 104, 82, 129, 107]
+   Pokemon: 103 186 58 0 -1 70 false false null null Male [56 10 10, 214 5 5, 197 10 10, 97 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[186, 123, 111, 158, 88, 76]
+ End Trainer
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+End Menu

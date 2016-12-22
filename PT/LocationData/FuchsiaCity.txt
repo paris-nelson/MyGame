@@ -1,0 +1,15 @@
+ID: 269
+Type: Kanto
+Event: N/A
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+PokeCenter,NONE
+PokeShop,NONE
+Use P.C.,NONE
+Enter Fuchsia Gym,RainbowBadge
+Exit to Route 15,EliteFourChampion,77,47
+Exit to Route 18,EliteFourChampion,69,47
+Exit to Route 19,EliteFourChampion,73,49
+End Menu

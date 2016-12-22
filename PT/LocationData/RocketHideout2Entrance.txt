@@ -1,0 +1,8 @@
+ID: 294
+Type: TeamRocket
+Event: RivalEncounter4
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+End Menu

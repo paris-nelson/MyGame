@@ -1,0 +1,26 @@
+ID: 275
+Type: Gym GoldenrodCity 39,35
+Event: GoldenrodGym
+Trainers: 
+Trainer: 26 Beauty Victoria 120 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Beauty.png
+   Pokemon: 161 33 13 0 -1 70 false false null null Male [155 30 30, 40 40 40, 224 35 35, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[33, 18, 15, 15, 18, 11]
+   Pokemon: 161 33 13 0 -1 70 false false null null Male [155 30 30, 40 40 40, 224 35 35, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[33, 18, 15, 15, 18, 11]
+   Pokemon: 161 33 13 0 -1 70 false false null null Male [155 30 30, 40 40 40, 224 35 35, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[33, 18, 15, 15, 18, 11]
+   Pokemon: 39 54 13 0 -1 70 false false null null Female [146 35 35, 40 40 40, 183 15 15, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[54, 18, 11, 18, 12, 11]
+   Pokemon: 39 54 13 0 -1 70 false false null null Female [146 35 35, 40 40 40, 183 15 15, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[54, 18, 11, 18, 12, 11]
+   Pokemon: 39 54 13 0 -1 70 false false null null Male [146 35 35, 40 40 40, 183 15 15, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[54, 18, 11, 18, 12, 11]
+ End Trainer
+Trainer: 27 Beauty Samantha 660 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Beauty.png
+   Pokemon: 52 40 16 0 -1 70 false false null null Male [17 25 25, 82 40 40, 177 35 35, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[40, 21, 17, 19, 19, 35]
+   Pokemon: 52 40 16 0 -1 70 false false null null Male [17 25 25, 82 40 40, 177 35 35, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[40, 21, 17, 19, 19, 35]
+   Pokemon: 133 45 16 0 -1 70 false false null null Male [82 40 40, 174 15 15, 225 30 30, 224 35 35]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[45, 24, 22, 21, 27, 24]
+   Pokemon: 209 46 16 0 -1 70 false false null null Female [17 25 25, 25 20 20, 225 30 30, 176 10 10]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[46, 32, 22, 19, 19, 16]
+ End Trainer
+EliteTrainer: 28 Gym Leader Whitney 1200 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\GymLeaderWhitney.png 3
+   Pokemon: 162 61 18 0 -1 70 false false null null Female [78 15 15, 155 30 30, 40 40 40, 177 35 35]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[61, 34, 30, 23, 27, 39]
+   Pokemon: 35 55 18 0 -1 70 false false null null Male [49 10 10, 183 15 15, 58 5 5, 122 10 10]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[55, 23, 24, 29, 30, 20]
+ End Trainer
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+End Menu

@@ -1,0 +1,10 @@
+ID: 300
+Type: Kanto
+Event: N/A
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+Exit to Johto Region,NONE,114,39
+Exit to Route 27,RisingBadge,4,39
+End Menu

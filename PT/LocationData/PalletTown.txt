@@ -1,0 +1,13 @@
+ID: 261
+Type: Kanto
+Event: N/A
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+PokeCenter,NONE
+PokeShop,NONE
+Use P.C.,NONE
+Exit to Route 1,EliteFourChampion,39,40
+Exit to Route 21,EliteFourChampion,39,45
+End Menu

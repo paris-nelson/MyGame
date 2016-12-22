@@ -1,0 +1,8 @@
+127 Rival 0 0 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Rival.png 3
+   Pokemon: 19 31 13 0 -1 70 false false null null Female [96 15 15, 155 30 30, 225 30 30, 224 35 35]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[31, 20, 14, 12, 14, 24]
+   Pokemon: 41 34 13 0 -1 70 false false null null Female [17 25 25, 216 20 20, 105 15 15, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[34, 17, 14, 13, 16, 20]
+   Pokemon: 16 34 13 0 -1 70 false false null null Female [85 35 35, 174 15 15, 224 35 35, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[34, 17, 16, 14, 14, 20]
+   Pokemon: 179 38 13 0 -1 70 false false null null Female [234 30 30, 82 40 40, 224 35 35, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[38, 16, 16, 22, 17, 14]
+   Pokemon: 92 31 13 0 -1 70 false false null null Female [115 5 5, 203 10 10, 108 30 30, 97 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[31, 14, 13, 31, 14, 26]
+   Pokemon: 66 41 13 0 -1 70 false false null null Female [103 25 25, 73 30 30, 107 30 30, 112 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[41, 26, 18, 14, 14, 14]
+ End Trainer

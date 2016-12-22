@@ -1,0 +1,31 @@
+ID: 281
+Type: Gym VermilionCity 80,31
+Event: VermilionGym
+Trainers: 
+Trainer: 117 Gentleman Vincent 120 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Gentleman.png
+   Pokemon: 100 73 38 0 -1 70 false false null null Genderless [109 30 30, 171 20 20, 180 5 5, 198 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[73, 27, 41, 44, 44, 75]
+   Pokemon: 100 73 38 0 -1 70 false false null null Genderless [109 30 30, 171 20 20, 180 5 5, 198 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[73, 27, 41, 44, 44, 75]
+   Pokemon: 100 73 38 0 -1 70 false false null null Genderless [109 30 30, 171 20 20, 180 5 5, 198 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[73, 27, 41, 44, 44, 75]
+   Pokemon: 101 89 38 0 -1 70 false false null null Genderless [109 30 30, 171 20 20, 180 5 5, 198 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[89, 42, 56, 63, 63, 105]
+   Pokemon: 101 89 38 0 -1 70 false false null null Genderless [109 30 30, 171 20 20, 180 5 5, 198 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[89, 42, 56, 63, 63, 105]
+   Pokemon: 101 89 38 0 -1 70 false false null null Genderless [109 30 30, 171 20 20, 180 5 5, 198 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[89, 42, 56, 63, 63, 105]
+ End Trainer
+Trainer: 118 Gentleman Gregory 660 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\Gentleman.png
+   Pokemon: 25 69 38 0 -1 70 false false null null Female [5 30 30, 232 15 15, 187 20 20, 47 15 15]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[69, 44, 27, 41, 34, 68]
+   Pokemon: 25 69 38 0 -1 70 false false null null Male [5 30 30, 232 15 15, 187 20 20, 47 15 15]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[69, 44, 27, 41, 34, 68]
+   Pokemon: 81 63 38 0 -1 70 false false null null Genderless [221 20 20, 110 5 5, 231 20 20, 198 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[63, 30, 54, 71, 44, 37]
+   Pokemon: 81 63 38 0 -1 70 false false null null Genderless [221 20 20, 110 5 5, 231 20 20, 198 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[63, 30, 54, 71, 44, 37]
+   Pokemon: 82 82 38 0 -1 70 false false null null Male [237 10 10, 110 5 5, 231 20 20, 198 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[82, 49, 73, 91, 56, 56]
+   Pokemon: 180 96 38 0 -1 70 false false null null Male [33 40 40, 231 20 20, 234 30 30, 82 40 40]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[96, 45, 45, 63, 49, 38]
+ End Trainer
+EliteTrainer: 119 Gym Leader Lt. Surge 1200 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\GymLeaderLtSurge.png 8
+   Pokemon: 26 112 44 0 -1 70 false false null null Male [232 15 15, 155 30 30, 230 10 10, 231 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[112, 90, 59, 90, 81, 99]
+   Pokemon: 101 103 40 0 -1 70 false false null null Genderless [221 20 20, 178 10 10, 47 15 15, 180 5 5]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[103, 50, 66, 74, 74, 122]
+   Pokemon: 101 103 40 0 -1 70 false false null null Genderless [221 20 20, 178 10 10, 47 15 15, 180 5 5]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[103, 50, 66, 74, 74, 122]
+   Pokemon: 82 104 44 0 -1 70 false false null null Male [47 15 15, 221 20 20, 110 5 5, 251 5 5]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[104, 63, 94, 116, 72, 72]
+   Pokemon: 125 122 46 0 -1 70 false false null null Female [155 30 30, 230 10 10, 109 30 30, 233 15 15]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[122, 87, 63, 98, 89, 108]
+ End Trainer
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+End Menu

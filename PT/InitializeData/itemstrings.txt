@@ -1,0 +1,132 @@
+Potion,Potion,N,Restores 20 HP,Y
+Super Potion,Potion,N,Restores 50 HP,Y
+Hyper Potion,Potion,N,Restores 200 HP,Y
+Max Potion,Potion,N,Restores all HP,Y
+Full Restore,Potion,N,Restores all HP and cures all status conditions,Y
+Full Heal,Status Cure,N,Cures all status conditions,Y
+Antidote,Status Cure,N,Cures Poison,Y
+Paralyze,Status Cure,N,Cures Paralysis,Y
+Awakening,Status Cure,N,Cures Sleep,Y
+Burn Heal,Status Cure,N,Cures Burn,Y
+Ice Heal,Status Cure,N,Cures Frozen,Y
+Pokeball,Ball,N,Has a good chance of catching a wild pokemon,Y
+Friend Ball,Ball,N,Has a good chance of catching a wild pokemon and sets its happiness to 200,Y
+Great Ball,Ball,N,Has an improved chance of catching a wild pokemon,Y
+Ultra Ball,Ball,N,Has a great chance of catching a wild pokemon,Y
+Master Ball,Ball,N,Has a 100% chance of catching a wild pokemon,Y
+Repel,Repel,N,Prevents wild encounters with low level pokemon for 100 steps,N
+Super Repel,Repel,N,Prevents wild encounters with low level pokemon for 200 steps,N
+Max Repel,Repel,N,Prevents wild encounters with low level pokemon for 250 steps,N
+Revive,Revive,N,Returns a fainted pokemon to 50% of max health,Y
+Max Revive,Revive,N,Returns a fainted pokemon to max health,Y
+Smoke Ball,Escape,N,Guaranteed escape from wild encounter,Y
+Fire Stone,Stone,N,Triggers evolution in Vulpix/Growlithe/Eevee/Gloom,N
+Water Stone,Stone,N,Triggers evolution in Poliwhirl/Shellder/Staryu/Eevee,N
+Thunder Stone,Stone,N,Triggers evolution in Pikachu/Eevee,N
+Leaf Stone,Stone,N,Triggers evolution in Gloom/Weepinbell/Exeggcute/Sunkern,N
+Moon Stone,Stone,N,Triggers evolution in Nidorina/Nidorino/Clefairy/Jigglypuff,N
+Trade Stone,Stone,N,Triggers evolution in Kadabra/Machoke/Haunter,N
+Dragon Stone,Stone,N,Triggers evolution in Seadra,N
+King Stone,Stone,N,Triggers evolution in Slowpoke,N
+Metal Stone,Stone,N,Triggers evolution in Onix/Scyther,N
+Upgrade Stone,Stone,N,Triggers evolution in Porygon,N
+Ether,Ether,N,Restores 10 PP to one move,Y
+Max Ether,Ether,N,Restores all PP to one move,Y
+Elixir,Elixir,N,Restores 10 PP to all moves,Y
+Max Elixir,Elixir,N,Restores all PP to all moves,Y
+HP Up,Vitamin,N,Increases EVs for HP stat,N
+Protein,Vitamin,N,Increases EVs for Attack stat,N
+Iron,Vitamin,N,Increases EVs for Defense stat,N
+Calcium,Vitamin,N,Increases EVs for Special Attack stat,N
+Zinc,Vitamin,N,Increases EVs for Special Defense stat,N
+Carbos,Vitamin,N,Increases EVs for Speed stat,N
+PP Up,PP UP,N,Increases PP for move by 1,N
+PP Max,PP UP,N,Increases PP for move to max,N
+Rare Candy,Rare Candy,N,Increases level of a pokemon by 1,N
+TM01,TM,N,Move 54: Dynamicpunch,N
+TM02,TM,N,Move 88: Headbutt,N
+TM03,TM,N,Move 38: Curse,N
+TM04,TM,N,Move 171: Rollout,N
+TM05,TM,N,Move 166: Roar,N
+TM06,TM,N,Move 235: Toxic,N
+TM07,TM,N,Move 251: Zap Cannon,N
+TM08,TM,N,Move 168: Rock Smash,N
+TM09,TM,N,Move 151: Psych Up,N
+TM10,TM,N,Move 91: Hidden Power,N
+TM11,TM,N,Move 214: Sunny Day,N
+TM12,TM,N,Move 220: Sweet Scent,N
+TM13,TM,N,Move 195: Snore,N
+TM14,TM,N,Move 18: Blizzard,N
+TM15,TM,N,Move 95: Hyper Beam,N
+TM16,TM,N,Move 100: Icy Wind,N
+TM17,TM,N,Move 149: Protect,N
+TM18,TM,N,Move 157: Rain Dance,N
+TM19,TM,N,Move 80: Giga Drain,N
+TM20,TM,N,Move 59: Endure,N
+TM21,TM,N,Move 122: Metronome,N
+TM22,TM,N,Move 197: Solar Beam,N
+TM23,TM,N,Move 101: Iron Tail,N
+TM24,TM,N,Move 51: Dragonbreath,N
+TM25,TM,N,Move 230: Thunder,N
+TM26,TM,N,Move 55: Earthquake,N
+TM27,TM,N,Move 164: Return,N
+TM28,TM,N,Move 43: Dig,N
+TM29,TM,N,Move 152: Psychic,N
+TM30,TM,N,Move 181: Shadow Ball,N
+TM31,TM,N,Move 132: Mud Slap,N
+TM32,TM,N,Move 47: Double Team,N
+TM33,TM,N,Move 99: Ice Punch,N
+TM34,TM,N,Move 218: Swagger,N
+TM35,TM,N,Move 190: Sleep Talk,N
+TM36,TM,N,Move 192: Sludge Bomb,N
+TM37,TM,N,Move 175: Sandstorm,N
+TM38,TM,N,Move 64: Fire Blast,N
+TM39,TM,N,Move 221: Swift,N
+TM40,TM,N,Move 40: Defense Curl,N
+TM41,TM,N,Move 233: Thunder Punch,N
+TM42,TM,N,Move 52: Dream Eater,N
+TM43,TM,N,Move 42: Detect,N
+TM44,TM,N,Move 163: Rest,N
+TM45,TM,N,Move 8: Attract,N
+TM46,TM,N,Move 228: Thief,N
+TM47,TM,N,Move 206: Steel Wing,N
+TM48,TM,N,Move 65: Fire Punch,N
+TM49,TM,N,Move 77: Fury Cutter,N
+TM50,TM,N,Move 134: Nightmare,N
+HM01,HM,N,Move 39: Cut,N
+HM02,HM,N,Move 72: Fly,N
+HM03,HM,N,Move 217: Surf,N
+HM04,HM,N,Move 208: Strength,N
+HM05,HM,N,Move 71: Flash,N
+HM06,HM,N,Move 246: Whirlpool,N
+HM07,HM,N,Move 245: Waterfall,N
+Rematcher,Rematcher,N,Reactivates all trainers in the location of use (Will not affect gym leaders),N
+Cleanse Tag,Held,Y,Reduces wild encounters with low level pokemon while held,N
+Everstone,Held,Y,Prevents evolution while held,N
+Leftovers,Held,Y,Restores 1/12 of the holder's max hp each turn in battle,N
+Scope Lens,Held,Y,Increases the holder's critical hit chances,N
+Quick Claw,Held,Y,20% chance that the holder will go first in battle each turn cycle,N
+Focus Band,Held,Y,10% chance that the holder will survive a move that would reduce its HP to 0,N
+Amulet Coin,Held,Y,Doubles the prize money for a battle if the holder is a combatant,N
+King's Rock,Held,Y,Attacks used by the holder with no other affects have a 10% chance to cause flinching,N
+Incense,Breed,N,Used to breed two pokemon of the same species and opposite gender or a ditto and a female pokemon,N
+Dragon Fang,Type Boost,Y,Increases damage done by the holder's Dragon type attacks by 20%,N
+Metal Coat,Type Boost,Y,Increases damage done by the holder's Steel type attacks by 20%,N
+Black Belt,Type Boost,Y,Increases damage done by the holder's Fighting type attacks by 20%,N
+Black Glasses,Type Boost,Y,Increases damage done by the holder's Dark type attacks by 20%,N
+Charcoal,Type Boost,Y,Increases damage done by the holder's Fire type attacks by 20%,N
+Hard Stone,Type Boost,Y,Increases damage done by the holder's Rock type attacks by 20%,N
+Magnet,Type Boost,Y,Increases damage done by the holder's Electric type attacks by 20%,N
+Miracle Seed,Type Boost,Y,Increases damage done by the holder's Grass type attacks by 20%,N
+Mystic Water,Type Boost,Y,Increases damage done by the holder's Water type attacks by 20%,N
+Never-Melt Ice,Type Boost,Y,Increases damage done by the holder's Ice type attacks by 20%,N
+Pink Bow,Type Boost,Y,Increases damage done by the holder's Normal type attacks by 15%,N
+Poison Barb,Type Boost,Y,Increases damage done by the holder's Poison type attacks by 20%,N
+Sharp Beak,Type Boost,Y,Increases damage done by the holder's Flying type attacks by 20%,N
+Silver Powder,Type Boost,Y,Increases damage done by the holder's Bug type attacks by 20%,N
+Soft Sand,Type Boost,Y,Increases damage done by the holder's Ground type attacks by 20%,N
+Spell Tag,Type Boost,Y,Increases damage done by the holder's Ghost type attacks by 20%,N
+Twisted Spoon,Type Boost,Y,Increases damage done by the holder's Psychic type attacks by 20%,N
+Mewtwo,Pokemon,N,150,N
+Mew,Pokemon,N,151,N
+Celebi,Pokemon,N,251,N

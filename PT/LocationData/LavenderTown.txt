@@ -1,0 +1,14 @@
+ID: 265
+Type: Kanto
+Event: N/A
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+PokeCenter,NONE
+PokeShop,NONE
+Use P.C.,NONE
+Exit to Route 8,EliteFourChampion,103,23
+Exit to Route 10,EliteFourChampion,107,20
+Exit to Route 12,EliteFourChampion,107,25
+End Menu

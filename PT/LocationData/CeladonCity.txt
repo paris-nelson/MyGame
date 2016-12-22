@@ -1,0 +1,14 @@
+ID: 268
+Type: Kanto
+Event: N/A
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+PokeCenter,NONE
+PokeShop,NONE
+Use P.C.,NONE
+Enter Celadon Gym,MarshBadge
+Exit to Route 7,EliteFourChampion,63,23
+Exit to Route 17,EliteFourChampion,55,23
+End Menu

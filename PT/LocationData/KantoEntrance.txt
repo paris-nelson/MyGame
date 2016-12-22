@@ -1,0 +1,10 @@
+ID: 299
+Type: Johto
+Event: N/A
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+Exit to Kanto Region,RisingBadge,4,39
+Exit to New Bark Town,NONE,114,39
+End Menu

@@ -1,0 +1,16 @@
+ID: 266
+Type: Kanto
+Event: N/A
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+PokeCenter,NONE
+PokeShop,NONE
+Use P.C.,NONE
+Enter Saffron Gym,ThunderBadge
+Exit to Route 5,EliteFourChampion,80,20
+Exit to Route 6,EliteFourChampion,80,25
+Exit to Route 7,EliteFourChampion,76,23
+Exit to Route 8,EliteFourChampion,84,23
+End Menu

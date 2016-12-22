@@ -1,0 +1,23 @@
+ID: 273
+Type: Gym VioletCity 66,19
+Event: VioletGym
+Trainers: 
+Trainer: 120 Bird Keeper Ken 120 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\BirdKeeper.png
+   Pokemon: 21 19 5 0 -1 70 false false null null Female [82 40 40, 139 35 35, null, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[19, 11, 8, 8, 8, 12]
+   Pokemon: 21 19 5 0 -1 70 false false null null Male [82 40 40, 139 35 35, null, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[19, 11, 8, 8, 8, 12]
+   Pokemon: 16 21 6 0 -1 70 false false null null Male [174 15 15, 224 35 35, null, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[21, 11, 10, 9, 9, 12]
+ End Trainer
+Trainer: 121 Bird Keeper Abe 480 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\BirdKeeper.png
+   Pokemon: 21 27 9 0 -1 70 false false null null Female [107 30 30, 82 40 40, 139 35 35, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[27, 16, 11, 11, 11, 18]
+ End Trainer
+Trainer: 122 Bird Keeper Rod 840 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\BirdKeeper.png
+   Pokemon: 16 23 7 0 -1 70 false false null null Male [174 15 15, 224 35 35, null, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[23, 12, 11, 10, 10, 13]
+   Pokemon: 16 23 7 0 -1 70 false false null null Female [174 15 15, 224 35 35, null, null]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[23, 12, 11, 10, 10, 13]
+ End Trainer
+EliteTrainer: 123 Gym Leader Falkner 1200 270 C:\Users\paris.nelson\Documents\PT\PT\Sprites\GymLeaderFalkner.png 1
+   Pokemon: 16 23 7 0 -1 70 false false null null Male [132 10 10, 224 35 35, null, null]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[23, 12, 11, 10, 10, 13]
+ End Trainer
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+End Menu

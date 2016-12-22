@@ -1,0 +1,15 @@
+ID: 246
+Type: Johto
+Event: N/A
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+PokeCenter,NONE
+PokeShop,NONE
+Use P.C.,NONE
+Enter Slowpoke Well,ZephyrBadge
+Enter Azalea Gym,RocketEncounterOneBeaten
+Exit to Route 33,InsectBadge,56,51
+Exit to Ilex Forest,InsectBadge,48,51
+End Menu

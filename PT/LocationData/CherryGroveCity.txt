@@ -1,0 +1,13 @@
+ID: 243
+Type: Johto
+Event: RivalEncounter1
+Trainers: 
+End Trainers
+Wild Pokemon: N/A
+Menu: 
+PokeCenter,NONE
+PokeShop,NONE
+Use P.C.,NONE
+Exit to Route 29,NONE,83,39
+Exit to Route 30,NONE,80,36
+End Menu
