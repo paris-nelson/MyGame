@@ -221,6 +221,7 @@ public class Pokemon {
 		}
 		return newstats;
 	}
+
 	
 	/**
 	 * The specific name of this pokemon. For the player's pokemon this is either given by the player or defaults to the generic name of the pokemon. For all other pokemon,

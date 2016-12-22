@@ -20,10 +20,13 @@ public class Unit {
 	private boolean hastakenaction;
 	private ArrayList<Type> types;//default to pokemon's types. Can only be changed by conversion 1 and 2
 	private boolean hasendedturn;
+	//tracks number of turns the unit has been afflicted by confuse, sleep other status conditions that care how many turns
+	private int numturnsafflicted;
+	
 	
 	public Unit(Pokemon pokemon){
 		this.pokemon=pokemon;
-		modstages=new int[7];
+		modstages=new int[8];
 		movementrange=Constants.MOVEMENT_RANGE_MIN+(pokemon.getStat(Stat.Speed)/Constants.SPEED_PER_UNIT_MOVEMENT_RANGE);
 		tconditions=new ArrayList<TempCondition>();
 		controllable=true;
@@ -32,10 +35,49 @@ public class Unit {
 		hastakenaction=false;
 		types=GameData.getPokeTypes(pokemon.getNum());
 		hasendedturn=false;
+		numturnsafflicted=0;
 	}
 	
 	public Pokemon getPokemon(){
 		return pokemon;
+	}
+	
+	public int getNumTurnsAfflicted(){
+		return numturnsafflicted;
+	}
+	
+	public void incNumTurnsAfflicted(){
+		numturnsafflicted++;
+	}
+	
+	public void resetNumTurnsAfflicted(){
+		numturnsafflicted=0;
+	}
+	
+	public boolean incCritRatio(int stages){
+		int stage=modstages[7];
+		if(stage==6)
+			return false;
+		stage+=stages;
+		if(stage>6)
+			stage=6;
+		modstages[7]=stage;
+		return true;
+	}
+	
+	public boolean decCritRatio(int stages){
+		int stage=modstages[7];
+		if(stage==0)
+			return false;
+		stage-=stages;
+		if(stage<0)
+			stage=0;
+		modstages[7]=stage;
+		return true;
+	}
+	
+	public int getCritRatio(){
+		return GameData.getCritRatio(modstages[7]);
 	}
 	
 	/**
@@ -45,21 +87,21 @@ public class Unit {
 	 * @param stat
 	 * @return: false if stat cannot be increased further, true otherwise
 	 */
-	public boolean incStat(int stages, String statstr){
+	public boolean incStat(int stages, Stat stat){
 		int index=-1;
-		if(statstr.equals("Attack"))
+		if(stat==Stat.Attack)
 			index=0;
-		else if(statstr.equals("Defense"))
+		else if(stat==Stat.Defense)
 			index=1;
-		else if(statstr.equals("Special Attack"))
+		else if(stat==Stat.SpAttack)
 			index=2;
-		else if(statstr.equals("Special Defense"))
+		else if(stat==Stat.SpDefense)
 			index=3;
-		else if(statstr.equals("Speed"))
+		else if(stat==Stat.Speed)
 			index=4;
-		else if(statstr.equals("Accuracy"))
+		else if(stat==Stat.Accuracy)
 			index=5;
-		else if(statstr.equals("Evasion"))
+		else if(stat==Stat.Evasion)
 			index=6;
 		int stage=modstages[index];
 		if(stage==6)
@@ -78,21 +120,21 @@ public class Unit {
 	 * @param stat
 	 * @return: false if stat cannot be decreased further, true otherwise
 	 */
-	public boolean decStat(int stages, String statstr){
+	public boolean decStat(int stages, Stat stat){
 		int index=-1;
-		if(statstr.equals("Attack"))
+		if(stat==Stat.Attack)
 			index=0;
-		else if(statstr.equals("Defense"))
+		else if(stat==Stat.Defense)
 			index=1;
-		else if(statstr.equals("Special Attack"))
+		else if(stat==Stat.SpAttack)
 			index=2;
-		else if(statstr.equals("Special Defense"))
+		else if(stat==Stat.SpDefense)
 			index=3;
-		else if(statstr.equals("Speed"))
+		else if(stat==Stat.Speed)
 			index=4;
-		else if(statstr.equals("Accuracy"))
+		else if(stat==Stat.Accuracy)
 			index=5;
-		else if(statstr.equals("Evasion"))
+		else if(stat==Stat.Evasion)
 			index=6;
 		int stage=modstages[index];
 		if(stage==-6)
@@ -104,6 +146,20 @@ public class Unit {
 		return true;
 	}
 	
+	public double getAccuracy(){
+		return GameData.getAccEvaStageMultiplier(Stat.Accuracy,modstages[5]);
+	}
+	
+	public double getEvasion(){
+		return GameData.getAccEvaStageMultiplier(Stat.Evasion,modstages[6]);
+	}
+	/**
+	 * Returns the functional stat of the unit. Note that these are the stats in this battle and not representative of
+	 * the innate stats. e.g. pokemon.getStat(Stat.HP) gives the max hp, but unit.getStat(Stat.HP) gives current
+	 * or if a (de)buff move has been used on a unit, it will impact the functional stat in that battle
+	 * @param stat
+	 * @return
+	 */
 	public int getStat(Stat stat){
 		if(stat==Stat.HP)
 			return pokemon.getStat(stat);
@@ -123,8 +179,8 @@ public class Unit {
 		else if(stat==Stat.Evasion)
 			index=7;
 		if(index<6)
-			return (int)(GameData.getStatStageMultiplier(modstages[index])*pokemon.getStats()[index]);
-		else return -1; //TODO
+			return (int)(GameData.getStatStageMultiplier(modstages[index-1])*pokemon.getStats()[index]);
+		else return -1; //TODO: multipliers for acc/evasion
 	}
 	
 	public int getMovementRange(){
@@ -212,6 +268,10 @@ public class Unit {
 	public void setType(Type type){
 		types.clear();
 		types.add(type);
+	}
+	
+	public ArrayList<Type> getTypes(){
+		return types;
 	}
 	
 	

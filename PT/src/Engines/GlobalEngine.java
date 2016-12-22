@@ -184,7 +184,8 @@ public class GlobalEngine {
 	 */
 	private static void useItemImpl(int itemid,Pokemon pokemon){
 		System.out.println("Using "+GameData.getItemName(itemid)+" on "+pokemon.getName());
-		PlayerData.removeItem(itemid,1);
+		if(!GameData.getItemName(itemid).startsWith("HM"))
+			PlayerData.removeItem(itemid,1);
 	}
 
 	public static void useItem(int itemid,Pokemon pokemon){

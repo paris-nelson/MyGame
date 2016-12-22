@@ -1,13 +1,15 @@
 package Objects;
 
 
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 
 import Engines.GlobalEngine;
 import Engines.MapEngine;
-import Enums.LocationName;
-import Enums.Requirement;
+import Enums.Stat;
+import Global.Constants;
+import Global.GameData;
 import Global.PlayerData;
 
 public class Helper {
@@ -17,9 +19,33 @@ public class Helper {
 	public static void main(String[] args) throws IOException{
 		GlobalEngine.initialize();
 		MapEngine.initialize(PlayerData.getLocation());
-		PlayerData.markRequirementMet(Requirement.FogBadge);
-		PlayerData.markRequirementMet(Requirement.RisingBadge);
-		PlayerData.addNewPokemon(new Pokemon(34,8));
+		
+		System.out.println(GameData.getAccEvaStageMultiplier(Stat.Accuracy, 4));
+		
+		
+//		File f=new File(Constants.PATH+"InitializeData\\accevastages.txt");
+//		PrintWriter writer=new PrintWriter(f);
+//		writer.println(1.0/3.0);
+//		writer.println(3.0/8.0);
+//		writer.println(3.0/7.0);
+//		writer.println(1.0/2.0);
+//		writer.println(3.0/5.0);
+//		writer.println(3.0/4.0);
+//		writer.println(1.0);
+//		writer.println(4.0/3.0);
+//		writer.println(5.0/3.0);
+//		writer.println(2.0/1.0);
+//		writer.println(7.0/3.0);
+//		writer.println(8.0/3.0);
+//		writer.println(3.0);
+//		writer.close();
+		
+		
+//		System.out.println(GameData.getTypeEffectivenessDamageMod(Type.Fire, Type.Water));
+//		System.out.println(GameData.getTypeEffectivenessDamageMod(Type.Normal, Type.Bug));
+//		System.out.println(GameData.getTypeEffectivenessDamageMod(Type.Normal, Type.Ghost));
+//		System.out.println(GameData.getTypeEffectivenessDamageMod(Type.Ice, Type.Dragon));
+		//PlayerData.addNewPokemon(new Pokemon(34,8));
 
 		
 

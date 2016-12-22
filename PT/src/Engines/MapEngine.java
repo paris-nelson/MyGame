@@ -34,6 +34,7 @@ public class MapEngine {
 	private static String playericonpath;
 	private static GImage playericon;
 	private static int repelstepsleft=0;
+	private static int movementspeed;
 
 	public static void initialize(Location l){
 		System.out.println("Initializing "+l.getName());
@@ -85,6 +86,10 @@ public class MapEngine {
 		GUI gui=GameData.getGUI();
 		MapType type=location.getType();
 		gui.add(new GImage(Constants.PATH+"Sprites\\"+location.getType()+".png"));
+		if(type==MapType.Johto||type==MapType.Kanto)
+			movementspeed=Constants.MAIN_MAP_MOVEMENT_SPEED;
+		else
+			movementspeed=Constants.SUB_MAP_MOVEMENT_SPEED;
 		//initial map load, just use the gridx/gridy coming from save file
 		if(initial)
 			gui.add(playericon,gridx*10+gridxoffset-playericon.getWidth()/2,gridy*10+gridyoffset-playericon.getHeight()/2);
@@ -105,13 +110,13 @@ public class MapEngine {
 			addIconToPosition(Short.valueOf(coordinates.getX()+""),Short.valueOf(coordinates.getY()+""));
 		}
 		loadLogicalMap(location);
-		System.out.println(logicalmap.length);
-		for(int y=0;y<logicalmap[0].length;y++){
-			for(int x=0;x<logicalmap.length;x++){
-				System.out.print(logicalmap[x][y]);
-			}
-			System.out.println();
-		}
+//		System.out.println(logicalmap.length);
+//		for(int y=0;y<logicalmap[0].length;y++){
+//			for(int x=0;x<logicalmap.length;x++){
+//				System.out.print(logicalmap[x][y]);
+//			}
+//			System.out.println();
+//		}
 	}
 	
 	public static void incRepelSteps(int num){
@@ -145,8 +150,10 @@ public class MapEngine {
 
 	private static void movePlayer(int xdelta,int ydelta){
 		playericon.move(xdelta,ydelta);
-		if(repelstepsleft>0)
-			repelstepsleft--;
+		if(repelstepsleft>=movementspeed)
+			repelstepsleft-=movementspeed;
+		else
+			repelstepsleft=0;
 		if(!DEBUG&&GameData.getRandom().nextInt(Constants.WILD_ENCOUNTER_RATE)==0){
 			Location ln=PlayerData.getLocation();
 			if(GameData.getRandom().nextInt(Constants.LEGEND_ENCOUNTER_RATE)==0&&(ln.getType()==MapType.Johto||ln.getType()==MapType.Kanto)){
@@ -181,9 +188,9 @@ public class MapEngine {
 	}
 
 	public static void moveLeft(){
-		if(gridxoffset>0){
-			movePlayer(-1,0);
-			gridxoffset--;
+		if(gridxoffset>=movementspeed){
+			movePlayer(-movementspeed,0);
+			gridxoffset-=movementspeed;
 		}
 		else if(gridx>0){
 			short nextid=logicalmap[gridx-1][gridy];
@@ -193,26 +200,26 @@ public class MapEngine {
 
 			//moving within same location, nothing special to do
 			if(nextid==GameData.getIDByLocationName(PlayerData.getLocation().getName())){
-				movePlayer(-1,0);
+				movePlayer(-movementspeed,0);
 				gridx--;
-				gridxoffset=9;
+				gridxoffset=Short.valueOf(""+(10-movementspeed-gridxoffset));
 			}
 			//moving to a new location
 			else if(nextid>=200){
 				LocationName newln=GameData.getLocationNameByID(nextid);
 				if(newln!=null&&PlayerData.hasMetRequirement(GameData.getLocationRequirement(newln))){
 					gridx--;
-					gridxoffset=9;
+					gridxoffset=Short.valueOf(""+(10-movementspeed-gridxoffset));
 					PlayerData.changeLocation(newln);
-					movePlayer(-1,0);
+					movePlayer(-movementspeed,0);
 					changeLocation();
 				}
 			}
 			//moving onto trainer, which means we're within the same location. Enter battle
 			else if(nextid<=Constants.NUM_TRAINERS){
-				movePlayer(-1,0);
+				movePlayer(-movementspeed,0);
 				gridx--;
-				gridxoffset=9;
+				gridxoffset=Short.valueOf(""+(10-movementspeed-gridxoffset));;
 				close();
 				GlobalEngine.enterBattle(PlayerData.getLocation().getTrainerByID(nextid));
 			}
@@ -220,9 +227,9 @@ public class MapEngine {
 	}
 
 	public static void moveRight(){
-		if(gridxoffset<9){
-			movePlayer(1,0);
-			gridxoffset++;
+		if(gridxoffset<(10-movementspeed)){
+			movePlayer(movementspeed,0);
+			gridxoffset+=movementspeed;
 		}
 		else if(gridx+1<logicalmap.length){
 			short nextid=logicalmap[gridx+1][gridy];
@@ -232,26 +239,26 @@ public class MapEngine {
 
 			//moving within same location, nothing special to do
 			if(nextid==GameData.getIDByLocationName(PlayerData.getLocation().getName())){
-				movePlayer(1,0);
+				movePlayer(movementspeed,0);
 				gridx++;
-				gridxoffset=0;
+				gridxoffset=Short.valueOf(""+(gridxoffset+movementspeed-10));
 			}
 			//moving to a new location
 			else if(nextid>=200){
 				LocationName newln=GameData.getLocationNameByID(nextid);
 				if(newln!=null&&PlayerData.hasMetRequirement(GameData.getLocationRequirement(newln))){
 					gridx++;
-					gridxoffset=0;
+					gridxoffset=Short.valueOf(""+(gridxoffset+movementspeed-10));
 					PlayerData.changeLocation(newln);
-					movePlayer(1,0);
+					movePlayer(movementspeed,0);
 					changeLocation();
 				}
 			}
 			//moving onto trainer, which means we're within the same location. Enter battle
 			else if(nextid<=Constants.NUM_TRAINERS){
-				movePlayer(1,0);
+				movePlayer(movementspeed,0);
 				gridx++;
-				gridxoffset=0;
+				gridxoffset=Short.valueOf(""+(gridxoffset+movementspeed-10));
 				close();
 				GlobalEngine.enterBattle(PlayerData.getLocation().getTrainerByID(nextid));
 			}
@@ -259,9 +266,9 @@ public class MapEngine {
 	}
 
 	public static void moveUp(){
-		if(gridyoffset>0){
-			movePlayer(0,-1);
-			gridyoffset--;
+		if(gridyoffset>=movementspeed){
+			movePlayer(0,-movementspeed);
+			gridyoffset-=movementspeed;
 		}
 		else if(gridy>0){
 			short nextid=logicalmap[gridx][gridy-1];
@@ -271,26 +278,26 @@ public class MapEngine {
 
 			//moving within same location, nothing special to do
 			if(nextid==GameData.getIDByLocationName(PlayerData.getLocation().getName())){
-				movePlayer(0,-1);
+				movePlayer(0,-movementspeed);
 				gridy--;
-				gridyoffset=9;
+				gridyoffset=Short.valueOf(""+(10-movementspeed-gridxoffset));
 			}
 			//moving to a new location
 			else if(nextid>=200){
 				LocationName newln=GameData.getLocationNameByID(nextid);
 				if(newln!=null&&PlayerData.hasMetRequirement(GameData.getLocationRequirement(newln))){
 					gridy--;
-					gridyoffset=9;
+					gridyoffset=Short.valueOf(""+(10-movementspeed-gridxoffset));
 					PlayerData.changeLocation(newln);
-					movePlayer(0,-1);
+					movePlayer(0,-movementspeed);
 					changeLocation();
 				}
 			}
 			//moving onto trainer, which means we're within the same location. Enter battle
 			else if(nextid<=Constants.NUM_TRAINERS){
-				movePlayer(0,-1);
+				movePlayer(0,-movementspeed);
 				gridy--;
-				gridyoffset=9;
+				gridyoffset=Short.valueOf(""+(10-movementspeed-gridxoffset));
 				close();
 				GlobalEngine.enterBattle(PlayerData.getLocation().getTrainerByID(nextid));
 			}
@@ -298,9 +305,9 @@ public class MapEngine {
 	}
 
 	public static void moveDown(){
-		if(gridyoffset<9){
-			movePlayer(0,1);
-			gridyoffset++;
+		if(gridyoffset<(10-movementspeed)){
+			movePlayer(0,movementspeed);
+			gridyoffset+=movementspeed;
 		}
 		else if(gridy+1<logicalmap[0].length){
 			short nextid=logicalmap[gridx][gridy+1];
@@ -309,26 +316,26 @@ public class MapEngine {
 				return;
 			//moving within same location, nothing special to do
 			if(nextid==GameData.getIDByLocationName(PlayerData.getLocation().getName())){
-				movePlayer(0,1);
+				movePlayer(0,movementspeed);
 				gridy++;
-				gridyoffset=0;
+				gridyoffset=Short.valueOf(""+(gridxoffset+movementspeed-10));
 			}
 			//moving to a new location
 			else if(nextid>=200){
 				LocationName newln=GameData.getLocationNameByID(nextid);
 				if(newln!=null&&PlayerData.hasMetRequirement(GameData.getLocationRequirement(newln))){
 					gridy++;
-					gridyoffset=0;
+					gridyoffset=Short.valueOf(""+(gridxoffset+movementspeed-10));;
 					PlayerData.changeLocation(newln);
-					movePlayer(0,1);
+					movePlayer(0,movementspeed);
 					changeLocation();
 				}
 			}
 			//moving onto trainer, which means we're within the same location. Enter battle
 			else if(nextid<=Constants.NUM_TRAINERS){
-				movePlayer(0,1);
+				movePlayer(0,movementspeed);
 				gridy++;
-				gridyoffset=0;
+				gridyoffset=Short.valueOf(""+(gridxoffset+movementspeed-10));;
 				close();
 				GlobalEngine.enterBattle(PlayerData.getLocation().getTrainerByID(nextid));
 			}
@@ -346,6 +353,7 @@ public class MapEngine {
 	public static void close(){
 		System.out.println("Closing map");
 		save();
+		PlayerData.save();
 		PlayerData.getLocation().leave();
 		clearMap();
 	}

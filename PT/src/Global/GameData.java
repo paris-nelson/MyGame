@@ -3,6 +3,8 @@ package Global;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -10,6 +12,7 @@ import Engines.GUI;
 import Enums.ItemType;
 import Enums.LocationName;
 import Enums.Requirement;
+import Enums.Stat;
 import Enums.Time;
 import Enums.Type;
 import Objects.IntPair;
@@ -39,6 +42,9 @@ public class GameData {
 	private static ArrayList<LocationName> locationnames=new ArrayList<LocationName>();
 	private static ArrayList<Requirement> locationreqs=new ArrayList<Requirement>();
 	private static double[] statstages=new double[13];
+	private static Map<Type,HashMap<Type,Double>> typechart=new HashMap<Type,HashMap<Type,Double>>();
+	private static int[] critstages=new int[7];
+	private static double[] accevastages=new double[13];
 	private static GUI gui;
 	private static Time time;
 
@@ -50,6 +56,28 @@ public class GameData {
 		File f;
 		Scanner s;
 		try{
+			f=new File("InitializeData\\accevastages.txt");
+			s=new Scanner(f);
+			for(int i=0;i<accevastages.length;i++){
+				accevastages[i]=Double.parseDouble(s.nextLine());
+			}
+			f=new File("InitializeData\\critstages.txt");
+			s=new Scanner(f);
+			System.out.println(f.exists());
+			for(int i=0;i<critstages.length;i++){
+				critstages[i]=Integer.parseInt(s.nextLine());
+			}
+			f=new File("InitializeData\\typechart.txt");
+			s=new Scanner(f);
+			Type[] typesordered={Type.Normal,Type.Fighting,Type.Flying,Type.Poison,Type.Ground,Type.Rock,Type.Bug,Type.Ghost,Type.Steel,Type.Fire,Type.Water,Type.Grass,Type.Electric,Type.Psychic,Type.Ice,Type.Dragon,Type.Dark};
+			for(int i=0;i<typesordered.length;i++){
+				HashMap<Type,Double> thistype=new HashMap<Type,Double>();
+				for(int j=0;j<typesordered.length;j++){
+					thistype.put(typesordered[j],s.nextDouble());
+				}
+				s.nextLine();
+				typechart.put(typesordered[i],thistype);
+			}
 			f=new File("InitializeData\\statstages.txt");
 			s=new Scanner(f);
 			for(int i=0;i<statstages.length;i++){
@@ -80,12 +108,6 @@ public class GameData {
 			s=new Scanner(f);
 			for(int i=1;i<itemlvls.length;i++){
 				itemlvls[i]=Integer.parseInt(s.nextLine());
-			}
-			s.close();
-			f=new File("InitializeData\\pokenames.txt");
-			s=new Scanner(f);
-			for(int i=1;i<pokenames.length;i++){
-				pokenames[i]=s.nextLine();
 			}
 			s.close();
 			f=new File("InitializeData\\bytm.txt");
@@ -244,33 +266,47 @@ public class GameData {
 		}
 		catch(Exception e){e.printStackTrace();}
 	}
-	
+
+	public static double getAccEvaStageMultiplier(Stat stat,int stage){
+		//maxed accuracy gets highest chance of hitting
+		if(stat==Stat.Accuracy)
+			return accevastages[stage+6];
+		//maxed evasion gets lowest chance of hitting
+		else if(stat==Stat.Evasion)
+			return accevastages[6-stage];
+		return 0;
+	}
+
+	public static int getCritRatio(int stage){
+		return critstages[stage];
+	}
+
 	public static double getStatStageMultiplier(int stage){
 		return statstages[stage+6];
 	}
-	
+
 	public static Time getTime(){
 		return time;
 	}
-	
+
 	public static GUI getGUI(){
 		return gui;
 	}
-	
+
 	public static LocationName getLocationNameByID(short id){
 		int index=locationids.indexOf(id);
 		if(index<0)
 			return null;
 		return locationnames.get(index);
 	}
-	
+
 	public static Requirement getLocationRequirement(LocationName ln){
 		int index=locationnames.indexOf(ln);
 		if(index<0)
 			return null;
 		return locationreqs.get(index);
 	}
-	
+
 	public static short getIDByLocationName(LocationName ln){
 		int index=locationnames.indexOf(ln);
 		if(index<0)
@@ -282,6 +318,9 @@ public class GameData {
 		return random;
 	}
 
+	public static double getTypeEffectivenessDamageMod(Type attacktype,Type targettype){
+		return typechart.get(attacktype).get(targettype);
+	}
 
 	public static int getMovePP(int movenum){
 		return movenums[movenum][0];
@@ -295,8 +334,8 @@ public class GameData {
 		return movenums[movenum][2];
 	}
 
-	public static int getMoveAccuracy(int movenum){
-		return movenums[movenum][3];
+	public static double getMoveAccuracy(int movenum){
+		return movenums[movenum][3]/100;
 	}
 
 	public static int getMoveNum(String movename){
@@ -311,8 +350,8 @@ public class GameData {
 		return movestrings[movenum][0];
 	}
 
-	public static String getMoveType(int movenum){
-		return movestrings[movenum][1];
+	public static Type getMoveType(int movenum){
+		return Type.valueOf(movestrings[movenum][1]);
 	}
 
 	public static String getMoveDescription(int movenum){
@@ -355,12 +394,24 @@ public class GameData {
 		}
 		return false;
 	}
-	
+
 	public static ArrayList<Integer> getMovesLearnedByLevel(int pokenum,int level){
 		return moveslearned[pokenum][level];
 	}
 
 	public static String getPokeName(int pokenum){
+		if(pokenames[pokenum]!=null)
+			return pokenames[pokenum];
+		try{
+			File f=new File("InitializeData\\pokenames.txt");
+			Scanner s=new Scanner(f);
+			for(int i=1;i<pokenames.length;i++){
+				pokenames[i]=s.nextLine();
+			}
+			s.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		return pokenames[pokenum];
 	}
 
@@ -373,7 +424,7 @@ public class GameData {
 		return toReturn;
 	}
 
-	public static int getPokeCatchRate(int pokenum){
+	public static int getCatchRate(int pokenum){
 		if(catchrates[pokenum]>0)
 			return catchrates[pokenum];
 		File f=new File(Constants.PATH+"InitializeData\\catchrates.txt");
@@ -440,7 +491,7 @@ public class GameData {
 	public static boolean isValidTM(int pokenum,int itemnum){
 		return validtms.get(pokenum).contains(itemnum);
 	}
-	
+
 	public static int getItemLevel(int itemnum){
 		return itemlvls[itemnum];
 	}
@@ -469,4 +520,5 @@ public class GameData {
 		}
 		return toReturn;
 	}
+
 }
