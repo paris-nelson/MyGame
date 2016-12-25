@@ -6,8 +6,10 @@ import java.io.IOException;
 import Engines.GlobalEngine;
 import Engines.MapEngine;
 import Enums.Stat;
+import Global.Constants;
 import Global.GameData;
 import Global.PlayerData;
+import acm.graphics.GImage;
 
 public class Helper {
 
@@ -19,6 +21,11 @@ public class Helper {
 		MapEngine.initialize(PlayerData.getLocation());
 		
 		System.out.println(GameData.getAccEvaStageMultiplier(Stat.Accuracy, 4));
+		for(int i=0;i<10;i++){
+			GImage rock=new GImage(Constants.PATH+"\\RockTile.png");
+			rock.setSize(56,56);
+			GameData.getGUI().add(rock,0,56*i);
+		}
 		
 		
 //		File f=new File(Constants.PATH+"InitializeData\\accevastages.txt");
