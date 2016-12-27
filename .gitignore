@@ -2,3 +2,4 @@
 PT/InitializeData/playersavefile.txt
 PT/InitializeData/mapsavefile.txt
 PT/.classpath
+*.class

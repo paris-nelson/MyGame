@@ -56,7 +56,7 @@ public class MapEngine {
 			gridyoffset=s.nextShort();
 			s.nextLine();
 			playericonpath=s.nextLine();
-			playericon=new GImage(playericonpath);
+			playericon=new GImage(Constants.PATH+playericonpath);
 			repelstepsleft=s.nextInt();
 			s.close();
 		}catch(Exception e){e.printStackTrace();}
