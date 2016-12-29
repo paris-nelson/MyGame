@@ -1,31 +1,32 @@
 package Objects;
 
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
 import Engines.GlobalEngine;
 import Engines.MapEngine;
-import Enums.Stat;
 import Global.Constants;
 import Global.GameData;
 import Global.PlayerData;
 import acm.graphics.GImage;
 
 public class Helper {
-
-
-
 	public static void main(String[] args) throws IOException{
 		System.out.println(System.getProperty("user.dir"));
 		GlobalEngine.initialize();
 		MapEngine.initialize(PlayerData.getLocation());
 		
-		System.out.println(GameData.getAccEvaStageMultiplier(Stat.Accuracy, 4));
 		for(int i=0;i<10;i++){
 			GImage rock=new GImage(Constants.PATH+"\\RockTile.png");
 			rock.setSize(56,56);
 			GameData.getGUI().add(rock,0,56*i);
 		}
+		
+		//TODO:continue implementing held items
 		
 		
 //		File f=new File(Constants.PATH+"InitializeData\\accevastages.txt");
@@ -560,40 +561,44 @@ public class Helper {
 		//		System.out.println(fast);
 
 
-		//		File f=new File("InitializeData\\levels.txt");
-		//		Scanner s=new Scanner(f);
-		//		int[] lootids=new int[Constants.NUM_ITEMS];
-		//		int[] lootlvls=new int[lootids.length];
-		//		for(int i=1;i<lootids.length;i++){
-		//			String line=s.nextLine();
-		//			lootids[i]=i;
-		//			lootlvls[i]=Integer.parseInt(line);
-		//		}
-		//		int n = lootlvls.length;
-		//		for (int j = 1; j < n; j++) {
-		//			int key = lootlvls[j];
-		//			int keyid=lootids[j];
-		//			int i = j-1;
-		//			while ( (i >0) && ( lootlvls[i] > key ) ) {
-		//				lootlvls[i+1] = lootlvls[i];
-		//				lootids[i+1] = lootids[i];
-		//				i--;
-		//			}
-		//			lootlvls[i+1] = key;
-		//			lootids[i+1]=keyid;
-		//		}
-		//		ArrayList<IntPair> changeindices=new ArrayList<IntPair>();
-		//		int lastval=0;
-		//		for(int i=1;i<lootlvls.length;i++){
-		//			if(lootlvls[i]!=lastval){
-		//				changeindices.add(new IntPair(lootlvls[i],i));
-		//				lastval=lootlvls[i];
-		//			}
-		//		}
-		//		System.out.println(Arrays.toString(lootids));
-		//		
-		//		//System.out.println(Arrays.toString(lootlvls));
-		//		System.out.println(changeindices);
-		//		System.out.println(changeindices.size());
+				
+	}
+	
+	private static void writeLootLevelsFile() throws IOException{
+		File f=new File(Constants.PATH+"\\InitializeData\\itemlvls.txt");
+		Scanner s=new Scanner(f);
+		int[] lootids=new int[Constants.NUM_ITEMS];
+		int[] lootlvls=new int[lootids.length];
+		for(int i=1;i<lootids.length;i++){
+			String line=s.nextLine();
+			lootids[i]=i;
+			lootlvls[i]=Integer.parseInt(line);
+		}
+		int n = lootlvls.length;
+		for (int j = 1; j < n; j++) {
+			int key = lootlvls[j];
+			int keyid=lootids[j];
+			int i = j-1;
+			while ( (i >0) && ( lootlvls[i] > key ) ) {
+				lootlvls[i+1] = lootlvls[i];
+				lootids[i+1] = lootids[i];
+				i--;
+			}
+			lootlvls[i+1] = key;
+			lootids[i+1]=keyid;
+		}
+		ArrayList<IntPair> changeindices=new ArrayList<IntPair>();
+		int lastval=0;
+		for(int i=1;i<lootlvls.length;i++){
+			if(lootlvls[i]!=lastval){
+				changeindices.add(new IntPair(lootlvls[i],i));
+				lastval=lootlvls[i];
+			}
+		}
+		System.out.println(Arrays.toString(lootids));
+		
+		//System.out.println(Arrays.toString(lootlvls));
+		System.out.println(changeindices);
+		System.out.println(changeindices.size());
 	}
 }

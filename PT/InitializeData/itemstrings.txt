@@ -19,7 +19,7 @@ Super Repel,Repel,N,Prevents wild encounters with low level pokemon for 200 step
 Max Repel,Repel,N,Prevents wild encounters with low level pokemon for 250 steps,N
 Revive,Revive,N,Returns a fainted pokemon to 50% of max health,Y
 Max Revive,Revive,N,Returns a fainted pokemon to max health,Y
-Smoke Ball,Escape,N,Guaranteed escape from wild encounter,Y
+XP Share,XPShare,Y,The holder gets an even share of XP from all defeated pokemon in battle as long as they are not fainted,N
 Fire Stone,Stone,N,Triggers evolution in Vulpix/Growlithe/Eevee/Gloom,N
 Water Stone,Stone,N,Triggers evolution in Poliwhirl/Shellder/Staryu/Eevee,N
 Thunder Stone,Stone,N,Triggers evolution in Pikachu/Eevee,N
@@ -106,9 +106,9 @@ Everstone,Held,Y,Prevents evolution while held,N
 Leftovers,Held,Y,Restores 1/12 of the holder's max hp each turn in battle,N
 Scope Lens,Held,Y,Increases the holder's critical hit chances,N
 Quick Claw,Held,Y,20% chance that the holder will go first in battle each turn cycle,N
-Focus Band,Held,Y,10% chance that the holder will survive a move that would reduce its HP to 0,N
+Focus Band,Held,Y,20% chance that the holder will survive a move that would reduce its HP to 0,N
 Amulet Coin,Held,Y,Doubles the prize money for a battle if the holder is a combatant,N
-King's Rock,Held,Y,Attacks used by the holder with no other affects have a 10% chance to cause flinching,N
+King's Rock,Held,Y,Attacks used by the holder with no other effects have a 10% chance to cause flinching,N
 Incense,Breed,N,Used to breed two pokemon of the same species and opposite gender or a ditto and a female pokemon,N
 Dragon Fang,Type Boost,Y,Increases damage done by the holder's Dragon type attacks by 20%,N
 Metal Coat,Type Boost,Y,Increases damage done by the holder's Steel type attacks by 20%,N

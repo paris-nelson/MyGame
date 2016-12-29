@@ -154,7 +154,10 @@ public class MapEngine {
 			repelstepsleft-=movementspeed;
 		else
 			repelstepsleft=0;
-		if(!DEBUG&&GameData.getRandom().nextInt(Constants.WILD_ENCOUNTER_RATE)==0){
+		int modifier=1;
+		if(PlayerData.getLeadingPokemon().isHolding("Cleanse Tag"))
+			modifier=3;
+		if(!DEBUG&&GameData.getRandom().nextInt(Constants.WILD_ENCOUNTER_RATE*modifier)==0){
 			Location ln=PlayerData.getLocation();
 			if(GameData.getRandom().nextInt(Constants.LEGEND_ENCOUNTER_RATE)==0&&(ln.getType()==MapType.Johto||ln.getType()==MapType.Kanto)){
 				ArrayList<Integer> validids=new ArrayList<Integer>();

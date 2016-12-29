@@ -6,6 +6,9 @@ import Engines.BattleEngine;
 import Engines.InventoryEngine;
 import Engines.MenuEngine;
 import Enums.MoveMenuMode;
+import Enums.TempCondition;
+import Global.GameData;
+import Objects.Move;
 import Objects.Unit;
 
 public class UnitMenu implements Menu {
@@ -15,10 +18,12 @@ public class UnitMenu implements Menu {
 
 	public UnitMenu(Unit unit){
 		this.unit=unit;
-		if(!unit.hasMoved())
+		if(!unit.hasMoved()&&unit.canMove())
 			visibleoptions.add("Move");
 		if(!unit.hasTakenAction()){
+			if(unit.canAttack()){
 			visibleoptions.add("Attack");
+			}
 			visibleoptions.add("Use Item");
 		}
 		visibleoptions.add("End Turn");
@@ -46,6 +51,12 @@ public class UnitMenu implements Menu {
 			BattleEngine.move();
 		}
 		else if(visibleoptions.get(index).equals("Attack")){
+			if(unit.hasTempCondition(TempCondition.Encore)){
+				if(unit.getPrevMove().hasPP())
+					BattleEngine.attack(unit.getPrevMove());
+				else
+					BattleEngine.attack(new Move(GameData.getMoveNum("Struggle")));
+			}
 			MenuEngine.initialize(new MoveMenu(unit.getPokemon(),MoveMenuMode.ATTACK));
 		}
 		else if(visibleoptions.get(index).equals("Use Item")){

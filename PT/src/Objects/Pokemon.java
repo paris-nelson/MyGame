@@ -98,7 +98,7 @@ public class Pokemon {
 	 */
 	private Pokemon(int num,int level,Move[] moveset,int trainerclass,boolean wild){
 		this.num=num;
-		name=GameData.getPokeName(num);
+		name=GameData.getName(num);
 		ivs=Pokemon.generateIVs(trainerclass);
 		evs=new int[6];
 		this.level=level;
@@ -477,6 +477,10 @@ public class Pokemon {
 		return heldid;
 	}
 	
+	public boolean isHolding(String item){
+		return GameData.getItemName(heldid).equals(item);
+	}
+	
 	/**
 	 * Removes the currently held item if one is present, and sets helditemboosttype to null
 	 */
@@ -598,7 +602,7 @@ public class Pokemon {
 		String temp=s.next();
 		if(Character.isDigit(temp.charAt(0))){
 			num=Integer.parseInt(temp);
-			name=GameData.getPokeName(num);
+			name=GameData.getName(num);
 		}
 		else{
 			name=temp;

@@ -76,7 +76,7 @@ public class GlobalEngine {
 		PlayerData.replacePokemonInParty(base,evolution);
 		//ArrayList<Pokemon> party=PlayerData.getParty();
 		//party.get(party.size()).incHappiness(Constants.HAPPINESS_GAINED_ON_EVOLUTION);
-		System.out.println(base.getName()+" evolved into a "+GameData.getPokeName(evolution.getNum()));
+		System.out.println(base.getName()+" evolved into a "+GameData.getName(evolution.getNum()));
 		return true;
 	}
 
@@ -100,6 +100,7 @@ public class GlobalEngine {
 			MapEngine.removeTrainerFromMap(defeated,PlayerData.getLocation().getID());
 		}
 		rewardLoot(defeated);
+		rewardMoney(defeated);
 		if(defeated.getName().equals("Rival")){
 			Location location=PlayerData.getLocation();
 			//trigger a cutscene?
@@ -113,8 +114,21 @@ public class GlobalEngine {
 			PlayerData.addNewPokemon(new Pokemon(7,5));
 		}
 	}
+	
+	private static void rewardMoney(Trainer defeated){
+		int highestlevel=defeated.getHighestLevel();
+		int base=Constants.PRIZE_MONEY_INCREMEMENT*defeated.getParty().length+Constants.PRIZE_MONEY_BASE;
+		int mod=1;
+		for(Pokemon p:PlayerData.getParty()){
+			if(p.isHolding("Amulet Coin")){
+				mod=2;
+				break;
+			}
+		}
+		PlayerData.gainMoney(highestlevel*base*mod);
+	}
 
-	public static void rewardLoot(Trainer defeated){
+	private static void rewardLoot(Trainer defeated){
 		ArrayList<Integer> loot=generateLoot(defeated);
 		for(Integer itemid:loot){
 			if(GameData.getItemType(itemid)==ItemType.POKEMON){
@@ -157,14 +171,6 @@ public class GlobalEngine {
 		//TODO
 		if(type==ItemType.BALL){
 
-		}
-		else if(type==ItemType.ESCAPE){
-			if(BattleEngine.currOpponent() instanceof WildTrainer){
-				BattleEngine.flee();
-				PlayerData.removeItem(itemid, 1);
-			}
-			else
-				System.out.println("Cannot escape from a trainer battle!");
 		}
 		else if(type==ItemType.REMATCHER){
 			PlayerData.getLocation().reactivateTrainers();
@@ -309,7 +315,7 @@ public class GlobalEngine {
 				}
 			}
 			else if(type==ItemType.BREED){
-				if(GameData.getPokeName(pokemon.getNum()).equals("Ditto"))
+				if(GameData.getName(pokemon.getNum()).equals("Ditto"))
 					System.out.println(GameData.getItemName(itemid)+" has no effect on "+pokemon.getName());
 				else
 					MenuEngine.initialize(new BreedMenu(pokemon));

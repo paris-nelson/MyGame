@@ -26,9 +26,9 @@ public class BreedMenu implements Menu {
 	private boolean viablePartner(Pokemon p){
 		if(p.equals(pokemon))
 			return false;
-		if(GameData.getPokeName(p.getNum()).equals("Ditto"))
+		if(GameData.getName(p.getNum()).equals("Ditto"))
 			return true;
-		if(GameData.getPokeName(p.getNum()).equals(GameData.getPokeName(pokemon.getNum()))
+		if(GameData.getName(p.getNum()).equals(GameData.getName(pokemon.getNum()))
 			&& p.getGender()!=pokemon.getGender())
 			return true;
 		return false;

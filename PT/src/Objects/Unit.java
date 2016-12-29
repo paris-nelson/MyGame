@@ -22,6 +22,9 @@ public class Unit {
 	private boolean hasendedturn;
 	//tracks number of turns the unit has been afflicted by confuse, sleep other status conditions that care how many turns
 	private int numturnsafflicted;
+	private boolean canmove;
+	private boolean canattack;
+	private Move prevmove;
 	
 	
 	public Unit(Pokemon pokemon){
@@ -33,9 +36,36 @@ public class Unit {
 		directionfacing=Direction.Down;
 		hasmoved=false;
 		hastakenaction=false;
-		types=GameData.getPokeTypes(pokemon.getNum());
+		types=GameData.getTypes(pokemon.getNum());
 		hasendedturn=false;
 		numturnsafflicted=0;
+		canmove=true;
+		canattack=true;
+		prevmove=null;
+	}
+	
+	public Move getPrevMove(){
+		return prevmove;
+	}
+	
+	public void setPrevMove(Move m){
+		prevmove=m;
+	}
+	
+	public boolean canAttack(){
+		return canattack;
+	}
+	
+	public void setCanAttack(boolean newval){
+		canattack=newval;
+	}
+	
+	public boolean canMove(){
+		return canmove;
+	}
+	
+	public void setCanMove(boolean newval){
+		canmove=newval;
 	}
 	
 	public Pokemon getPokemon(){
@@ -77,6 +107,9 @@ public class Unit {
 	}
 	
 	public int getCritRatio(){
+		int stage=modstages[7];
+		if(pokemon.isHolding("Scope Lens")&&modstages[7]<5)
+			modstages[7]=stage+2;
 		return GameData.getCritRatio(modstages[7]);
 	}
 	
@@ -157,6 +190,8 @@ public class Unit {
 	 * Returns the functional stat of the unit. Note that these are the stats in this battle and not representative of
 	 * the innate stats. e.g. pokemon.getStat(Stat.HP) gives the max hp, but unit.getStat(Stat.HP) gives current
 	 * or if a (de)buff move has been used on a unit, it will impact the functional stat in that battle
+	 * 
+	 * This method should only be used for 6 primary stats, otherwise use getAccuracy, getEvasion, or getCritRatio
 	 * @param stat
 	 * @return
 	 */
@@ -180,7 +215,7 @@ public class Unit {
 			index=7;
 		if(index<6)
 			return (int)(GameData.getStatStageMultiplier(modstages[index-1])*pokemon.getStats()[index]);
-		else return -1; //TODO: multipliers for acc/evasion
+		else return -1;
 	}
 	
 	public int getMovementRange(){
@@ -189,12 +224,24 @@ public class Unit {
 	
 	/**
 	 * Attempts to inflict the given volatile status condition on the unit. If it already has that condition, the method fails
+	 * If unit already has a trap condition, it cannot be caught in a damage trap and vice-versa
 	 * @param newcondition
 	 * @return: false if unit already has the condition, true otherwise
 	 */
 	public boolean addTempCondition(TempCondition newcondition){
 		if(tconditions.contains(newcondition))
 			return false;
+		else if(newcondition==TempCondition.Confusion||newcondition==TempCondition.Encore||
+				newcondition==TempCondition.Trap||newcondition==TempCondition.DamageTrap||newcondition==TempCondition.PerishSong){
+			if(pokemon.getPcondition()!=null||tconditions.contains(TempCondition.Confusion)||
+					tconditions.contains(TempCondition.Encore)||tconditions.contains(TempCondition.Trap)||
+					tconditions.contains(TempCondition.DamageTrap)||tconditions.contains(TempCondition.PerishSong))
+				return false;
+			else{
+				tconditions.add(newcondition);
+				return true;
+			}
+		}
 		else
 			tconditions.add(newcondition);
 		return true;
@@ -272,6 +319,10 @@ public class Unit {
 	
 	public ArrayList<Type> getTypes(){
 		return types;
+	}
+	
+	public void damage(int damage){
+		pokemon.decHP(damage);
 	}
 	
 	

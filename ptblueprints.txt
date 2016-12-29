@@ -539,7 +539,7 @@ Gym leaders have level, give 1 item based off their level
  in addition to the loot based off their team.
 Gym leader level GLL= highest level of pokemon+badge# that they give and rolls 
  random item whose level is between GLL*2/3 (rounded up) and GLL. 1<=Badge#<=8
-Enemies give $=max level of enemy pokemon * (60+10*num enemy pokemon)
+Enemies give $=max level of enemy pokemon * (50+10*num enemy pokemon)
 ->All loot is given level, when team is beaten, take highest enemy level and roll 
  random item whose level is less than or equal to that level. For every two enemies 
  on enemy team over 1, do the same, but having the comparison level reduced by a third 
@@ -580,6 +580,8 @@ I may look into inflating some trainers to account for this.
 
 Would like to keep gym leaders same levels/pokemon as in video game, and balance the
 trainers/wild pokemon around that. 
+
+
 
 
 Rematches:
@@ -855,10 +857,5 @@ How to handle terrain movement
  tiles
 -fly/dig can be used as an extra movement action that also allows passing blockages but they can
  not stop mid blockage, must be able to cross it completely or not at all.
-
-
-
-
-
 
 

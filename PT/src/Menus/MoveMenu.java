@@ -86,7 +86,7 @@ public class MoveMenu implements Menu {
 				System.out.println(GameData.getMoveName(m.getNum())+" replaced with "+GameData.getMoveName(movenum));
 				InventoryEngine.cleanUp();
 			}
-			else if(mode==MoveMenuMode.ATTACK){
+			else if(mode==MoveMenuMode.ATTACK&&BattleEngine.isLegalMove(m)){
 				BattleEngine.attack(m);
 			}
 		}

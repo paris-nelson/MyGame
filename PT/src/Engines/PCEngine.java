@@ -53,7 +53,7 @@ public class PCEngine {
 					rect.setFillColor(Color.LIGHT_GRAY);
 				goptions.add(rect);
 				gmenu.add(rect);
-				GLabel label=new GLabel("#"+count+": "+GameData.getPokeName(count));
+				GLabel label=new GLabel("#"+count+": "+GameData.getName(count));
 				label.setFont(new Font("Times New Roman",Font.PLAIN,16));
 				gmenu.add(label,(rect.getWidth()-label.getWidth())/2+115*x,22+22*y-(rect.getHeight()-label.getHeight()));
 				count++;

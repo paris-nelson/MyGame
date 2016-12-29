@@ -162,9 +162,6 @@ public class InventoryEngine {
 			else if(type==ItemType.BALL){
 
 			}
-			else if(type==ItemType.ESCAPE){
-
-			}
 			else if(type==ItemType.REMATCHER){
 				InventoryEngine.close();
 				MapEngine.initialize(PlayerData.getLocation());
