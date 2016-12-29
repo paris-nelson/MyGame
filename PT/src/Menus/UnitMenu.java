@@ -60,7 +60,7 @@ public class UnitMenu implements Menu {
 			MenuEngine.initialize(new MoveMenu(unit.getPokemon(),MoveMenuMode.ATTACK));
 		}
 		else if(visibleoptions.get(index).equals("Use Item")){
-			InventoryEngine.initialize(true);
+			InventoryEngine.initialize();
 		}
 		else if(visibleoptions.get(index).equals("End Turn")){
 			BattleEngine.endTurn();

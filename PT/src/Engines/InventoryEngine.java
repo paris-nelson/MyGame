@@ -24,11 +24,9 @@ public class InventoryEngine {
 	private static int offset;
 	private static int focusindex;
 	private static int chosenid;
-	private static boolean battle;
 	private static GRect button;
 
-	public static void initialize(boolean inbattle){
-		battle=inbattle;
+	public static void initialize(){
 		screen=new GCompound();
 		offset=0;
 		focusindex=0;
@@ -60,7 +58,7 @@ public class InventoryEngine {
 		for(int i=1;i<Constants.NUM_ITEMS+1;i++){
 			int quantity=PlayerData.getItemQuantity(i);
 			if(quantity>0){
-				if((battle&&GameData.isUsableInBattle(i))||(!battle&&GameData.isUsableOutOfBattle(i))){
+				if((BattleEngine.isInBattle()&&GameData.isUsableInBattle(i))||(!BattleEngine.isInBattle()&&GameData.isUsableOutOfBattle(i))){
 					GCompound item=new GCompound();
 					GRect box=new GRect(200,50);
 					box.setFilled(true);
@@ -148,7 +146,7 @@ public class InventoryEngine {
 		if(focusindex==-1){
 			InventoryEngine.close();
 			//TODO: Change with logic to save/load battleengine
-			if(battle)
+			if(BattleEngine.isInBattle())
 				BattleEngine.initialize(BattleEngine.currOpponent());
 			else
 				MapEngine.initialize(PlayerData.getLocation());
@@ -172,7 +170,7 @@ public class InventoryEngine {
 				cleanUp();
 			}
 			else{
-				if(!battle)
+				if(!BattleEngine.isInBattle())
 					MenuEngine.initialize(new PartyMenu(PartyMenuMode.USE));
 				else
 					GlobalEngine.useItem(chosenid,BattleEngine.getActivePokemon());

@@ -16,6 +16,7 @@ import Global.GameData;
 import Global.PlayerData;
 import Menus.BreedMenu;
 import Menus.MoveMenu;
+import Menus.UnitMenu;
 import Objects.EliteTrainer;
 import Objects.Location;
 import Objects.Move;
@@ -192,6 +193,8 @@ public class GlobalEngine {
 		System.out.println("Using "+GameData.getItemName(itemid)+" on "+pokemon.getName());
 		if(!GameData.getItemName(itemid).startsWith("HM"))
 			PlayerData.removeItem(itemid,1);
+		if(BattleEngine.isInBattle())
+			MenuEngine.initialize(new UnitMenu(BattleEngine.getActiveUnit()));
 	}
 
 	public static void useItem(int itemid,Pokemon pokemon){

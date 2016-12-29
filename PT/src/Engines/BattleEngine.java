@@ -26,6 +26,7 @@ public class BattleEngine {
 	private static ArrayList<Integer> priorities;
 	private static int activeindex;
 	private static Unit activeunit;
+	private static boolean inbattle;
 
 	public static void initialize(Trainer newopponent){
 		//TODO: Add save/load feature. Either add resume feature for picking back up mid battle
@@ -33,6 +34,7 @@ public class BattleEngine {
 		//e.g. wipe save file at end of battle, initialize method uses save file to determine if new battle or not
 		//TODO: add xp gain logic
 		System.out.println("Initializing battle with "+newopponent.getName());
+		inbattle=true;
 		opponent=newopponent;
 		initUnits();
 		takeControl();
@@ -159,6 +161,23 @@ public class BattleEngine {
 				activeunit.setCanMove(false);
 			}
 		}
+		else if(activepokemon.getPcondition()==PermCondition.Paralysis){
+			if(GameData.getRandom().nextInt(100)<Constants.PARALYSIS_INACTION_CHANCE){
+				System.out.println(activepokemon.getName()+" is too paralyzed to do anything");
+				activeunit.setCanAttack(false);
+				activeunit.setCanMove(false);
+			}
+		}
+		if(activeunit.hasTempCondition(TempCondition.Attract)){
+			if(GameData.getRandom().nextInt(100)<Constants.ATTRACT_INACTION_CHANCE){
+				System.out.println(activepokemon.getName()+" is too infatuated to attack");
+				activeunit.setCanAttack(false);
+			}
+		}
+		if(activeunit.hasTempCondition(TempCondition.Flinch)){
+			System.out.println(activepokemon.getName()+" flinches");
+			activeunit.setCanAttack(false);
+		}
 		if(activeunit.hasTempCondition(TempCondition.Confusion)){
 			int turns=activeunit.getNumTurnsAfflicted();
 			//confusion can last 1-4 turns. 1/4 chance of ending after 1 turn, 1/3 after 2 turns, 1/2 after 3, 1/1 after 4. 
@@ -269,6 +288,11 @@ public class BattleEngine {
 
 	public static void close(){
 		System.out.println("Ending battle");
+		inbattle=false;
+	}
+	
+	public static boolean isInBattle(){
+		return inbattle;
 	}
 
 	public static Trainer currOpponent(){
@@ -346,6 +370,7 @@ public class BattleEngine {
 		//confusion turn count is only lowered by attacking turns. Pokemon can't avoid confusion by refusing to attack until it's over
 		if(activeunit.hasTempCondition(TempCondition.Confusion))
 			activeunit.incNumTurnsAfflicted();
+		MenuEngine.initialize(new UnitMenu(activeunit));
 	}
 
 	public static void endTurn(){
@@ -356,6 +381,7 @@ public class BattleEngine {
 
 	public static void move(){
 		//TODO:display movement range, allow input to traverse and select desired location then move unit to that location.
+		MenuEngine.initialize(new UnitMenu(activeunit));
 	}
 
 	public static Unit getActiveUnit(){
