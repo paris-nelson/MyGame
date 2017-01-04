@@ -121,44 +121,44 @@ public class BattleEngine {
 			System.out.println("to "+activepokemon.getCurrHP());
 		}
 		else if(pcondition==PermCondition.BadlyPoison){
-			activeunit.incNumTurnsAfflicted();
+			activeunit.incNumTurnsAfflicted(PermCondition.BadlyPoison.toString());
 			System.out.print(activepokemon.getName()+" loses hp from "+pcondition.toString()+": from "
 					+activepokemon.getCurrHP()+" ");
-			activepokemon.decHP(round(activeunit.getNumTurnsAfflicted()*Constants.BURN_POISON_HP_LOSS_RATE
+			activepokemon.decHP(round(activeunit.getNumTurnsAfflicted(PermCondition.BadlyPoison.toString())*Constants.BURN_POISON_HP_LOSS_RATE
 					*activepokemon.getStat(Stat.HP)));
 			System.out.println("to "+activepokemon.getCurrHP());
 		}
 		else if(pcondition==PermCondition.Frozen){
-			int turns=activeunit.getNumTurnsAfflicted();
+			int turns=activeunit.getNumTurnsAfflicted(PermCondition.Frozen.toString());
 			//freeze can last 1-4 turns. 1/4 chance of ending after 1 turn, 1/3 after 2 turns, 1/2 after 3, 1/1 after 4. 
-			if(turns>0&&GameData.getRandom().nextInt(100)<100/(Constants.FREEZE_MAX_TURNS+1-activeunit.getNumTurnsAfflicted())){
+			if(turns>0&&GameData.getRandom().nextInt(100)<100/(Constants.FREEZE_MAX_TURNS+1-activeunit.getNumTurnsAfflicted(PermCondition.Frozen.toString()))){
 				//thawed
 				System.out.println(activepokemon.getName()+" is no longer frozen after "+turns+" turns.");
-				activeunit.resetNumTurnsAfflicted();
+				activeunit.resetNumTurnsAfflicted(PermCondition.Frozen.toString());
 				activepokemon.removePcondition(PermCondition.Frozen);
 				activeunit.setCanMove(true);
 				activeunit.setCanAttack(true);
 			}
 			else{
 				System.out.println(activepokemon.getName()+" is still frozen after "+turns+" turns.");
-				activeunit.incNumTurnsAfflicted();
+				activeunit.incNumTurnsAfflicted(PermCondition.Frozen.toString());
 				activeunit.setCanMove(false);
 				activeunit.setCanAttack(false);
 			}
 		}
 		else if(pcondition==PermCondition.Sleep){
-			int turns=activeunit.getNumTurnsAfflicted();
+			int turns=activeunit.getNumTurnsAfflicted(PermCondition.Sleep.toString());
 			//sleep can last 1-4 turns. 1/4 chance of ending after 1 turn, 1/3 after 2 turns, 1/2 after 3, 1/1 after 4. 
-			if(turns>0&&GameData.getRandom().nextInt(100)<100/(Constants.SLEEP_MAX_TURNS+1-activeunit.getNumTurnsAfflicted())){
+			if(turns>0&&GameData.getRandom().nextInt(100)<100/(Constants.SLEEP_MAX_TURNS+1-activeunit.getNumTurnsAfflicted(PermCondition.Sleep.toString()))){
 				//awaken
 				System.out.println(activepokemon.getName()+" is no longer asleep after "+turns+" turns.");
-				activeunit.resetNumTurnsAfflicted();
+				activeunit.resetNumTurnsAfflicted(PermCondition.Sleep.toString());
 				activepokemon.removePcondition(PermCondition.Sleep);
 				activeunit.setCanMove(true);
 			}
 			else{
 				System.out.println(activepokemon.getName()+" is still asleep after "+turns+" turns.");
-				activeunit.incNumTurnsAfflicted();
+				activeunit.incNumTurnsAfflicted(PermCondition.Sleep.toString());
 				activeunit.setCanMove(false);
 			}
 		}
@@ -180,12 +180,12 @@ public class BattleEngine {
 			activeunit.setCanAttack(false);
 		}
 		if(activeunit.hasTempCondition(TempCondition.Confusion)){
-			int turns=activeunit.getNumTurnsAfflicted();
+			int turns=activeunit.getNumTurnsAfflicted(TempCondition.Confusion.toString());
 			//confusion can last 1-4 turns. 1/4 chance of ending after 1 turn, 1/3 after 2 turns, 1/2 after 3, 1/1 after 4. 
-			if(turns>0&&GameData.getRandom().nextInt(100)<100/(Constants.CONFUSE_MAX_TURNS+1-activeunit.getNumTurnsAfflicted())){
+			if(turns>0&&GameData.getRandom().nextInt(100)<100/(Constants.CONFUSE_MAX_TURNS+1-activeunit.getNumTurnsAfflicted(TempCondition.Confusion.toString()))){
 				//awaken
 				System.out.println(activepokemon.getName()+" is no longer confused after "+turns+" turns.");
-				activeunit.resetNumTurnsAfflicted();
+				activeunit.resetNumTurnsAfflicted(TempCondition.Confusion.toString());
 				activeunit.removeTcondition(TempCondition.Confusion);
 			}
 			else{
@@ -193,12 +193,15 @@ public class BattleEngine {
 			}
 		}
 		if(activeunit.hasTempCondition(TempCondition.Trap)||activeunit.hasTempCondition(TempCondition.DamageTrap)){
-			int turns=activeunit.getNumTurnsAfflicted();
+			TempCondition temp=TempCondition.Trap;
+			if(activeunit.hasTempCondition(TempCondition.DamageTrap))
+				temp=TempCondition.DamageTrap;
+			int turns=activeunit.getNumTurnsAfflicted(temp.toString());
 			//trap can last 2-5 turns. 1/4 chance of ending after 2 turns, 1/3 after 3 turns, 1/2 after 4, 1/1 after 5. 
-			if(turns>=Constants.TRAP_MIN_TURNS&&GameData.getRandom().nextInt(100)<100/(Constants.TRAP_MAX_TURNS+1-activeunit.getNumTurnsAfflicted())){
+			if(turns>=Constants.TRAP_MIN_TURNS&&GameData.getRandom().nextInt(100)<100/(Constants.TRAP_MAX_TURNS+1-activeunit.getNumTurnsAfflicted(temp.toString()))){
 				//break free
 				System.out.println(activepokemon.getName()+" is no longer trapped after "+turns+" turns.");
-				activeunit.resetNumTurnsAfflicted();
+				activeunit.resetNumTurnsAfflicted(temp.toString());
 				activeunit.setCanMove(true);
 				if(activeunit.hasTempCondition(TempCondition.Trap))
 					activeunit.removeTcondition(TempCondition.Trap);
@@ -207,7 +210,7 @@ public class BattleEngine {
 			}
 			else{
 				System.out.println(activepokemon.getName()+" is still trapped after "+turns+" turns.");
-				activeunit.incNumTurnsAfflicted();
+				activeunit.incNumTurnsAfflicted(temp.toString());
 				activeunit.setCanMove(false);
 				if(activeunit.hasTempCondition(TempCondition.DamageTrap)){
 					int damage=round(activepokemon.getStat(Stat.HP)*Constants.TRAP_HP_LOSS_RATE);
@@ -217,17 +220,17 @@ public class BattleEngine {
 			}
 		}
 		if(activeunit.hasTempCondition(TempCondition.Encore)){
-			int turns=activeunit.getNumTurnsAfflicted();
+			int turns=activeunit.getNumTurnsAfflicted(TempCondition.Encore.toString());
 			//encore can last 2-5 turns. 1/4 chance of ending after 2 turns, 1/3 after 3 turns, 1/2 after 4, 1/1 after 5. 
-			if(turns>=Constants.ENCORE_MIN_TURNS&&GameData.getRandom().nextInt(100)<100/(Constants.ENCORE_MAX_TURNS+1-activeunit.getNumTurnsAfflicted())){
+			if(turns>=Constants.ENCORE_MIN_TURNS&&GameData.getRandom().nextInt(100)<100/(Constants.ENCORE_MAX_TURNS+1-activeunit.getNumTurnsAfflicted(TempCondition.Encore.toString()))){
 				//break free
 				System.out.println(activepokemon.getName()+" is no longer encored after "+turns+" turns.");
-				activeunit.resetNumTurnsAfflicted();
+				activeunit.resetNumTurnsAfflicted(TempCondition.Encore.toString());
 				activeunit.removeTcondition(TempCondition.Encore);
 			}
 			else{
 				System.out.println(activepokemon.getName()+" is still encored after "+turns+" turns.");
-				activeunit.incNumTurnsAfflicted();
+				activeunit.incNumTurnsAfflicted(TempCondition.Encore.toString());
 			}
 		}
 		if(activepokemon.isHolding("Leftovers")){
@@ -261,9 +264,9 @@ public class BattleEngine {
 			System.out.println(activepokemon.getName()+" takes "+damage+" damage from leech seed");
 		}
 		if(activeunit.hasTempCondition(TempCondition.PerishSong)){
-			activeunit.incNumTurnsAfflicted();
-			System.out.println(activepokemon.getName()+" has "+(Constants.PERISH_SONG_TURNS-activeunit.getNumTurnsAfflicted())+" turns left of Perish Song");
-			if(activeunit.getNumTurnsAfflicted()==Constants.PERISH_SONG_TURNS){
+			activeunit.incNumTurnsAfflicted(TempCondition.PerishSong.toString());
+			System.out.println(activepokemon.getName()+" has "+(Constants.PERISH_SONG_TURNS-activeunit.getNumTurnsAfflicted(TempCondition.PerishSong.toString()))+" turns left of Perish Song".toString());
+			if(activeunit.getNumTurnsAfflicted(TempCondition.PerishSong.toString())==Constants.PERISH_SONG_TURNS){
 				activepokemon.decHP(activepokemon.getCurrHP());
 			}
 		}
@@ -399,7 +402,7 @@ public class BattleEngine {
 		activeunit.setHasTakenAction(true);
 		//confusion turn count is only lowered by attacking turns. Pokemon can't avoid confusion by refusing to attack until it's over
 		if(activeunit.hasTempCondition(TempCondition.Confusion))
-			activeunit.incNumTurnsAfflicted();
+			activeunit.incNumTurnsAfflicted(TempCondition.Confusion.toString());
 		MenuEngine.initialize(new UnitMenu(activeunit));
 	}
 	

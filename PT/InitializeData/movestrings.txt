@@ -58,7 +58,7 @@ Ember,Fire,Has a 10% chance to burn the target
 Encore,Normal,The target is forced to use its last attack for the next 2-6 turns. The effects of this move will end immediately if the target runs out of PP for the repeated attack
 Endure,Normal,Almost always goes first. The user is left with at least 1 HP following any attacks for one turn but the move's success rate halves with each consecutive use of Protect Detect or Endure
 Explosion,Normal,The Defense stat of other Pokemon is halved against this attack essentially doubling the move's base power; causes the user to faint
-Extreme Speed,Normal,20% increase speed 1 stage
+Extreme Speed,Normal,10% increase speed 2 stages
 Faint Attack,Dark,Ignores Evasion and Accuracy modifiers and never misses except against Protect Detect or a target in the middle of Dig or Fly
 False Swipe,Normal,Leaves the target with at least 1 HP
 Fire Blast,Fire,Has a 10% chance to burn the target
@@ -87,7 +87,7 @@ Harden,Normal,Raises the user's Defense by 1 stage
 Haze,Ice,Eliminates any stat modifiers from all active Pokemon
 Headbutt,Normal,Has a 30% chance to make the target flinch
 Heal Bell,Normal,Every Pokemon in the user's party is cured of status conditions
-Hi Jump Kick,Fighting,"If this attack misses the target the user receives 1/8 ""recoil"" damage of what it would have inflicted"
+Hi Jump Kick,Fighting,If this attack misses the target the user receives 1/8 recoil damage of what it would have inflicted
 Hidden Power,Normal,Varies in power and type depending on the user's IVs; maximum 70 BP. Will run off the user's Attack or Special Attack depending on type. Calculations here http://bulbapedia.bulbagarden.net/wiki/Hidden_Power_(move)/Calculation
 Horn Attack,Normal,Damages the target
 Horn Drill,Normal,Same mechanics as Fissure
@@ -99,7 +99,7 @@ Ice Beam,Ice,Has a 10% chance to freeze the target
 Ice Punch,Ice,Has a 10% chance to freeze the target
 Icy Wind,Ice,Lowers the target's Speed by 1 stage
 Iron Tail,Steel,Has a 30% chance to lower the target's Defense by 1 stage
-Jump Kick,Fighting,"If this attack misses the target the user receives 1/8 ""recoil"" damage of what it would have inflicted"
+Jump Kick,Fighting,If this attack misses the target the user receives 1/8 recoil damage of what it would have inflicted
 Karate Chop,Fighting,Has a high critical hit ratio
 Kinesis,Psychic,Lowers the target's Accuracy by 1 stage
 Leech Life,Bug,Restores the user's HP by 1/2 of the damage inflicted on the target
@@ -112,7 +112,7 @@ Lovely Kiss,Normal,Puts the target to sleep
 Low Kick,Fighting,Has a 30% chance to make the target flinch
 Mach Punch,Fighting,15% increase speed 1 stage
 Magnitude,Ground,Deals variable damage between 10 base power and 130 base power as well as double damage against Digging Pokemon http://bulbapedia.bulbagarden.net/wiki/Magnitude_(move)
-Mean Look,Normal,Target unable to take movement actions for 3 turns. This effect ends at the beginning of the target's 4th turn after the use. Cannot be used if the target is already in a trap move (Mean Look or Spider Web)
+Mean Look,Normal,Target unable to take movement actions for 2-5 turns
 Meditate,Psychic,Raises the user's Attack by 1 stage
 Mega Drain,Grass,Restores the user's HP by 1/2 of the damage inflicted on the target
 Mega Kick,Normal,Damages the target
@@ -152,7 +152,7 @@ Psych Up,Normal,The user copies all seven of the target's current stat modifiers
 Psychic,Psychic,Has a 10% chance to lower the target's Special Defense by 1 stage
 Psywave,Psychic,Randomly inflicts set damage between a minimum of 1 HP and a maximum of [1.5x the user's level] HP
 Pursuit,Dark,Does 1.5x damage if flanking
-Quick Attack,Normal,15% chance to raise speed 1 stage
+Quick Attack,Normal,10% chance to raise speed 1 stage
 Rage,Normal,The user's Attack rises by 1 stage if attacked before its next move
 Rain Dance,Water,Cancels all other weather moves. For 5 turns: the power of Water attacks is increased by 50% the power of Fire attacks is decreased by 50% Thunder becomes 100% accurate the power of Solarbeam is halved and the healing power of Morning Sun Synthesis and Moonlight is halved
 Rapid Spin,Normal,Removes Spikes and Leech Seed from the user's side of the field; also frees the user from Bind Clamp Fire Spin Whirlpool and Wrap. These side effects do not occur if the move misses or is used against Ghost-type Pokemon
@@ -161,9 +161,9 @@ Razor Wind,Normal,The user prepares on turn one becoming uncontrollable and then
 Recover,Normal,Restores 1/2 of the user's max HP
 Reflect,Psychic,All Pokemon in the user's party receive 1/2 damage from Physical attacks for 5 turns
 Rest,Psychic,The user is cured of status effects (and confusion) and recovers full HP but falls asleep for 2 turns
-Return,Normal,Power increases as user's happiness increases; maximum 102 BP. Probably not going to incorporate happiness may remove attack altogether 
+Return,Normal,Power increases as user's happiness increases; maximum 102 BP.
 Reversal,Fighting,Base power increases as the user's HP decreases
-Roar,Normal,Escape from wild battles. In trainer battles will knock enemy back
+Roar,Normal,Knock enemy back?
 Rock Slide,Rock,Has a 30% chance to make the target flinch
 Rock Smash,Fighting,Has a 50% chance to lower the target's Defense by 1 stage
 Rock Throw,Rock,Damages the target
@@ -197,7 +197,7 @@ Softboiled,Normal,Restores 1/2 of the user's max HP
 Solar Beam,Grass,The user prepares on turn one becoming uncontrollable and then attacks on turn two. During Sunny Day this move fires immediately; during Rain Dance this move has half power
 Sonic Boom,Normal,Always deals 20 points of damage
 Spark,Electric,Has a 30% chance to paralyze the target
-Spider Web,Bug,Target unable to take movement actions for 3 turns. This effect ends at the beginning of the target's 4th turn after the use. Cannot be used if the target is already in a trap move (Mean Look or Spider Web)
+Spider Web,Bug,Target unable to take movement actions for 2-5 turns??
 Spike Cannon,Normal,Attacks 2-5 times in one turn; if one of these attacks breaks a target's Substitute the target will take damage for the rest of the hits. This move has a 3/8 chance to hit twice a 3/8 chance to hit three times a 1/8 chance to hit four times and a 1/8 chance to hit five times
 Spikes,Ground,Damages opponents unless they are Flying-type every time they are switched in; saps 1/8 of the opponent's max HP
 Spite,Ghost,The target's most recent move is reduced by 2-5 PP; this fails if the target has not yet performed a move if the target's last move has run out of PP or if the target can only use Struggle

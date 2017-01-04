@@ -859,3 +859,31 @@ How to handle terrain movement
  not stop mid blockage, must be able to cross it completely or not at all.
 
 
+P = (48 * CurrentHP) ÷ MaxHP
+P	~HP%	Power
+P > 32	> 66%	20
+17 = P = 32	33% - 66%	40
+10 = P = 16	20% - 33%	80
+5 = P = 9	10% - 20%	100
+2 = P = 4	3% - 10%	150
+P = 1	< 3%	200
+
+flail formula
+
+
+So move itself will have a range, and some effects will have ranges.
+
+Moves can have types of ranges
+-Single square, within a valid range, unit selects a single square to use move on e.g. bubble
+ -Some of these may have effects that are AoE. For example, a move like move bomb selects a single square to be used on, but will
+  hit all units within 1 range of that impacted square.
+-Vector within a valid range, unit selects a horizontal/vertical/diagonal(?) line eminating from the user e.g. ancient power
+-AoE within a valid range, unit will impact all units within that range e.g. rapid spin hits all units within 1 range 
+-Moves without specified range, that is are either global affecting all units (haze), all friendly units (), or only user (belly drum)
+
+Effect ranges
+Unless one of below is specified, any effects will assume to hit target of the move.
+-AoE will hit all active(non-fainted) units within Range
+-Self will be applied to self
+-Friendly will be applied to all active(non-fainted) friendly units of user
+-Not sure there is a move with nonglobal range but global effect, but if so, Global will be applied to all active(non-fainted) units in battle

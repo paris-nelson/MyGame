@@ -1,39 +1,251 @@
-Type=HealthSteal,Percentage=50
+Type=HealthSteal
 Type=Nerf,Stat=Defense,Chance=10,Stages=1
-Type=Buff,Stat=Defense,Chance=100,Stages=2
+Type=Buff,Stat=Defense,Stages=2
 Type=HighCritRatio
-Type=Buff,Stat=Speed,Chance=100,Stages=2
-Type=Buff,Stat=SpecialDefense,Chance=100,Stages=2
+Type=Buff,Stat=Speed,Stages=2
+Type=Buff,Stat=SpecialDefense,Stages=2
 Type=SelfBuff,Stat=All,Chance=10,Stages=1
-Type=TConditioner,Condition=Attract,Chance=100
+Type=TConditioner,Condition=Attract
 Type=Nerf,Stat=Attack,Chance=10,Stage=1
-Type=MultiAttack,Times=2-5
-Type=Buff,Stat=Defense,Chance=100,Stages=2
+Type=MultiAttack
+Type=Buff,Stat=Defense,Stages=2
 Type=???
 Type=???
-Type=SelfBuff,Stat=Attack,Chance=100,Stages=Max;Type=HealthSac,Percentage=50
+Type=SelfBuff,Stat=Attack,Stages=Max;Type=HealthSac,Percentage=50
 Type=???
-Type=TConditioner,Condition=DamageTrap,Chance=100
+Type=TConditioner,Condition=DamageTrap
 Type=TConditioner,Condition=Flinch,Chance=30
 Type=PConditioner,Condition=Frozen,Chance=10
 Type=PConditioner,Condition=Paralysis,Chance=30
 Type=TConditioner,Condition=Flinch,Chance=10
-Type=MultiAttack,Times=2-5
-Type=MultiAttack,Times=2
+Type=MultiAttack
+Type=DoubleAttack
 Type=Nerf,Stat=Speed,Chance=10,Stages=1
 Type=Nerf,Stat=Speed,Chance=10,Stages=1
-Type=Nerf,Stat=Attack,Chance=100,Stages=2
-Type=TConditioner,Condition=DamageTrap,Chance=100
-Type=MultiAttack,Times=2-5
-Type=TConditioner,Condition=Confusion,Chance=100
+Type=Nerf,Stat=Attack,Stages=2
+Type=TConditioner,Condition=DamageTrap
+Type=MultiAttack
+Type=TConditioner,Condition=Confusion
 Type=TConditioner,Condition=Confusion,Chance=10
 Type=Nerf,Stat=Speed,Chance=10,Stages=1
 Type=???
 Type=???
-Type=Nerf,Stat=Speed,Chance=100,Stages=2
+Type=Nerf,Stat=Speed,Stages=2
 Type=???
 Type=HighCritRatio
 Type=HighCritRatio
 Type=Nerf,Stat=SpecialDefense,Chance=20,Stages=1
-Type=TConditioner,Condition=Curse,Chance=100;Type=HealthSac,Percentage=50
+Type=TConditioner,Condition=Curse;Type=HealthSac,Percentage=50
 Type=NONE
+Type=Buff,Stat=Defense,Stages=1;???
+???(add logic for destinybond something that tracks both units)
+???(add tempcondition detect/endure)
+???(add tempcondnition dig/fly)
+???(add tempcondition disabled)
+Type=TConditioner,Condition=Confuse,Chance=20
+Type=DoubleAttack
+Type=Buff,Stat=Evasion,Stages=1
+Type=Recoil,Percentage=25
+Type=MultiAttack
+Type=Invariant,Damage=40
+Type=PConditioner,Condition=Paralysis,Chance=30
+Type=HealthSteal;Type=Conditional,Condition=Asleep
+Type=NONE
+Type=TConditioner,Condition=Confusion
+???(add type for AOE moves?)(double damage against dig)
+Type=NONE
+Type=PConditioner,Condition=Burn,Chance=10
+Type=TConditioner,Condition=Encore
+???(add tempcondition detect/endure)
+Type=SelfDestruct
+Type=SelfBuff,Stat=Speed,Chance=10,Stages=2
+Type=Unmissable
+Type=CannotKill
+Type=PConditioner,Condition=Burn,Chance=10
+Type=PConditioner,Condition=Burn,Chance=10
+Type=TConditioner,Condition=DamageTrap
+Type=OneHitKO;???(can hit digging pokemon)
+Type=Variant
+Type=PConditioner,Condition=Burn,Chance=10;Type=PConditionCure,Condition=Frozen,Range=0;Type=IgnorePCondition,Condition=Frozen
+Type=PConditioner,Condition=Burn,Chance=10
+Type=Nerf,Stat=Accuracy,Stages=1
+???(add tcondition for dig/fly)
+Type=Buff,Stat=CritRatio,Stages=1
+Type=TConditioner,Condition=Foresight
+Type=Variant
+Type=MultiAttack
+Type=PowerIncrease
+Type=MultiAttack
+???(add tempcondition for futuresight)
+Type=HealthSteal
+Type=PConditioner,Condition=Paralysis
+Type=Nerf,Stat=Attack,Stages=1
+Type=Buff,Stat=SpecialAttack,Stages=1
+Type=OneHitKO
+???(double damage vs fly)
+Type=Buff,Stat=Defense,Stages=1
+Type=TConditionCure,Condition=All;???(reset stat stages to 0);???(aoe for all units)
+Type=TConditioner,Condition=Flinch,Chance=30
+Type=TConditionCure,Condition=All;Type=PConditionCure,Condition=All;???(aoe for all friendly units)
+Type=MissRecoil,Percentage=12
+???
+Type=NONE
+Type=OneHitKO
+Type=NONE
+Type=Recharge
+Type=TConditioner,Condition=Flinch,Chance=10
+Type=PConditioner,Condition=Asleep
+Type=PConditioner,Condition=Frozen,Chance=10
+Type=PConditioner,Condition=Frozen,Chance=10
+Type=Nerf,Stat=Speed,Stages=1
+Type=Nerf,Stat=Defense,Stages=1
+Type=MissRecoil,Percentage=12
+Type=HighCritRatio
+Type=Nerf,Stat=Accuracy,Stages=1
+Type=HealthSteal
+Type=TConditioner,Condition=LeechSeed
+Type=Nerf,Stat=Defense,Stages=1
+Type=PConditioner,Condition=Paralysis,Chance=30
+???(add light screen/ logic)
+???(add logic for lock-on someting that tracks both units)
+Type=PConditioner,Condition=Asleep
+Type=TConditioner,Condition=Flinch,Chance=30
+Type=SelfBuff,Stat=Speed,Chance=15,Stages=1
+Type=Variant;???(double damge against dig)
+Type=TConditioner,Condition=Trap
+Type=Buff,Stat=Attack,Stages=1
+Type=HealthSteal
+Type=NONE
+Type=NONE
+Type=NONE
+Type=SelfBuff,Stat=Attack,Chance=10,Stages=1
+Type=Metronome
+Type=Heal,Percentage=50
+Type=Mimic
+???same as lock-on (110)
+Type=Buff,Stat=Evasion,Stages=1
+???
+???
+???(add tcondition mist)
+Type=TimeHeal,Time=Night
+Type=TimeHeal,Time=Morning
+Type=Nerf,Stat=Accuracy,Stages=1
+Type=Variant
+Type=TConditioner,Condition=Nightmare;Type=Conditional,Condition=Asleep
+Type=Nerf,Stat=Accuracy,Chance=50,Stages=1
+???
+???
+???(add field to unit to track numtimes payday used)
+Type=NONE
+Type=TConditioner,Condition=PerishSong (or change to a destinybond type item that tracks both)
+???same as outrage (136)
+Type=MultiAttack
+Type=PConditioner,Condition=Poison
+Type=PConditioner,Condition=Poison,Chance=30
+Type=PConditioner,Condition=Poison
+Type=NONE
+Type=PConditioner,Condition=Frozen,Chance=10
+Type=Variant
+Type=???same as detect/endure
+Type=TConditioner,Condition=Confusion,Chance=10
+Type=???(shouldn't copy crit ratio)
+Type=Nerf,Stat=SpecialDefense,Chance=10,Stages=1
+Type=Variant
+Type=???(add logic for flanking)
+Type=SelfBuff,Stat=Speed,Chance=10,Stages=1
+Type=PowerIncrease???
+Type=Weather,Conditions=Rain
+Type=TConditionCure,Condition=Trap;Type=TConditionCure,Condition=DamageTrap,Target=Self
+Type=HighCritRatio
+Type=ChargeUp;Type=HighCritRatio
+Type=Heal,Percentage=50
+Type=???same as logic for light screen
+Type=Heal,Percentage=100;Type=PConditionCure,Condition=All;Type=TConditionCure,Condition=Confusion;Type=SelfPConditioner,Condition=Asleep
+Type=Variant
+Type=Variant
+Type=Knockback
+Type=TConditioner,Condition=Flinch,Chance=30
+Type=Nerf,Stat=Defense,Chance=50,Stages=1
+Type=NONE
+Type=TConditioner,Condition=Flinch,Chance=30
+Type=???
+Type=PConditioner,Condition=Burn,Chance=50;Type=PConditionCure,Condition=Frozen,Range=0;Type=IgnorePCondition,Condition=Frozen
+Type=??? (add tcondition safeguard)
+Type=Nerf,Stat=Accuracy,Stages=1
+Type=Weather,Conditions=Sand
+Type=Nerf,Stat=Speed,Stages=2
+Type=NONE
+Type=Nerf,Stat=Defense,Stages=2
+Type=Variant
+Type=SelfDestruct
+Type=Nerf,Stat=SpecialDefense,Chance=20,Stages=1
+Type=Buff,Stat=Attack,Stages=1
+Type=PConditioner,Condition=Asleep
+Type=???
+Type=ChargeUp;Type=SelfBuff,Stat=Defense,Stages=1
+Type=ChargeUp
+Type=NONE
+Type=HighCritRatio
+Type=PConditioner,Condition=Asleep
+Type=???;Type=Conditional,Condition=Asleep,Target=Self
+Type=PConditioner,Condition=Poison,Chance=30
+Type=PConditioner,Condition=Poison,Chance=30
+Type=PConditioner,Condition=Poison,Chance=40
+Type=Nerf,Stat=Accuracy,Stages=1
+Type=Conditional,Condition=Asleep,Target=Self;Type=TConditioner,Condition=Flinch,Chance=30
+Type=Heal,Percentage=50
+Type=ChargeUp
+Type=Invariant,Damage=20
+Type=PConditioner,Condition=Paralysis,Chance=30
+Type=TConditioner,Condition=Trap
+Type=MultiAttack
+Type=???can either be another damage trap, or could allow movement, but any unit that moves in spikes range take damage
+Type=???
+Type=NONE???
+Type=PConditioner,Condition=Asleep
+Type=SelfBuff,Stat=Defense,Chance=10,Stages=1
+Type=TConditioner,Condition=Flinch,Chance=30???normal acc and doubled power against minimize (might not implement)
+Type=NONE
+Type=Nerf,Stat=Speed,Stages=1
+Type=NONE
+Type=PConditioner,Condition=Paralysis
+Type=Recoil,Percentage=25
+Type=???
+Type=Weather,Conditions=Sun
+Type=???
+Type=TConditioner,Condition=Confusion
+Type=NONE
+Type=TConditioner,Condition=Confusion;Type=Buff,Stat=Attack,Stages=2
+Type=TConditioner,Condition=Confusion
+Type=Nerf,Stat=Evasion,Stage=1
+Type=Unmissable
+Type=Buff,Stat=Attack,Stages=2
+Type=TimeHeal,Time=Day
+Type=NONE
+Type=Nerf,Stat=Defense,Stages=1
+Type=Recoil,Percentage=25
+Type=???
+Type=???
+Type=???
+Type=PConditioner,Condition=Paralysis,Chance=30;??? (can hit flyers)
+Type=PConditioner,Condition=Paralysis
+Type=PConditioner,Condition=Paralysis,Chance=10
+Type=PConditioner,Condition=Paralysis,Chance=10
+Type=PConditioner,Condition=Paralysis,Chance=10
+Type=PConditioner,Condition=BadlyPoison
+Type=???
+Type=PConditioner,Condition=TriAttack,Chance=20
+Type=???
+Type=DoubleAttack
+Type=TConditioner,Condition=Flinch,Chance=20;??? (double vs flyers)
+Type=NONE
+Type=NONE
+Type=Unmissable
+Type=NONE
+Type=NONE
+Type=TConditioner,Condition=DamageTrap
+Type=Knockback
+Type=NONE
+Type=Buff,Stat=Defense,Stages=1
+Type=TConditioner,Condition=DamageTrap
+Type=PConditioner,Condition=Paralysis

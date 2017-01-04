@@ -1,6 +1,8 @@
 package Objects;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import Enums.Direction;
 import Enums.Stat;
@@ -13,15 +15,14 @@ public class Unit {
 	private Pokemon pokemon;
 	private int[] modstages;
 	private int movementrange;
-	private ArrayList<TempCondition> tconditions;
+	//list of temp conditions and number of turns that status has been active
+	private Map<String,Integer> tconditions;
 	private boolean controllable;
 	private Direction directionfacing;
 	private boolean hasmoved;
 	private boolean hastakenaction;
 	private ArrayList<Type> types;//default to pokemon's types. Can only be changed by conversion 1 and 2
 	private boolean hasendedturn;
-	//tracks number of turns the unit has been afflicted by confuse, sleep other status conditions that care how many turns
-	private int numturnsafflicted;
 	private boolean canmove;
 	private boolean canattack;
 	private Move prevmove;
@@ -32,14 +33,13 @@ public class Unit {
 		this.pokemon=pokemon;
 		modstages=new int[8];
 		movementrange=Constants.MOVEMENT_RANGE_MIN+(pokemon.getStat(Stat.Speed)/Constants.SPEED_PER_UNIT_MOVEMENT_RANGE);
-		tconditions=new ArrayList<TempCondition>();
+		tconditions=new HashMap<String,Integer>();
 		controllable=true;
 		directionfacing=Direction.Down;
 		hasmoved=false;
 		hastakenaction=false;
 		types=GameData.getTypes(pokemon.getNum());
 		hasendedturn=false;
-		numturnsafflicted=0;
 		canmove=true;
 		canattack=true;
 		prevmove=null;
@@ -83,16 +83,16 @@ public class Unit {
 		return pokemon;
 	}
 	
-	public int getNumTurnsAfflicted(){
-		return numturnsafflicted;
+	public int getNumTurnsAfflicted(String condition){
+		return tconditions.get(condition);
 	}
 	
-	public void incNumTurnsAfflicted(){
-		numturnsafflicted++;
+	public void incNumTurnsAfflicted(String condition){
+		tconditions.put(condition,tconditions.get(condition)+1);
 	}
 	
-	public void resetNumTurnsAfflicted(){
-		numturnsafflicted=0;
+	public void resetNumTurnsAfflicted(String condition){
+		tconditions.put(condition,0);
 	}
 	
 	public boolean incCritRatio(int stages){
@@ -240,26 +240,16 @@ public class Unit {
 	 * @return: false if unit already has the condition, true otherwise
 	 */
 	public boolean addTempCondition(TempCondition newcondition){
-		if(tconditions.contains(newcondition))
+		if(tconditions.containsKey(newcondition))
 			return false;
-		else if(newcondition==TempCondition.Confusion||newcondition==TempCondition.Encore||
-				newcondition==TempCondition.Trap||newcondition==TempCondition.DamageTrap||newcondition==TempCondition.PerishSong){
-			if(pokemon.getPcondition()!=null||tconditions.contains(TempCondition.Confusion)||
-					tconditions.contains(TempCondition.Encore)||tconditions.contains(TempCondition.Trap)||
-					tconditions.contains(TempCondition.DamageTrap)||tconditions.contains(TempCondition.PerishSong))
-				return false;
-			else{
-				tconditions.add(newcondition);
-				return true;
-			}
-		}
-		else
-			tconditions.add(newcondition);
+		else if((newcondition==TempCondition.Trap&&hasTempCondition(TempCondition.DamageTrap))||(newcondition==TempCondition.DamageTrap&&hasTempCondition(TempCondition.Trap)))
+			return false;
+		tconditions.put(newcondition.toString(),0);
 		return true;
 	}
 	
 	public boolean hasTempCondition(TempCondition condition){
-		return tconditions.contains(condition);
+		return tconditions.containsKey(condition);
 	}
 	
 	public void removeTconditions(){
@@ -272,7 +262,7 @@ public class Unit {
 	 * @return
 	 */
 	public boolean removeTcondition(TempCondition condition){
-		return tconditions.remove(condition);
+		return tconditions.remove(condition)!=null;
 	}
 	
 	public boolean isControllable(){

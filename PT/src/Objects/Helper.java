@@ -3,6 +3,7 @@ package Objects;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -16,15 +17,35 @@ import acm.graphics.GImage;
 
 public class Helper {
 	public static void main(String[] args) throws IOException{
-		System.out.println(System.getProperty("user.dir"));
+		
+		File f=new File(Constants.PATH+"\\InitializeData\\moveeffects.txt");
+		Scanner s=new Scanner(f);
+		ArrayList<String> lines=new ArrayList<String>();
+		int i=0;
+		while(s.hasNextLine()){
+			String line=s.nextLine();
+			i++;
+			if(GameData.getMovePower(i)!=-1)
+				line="Type=Damage,Range=;"+line;
+			lines.add(line);
+		}
+		
+		File f2=new File(Constants.PATH+"\\InitializeData\\moveeffects.txt");
+		PrintWriter writer=new PrintWriter(f2);
+		for(String line:lines){
+			writer.println(line);
+		}
+		writer.close();
+		
+//		System.out.println(System.getProperty("user.dir"));
 		GlobalEngine.initialize();
 		MapEngine.initialize(PlayerData.getLocation());
 		
-		for(int i=0;i<10;i++){
-			GImage rock=new GImage(Constants.PATH+"\\RockTile.png");
-			rock.setSize(56,56);
-			GameData.getGUI().add(rock,0,56*i);
-		}
+//		for(int i=0;i<10;i++){
+//			GImage rock=new GImage(Constants.PATH+"\\RockTile.png");
+//			rock.setSize(56,56);
+//			GameData.getGUI().add(rock,0,56*i);
+//		}
 		
 		//TODO:continue implementing held items
 		
