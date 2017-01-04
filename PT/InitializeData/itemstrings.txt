@@ -19,7 +19,7 @@ Super Repel,Repel,N,Prevents wild encounters with low level pokemon for 200 step
 Max Repel,Repel,N,Prevents wild encounters with low level pokemon for 250 steps,N
 Revive,Revive,N,Returns a fainted pokemon to 50% of max health,Y
 Max Revive,Revive,N,Returns a fainted pokemon to max health,Y
-XP Share,XPShare,Y,The holder gets an even share of XP from all defeated pokemon in battle as long as they are not fainted,N
+Exp Share,XPShare,Y,The holder gets an even share of XP from all defeated pokemon in battle as long as they are not fainted,N
 Fire Stone,Stone,N,Triggers evolution in Vulpix/Growlithe/Eevee/Gloom,N
 Water Stone,Stone,N,Triggers evolution in Poliwhirl/Shellder/Staryu/Eevee,N
 Thunder Stone,Stone,N,Triggers evolution in Pikachu/Eevee,N

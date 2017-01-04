@@ -71,13 +71,7 @@ public class GlobalEngine {
 		}
 		else
 			evolutionnum=GameData.getEvolutionNum(base.getNum(), condition);
-		Pokemon evolution=new Pokemon(base,evolutionnum);
-		evolution.incHappiness(Constants.HAPPINESS_GAINED_ON_EVOLUTION);
-		evolution.checkForMoveLearn();
-		PlayerData.replacePokemonInParty(base,evolution);
-		//ArrayList<Pokemon> party=PlayerData.getParty();
-		//party.get(party.size()).incHappiness(Constants.HAPPINESS_GAINED_ON_EVOLUTION);
-		System.out.println(base.getName()+" evolved into a "+GameData.getName(evolution.getNum()));
+		base.evolve(evolutionnum);
 		return true;
 	}
 
@@ -101,7 +95,8 @@ public class GlobalEngine {
 			MapEngine.removeTrainerFromMap(defeated,PlayerData.getLocation().getID());
 		}
 		rewardLoot(defeated);
-		rewardMoney(defeated);
+		if(! (defeated instanceof WildTrainer))
+			rewardMoney(defeated);
 		if(defeated.getName().equals("Rival")){
 			Location location=PlayerData.getLocation();
 			//trigger a cutscene?
@@ -126,12 +121,15 @@ public class GlobalEngine {
 				break;
 			}
 		}
+		System.out.println("Player gains "+(highestlevel*base*mod)+" money for beating "+defeated.getName());
 		PlayerData.gainMoney(highestlevel*base*mod);
 	}
 
 	private static void rewardLoot(Trainer defeated){
 		ArrayList<Integer> loot=generateLoot(defeated);
+		System.out.println("Loot awarded: ");
 		for(Integer itemid:loot){
+			System.out.println(GameData.getItemName(itemid));
 			if(GameData.getItemType(itemid)==ItemType.POKEMON){
 				int pokenum=Integer.parseInt(GameData.getItemDescription(itemid));
 				PlayerData.addNewPokemon(new Pokemon(pokenum,5));

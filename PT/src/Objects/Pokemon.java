@@ -14,6 +14,7 @@ import Enums.Stat;
 import Enums.Type;
 import Global.Constants;
 import Global.GameData;
+import Global.PlayerData;
 import Menus.MoveMenu;
 
 public class Pokemon {
@@ -253,9 +254,9 @@ public class Pokemon {
 			index=1;
 		else if(stat==Stat.Defense)
 			index=2;
-		else if(stat==Stat.SpAttack)
+		else if(stat==Stat.SpecialAttack)
 			index=3;
-		else if(stat==Stat.SpDefense)
+		else if(stat==Stat.SpecialDefense)
 			index=4;
 		else if(stat==Stat.Speed)
 			index=5;
@@ -301,9 +302,9 @@ public class Pokemon {
 			index=1;
 		else if(stat==Stat.Defense)
 			index=2;
-		else if(stat==Stat.SpAttack)
+		else if(stat==Stat.SpecialAttack)
 			index=3;
-		else if(stat==Stat.SpDefense)
+		else if(stat==Stat.SpecialDefense)
 			index=4;
 		else if(stat==Stat.Speed)
 			index=5;
@@ -478,7 +479,18 @@ public class Pokemon {
 	}
 	
 	public boolean isHolding(String item){
+		if(heldid==-1)
+			return false;
 		return GameData.getItemName(heldid).equals(item);
+	}
+	
+	public void evolve(int evolutionnum){
+		System.out.println(getName()+" evolved into a "+GameData.getName(evolutionnum));
+		num=evolutionnum;
+		checkForMoveLearn();
+		//TODO: Might need to remove this otherwise could end up in awkward scenario where Zubat Evolves into Golbat, triggering enough happiness to immediately
+		//evolve into Crobat. 
+		incHappiness(Constants.HAPPINESS_GAINED_ON_EVOLUTION);
 	}
 	
 	/**

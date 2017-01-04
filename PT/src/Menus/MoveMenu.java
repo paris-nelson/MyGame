@@ -87,7 +87,7 @@ public class MoveMenu implements Menu {
 				InventoryEngine.cleanUp();
 			}
 			else if(mode==MoveMenuMode.ATTACK&&BattleEngine.isLegalMove(m)){
-				BattleEngine.attack(m);
+				BattleEngine.useMove(m);
 			}
 		}
 		else if(mode==MoveMenuMode.ATTACK)

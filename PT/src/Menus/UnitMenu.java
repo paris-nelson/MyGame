@@ -48,14 +48,15 @@ public class UnitMenu implements Menu {
 	public void select(short index) {
 		MenuEngine.close();
 		if(visibleoptions.get(index).equals("Move")){
-			BattleEngine.move();
+			BattleEngine.win();
+			//BattleEngine.move();
 		}
 		else if(visibleoptions.get(index).equals("Attack")){
 			if(unit.hasTempCondition(TempCondition.Encore)){
 				if(unit.getPrevMove().hasPP())
-					BattleEngine.attack(unit.getPrevMove());
+					BattleEngine.useMove(unit.getPrevMove());
 				else
-					BattleEngine.attack(new Move(GameData.getMoveNum("Struggle")));
+					BattleEngine.useMove(new Move(GameData.getMoveNum("Struggle")));
 			}
 			MenuEngine.initialize(new MoveMenu(unit.getPokemon(),MoveMenuMode.ATTACK));
 		}

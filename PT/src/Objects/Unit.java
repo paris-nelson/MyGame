@@ -25,6 +25,7 @@ public class Unit {
 	private boolean canmove;
 	private boolean canattack;
 	private Move prevmove;
+	private ArrayList<Unit> attackedby;
 	
 	
 	public Unit(Pokemon pokemon){
@@ -42,6 +43,16 @@ public class Unit {
 		canmove=true;
 		canattack=true;
 		prevmove=null;
+		attackedby=new ArrayList<Unit>();
+	}
+	
+	public boolean attackedBy(Unit unit){
+		return attackedby.contains(unit);
+	}
+	
+	public void wasAttackedBy(Unit unit){
+		if(!attackedBy(unit))
+			attackedby.add(unit);
 	}
 	
 	public Move getPrevMove(){
@@ -126,9 +137,9 @@ public class Unit {
 			index=0;
 		else if(stat==Stat.Defense)
 			index=1;
-		else if(stat==Stat.SpAttack)
+		else if(stat==Stat.SpecialAttack)
 			index=2;
-		else if(stat==Stat.SpDefense)
+		else if(stat==Stat.SpecialDefense)
 			index=3;
 		else if(stat==Stat.Speed)
 			index=4;
@@ -159,9 +170,9 @@ public class Unit {
 			index=0;
 		else if(stat==Stat.Defense)
 			index=1;
-		else if(stat==Stat.SpAttack)
+		else if(stat==Stat.SpecialAttack)
 			index=2;
-		else if(stat==Stat.SpDefense)
+		else if(stat==Stat.SpecialDefense)
 			index=3;
 		else if(stat==Stat.Speed)
 			index=4;
@@ -203,9 +214,9 @@ public class Unit {
 			index=1;
 		else if(stat==Stat.Defense)
 			index=2;
-		else if(stat==Stat.SpAttack)
+		else if(stat==Stat.SpecialAttack)
 			index=3;
-		else if(stat==Stat.SpDefense)
+		else if(stat==Stat.SpecialDefense)
 			index=4;
 		else if(stat==Stat.Speed)
 			index=5;

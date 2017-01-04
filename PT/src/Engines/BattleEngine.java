@@ -16,6 +16,7 @@ import Objects.Move;
 import Objects.Pokemon;
 import Objects.Trainer;
 import Objects.Unit;
+import Objects.WildTrainer;
 
 public class BattleEngine {
 
@@ -76,7 +77,7 @@ public class BattleEngine {
 			}
 		}
 		//inserts from temp queue into front of priorities queue, slowest pushed in first and fastest put in last
-		for(int i=clawholders.size();i>=0;i--){
+		for(int i=clawholders.size()-1;i>=0;i--){
 			System.out.println(allunits.get(clawholders.get(i)).getPokemon().getName()+" is currently first in queue thanks to quick claw");
 			priorities.add(clawholders.get(i),0);
 		}
@@ -84,7 +85,7 @@ public class BattleEngine {
 
 	public static void nextTurn(){
 		System.out.println("Going to next turn");
-		if(getLiveUnits(punits)==0||getLiveUnits(ounits)==0)
+		if(getNumLiveUnits(punits)==0||getNumLiveUnits(ounits)==0)
 			battleOver();
 		activeindex++;
 		if(activeindex>=priorities.size()){
@@ -290,7 +291,7 @@ public class BattleEngine {
 		System.out.println("Ending battle");
 		inbattle=false;
 	}
-	
+
 	public static boolean isInBattle(){
 		return inbattle;
 	}
@@ -302,11 +303,11 @@ public class BattleEngine {
 	private static void battleOver(){
 		System.out.println("Battle Over.");
 		boolean playerwins=false;
-		if(getLiveUnits(ounits)==0){
+		if(getNumLiveUnits(ounits)==0){
 			playerwins=true;
 		}
 		//If somehow both player and opponent simultaneously have no pokemon (say Self-Destruct was used), player is considered to have lost.
-		if(getLiveUnits(punits)==0){
+		if(getNumLiveUnits(punits)==0){
 			playerwins=false;
 		}
 		if(playerwins)
@@ -314,13 +315,22 @@ public class BattleEngine {
 		else
 			lose();
 	}
+	
+	private static ArrayList<Unit> getLiveUnits(ArrayList<Unit> party){
+		ArrayList<Unit> live=new ArrayList<Unit>();
+		for(Unit u:party){
+			if(!u.getPokemon().isFainted())
+				live.add(u);
+		}
+		return live;
+	}
 
 	/**
 	 * Returns the number of non-fainted units from the given party. 
 	 * @param party
 	 * @return
 	 */
-	private static int getLiveUnits(ArrayList<Unit> party){
+	private static int getNumLiveUnits(ArrayList<Unit> party){
 		int count=0;
 		for(Unit u:party){
 			if(!u.getPokemon().isFainted())
@@ -329,8 +339,12 @@ public class BattleEngine {
 		return count;
 	}
 
-	private static void win(){
+	public static void win(){
+		System.out.println("Player won the battle against "+opponent.getName());
 		//TODO:
+		GlobalEngine.defeatedTrainer(opponent);
+		close();
+		MapEngine.initialize(PlayerData.getLocation());
 	}
 
 	private static void lose(){
@@ -353,24 +367,51 @@ public class BattleEngine {
 		MenuEngine.initialize(new UnitMenu(activeunit));
 	}
 
-	public static void attack(Move move){
+	public static void useMove(Move move){
 		System.out.println(activeunit.getPokemon().getName()+" using "+GameData.getMoveName(move.getNum()));
 		if(activeunit.hasTempCondition(TempCondition.Confusion)&&GameData.getRandom().nextBoolean()){
 			System.out.println(activeunit.getPokemon().getName()+" hit itself in its confusion");
 			activeunit.damage(calculateConfusionSelfHitDamage(activeunit));
 		}
 		else{
-			Unit target=null;
+			ArrayList<Unit> targets=null;
 			//TODO:
-			System.out.println(activeunit.getPokemon().getName()+" attacks "+target.getPokemon().getName()+" with "+GameData.getMoveName(move.getNum()));
-			target.damage(calculateDamage(activeunit,target,move.getNum()));
-			//TODO: endure/focus band logic
+			for(Unit target:targets){
+				System.out.println(activeunit.getPokemon().getName()+" attacks "+target.getPokemon().getName()+" with "+GameData.getMoveName(move.getNum()));
+				target.damage(calculateDamage(activeunit,target,move.getNum()));
+				//TODO: endure/focus band logic
+			}
+			//TODO: currently assuming enemy dies, therefore party gets xp, need to add logic to check if party member died, since enemies
+			//ai will also use this method to attack
+			for(Unit target:targets){
+				Pokemon targetpokemon=target.getPokemon();
+				if(targetpokemon.isFainted()){
+					ArrayList<Pokemon> xprecipients=new ArrayList<Pokemon>();
+					for(Unit unit:getLiveUnits(punits)){
+						Pokemon pokemon=unit.getPokemon();
+						if(pokemon.isHolding("Exp Share")||target.attackedBy(unit))
+							xprecipients.add(pokemon);
+					}
+					awardExperience(xprecipients,targetpokemon);
+				}
+			}
 		}
 		activeunit.setHasTakenAction(true);
 		//confusion turn count is only lowered by attacking turns. Pokemon can't avoid confusion by refusing to attack until it's over
 		if(activeunit.hasTempCondition(TempCondition.Confusion))
 			activeunit.incNumTurnsAfflicted();
 		MenuEngine.initialize(new UnitMenu(activeunit));
+	}
+	
+	private static void awardExperience(ArrayList<Pokemon> recipients,Pokemon giver){
+		double xpshare=GameData.getBaseExp(giver.getNum())*giver.getLevel();
+		if(!giver.isWild())
+			xpshare*=1.5;
+		xpshare/=recipients.size();
+		for(Pokemon p:recipients){
+			p.gainExp(round(xpshare));
+			System.out.println(p.getName()+" gains "+xpshare+" experience");
+		}
 	}
 
 	public static void endTurn(){
@@ -422,7 +463,7 @@ public class BattleEngine {
 		double parta=(2*attackerpokemon.getLevel()+10)/250;
 		double partb=0;
 		if(usesSpecial(movetype))
-			partb=attacker.getStat(Stat.SpAttack)/defender.getStat(Stat.SpDefense);
+			partb=attacker.getStat(Stat.SpecialAttack)/defender.getStat(Stat.SpecialDefense);
 		else
 			partb=attacker.getStat(Stat.Attack)/defender.getStat(Stat.Defense);
 		double partc=GameData.getMovePower(movenum);
