@@ -11,6 +11,7 @@ import java.util.Scanner;
 import Engines.GUI;
 import Enums.ItemType;
 import Enums.LocationName;
+import Enums.MoveEffect;
 import Enums.Requirement;
 import Enums.Stat;
 import Enums.Time;
@@ -36,8 +37,8 @@ public class GameData {
 	private static ArrayList<ArrayList<Integer>> evolutionnums=null;
 	private static int[][] expThresholdsByGroupAndLevel=null;
 	private static ArrayList<ArrayList<Integer>> validtms=null;
-	private static ArrayList<Integer>[][] moveslearned=new ArrayList[252][101];
-	private static Move[][][] movesetsbylvl=new Move[252][101][4];
+	private static ArrayList<Integer>[][] moveslearned=new ArrayList[Constants.NUM_POKEMON+1][101];
+	private static Move[][][] movesetsbylvl=new Move[Constants.NUM_POKEMON+1][101][4];
 	private static ArrayList<Short> locationids=new ArrayList<Short>();
 	private static ArrayList<LocationName> locationnames=new ArrayList<LocationName>();
 	private static ArrayList<Requirement> locationreqs=new ArrayList<Requirement>();
@@ -45,6 +46,7 @@ public class GameData {
 	private static Map<Type,HashMap<Type,Double>> typechart=null;
 	private static int[] critstages=null;
 	private static double[] accevastages=null;
+	private static String[] moveeffects=null;
 	private static GUI gui;
 	private static Time time;
 
@@ -72,7 +74,7 @@ public class GameData {
 			s.close();
 			f=new File(Constants.PATH+"\\InitializeData\\bylevel.txt");
 			s=new Scanner(f);
-			for(int i=1;i<252;i++){
+			for(int i=1;i<Constants.NUM_POKEMON+1;i++){
 				String line=s.nextLine();
 				String[] levels=line.split(",,");
 				ArrayList<Integer>[] level=new ArrayList[101];
@@ -92,7 +94,7 @@ public class GameData {
 				}
 				moveslearned[i]=level;
 			}
-			for(int i=1;i<252;i++){
+			for(int i=1;i<Constants.NUM_POKEMON+1;i++){
 				for(int j=1;j<101;j++){
 					movesetsbylvl[i][j]=setMovesetByLevel(i,j);
 				}
@@ -219,7 +221,7 @@ public class GameData {
 			try{
 				File f=new File(Constants.PATH+"\\InitializeData\\basexp.txt");
 				Scanner s=new Scanner(f);
-				basexps=new int[252];
+				basexps=new int[Constants.NUM_POKEMON+1];
 				for(int i=1;i<basexps.length;i++){
 					basexps[i]=Integer.parseInt(s.nextLine());
 				}
@@ -286,7 +288,7 @@ public class GameData {
 	public static int[] getBaseStats(int pokenum){
 		if(stats==null){
 			try{
-				stats=new int[252][6];
+				stats=new int[Constants.NUM_POKEMON+1][6];
 				File f=new File(Constants.PATH+"\\InitializeData\\stats.txt");
 				Scanner s=new Scanner(f);
 				for(int i=1;i<stats.length;i++){
@@ -343,7 +345,7 @@ public class GameData {
 	public static String getName(int pokenum){
 		if(pokenames==null){
 			try{
-				pokenames=new String[252];
+				pokenames=new String[Constants.NUM_POKEMON+1];
 				File f=new File(Constants.PATH+"\\InitializeData\\pokenames.txt");
 				Scanner s=new Scanner(f);
 				for(int i=1;i<pokenames.length;i++){
@@ -360,7 +362,7 @@ public class GameData {
 	public static ArrayList<Type> getTypes(int pokenum){
 		if(types==null){
 			try{
-			types=new Type[252][2];
+			types=new Type[Constants.NUM_POKEMON+1][2];
 			File f=new File(Constants.PATH+"\\InitializeData\\types.txt");
 			Scanner s=new Scanner(f);
 			for(int i=1;i<types.length;i++){
@@ -388,7 +390,7 @@ public class GameData {
 
 	public static int getCatchRate(int pokenum){
 		if(catchrates==null){
-			catchrates=new int[252];
+			catchrates=new int[Constants.NUM_POKEMON+1];
 			File f=new File(Constants.PATH+Constants.PATH+"\\InitializeData\\catchrates.txt");
 			Scanner s=null;
 			try {
@@ -462,7 +464,7 @@ public class GameData {
 	public static int getExpThreshold(int pokenum,int level){
 		if(expgroups==null||expThresholdsByGroupAndLevel==null){
 			try{
-				expgroups=new int[252];
+				expgroups=new int[Constants.NUM_POKEMON+1];
 				expThresholdsByGroupAndLevel=new int[4][101];
 				File f=new File(Constants.PATH+"\\InitializeData\\expgroups.txt");
 				Scanner s=new Scanner(f);
@@ -614,6 +616,45 @@ public class GameData {
 		}while((elitetrainer&&getItemLevel(itemid)<(2*level/3)));
 		return itemid;
 	}
+	
+	public static HashMap<MoveEffect,HashMap<String,String>> getMoveEffects(int movenum){
+		if(moveeffects==null){
+		try{
+			File f=new File(Constants.PATH+"\\InitializeData\\moveeffects.txt");
+			Scanner s=new Scanner(f);
+			moveeffects=new String[Constants.NUM_MOVES+1];
+			for(int i=1;i<moveeffects.length;i++){
+				moveeffects[i]=s.nextLine();
+			}
+			s.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		}
+		return getMoveEffectsMap(moveeffects[movenum]);
+	}
+	
+	private static HashMap<MoveEffect,HashMap<String,String>> getMoveEffectsMap(String effectstring){
+		HashMap<MoveEffect,HashMap<String,String>> effectsmap=new HashMap<MoveEffect,HashMap<String,String>>();
+		String[] spliteffects=effectstring.split(";");
+		for(String spliteffect:spliteffects){
+			String[] components=spliteffect.split(",");
+			try{
+				MoveEffect effectname=MoveEffect.valueOf(components[0].substring(7));
+				if(components.length>1){
+					HashMap<String,String> componentsmap=new HashMap<String,String>();
+					for(int i=1;i<components.length;i++){
+						String[] component=components[i].split("=");
+						componentsmap.put(component[0],component[1]);
+					}
+					effectsmap.put(effectname,componentsmap);
+				}
+				else
+					effectsmap.put(effectname,null);
+			}catch(Exception e){System.out.println("No move effect enum for "+components[0]);};
+		}
+		return effectsmap;
+	}
 
 	public static int[] readIntArray(String s){
 		String[] sarray=s.substring(1,s.length()-1).split(",");
@@ -628,7 +669,7 @@ public class GameData {
 
 	private static void loadMoveStrings(){
 		try{
-			movestrings=new String[252][3];
+			movestrings=new String[Constants.NUM_MOVES+1][3];
 			File f=new File(Constants.PATH+"\\InitializeData\\movestrings.txt");
 			Scanner s=new Scanner(f);
 			for(int i=1;i<movestrings.length;i++){
@@ -658,7 +699,7 @@ public class GameData {
 
 	private static void loadMoveNums(){
 		try{
-			movenums=new int[252][4];
+			movenums=new int[Constants.NUM_MOVES+1][4];
 			File f=new File(Constants.PATH+"\\InitializeData\\movenums.txt");
 			Scanner s=new Scanner(f);
 			for(int i=1;i<movenums.length;i++){

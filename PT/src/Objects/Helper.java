@@ -18,36 +18,49 @@ import acm.graphics.GImage;
 public class Helper {
 	public static void main(String[] args) throws IOException{
 		
-		File f=new File(Constants.PATH+"\\InitializeData\\moveeffects.txt");
-		Scanner s=new Scanner(f);
-		ArrayList<String> lines=new ArrayList<String>();
-		int i=0;
-		while(s.hasNextLine()){
-			String line=s.nextLine();
-			i++;
-			if(GameData.getMovePower(i)!=-1)
-				line="Type=Damage,Range=;"+line;
-			lines.add(line);
-		}
 		
-		File f2=new File(Constants.PATH+"\\InitializeData\\moveeffects.txt");
-		PrintWriter writer=new PrintWriter(f2);
-		for(String line:lines){
-			writer.println(line);
-		}
-		writer.close();
 		
-//		System.out.println(System.getProperty("user.dir"));
+
 		GlobalEngine.initialize();
 		MapEngine.initialize(PlayerData.getLocation());
+		
+		getPokemonThatLearnMove(GameData.getMoveNum("Bide"));
+		getPokemonThatLearnMove(GameData.getMoveNum("Counter"));
+		getPokemonThatLearnMove(GameData.getMoveNum("Recover"));
+		//getPokemonThatLearnMove(GameData.getMoveNum("Protect"));
+		//getPokemonThatLearnMove(GameData.getMoveNum("Endure"));
+		
+		
+		
+//		File f=new File(Constants.PATH+"\\InitializeData\\moveeffects.txt");
+//		Scanner s=new Scanner(f);
+//		ArrayList<String> lines=new ArrayList<String>();
+//		int i=0;
+//		while(s.hasNextLine()){
+//			String line=s.nextLine();
+//			i++;
+//			if(GameData.getMovePower(i)!=-1)
+//				line="Effect=Damage,Power="+GameData.getMovePower(i)+";"+line;
+//			lines.add(line);
+//		}
+//		
+//		File f2=new File(Constants.PATH+"\\InitializeData\\moveeffects.txt");
+//		PrintWriter writer=new PrintWriter(f2);
+//		for(String line:lines){
+//			writer.println(line);
+//		}
+//		writer.close();
+		
+//		System.out.println(System.getProperty("user.dir"));
+		
+//		for(int i=1;i<Constants.NUM_MOVES+1;i++)
+//			GameData.getMoveEffects(i);
 		
 //		for(int i=0;i<10;i++){
 //			GImage rock=new GImage(Constants.PATH+"\\RockTile.png");
 //			rock.setSize(56,56);
 //			GameData.getGUI().add(rock,0,56*i);
 //		}
-		
-		//TODO:continue implementing held items
 		
 		
 //		File f=new File(Constants.PATH+"InitializeData\\accevastages.txt");
@@ -117,16 +130,6 @@ public class Helper {
 
 
 
-
-
-
-
-
-
-
-
-
-
 		//Use this to implement pause method for level up waiting if needed
 		//		long start=System.nanoTime();
 		//		System.out.println(start);
@@ -135,7 +138,6 @@ public class Helper {
 		//		}
 		//		System.out.println(System.nanoTime());
 		//		BattleEngine.initialize(new WildTrainer(PlayerData.getLocation().encounterWildPokemon(PlayerData.getPartySize(),Time.Day)));
-		//TODO: start on making maps and then game logic
 		//14x14 tiles, movement ranges 3-7? gives inc in range every 76 speed stat points
 		//		GUI gui=GameData.getGUI();
 		//		for(int x=0;x<14;x++){
@@ -340,10 +342,6 @@ public class Helper {
 		//				System.out.println(GameData.getMoveName(m.getNum()));
 		//		}	
 		//		System.out.println("---------");
-
-
-
-
 
 
 
@@ -621,5 +619,27 @@ public class Helper {
 		//System.out.println(Arrays.toString(lootlvls));
 		System.out.println(changeindices);
 		System.out.println(changeindices.size());
+	}
+	
+	private static void getPokemonThatLearnMove(int movenum) throws IOException{
+		File f=new File(Constants.PATH+"\\InitializeData\\bylevel.txt");
+		Scanner s=new Scanner(f);
+		ArrayList<String> bylevels=new ArrayList<String>();
+		bylevels.add("");
+		while(s.hasNextLine()){
+			bylevels.add(s.nextLine());
+		}
+		for(int i=0;i<bylevels.size();i++){
+			String bylevel=bylevels.get(i);
+			if(bylevel.contains(","+movenum+"]")||bylevel.contains(","+movenum+",")
+					||bylevel.contains("["+movenum+"]")||bylevel.contains("["+movenum+",")){
+				String[] levels=bylevel.split(",,");
+				for(int level=1;level<levels.length;level++){
+					if(levels[level].contains(","+movenum+"]")||levels[level].contains(","+movenum+",")
+							|levels[level].contains("["+movenum+"]")||levels[level].contains("["+movenum+","))
+						System.out.println(GameData.getName(i)+" learns "+GameData.getMoveName(movenum)+" at level "+level);
+				}
+			}
+		}
 	}
 }

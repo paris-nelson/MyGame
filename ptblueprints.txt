@@ -887,3 +887,44 @@ Unless one of below is specified, any effects will assume to hit target of the m
 -Self will be applied to self
 -Friendly will be applied to all active(non-fainted) friendly units of user
 -Not sure there is a move with nonglobal range but global effect, but if so, Global will be applied to all active(non-fainted) units in battle
+
+
+Move effects file dictates effects of move. 
+
+Need to remove things like conditions of use from file
+For each target of the move, all effects without a specified target will be applied.
+Effects with a specified target will only be applied once per move use, regardless of number of targets for primary effects of move.
+
+
+Possible move replacements for moves I don't like:
+Distract-Makes the target chase after the user. Can choose attacks as normal, but movement must always be towards the user and 
+and targetting attacks must target the user.
+Intimidate-Makes the target flee from the user.
+
+
+Moves to replace:
+Substitute:Follow Me? Distract?
+
+
+BondConditions an condition object that tracks two units and something connecting them
+-Destiny Bond
+-Lock-On
+-Future Sight
+-Foresight
+-LeechSeed
+-Mind Reader
+
+PermConditions can be healed explicitly (items.flame wheel), or altogether (heal bell, full heal)
+TempCOnditions can be healed explicitly (rapid spin), or altogether (heal bell) 
+BondCOnditions cannot be healed or removed (except leech seed which is removed by rapid spin)
+
+
+TODO!!!
+Make Confusion a PermCondition (change enums, change moveeffects that refer to it as tcondition, change battleengine logic that refers
+to it as tcondition, change unit logic that refers to it as tcondition)
+Make BondConditions, unit will store map of bondconditions to targets. The user of the bcondition move will be the one who stores
+(change leechseed logic in battle engine to drain at either start or end of user's turn not targets turn)
+Change moveeffects entries for above moves to reflect that they cause bondconditions of type enum BondCondition
+Decide whether to keep moves Bide,Counter,MirrorCoat.
+Decide what to replace Mr. Mime's move Substitute with (a new move or just have him learn Recover and never use move 213?)
+Handle logic for fly/dig and light screen/barrier/safeguard/mist.

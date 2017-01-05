@@ -113,7 +113,7 @@ Low Kick,Fighting,Has a 30% chance to make the target flinch
 Mach Punch,Fighting,15% increase speed 1 stage
 Magnitude,Ground,Deals variable damage between 10 base power and 130 base power as well as double damage against Digging Pokemon http://bulbapedia.bulbagarden.net/wiki/Magnitude_(move)
 Mean Look,Normal,Target unable to take movement actions for 2-5 turns
-Meditate,Psychic,Raises the user's Attack by 1 stage
+Meditate,Psychic,Raises the user's Attack by 1 stage. Cures confusion
 Mega Drain,Grass,Restores the user's HP by 1/2 of the damage inflicted on the target
 Mega Kick,Normal,Damages the target
 Mega Punch,Normal,Damages the target
