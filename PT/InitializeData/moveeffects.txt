@@ -4,14 +4,14 @@ Type=Buff,Stat=Defense,Stages=2
 Type=HighCritRatio
 Type=Buff,Stat=Speed,Stages=2
 Type=Buff,Stat=SpecialDefense,Stages=2
-Type=SelfBuff,Stat=All,Chance=10,Stages=1
+Type=Buff,Stat=All,Chance=10,Stages=1,Target=Self
 Type=TConditioner,Condition=Attract
 Type=Nerf,Stat=Attack,Chance=10,Stage=1
 Type=MultiAttack
 Type=Buff,Stat=Defense,Stages=2
 Type=???
 Type=???
-Type=SelfBuff,Stat=Attack,Stages=Max;Type=HealthSac,Percentage=50
+Type=Buff,Stat=Attack,Stages=Max,Target=Self;Type=HealthSac,Percentage=50
 Type=???
 Type=TConditioner,Condition=DamageTrap
 Type=TConditioner,Condition=Flinch,Chance=30
@@ -58,7 +58,7 @@ Type=PConditioner,Condition=Burn,Chance=10
 Type=TConditioner,Condition=Encore
 ???(add tempcondition detect/endure)
 Type=SelfDestruct
-Type=SelfBuff,Stat=Speed,Chance=10,Stages=2
+Type=Buff,Stat=Speed,Chance=10,Stages=2,Target=Self
 Type=Unmissable
 Type=CannotKill
 Type=PConditioner,Condition=Burn,Chance=10
@@ -110,7 +110,7 @@ Type=PConditioner,Condition=Paralysis,Chance=30
 ???(add logic for lock-on someting that tracks both units)
 Type=PConditioner,Condition=Asleep
 Type=TConditioner,Condition=Flinch,Chance=30
-Type=SelfBuff,Stat=Speed,Chance=15,Stages=1
+Type=Buff,Stat=Speed,Chance=15,Stages=1,Target=Self
 Type=Variant;???(double damge against dig)
 Type=TConditioner,Condition=Trap
 Type=Buff,Stat=Attack,Stages=1
@@ -118,7 +118,7 @@ Type=HealthSteal
 Type=NONE
 Type=NONE
 Type=NONE
-Type=SelfBuff,Stat=Attack,Chance=10,Stages=1
+Type=Buff,Stat=Attack,Chance=10,Stages=1,Target=Self
 Type=Metronome
 Type=Heal,Percentage=50
 Type=Mimic
@@ -152,7 +152,7 @@ Type=???(shouldn't copy crit ratio)
 Type=Nerf,Stat=SpecialDefense,Chance=10,Stages=1
 Type=Variant
 Type=???(add logic for flanking)
-Type=SelfBuff,Stat=Speed,Chance=10,Stages=1
+Type=Buff,Stat=Speed,Chance=10,Stages=1,Target=Self
 Type=PowerIncrease???
 Type=Weather,Conditions=Rain
 Type=TConditionCure,Condition=Trap;Type=TConditionCure,Condition=DamageTrap,Target=Self
@@ -182,7 +182,7 @@ Type=Nerf,Stat=SpecialDefense,Chance=20,Stages=1
 Type=Buff,Stat=Attack,Stages=1
 Type=PConditioner,Condition=Asleep
 Type=???
-Type=ChargeUp;Type=SelfBuff,Stat=Defense,Stages=1
+Type=ChargeUp;Type=Buff,Stat=Defense,Stages=1,Target=Self
 Type=ChargeUp
 Type=NONE
 Type=HighCritRatio
@@ -203,7 +203,7 @@ Type=???can either be another damage trap, or could allow movement, but any unit
 Type=???
 Type=NONE???
 Type=PConditioner,Condition=Asleep
-Type=SelfBuff,Stat=Defense,Chance=10,Stages=1
+Type=Buff,Stat=Defense,Chance=10,Stages=1,Target=Self
 Type=TConditioner,Condition=Flinch,Chance=30???normal acc and doubled power against minimize (might not implement)
 Type=NONE
 Type=Nerf,Stat=Speed,Stages=1
