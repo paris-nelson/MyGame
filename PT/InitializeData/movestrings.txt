@@ -12,7 +12,7 @@ Barrier,Psychic,Raises the user's Defense by 2 stages
 Baton Pass,Normal,Swaps positions with other party member.all stat modifiers are passed between them as well as confusion Focus Energy Perish Song count Mist Leech Seed Ghost Curses Mind Reader Lock-On Mean Look Spider Web and Substitute to the replacement Pokemon. In-game Baton Pass also passes partial trapping moves (Bind Clamp Fire Spin and Wrap) Foresight Toxic if the replacement is poisoned and Nightmare if replacement is asleep.
 Beat Up,Dark,Each healthy (i.e. not fainted nor inflicted with a status condition) Pokemon in your party contributes a typeless 10 base power hit determined solely by their base Attack and Defense stats. No STAB or rand damage variation
 Belly Drum,Normal,The user maximizes its Attack but sacrifices 50% of its max HP
-Bide,Normal,The user absorbs all damage for 2-3 turns and then inflicts twice the absorbed damage on its target. This move ignores the target's type but still cannot hit Ghost-type Pokemon
+Brick Break,Fighting,Removes light screen and reflect from the target before dealing damage
 Bind,Normal,Traps the target for 2-5 turns causing damage equal to 1/12 of its max HP each turn; this trapped effect can be broken by Rapid Spin. The target can still switch out if it uses Baton Pass.
 Bite,Dark,Has a 30% chance to make the target flinch
 Blizzard,Ice,Has a 10% chance to freeze the target
@@ -28,10 +28,10 @@ Comet Punch,Normal,Attacks 2-5 times in one turn; if one of these attacks breaks
 Confuse Ray,Ghost,Confuses the target
 Confusion,Psychic,Has a 10% chance to confuse the target
 Constrict,Normal,Has a 10% chance to lower the target's Speed by 1 stage
-Conversion,Normal,The user's type changes to match the type of one of its four attacks. This move fails if the user cannot change its type under this condition. Or changes type into target's type
+Conversion,Normal,The user's types changes to match the target's types
 Conversion 2,Normal,The user's type changes to one that resists the type of the last attack that hit the user
 Cotton Spore,Grass,Lowers the target's Speed by 2 stages
-Counter,Fighting,Almost always goes last; if an opponent strikes with a Physical attack before the user's turn the user retaliates for twice the damage it had endured
+Counter,Fighting,If user is hit with a Physical attack before the user's turn the user retaliates for twice the damage it had endured
 Crabhammer,Water,Has a high critical hit ratio
 Cross Chop,Fighting,Has a high critical hit ratio
 Crunch,Dark,Has a 20% chance to lower the target's Special Defense by 1 stage
@@ -210,7 +210,7 @@ String Shot,Bug,Lowers the target's Speed by 1 stage
 Struggle,Normal,Used automatically when all of the user's other moves have run out of PP or are otherwise inaccessible. The user receives 1/4 recoil damage. Struggle is classified as a typeless move and will hit any Pokemon including Rock- Steel- and Ghost-type Pokemon for normal damage
 Stun Spore,Grass,Paralyzes the target
 Submission,Fighting,The user receives 1/4 recoil damage
-Substitute,Normal,The user takes one-fourth of its maximum HP to create a substitute; this move fails if the user does not have enough HP for this. Until the substitute is broken it receives damage from all attacks made by other Pokemon and shields the user from status effects and stat modifiers caused by other Pokemon. The user is still affected by Sandstorm and Attract from behind its Substitute. If a Substitute breaks from a hit during a multistrike move such as Fury Attack the user takes damage from the remaining strikes
+Substitute,Normal,Not being implemented in this game
 Sunny Day,Fire,Cancels all other weather moves. For 5 turns: freezing is prevented the power of Fire attacks is increased by 50% the power of Water attacks is decreased by 50% Solarbeam fires immediately Thunder becomes 50% accurate and the healing power of Morning Sun Synthesis and Moonlight is doubled
 Super Fang,Normal,This move halves the target's current HP
 Supersonic,Normal,Confuses the target

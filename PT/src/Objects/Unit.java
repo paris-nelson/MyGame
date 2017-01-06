@@ -35,12 +35,14 @@ public class Unit {
 	private ArrayList<Unit> attackedby;
 	private boolean isdigging;
 	private boolean isflying;
+	private boolean hasattacked;
+	private int disabledmove;
 	
 	
 	public Unit(Pokemon pokemon){
 		this.pokemon=pokemon;
 		modstages=new int[8];
-		movementrange=Constants.MOVEMENT_RANGE_MIN+(pokemon.getStat(Stat.Speed)/Constants.SPEED_PER_UNIT_MOVEMENT_RANGE);
+		calculateMovementRange();
 		conditions=new HashMap<String,Integer>();
 		bondconditions=new HashMap<BondCondition,Unit>();
 		protectionconditions=new HashMap<ProtectionCondition,Integer>();
@@ -56,6 +58,32 @@ public class Unit {
 		attackedby=new ArrayList<Unit>();
 		isdigging=false;
 		isflying=false;
+		hasattacked=false;
+		disabledmove=-1;
+	}
+	
+	public boolean hasAttacked(){
+		return hasattacked;
+	}
+	
+	public void setHasAttacked(boolean hasattacked){
+		this.hasattacked=hasattacked;
+	}
+	
+	public int getDisabledMove(){
+		return disabledmove;
+	}
+	
+	public void enableDisabledMove(){
+		disabledmove=-1;
+	}
+	
+	public void setDisabledMove(int index){
+		disabledmove=index;
+	}
+	
+	public void calculateMovementRange(){
+		movementrange=Constants.MOVEMENT_RANGE_MIN+(getStat(Stat.Speed)/Constants.SPEED_PER_UNIT_MOVEMENT_RANGE);
 	}
 	
 	public void setFlying(boolean isflying){
@@ -74,8 +102,15 @@ public class Unit {
 		return isdigging;
 	}
 	
-	public void addProtectionCondition(ProtectionCondition condition){
+	/**
+	 * If the unit already has this protection condition, this method will fail
+	 * @param condition
+	 */
+	public boolean addProtectionCondition(ProtectionCondition condition){
+		if(protectionconditions.get(condition)!=null)
+			return false;
 		protectionconditions.put(condition,0);
+		return true;
 	}
 	
 	public void incNumTurnsProtected(ProtectionCondition condition){
@@ -90,8 +125,17 @@ public class Unit {
 		return protectionconditions.get(condition);
 	}
 	
-	public void addBondCondition(BondCondition bond, Unit recipient){
+	/**
+	 * Will fail if unit already has that bond with a recipient
+	 * @param bond
+	 * @param recipient
+	 * @return
+	 */
+	public boolean addBondCondition(BondCondition bond, Unit recipient){
+		if(bondconditions.get(bond)!=null)
+			return false;
 		bondconditions.put(bond,recipient);
+		return true;
 	}
 	
 	public Unit hasBond(BondCondition bond){
@@ -180,9 +224,6 @@ public class Unit {
 	}
 	
 	public int getCritRatio(){
-		int stage=modstages[7];
-		if(pokemon.isHolding("Scope Lens")&&modstages[7]<5)
-			modstages[7]=stage+2;
 		return GameData.getCritRatio(modstages[7]);
 	}
 	

@@ -1,5 +1,5 @@
 package Enums;
 
 public enum ProtectionCondition {
-	LightScreen,Reflect,Mist,Safeguard
+	LightScreen,Reflect,Mist,Safeguard,Protect,Detect,Endure,Counter,MirrorCoat
 }

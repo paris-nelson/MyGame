@@ -44,6 +44,8 @@ public class Constants {
 	public static final int CONFUSE_MAX_TURNS=4;
 	public static final int SLEEP_MAX_TURNS=4;
 	public static final int FREEZE_MAX_TURNS=4;
+	public static final int DISABLE_MIN_TURNS=2;
+	public static final int DISABLE_MAX_TURNS=5;
 	public static final int PARALYSIS_INACTION_CHANCE=25;
 	public static final int ATTRACT_INACTION_CHANCE=50;
 	

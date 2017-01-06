@@ -53,6 +53,7 @@ public class BattleEngine {
 		}
 		ArrayList<Integer> speeds=new ArrayList<Integer>();
 		for(Unit u:allunits){
+			u.calculateMovementRange();
 			speeds.add(u.getStat(Stat.Speed));
 		}
 		for(int pointer=1;pointer<speeds.size();pointer++){
@@ -104,6 +105,7 @@ public class BattleEngine {
 		activeunit.setHasMoved(false);
 		activeunit.setHasTakenAction(false);
 		activeunit.setHasEndedTurn(false);
+		activeunit.setHasAttacked(false);
 		startOfTurnActions();
 		if(activeunit.getPokemon().isFainted())
 			nextTurn();
@@ -170,17 +172,7 @@ public class BattleEngine {
 				activeunit.setCanMove(false);
 			}
 		}
-		if(activeunit.hasTempCondition(TempCondition.Attract)){
-			if(GameData.getRandom().nextInt(100)<Constants.ATTRACT_INACTION_CHANCE){
-				System.out.println(activepokemon.getName()+" is too infatuated to attack");
-				activeunit.setCanAttack(false);
-			}
-		}
-		if(activeunit.hasTempCondition(TempCondition.Flinch)){
-			System.out.println(activepokemon.getName()+" flinches");
-			activeunit.setCanAttack(false);
-		}
-		if(activepokemon.getPcondition()==PermCondition.Confusion){
+		else if(activepokemon.getPcondition()==PermCondition.Confusion){
 			int turns=activeunit.getNumTurnsAfflicted(PermCondition.Confusion.toString());
 			//confusion can last 1-4 turns. 1/4 chance of ending after 1 turn, 1/3 after 2 turns, 1/2 after 3, 1/1 after 4. 
 			if(turns>0&&GameData.getRandom().nextInt(100)<100/(Constants.CONFUSE_MAX_TURNS+1-activeunit.getNumTurnsAfflicted(PermCondition.Confusion.toString()))){
@@ -192,6 +184,16 @@ public class BattleEngine {
 			else{
 				System.out.println(activepokemon.getName()+" is still confused after "+turns+" turns.");
 			}
+		}
+		if(activeunit.hasTempCondition(TempCondition.Attract)){
+			if(GameData.getRandom().nextInt(100)<Constants.ATTRACT_INACTION_CHANCE){
+				System.out.println(activepokemon.getName()+" is too infatuated to attack");
+				activeunit.setCanAttack(false);
+			}
+		}
+		if(activeunit.hasTempCondition(TempCondition.Flinch)){
+			System.out.println(activepokemon.getName()+" flinches");
+			activeunit.setCanAttack(false);
 		}
 		if(activeunit.hasTempCondition(TempCondition.Trap)||activeunit.hasTempCondition(TempCondition.DamageTrap)){
 			TempCondition temp=TempCondition.Trap;
@@ -239,6 +241,19 @@ public class BattleEngine {
 			System.out.println(activepokemon.getName()+" recovers "+hp+"HP from leftovers");
 			activepokemon.incHP(hp);
 		}
+		if(activeunit.hasTempCondition(TempCondition.Disable)){
+			int turns=activeunit.getNumTurnsAfflicted(TempCondition.Disable.toString());
+			//disable can last 2-5 turns. 1/4 chance of ending after 2 turns, 1/3 after 3 turns, 1/2 after 4, 1/1 after 5. 
+			if(turns>=Constants.DISABLE_MIN_TURNS&&GameData.getRandom().nextInt(100)<100/(Constants.DISABLE_MAX_TURNS+1-activeunit.getNumTurnsAfflicted(TempCondition.Disable.toString()))){
+				//disable ends
+				System.out.println(activepokemon.getName()+" is no longer disabled after "+turns+" turns.");
+				activeunit.resetNumTurnsAfflicted(TempCondition.Disable.toString());
+				activeunit.removeTcondition(TempCondition.Disable);
+				activeunit.enableDisabledMove();
+			}
+			else
+				System.out.println(activepokemon.getName()+" is still disabled after "+turns+" turns.");
+		}
 	}
 
 	private static void endOfTurnActions(){
@@ -273,6 +288,10 @@ public class BattleEngine {
 			if(activeunit.getNumTurnsAfflicted(TempCondition.PerishSong.toString())==Constants.PERISH_SONG_TURNS){
 				activepokemon.decHP(activepokemon.getCurrHP());
 			}
+		}
+		if(activeunit.hasTempCondition(TempCondition.Disable)){
+			if(activeunit.hasAttacked())
+				activeunit.incNumTurnsAfflicted(TempCondition.Disable.toString());
 		}
 	}
 
@@ -402,6 +421,7 @@ public class BattleEngine {
 					awardExperience(xprecipients,targetpokemon);
 				}
 			}
+			activeunit.setHasAttacked(true);
 		}
 		activeunit.setHasTakenAction(true);
 		//confusion turn count is only lowered by attacking turns. Pokemon can't avoid confusion by refusing to attack until it's over

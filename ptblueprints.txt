@@ -923,3 +923,39 @@ TODO!!!
 Decide whether to keep moves Bide,Counter,MirrorCoat.
 Decide what to replace Mr. Mime's move Substitute with (a new move or just have him learn Recover and never use move 213?)
 Handle logic for fly/dig and light screen/barrier/safeguard/mist.
+
+
+
+
+SSSSB
+FSSBB
+FFXBB
+FSSBB
+SSSSB
+
+
+
+MoveRanges
+selection
+-single-impacts a single square
+ -range dictates the range of squares from which the singe square can be chosen
+-beam-impacts all square along a straight line
+ -range dictates how far the beam goes
+-area-impacts all squares around a single square (9 squares total)
+ -range dictates the range of squares from which the epicentre of the move can be chosen
+-nova-impacts all squares around the user's square
+ -range dictates how far the impact of the move spreads (I imagine most nova moves will have range 1, with some having range 2)
+-cone-impacts all squares in a cone eminating from user
+ -range dictates how far the cone spreads
+-friendly-impacts all active friendly units
+ -no range field
+-global-impacts all active units
+ -no range field
+-self-impacts the user only
+ -no range field
+-weather-does not impact any units, impacts weather of battlefield
+
+
+TargetCondition-for moves that require that the target meet a condition to be included (e.g. nightmare/dream eater require sleeping target)
+TargetInclusion-for moves that can hit pokemon in the middle of using fly or dig.
+

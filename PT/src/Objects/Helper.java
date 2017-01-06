@@ -19,16 +19,34 @@ import acm.graphics.GImage;
 public class Helper {
 	public static void main(String[] args) throws IOException{
 		
-		
-		
-
 		GlobalEngine.initialize();
 		MapEngine.initialize(PlayerData.getLocation());
 		
+//		File f=new File(Constants.PATH+"\\InitializeData\\moveranges.txt");
+//		PrintWriter pw=new PrintWriter(f);
+//		File f2=new File(Constants.PATH+"\\InitializeData\\moveeffects.txt");
+//		Scanner s=new Scanner(f2);
+//		for(int i=0;i<251;i++){
+//			String line=s.nextLine();
+//			if(line.contains("Effect=Buff")||line.contains("Effect=Nerf"))
+//				pw.println("Selection=Single,Range=1");
+//			else
+//				pw.println("Selection=,Range=");
+//		}
+//		pw.close();
+//		ArrayList<String> strings=new ArrayList<String>();
+//		File f=new File("InitializeData\\prevolutions.txt");
+//		Scanner s=new Scanner(f);
+//		while(s.hasNextLine()){
+//			String line=s.nextLine();
+//			if(!strings.contains(line))
+//				strings.add(line);
+//		}
+//		System.out.println(strings.size());
 		
-		getPokemonThatLearnMove(GameData.getMoveNum("Bide"));
-		getPokemonThatLearnMove(GameData.getMoveNum("Counter"));
-		getPokemonThatLearnMove(GameData.getMoveNum("Mirror Coat"));
+//		getPokemonThatLearnMove(GameData.getMoveNum("Roar"));
+//		getPokemonThatLearnMove(GameData.getMoveNum("Whirlwind"));
+//		getPokemonThatLearnMove(GameData.getMoveNum("Recover"));
 		//getPokemonThatLearnMove(GameData.getMoveNum("Protect"));
 		//getPokemonThatLearnMove(GameData.getMoveNum("Endure"));
 		

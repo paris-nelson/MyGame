@@ -1,11 +1,13 @@
 package Engines;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 
 import Global.GameData;
 import KeyListeners.MenuKeyListener;
 import Menus.Menu;
+import Menus.MenuWithExplanations;
 import acm.graphics.GCompound;
 import acm.graphics.GLabel;
 import acm.graphics.GRect;
@@ -14,6 +16,7 @@ public class MenuEngine {
 	private static Menu menu;
 	private static GCompound gmenu;
 	private static ArrayList<GRect> goptions;
+	private static GLabel explanation;
 	private static short menuindex;
 	
 	public static void initialize(Menu m){
@@ -48,7 +51,20 @@ public class MenuEngine {
 			GLabel label=new GLabel(options.get(i));
 			gmenu.add(label,(rect.getWidth()-label.getWidth())/2,25+50*i);
 		}
+		if(menu instanceof MenuWithExplanations)
+			addExplanation();
 		GameData.getGUI().add(gmenu,1100,0);
+	}
+	
+	public static void addExplanation(){
+		explanation=new GLabel(((MenuWithExplanations)menu).explain(menuindex));
+		explanation.setColor(Color.BLACK);
+		explanation.setFont(new Font("Times New Roman",Font.PLAIN,18));
+		GRect explanationbg=new GRect(explanation.getWidth()+20,explanation.getHeight()+10);
+		explanationbg.setFilled(true);
+		explanationbg.setFillColor(Color.WHITE);
+		gmenu.add(explanationbg,0-explanationbg.getWidth(),0);
+		gmenu.add(explanation,explanationbg.getX()+10,explanation.getHeight()-5);
 	}
 	
 	public static void setFocus(short index){
@@ -68,6 +84,8 @@ public class MenuEngine {
 			removeFocus(menuindex);
 			menuindex++;
 			setFocus(menuindex);
+			if(menu instanceof MenuWithExplanations)
+				explanation.setLabel(((MenuWithExplanations) menu).explain(menuindex));
 		}
 	}
 	
@@ -76,6 +94,8 @@ public class MenuEngine {
 			removeFocus(menuindex);
 			menuindex--;
 			setFocus(menuindex);
+			if(menu instanceof MenuWithExplanations)
+				explanation.setLabel(((MenuWithExplanations) menu).explain(menuindex));
 		}
 	}
 	

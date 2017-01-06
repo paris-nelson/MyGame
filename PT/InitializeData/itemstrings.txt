@@ -104,7 +104,7 @@ Rematcher,Rematcher,N,Reactivates all trainers in the location of use (Will not 
 Cleanse Tag,Held,Y,Reduces wild encounters with low level pokemon while held,N
 Everstone,Held,Y,Prevents evolution while held,N
 Leftovers,Held,Y,Restores 1/12 of the holder's max hp each turn in battle,N
-Scope Lens,Held,Y,Increases the holder's critical hit chances,N
+Scope Lens,Held,Y,Increase the range of the holder's moves in battle by 1,N
 Quick Claw,Held,Y,20% chance that the holder will go first in battle each turn cycle,N
 Focus Band,Held,Y,20% chance that the holder will survive a move that would reduce its HP to 0,N
 Amulet Coin,Held,Y,Doubles the prize money for a battle if the holder is a combatant,N

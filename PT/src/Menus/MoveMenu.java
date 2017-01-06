@@ -11,20 +11,24 @@ import Global.GameData;
 import Global.PlayerData;
 import Objects.Move;
 import Objects.Pokemon;
+import Objects.Unit;
 
-public class MoveMenu implements Menu {
+public class MoveMenu implements MenuWithExplanations {
 
 	private static ArrayList<String> options=new ArrayList<String>();
 	private static Pokemon pokemon;
 	private static MoveMenuMode mode;
 	private static int itemid;
 
-
 	public MoveMenu(Pokemon p,MoveMenuMode m){
-		pokemon=p;
 		mode=m;
 		itemid=GlobalEngine.getItemToUse();
-		for(Move move:p.getMoveSet()){
+		pokemon=p;
+		Move[] moveset=p.getMoveSet();
+		for(int i=0;i<moveset.length;i++){
+			if(m==MoveMenuMode.ATTACK&&BattleEngine.getActiveUnit().getDisabledMove()==i)
+				continue;
+			Move move=moveset[i];
 			options.add(GameData.getMoveName(move.getNum()));
 		}
 		options.add("Back");
@@ -43,6 +47,13 @@ public class MoveMenu implements Menu {
 	@Override
 	public ArrayList<String> getVisibleOptions() {
 		return options;
+	}
+	
+	@Override
+	public String explain(short index){
+		return GameData.getMoveDescription(
+				pokemon.getMoveSet()[index]
+						.getNum());
 	}
 
 	@Override
