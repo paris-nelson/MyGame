@@ -51,9 +51,9 @@ public class MoveMenu implements MenuWithExplanations {
 	
 	@Override
 	public String explain(short index){
-		return GameData.getMoveDescription(
-				pokemon.getMoveSet()[index]
-						.getNum());
+		if(index<options.size()-1)
+			return GameData.getMoveDescription(pokemon.getMoveSet()[index].getNum());
+		return "";
 	}
 
 	@Override
