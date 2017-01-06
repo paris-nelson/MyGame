@@ -920,10 +920,6 @@ BondCOnditions cannot be healed or removed (except leech seed which is removed b
 
 
 TODO!!!
-Make Confusion a PermCondition (change enums, change moveeffects that refer to it as tcondition, change battleengine logic that refers
-to it as tcondition, change unit logic that refers to it as tcondition)
-Make BondConditions, unit will store map of bondconditions to targets. The user of the bcondition move will be the one who stores
-(change leechseed logic in battle engine to drain at either start or end of user's turn not targets turn)
 Change moveeffects entries for above moves to reflect that they cause bondconditions of type enum BondCondition
 Decide whether to keep moves Bide,Counter,MirrorCoat.
 Decide what to replace Mr. Mime's move Substitute with (a new move or just have him learn Recover and never use move 213?)

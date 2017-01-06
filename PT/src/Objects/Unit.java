@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import Enums.BondCondition;
 import Enums.Direction;
 import Enums.Stat;
 import Enums.TempCondition;
@@ -15,8 +16,10 @@ public class Unit {
 	private Pokemon pokemon;
 	private int[] modstages;
 	private int movementrange;
-	//list of temp conditions and number of turns that status has been active
-	private Map<String,Integer> tconditions;
+	//list of conditions and number of turns that status has been active
+	private Map<String,Integer> conditions;
+	//list of bondconditions and the recipient of the condition
+	private Map<BondCondition,Unit> bondconditions;
 	private boolean controllable;
 	private Direction directionfacing;
 	private boolean hasmoved;
@@ -33,7 +36,8 @@ public class Unit {
 		this.pokemon=pokemon;
 		modstages=new int[8];
 		movementrange=Constants.MOVEMENT_RANGE_MIN+(pokemon.getStat(Stat.Speed)/Constants.SPEED_PER_UNIT_MOVEMENT_RANGE);
-		tconditions=new HashMap<String,Integer>();
+		conditions=new HashMap<String,Integer>();
+		bondconditions=new HashMap<BondCondition,Unit>();
 		controllable=true;
 		directionfacing=Direction.Down;
 		hasmoved=false;
@@ -44,6 +48,24 @@ public class Unit {
 		canattack=true;
 		prevmove=null;
 		attackedby=new ArrayList<Unit>();
+	}
+	
+	public void addBondCondition(BondCondition bond, Unit recipient){
+		bondconditions.put(bond,recipient);
+	}
+	
+	public Unit hasBond(BondCondition bond){
+		if(bondconditions.containsKey(bond))
+			return bondconditions.get(bond);
+		return null;
+	}
+	
+	public void removeBondCondition(BondCondition bond){
+		bondconditions.remove(bond);
+	}
+	
+	public void clearBondConditions(){
+		bondconditions.clear();
 	}
 	
 	public boolean attackedBy(Unit unit){
@@ -84,15 +106,15 @@ public class Unit {
 	}
 	
 	public int getNumTurnsAfflicted(String condition){
-		return tconditions.get(condition);
+		return conditions.get(condition);
 	}
 	
 	public void incNumTurnsAfflicted(String condition){
-		tconditions.put(condition,tconditions.get(condition)+1);
+		conditions.put(condition,conditions.get(condition)+1);
 	}
 	
 	public void resetNumTurnsAfflicted(String condition){
-		tconditions.put(condition,0);
+		conditions.put(condition,0);
 	}
 	
 	public boolean incCritRatio(int stages){
@@ -240,20 +262,20 @@ public class Unit {
 	 * @return: false if unit already has the condition, true otherwise
 	 */
 	public boolean addTempCondition(TempCondition newcondition){
-		if(tconditions.containsKey(newcondition))
+		if(conditions.containsKey(newcondition))
 			return false;
 		else if((newcondition==TempCondition.Trap&&hasTempCondition(TempCondition.DamageTrap))||(newcondition==TempCondition.DamageTrap&&hasTempCondition(TempCondition.Trap)))
 			return false;
-		tconditions.put(newcondition.toString(),0);
+		conditions.put(newcondition.toString(),0);
 		return true;
 	}
 	
 	public boolean hasTempCondition(TempCondition condition){
-		return tconditions.containsKey(condition);
+		return conditions.containsKey(condition);
 	}
 	
-	public void removeTconditions(){
-		tconditions.clear();
+	public void removeconditions(){
+		conditions.clear();
 	}
 	
 	/**
@@ -262,7 +284,7 @@ public class Unit {
 	 * @return
 	 */
 	public boolean removeTcondition(TempCondition condition){
-		return tconditions.remove(condition)!=null;
+		return conditions.remove(condition)!=null;
 	}
 	
 	public boolean isControllable(){

@@ -2,6 +2,7 @@ package Engines;
 
 import java.util.ArrayList;
 
+import Enums.BondCondition;
 import Enums.PermCondition;
 import Enums.Stat;
 import Enums.TempCondition;
@@ -179,14 +180,14 @@ public class BattleEngine {
 			System.out.println(activepokemon.getName()+" flinches");
 			activeunit.setCanAttack(false);
 		}
-		if(activeunit.hasTempCondition(TempCondition.Confusion)){
-			int turns=activeunit.getNumTurnsAfflicted(TempCondition.Confusion.toString());
+		if(activepokemon.getPcondition()==PermCondition.Confusion){
+			int turns=activeunit.getNumTurnsAfflicted(PermCondition.Confusion.toString());
 			//confusion can last 1-4 turns. 1/4 chance of ending after 1 turn, 1/3 after 2 turns, 1/2 after 3, 1/1 after 4. 
-			if(turns>0&&GameData.getRandom().nextInt(100)<100/(Constants.CONFUSE_MAX_TURNS+1-activeunit.getNumTurnsAfflicted(TempCondition.Confusion.toString()))){
+			if(turns>0&&GameData.getRandom().nextInt(100)<100/(Constants.CONFUSE_MAX_TURNS+1-activeunit.getNumTurnsAfflicted(PermCondition.Confusion.toString()))){
 				//awaken
 				System.out.println(activepokemon.getName()+" is no longer confused after "+turns+" turns.");
-				activeunit.resetNumTurnsAfflicted(TempCondition.Confusion.toString());
-				activeunit.removeTcondition(TempCondition.Confusion);
+				activeunit.resetNumTurnsAfflicted(PermCondition.Confusion.toString());
+				activepokemon.removePcondition(PermCondition.Confusion);
 			}
 			else{
 				System.out.println(activepokemon.getName()+" is still confused after "+turns+" turns.");
@@ -258,10 +259,13 @@ public class BattleEngine {
 				System.out.println(activepokemon.getName()+" woke up from their nightmare");
 			}
 		}
-		if(activeunit.hasTempCondition(TempCondition.LeechSeed)){
-			int damage=(int)(activepokemon.getStat(Stat.HP)*Constants.LEECH_SEED_HP_LOSS_RATE);
-			activepokemon.decHP(damage);
-			System.out.println(activepokemon.getName()+" takes "+damage+" damage from leech seed");
+		Unit recipient=activeunit.hasBond(BondCondition.LeechSeed);
+		if(recipient!=null){
+			int damage=(int)(recipient.getPokemon().getStat(Stat.HP)*Constants.LEECH_SEED_HP_LOSS_RATE);
+			recipient.getPokemon().decHP(damage);
+			System.out.println(recipient.getPokemon().getName()+" takes "+damage+" damage from leech seed");
+			activepokemon.incHP(damage);
+			System.out.println(activepokemon.getName()+" gains "+damage+" hp from leech seed");
 		}
 		if(activeunit.hasTempCondition(TempCondition.PerishSong)){
 			activeunit.incNumTurnsAfflicted(TempCondition.PerishSong.toString());
@@ -372,7 +376,7 @@ public class BattleEngine {
 
 	public static void useMove(Move move){
 		System.out.println(activeunit.getPokemon().getName()+" using "+GameData.getMoveName(move.getNum()));
-		if(activeunit.hasTempCondition(TempCondition.Confusion)&&GameData.getRandom().nextBoolean()){
+		if(activeunit.getPokemon().getPcondition()==PermCondition.Confusion&&GameData.getRandom().nextBoolean()){
 			System.out.println(activeunit.getPokemon().getName()+" hit itself in its confusion");
 			activeunit.damage(calculateConfusionSelfHitDamage(activeunit));
 		}
@@ -401,8 +405,8 @@ public class BattleEngine {
 		}
 		activeunit.setHasTakenAction(true);
 		//confusion turn count is only lowered by attacking turns. Pokemon can't avoid confusion by refusing to attack until it's over
-		if(activeunit.hasTempCondition(TempCondition.Confusion))
-			activeunit.incNumTurnsAfflicted(TempCondition.Confusion.toString());
+		if(activeunit.getPokemon().getPcondition()==PermCondition.Confusion)
+			activeunit.incNumTurnsAfflicted(PermCondition.Confusion.toString());
 		MenuEngine.initialize(new UnitMenu(activeunit));
 	}
 	

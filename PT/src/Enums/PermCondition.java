@@ -1,5 +1,5 @@
 package Enums;
 
 public enum PermCondition {
-	Burn,Frozen,Poison,Paralysis,Sleep,BadlyPoison
+	Burn,Frozen,Poison,Paralysis,Sleep,BadlyPoison,Confusion
 }

@@ -25,8 +25,8 @@ Effect=Damage,Power=65;Effect=Nerf,Stat=Speed,Chance=10,Stages=1
 Effect=Nerf,Stat=Attack,Stages=2
 Effect=Damage,Power=35;Effect=TConditioner,Condition=DamageTrap
 Effect=Damage,Power=18,Type=MultiAttack
-Effect=TConditioner,Condition=Confusion
-Effect=Damage,Power=50;Effect=TConditioner,Condition=Confusion,Chance=10
+Effect=PConditioner,Condition=Confusion
+Effect=Damage,Power=50;Effect=PConditioner,Condition=Confusion,Chance=10
 Effect=Damage,Power=10;Effect=Nerf,Stat=Speed,Chance=10,Stages=1
 Effect=Conversion
 Effect=Conversion2
@@ -51,7 +51,7 @@ Effect=Damage,Power=Invariant,Damage=40
 Effect=Damage,Power=60;Effect=PConditioner,Condition=Paralysis,Chance=30
 Effect=Damage,Power=100;Effect=HealthSteal
 Effect=Damage,Power=80
-Effect=Damage,Power=100;Effect=TConditioner,Condition=Confusion
+Effect=Damage,Power=100;Effect=PConditioner,Condition=Confusion
 Effect=Damage,Power=100,Type=DigMultiplier
 Effect=Damage,Power=100
 Effect=Damage,Power=40;Effect=PConditioner,Condition=Burn,Chance=10
@@ -84,7 +84,7 @@ Effect=Buff,Stat=SpecialAttack,Stages=1
 Effect=Damage,Power=OneHitKO
 Effect=Damage,Power=40,Type=FlyMultiplier
 Effect=Buff,Stat=Defense,Stages=1
-Effect=TConditionCure,Condition=All;Effect=StatStageReset
+Effect=PConditionCure,Condition=All;Effect=StatStageReset
 Effect=Damage,Power=70;Effect=TConditioner,Condition=Flinch,Chance=30
 Effect=TConditionCure,Condition=All;Effect=PConditionCure,Condition=All
 Effect=Damage,Power=85;Effect=MissRecoil,Percentage=12,Target=Self
@@ -113,7 +113,7 @@ Effect=Damage,Power=50;Effect=TConditioner,Condition=Flinch,Chance=30
 Effect=Damage,Power=45;Effect=Buff,Stat=Speed,Chance=15,Stages=1,Target=Self
 Effect=Damage,Power=Magnitude,Type=DigMultiplier
 Effect=TConditioner,Condition=Trap
-Effect=Buff,Stat=Attack,Stages=1;Effect=TConditionCure,Condition=Confusion
+Effect=Buff,Stat=Attack,Stages=1;Effect=PConditionCure,Condition=Confusion
 Effect=Damage,Power=40;Effect=HealthSteal
 Effect=Damage,Power=120
 Effect=Damage,Power=80
@@ -147,7 +147,7 @@ Effect=Damage,Power=40
 Effect=Damage,Power=40;Effect=PConditioner,Condition=Frozen,Chance=10
 Effect=Damage,Power=Present
 Effect=Endure
-Effect=Damage,Power=65;Effect=TConditioner,Condition=Confusion,Chance=10
+Effect=Damage,Power=65;Effect=PConditioner,Condition=Confusion,Chance=10
 Effect=PsychUp
 Effect=Damage,Power=90;Effect=Nerf,Stat=SpecialDefense,Chance=10,Stages=1
 Effect=Damage,Power=Psywave
@@ -160,7 +160,7 @@ Effect=Damage,Power=55,Type=HighCritRatio
 Effect=Damage,Power=80,Type=HighCritRatio;Effect=ChargeUp
 Effect=Heal,Percentage=50
 Effect=???same as logic for light screen
-Effect=Heal,Percentage=100;Effect=PConditionCure,Condition=All;Effect=TConditionCure,Condition=Confusion;Effect=PConditioner,Condition=Asleep
+Effect=Heal,Percentage=100;Effect=PConditionCure,Condition=All;Effect=PConditioner,Condition=Asleep
 Effect=Damage,Power=HappinessBased
 Effect=Damage,Power=Flail
 Effect=Knockback
@@ -213,10 +213,10 @@ Effect=Damage,Power=80;Effect=Recoil,Percentage=25,Target=Self
 Effect=Substitute (might replace move)
 Effect=Weather,Conditions=Sun
 Effect=Damage,Power=HalveHP
-Effect=TConditioner,Condition=Confusion
+Effect=PConditioner,Condition=Confusion
 Effect=Damage,Power=95
-Effect=TConditioner,Condition=Confusion;Effect=Buff,Stat=Attack,Stages=2
-Effect=TConditioner,Condition=Confusion
+Effect=PConditioner,Condition=Confusion;Effect=Buff,Stat=Attack,Stages=2
+Effect=PConditioner,Condition=Confusion
 Effect=Nerf,Stat=Evasion,Stage=1
 Effect=Damage,Power=60
 Effect=Buff,Stat=Attack,Stages=2

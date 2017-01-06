@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import Engines.GlobalEngine;
 import Engines.MapEngine;
+import Enums.BondCondition;
 import Global.Constants;
 import Global.GameData;
 import Global.PlayerData;
@@ -23,6 +24,7 @@ public class Helper {
 
 		GlobalEngine.initialize();
 		MapEngine.initialize(PlayerData.getLocation());
+		
 		
 		getPokemonThatLearnMove(GameData.getMoveNum("Bide"));
 		getPokemonThatLearnMove(GameData.getMoveNum("Counter"));
