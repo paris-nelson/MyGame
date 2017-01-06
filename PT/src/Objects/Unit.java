@@ -6,6 +6,7 @@ import java.util.Map;
 
 import Enums.BondCondition;
 import Enums.Direction;
+import Enums.ProtectionCondition;
 import Enums.Stat;
 import Enums.TempCondition;
 import Enums.Type;
@@ -16,10 +17,12 @@ public class Unit {
 	private Pokemon pokemon;
 	private int[] modstages;
 	private int movementrange;
-	//list of conditions and number of turns that status has been active
+	//list of perm and temp conditions and number of turns that status has been active
 	private Map<String,Integer> conditions;
 	//list of bondconditions and the recipient of the condition
 	private Map<BondCondition,Unit> bondconditions;
+	//list of protectionconditions and the number of turns they have been active
+	private Map<ProtectionCondition,Integer> protectionconditions;
 	private boolean controllable;
 	private Direction directionfacing;
 	private boolean hasmoved;
@@ -30,6 +33,8 @@ public class Unit {
 	private boolean canattack;
 	private Move prevmove;
 	private ArrayList<Unit> attackedby;
+	private boolean isdigging;
+	private boolean isflying;
 	
 	
 	public Unit(Pokemon pokemon){
@@ -38,6 +43,7 @@ public class Unit {
 		movementrange=Constants.MOVEMENT_RANGE_MIN+(pokemon.getStat(Stat.Speed)/Constants.SPEED_PER_UNIT_MOVEMENT_RANGE);
 		conditions=new HashMap<String,Integer>();
 		bondconditions=new HashMap<BondCondition,Unit>();
+		protectionconditions=new HashMap<ProtectionCondition,Integer>();
 		controllable=true;
 		directionfacing=Direction.Down;
 		hasmoved=false;
@@ -48,6 +54,40 @@ public class Unit {
 		canattack=true;
 		prevmove=null;
 		attackedby=new ArrayList<Unit>();
+		isdigging=false;
+		isflying=false;
+	}
+	
+	public void setFlying(boolean isflying){
+		this.isflying=isflying;
+	}
+	
+	public void setDigging(boolean isdigging){
+		this.isdigging=isdigging;
+	}
+	
+	public boolean isFlying(){
+		return isflying;
+	}
+	
+	public boolean isDigging(){
+		return isdigging;
+	}
+	
+	public void addProtectionCondition(ProtectionCondition condition){
+		protectionconditions.put(condition,0);
+	}
+	
+	public void incNumTurnsProtected(ProtectionCondition condition){
+		protectionconditions.put(condition,protectionconditions.get(condition)+1);
+	}
+	
+	public void resetNumTurnsProtected(ProtectionCondition condition){
+		protectionconditions.put(condition, 0);
+	}
+	
+	public int getNumTurnsProtected(ProtectionCondition condition){
+		return protectionconditions.get(condition);
 	}
 	
 	public void addBondCondition(BondCondition bond, Unit recipient){

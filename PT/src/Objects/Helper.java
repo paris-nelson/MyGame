@@ -28,7 +28,7 @@ public class Helper {
 		
 		getPokemonThatLearnMove(GameData.getMoveNum("Bide"));
 		getPokemonThatLearnMove(GameData.getMoveNum("Counter"));
-		getPokemonThatLearnMove(GameData.getMoveNum("Recover"));
+		getPokemonThatLearnMove(GameData.getMoveNum("Mirror Coat"));
 		//getPokemonThatLearnMove(GameData.getMoveNum("Protect"));
 		//getPokemonThatLearnMove(GameData.getMoveNum("Endure"));
 		

@@ -38,10 +38,10 @@ Effect=Damage,Power=80;Effect=Nerf,Stat=SpecialDefense,Chance=20,Stages=1
 Effect=TConditioner,Condition=Curse;Effect=HealthSac,Percentage=50,Target=Self
 Effect=Damage,Power=50
 Effect=Buff,Stat=Defense,Stages=1
-???(add logic for destinybond something that tracks both units)
+Effect=BondConditioner,Condition=DestinyBond
 Effect=Endure
-Effect=Damage,Power=60;???(add tempcondnition dig/fly)
-???(add tempcondition disabled)
+Effect=Damage,Power=60;Effect=Dig
+Effect=TConditioner,Condition=Disable
 Effect=Damage,Power=70;Effect=TConditioner,Condition=Confuse,Chance=20
 Effect=Damage,Power=30,Type=DoubleAttack
 Effect=Buff,Stat=Evasion,Stages=1
@@ -69,14 +69,14 @@ Effect=Damage,Power=Flail
 Effect=Damage,Power=60;Effect=PConditioner,Condition=Burn,Chance=10;Effect=PConditionCure,Condition=Frozen,Target=Self;Effect=PConditionCure,Condition=Frozen
 Effect=Damage,Power=95;Effect=PConditioner,Condition=Burn,Chance=10
 Effect=Nerf,Stat=Accuracy,Stages=1
-Effect=Damage,Power=70;???(add tcondition for dig/fly)
+Effect=Damage,Power=70;Effect=Fly
 Effect=Buff,Stat=CritRatio,Stages=1
-Effect=TConditioner,Condition=Foresight
+Effect=BondConditioner,Condition=Foresight
 Effect=Damage,Power=Flail
 Effect=Damage,Power=15,Type=MultiAttack
 Effect=Damage,Power=10,Type=ConsecPowInc
 Effect=Damage,Power=10,Type=MultiAttack
-Effect=Damage,Power=80;???(add tempcondition for futuresight)
+Effect=BondConditioner,Condition=FutureSight
 Effect=Damage,Power=60;Effect=HealthSteal
 Effect=PConditioner,Condition=Paralysis
 Effect=Nerf,Stat=Attack,Stages=1
@@ -103,11 +103,11 @@ Effect=Damage,Power=70;Effect=MissRecoil,Percentage=12,Target=Self
 Effect=Damage,Power=55,Type=HighCritRatio
 Effect=Nerf,Stat=Accuracy,Stages=1
 Effect=Damage,Power=20;Effect=HealthSteal
-Effect=TConditioner,Condition=LeechSeed???make leech seed a type of bond condition
+Effect=BondConditioner,Condition=LeechSeed
 Effect=Nerf,Stat=Defense,Stages=1
 Effect=Damage,Power=20;Effect=PConditioner,Condition=Paralysis,Chance=30
-???(add light screen/ logic)
-???(add logic for lock-on someting that tracks both units)
+Effect=ProtectionConditioner,Condition=LightScreen
+Effect=BondConditioner,Condition=LockOn
 Effect=PConditioner,Condition=Asleep
 Effect=Damage,Power=50;Effect=TConditioner,Condition=Flinch,Chance=30
 Effect=Damage,Power=45;Effect=Buff,Stat=Speed,Chance=15,Stages=1,Target=Self
@@ -122,11 +122,11 @@ Effect=Damage,Power=50;Effect=Buff,Stat=Attack,Chance=10,Stages=1,Target=Self
 Effect=Metronome
 Effect=Heal,Percentage=50
 Effect=Mimic
-???same as lock-on (110)
+Effect=BondConditioner,Condition=MindReader
 Effect=Buff,Stat=Evasion,Stages=1
 Effect=Damage,Power=-2;???
 Effect=MirrorMove
-???(add condition mist)
+Effect=ProtectionConditioner,Condition=Mist
 Effect=TimeHeal,Time=Night
 Effect=TimeHeal,Time=Morning
 Effect=Damage,Power=20;Effect=Nerf,Stat=Accuracy,Stages=1
@@ -155,11 +155,11 @@ Effect=Damage,Power=Flanking
 Effect=Damage,Power=45;Effect=Buff,Stat=Speed,Chance=10,Stages=1,Target=Self
 Effect=Damage,Power=20,Type=ConsecPowInc
 Effect=Weather,Conditions=Rain
-Effect=Damage,Power=20;Effect=TConditionCure,Condition=Trap,Target=Self;Effect=TConditionCure,Condition=DamageTrap,Target=Self;Effect=TConditionCure,Condition=LeechSeed,Target=Self;???(remove spikes)
+Effect=Damage,Power=20;Effect=TConditionCure,Condition=Trap,Target=Self;Effect=TConditionCure,Condition=DamageTrap,Target=Self;Effect=BondConditionCure,Condition=LeechSeed,Target=Self;Effect=RemoveSpikes;Effect=RemoveSpikes,Target=Self
 Effect=Damage,Power=55,Type=HighCritRatio
 Effect=Damage,Power=80,Type=HighCritRatio;Effect=ChargeUp
 Effect=Heal,Percentage=50
-Effect=???same as logic for light screen
+Effect=ProtectionConditioner,Condition=Reflect
 Effect=Heal,Percentage=100;Effect=PConditionCure,Condition=All;Effect=PConditioner,Condition=Asleep
 Effect=Damage,Power=HappinessBased
 Effect=Damage,Power=Flail
@@ -170,7 +170,7 @@ Effect=Damage,Power=50
 Effect=Damage,Power=60;Effect=TConditioner,Condition=Flinch,Chance=30
 Effect=Damage,Power=30,Type=ConsecPowInc
 Effect=Damage,Power=100;Effect=PConditioner,Condition=Burn,Chance=50;Effect=PConditionCure,Condition=Frozen,Target=Self;Effect=PConditionCure,Condition=Frozen
-Effect=??? (add tcondition safeguard)
+Effect=ProtectionConditioner,Condition=Safeguard
 Effect=Nerf,Stat=Accuracy,Stages=1
 Effect=Weather,Conditions=Sand
 Effect=Nerf,Stat=Speed,Stages=2
@@ -199,7 +199,7 @@ Effect=Damage,Power=Invariant,Damage=20
 Effect=Damage,Power=65;Effect=PConditioner,Condition=Paralysis,Chance=30
 Effect=TConditioner,Condition=Trap
 Effect=Damage,Power=20,Type=MultiAttack
-Effect=???can either be another damage trap, or could allow movement, but any unit that moves in spikes range take damage
+Effect=Spikes
 Effect=Spite
 Effect=Splash
 Effect=PConditioner,Condition=Asleep

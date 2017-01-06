@@ -920,7 +920,6 @@ BondCOnditions cannot be healed or removed (except leech seed which is removed b
 
 
 TODO!!!
-Change moveeffects entries for above moves to reflect that they cause bondconditions of type enum BondCondition
 Decide whether to keep moves Bide,Counter,MirrorCoat.
 Decide what to replace Mr. Mime's move Substitute with (a new move or just have him learn Recover and never use move 213?)
 Handle logic for fly/dig and light screen/barrier/safeguard/mist.
