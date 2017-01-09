@@ -1,6 +1,8 @@
 package Engines;
 
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import Enums.BondCondition;
@@ -40,18 +42,22 @@ public class BattleEngine {
 	private static BattlefieldMaker bfmaker;
 	private static ArrayList<IntPair> validdestinations;
 	private static ArrayList<IntPair> previousmoves;
+	private static boolean spikesplaced;
 
 	public static void initialize(Trainer newopponent){
 		//TODO: Add save/load feature. Either add resume feature for picking back up mid battle
 		//or add logic to this method to determine if this is a new battle or if mid battle
 		//e.g. wipe save file at end of battle, initialize method uses save file to determine if new battle or not
-		//TODO: add xp gain logic
 		System.out.println("Initializing battle with "+newopponent.getName());
 		inbattle=true;
 		opponent=newopponent;
 		bfmaker=new ProceduralBattlefieldMaker();
+		spikesplaced=false;
 		initBattlefield();
 		initUnits();
+		System.out.println(allunits.get(0).toString());
+		Unit newunit=Unit.readInUnit(null,(allunits.get(0).toString()));
+		System.out.println(newunit.toString());
 		setPriorities();
 		activeindex=0;
 		activeunit=allunits.get(priorities.get(0));
@@ -293,8 +299,9 @@ public class BattleEngine {
 				System.out.println(activepokemon.getName()+" woke up from their nightmare");
 			}
 		}
-		Unit recipient=activeunit.hasBond(BondCondition.LeechSeed);
-		if(recipient!=null){
+		int recipientid=activeunit.hasBond(BondCondition.LeechSeed);
+		if(recipientid>0){
+			Unit recipient=getUnitByID(recipientid);
 			int damage=(int)(recipient.getPokemon().getStat(Stat.HP)*Constants.LEECH_SEED_HP_LOSS_RATE);
 			recipient.getPokemon().decHP(damage);
 			System.out.println(recipient.getPokemon().getName()+" takes "+damage+" damage from leech seed");
@@ -313,6 +320,14 @@ public class BattleEngine {
 				activeunit.incNumTurnsAfflicted(TempCondition.Disable.toString());
 		}
 	}
+	
+	private static Unit getUnitByID(int id){
+		for(Unit u:allunits){
+			if(u.getID()==id)
+				return u;
+		}
+		return null;
+	}
 
 	public static void takeControl(KeyListener kl){
 		GameData.getGUI().giveControl(kl);
@@ -326,11 +341,16 @@ public class BattleEngine {
 		punits=new ArrayList<Unit>();
 		ounits=new ArrayList<Unit>();
 		allunits=new ArrayList<Unit>();
-		for(Pokemon p:opponent.getParty()){ 
-			ounits.add(new Unit(p));
+		Pokemon[] party=opponent.getParty();
+		int idcounter=1;
+		for(int i=0;i<party.length;i++){ 
+			ounits.add(new Unit(party[i],i,idcounter));
+			idcounter++;
 		}
-		for(Pokemon p:PlayerData.getParty()){
-			punits.add(new Unit(p));
+		ArrayList<Pokemon> party2=PlayerData.getParty();
+		for(int i=0;i<party2.size();i++){
+			punits.add(new Unit(party2.get(i),i,idcounter));
+			idcounter++;
 		}
 		//insertion sort opp units by desc level
 		for(int pointer=1;pointer<ounits.size();pointer++){
@@ -352,29 +372,29 @@ public class BattleEngine {
 		//For now will auto place units the same way it auto places opp.
 		//TODO: Decide if I want to allow player to place as many as they want in their own order
 		switch(punits.size()){
-		case 6:moveOnSquare(punits.get(5),5,Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2-3);
-		case 5:moveOnSquare(punits.get(4),4,Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2+2);
-		case 4:moveOnSquare(punits.get(3),3,Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2-2);
-		case 3:moveOnSquare(punits.get(2),2,Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2+1);
-		case 2:moveOnSquare(punits.get(1),1,Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2-1);
-		case 1:moveOnSquare(punits.get(0),0,Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2);
+		case 6:moveOnSquare(punits.get(5),Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2-3);
+		case 5:moveOnSquare(punits.get(4),Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2+2);
+		case 4:moveOnSquare(punits.get(3),Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2-2);
+		case 3:moveOnSquare(punits.get(2),Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2+1);
+		case 2:moveOnSquare(punits.get(1),Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2-1);
+		case 1:moveOnSquare(punits.get(0),Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2);
 		}
 	}
 
 	private static void placeOppUnits(){
 		switch(ounits.size()){
-		case 6:moveOnSquare(ounits.get(5),punits.size()+5,0,Constants.BATTLEFIELD_HEIGHT/2-3);
-		case 5:moveOnSquare(ounits.get(4),punits.size()+4,0,Constants.BATTLEFIELD_HEIGHT/2+2);
-		case 4:moveOnSquare(ounits.get(3),punits.size()+3,0,Constants.BATTLEFIELD_HEIGHT/2-2);
-		case 3:moveOnSquare(ounits.get(2),punits.size()+2,0,Constants.BATTLEFIELD_HEIGHT/2+1);
-		case 2:moveOnSquare(ounits.get(1),punits.size()+1,0,Constants.BATTLEFIELD_HEIGHT/2-1);
-		case 1:moveOnSquare(ounits.get(0),punits.size(),0,Constants.BATTLEFIELD_HEIGHT/2);
+		case 6:moveOnSquare(ounits.get(5),0,Constants.BATTLEFIELD_HEIGHT/2-3);
+		case 5:moveOnSquare(ounits.get(4),0,Constants.BATTLEFIELD_HEIGHT/2+2);
+		case 4:moveOnSquare(ounits.get(3),0,Constants.BATTLEFIELD_HEIGHT/2-2);
+		case 3:moveOnSquare(ounits.get(2),0,Constants.BATTLEFIELD_HEIGHT/2+1);
+		case 2:moveOnSquare(ounits.get(1),0,Constants.BATTLEFIELD_HEIGHT/2-1);
+		case 1:moveOnSquare(ounits.get(0),0,Constants.BATTLEFIELD_HEIGHT/2);
 		}
 	}
 
-	private static void moveOnSquare(Unit unit,int index,int x,int y){
+	private static void moveOnSquare(Unit unit,int x,int y){
 		unit.setCoordinates(x, y);
-		battlefield[x][y].setUnit(index);
+		battlefield[x][y].setUnit(unit.getID());
 		battlefieldimage.add(unit.getImage(),x*Constants.TILE_SIZE,y*Constants.TILE_SIZE);
 	}
 
@@ -383,9 +403,42 @@ public class BattleEngine {
 		battlefieldimage.remove(unit.getImage());
 	}
 
+	/**
+	 * Resumes a battle that was saved previously. Called on initialization if last player save was mid-battle.
+	 */
+	public static void load(){
+		System.out.println("Initializing previous battle");
+		inbattle=true;
+		//opponent=newopponent; load opponent from file
+		//bfmaker=new ProceduralBattlefieldMaker(); create new bfmaker that creates battlefield based on stored data
+		//spikesplaced=false; store whether spikes have been placed
+		//initUnits(); create new method for recreating allunits,punits,ounits, and priorities based on save file and place unit where they were
+		//setPriorities(); priorities should already be set, no need for this
+		//activeindex=0;
+		//activeunit=allunits.get(priorities.get(0)); restore previous activeindex and activeunit.
+		//takeTurn(); determine where in activeunits turn we are. mark hasmoved,hasattacked,hastakenaction accordingly and then open the unit menu.
+		//calling takeTurn() will reset the vals and implement startofturnactions, which must already have been done on the activeunit for it
+		//to have reached a point that it could save, so clearly that is not necessary here.
+	}
+
+	/**
+	 * Saves all battle data to file to be loaded on initialization of program. Used when player saves mid battle.
+	 */
+	public static void save(){
+		try{
+			File f=new File(Constants.PATH+"\\InitializeData\\battlesavefile.txt");
+			PrintWriter pw=new PrintWriter(f);
+
+			pw.close();
+		}catch(Exception e){e.printStackTrace();}
+	}
+
 	public static void close(){
 		System.out.println("Ending battle");
 		inbattle=false;
+		File f=new File(Constants.PATH+"\\InitializeData\\battlesavefile.txt");
+		if(f.exists())
+			f.delete();
 	}
 
 	public static boolean isInBattle(){
@@ -485,7 +538,7 @@ public class BattleEngine {
 					ArrayList<Pokemon> xprecipients=new ArrayList<Pokemon>();
 					for(Unit unit:getLiveUnits(punits)){
 						Pokemon pokemon=unit.getPokemon();
-						if(pokemon.isHolding("Exp Share")||target.attackedBy(unit))
+						if(pokemon.isHolding("Exp Share")||target.attackedBy(unit.getID()))
 							xprecipients.add(pokemon);
 					}
 					awardExperience(xprecipients,targetpokemon);
@@ -548,7 +601,7 @@ public class BattleEngine {
 			battlefield[pair.getX()][pair.getY()].markValid();
 		}
 	}
-	
+
 	private static boolean canMoveTo(Square square){
 		if(square.getUnit()>-1)
 			return false;
@@ -568,10 +621,8 @@ public class BattleEngine {
 		IntPair newcoordinates=new IntPair(x-1,y);
 		if(previousmoves.size()==activeunit.getMovementRange()+1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates)
 				||(x>0&&battlefield[x-1][y].isValid())){
-			int unitid=battlefield[x][y].getUnit();
 			moveOffSquare(activeunit,x,y);
-			moveOnSquare(activeunit,unitid,x-1,y);
-			System.out.println(previousmoves+"   "+newcoordinates);
+			moveOnSquare(activeunit,x-1,y);
 			if(previousmoves.size()>1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates))
 				previousmoves.remove(previousmoves.size()-1);
 			else
@@ -589,10 +640,8 @@ public class BattleEngine {
 		IntPair newcoordinates=new IntPair(x+1,y);
 		if(previousmoves.size()==activeunit.getMovementRange()+1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates)
 				||(x<Constants.BATTLEFIELD_WIDTH-1&&battlefield[x+1][y].isValid())){
-			int unitid=battlefield[x][y].getUnit();
 			moveOffSquare(activeunit,x,y);
-			moveOnSquare(activeunit,unitid,x+1,y);
-			System.out.println(previousmoves+"   "+newcoordinates);
+			moveOnSquare(activeunit,x+1,y);
 			if(previousmoves.size()>1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates))
 				previousmoves.remove(previousmoves.size()-1);
 			else
@@ -610,10 +659,8 @@ public class BattleEngine {
 		IntPair newcoordinates=new IntPair(x,y-1);
 		if(previousmoves.size()==activeunit.getMovementRange()+1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates)
 				||(y>0&&battlefield[x][y-1].isValid())){
-			int unitid=battlefield[x][y].getUnit();
 			moveOffSquare(activeunit,x,y);
-			moveOnSquare(activeunit,unitid,x,y-1);
-			System.out.println(previousmoves+"   "+newcoordinates);
+			moveOnSquare(activeunit,x,y-1);
 			if(previousmoves.size()>1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates))
 				previousmoves.remove(previousmoves.size()-1);
 			else
@@ -631,10 +678,8 @@ public class BattleEngine {
 		IntPair newcoordinates=new IntPair(x,y+1);
 		if(previousmoves.size()==activeunit.getMovementRange()+1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates)
 				||(y<Constants.BATTLEFIELD_HEIGHT-1&&battlefield[x][y+1].isValid())){
-			int unitid=battlefield[x][y].getUnit();
 			moveOffSquare(activeunit,x,y);
-			moveOnSquare(activeunit,unitid,x,y+1);
-			System.out.println(previousmoves+"   "+newcoordinates);
+			moveOnSquare(activeunit,x,y+1);
 			if(previousmoves.size()>1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates))
 				previousmoves.remove(previousmoves.size()-1);
 			else
@@ -645,21 +690,23 @@ public class BattleEngine {
 		}
 		displayMovementRange();
 	}
-	
+
 	public static void confirmMovement(){
 		for(IntPair pair:validdestinations){
 			battlefield[pair.getX()][pair.getY()].markNeutral();
 		}
 		activeunit.setHasMoved(true);
 		System.out.println(activeunit.getPokemon().getName()+" has moved "+(previousmoves.size()-1)+" squares.");
-		int spikescount=0;
-		for(IntPair pair:previousmoves){
-			if(battlefield[pair.getX()][pair.getY()].hasSpikes())
-				spikescount++;
+		if(spikesplaced){
+			int spikescount=0;
+			for(IntPair pair:previousmoves){
+				if(battlefield[pair.getX()][pair.getY()].hasSpikes())
+					spikescount++;
+			}
+			int damage=round(spikescount*activeunit.getPokemon().getStat(Stat.HP)*Constants.SPIKES_DAMAGE_RATE);
+			System.out.println(activeunit.getPokemon().getName()+" takes "+damage+" damage from spikes");
+			activeunit.getPokemon().decHP(damage);
 		}
-		int damage=round(spikescount*activeunit.getPokemon().getStat(Stat.HP)*Constants.SPIKES_DAMAGE_RATE);
-		System.out.println(activeunit.getPokemon().getName()+" takes "+damage+" damage from spikes");
-		activeunit.getPokemon().decHP(damage);
 		if(!activeunit.getPokemon().isFainted())
 			MenuEngine.initialize(new UnitMenu(activeunit));
 		else

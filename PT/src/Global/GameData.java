@@ -383,7 +383,7 @@ public class GameData {
 		ArrayList<Type> toReturn=new ArrayList<Type>();
 		Type[] temp=types[pokenum];
 		toReturn.add(temp[0]);
-		if(temp.length==2)
+		if(temp[1]!=null)
 			toReturn.add(temp[1]);
 		return toReturn;
 	}
@@ -657,6 +657,8 @@ public class GameData {
 	}
 
 	public static int[] readIntArray(String s){
+		if(s.length()<=2)
+			return null;
 		String[] sarray=s.substring(1,s.length()-1).split(",");
 		int[] toReturn=new int[sarray.length];
 		for(int i=0;i<sarray.length;i++){

@@ -37,6 +37,11 @@ public class GlobalEngine {
 		ControlsConfig.load();
 		System.out.println("Initializing Complete");
 		//TODO: Add logic to determine if player is in battle or in map and load appropriate engine
+		File f=new File(Constants.PATH+"\\InitializeData\\battlesavefile.txt");
+		if(f.exists())
+			BattleEngine.load();
+		else
+			MapEngine.initialize(PlayerData.getLocation());
 	}
 
 	public static void save(){

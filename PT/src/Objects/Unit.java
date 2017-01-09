@@ -1,8 +1,10 @@
 package Objects;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import Enums.BondCondition;
 import Enums.Direction;
@@ -12,16 +14,19 @@ import Enums.TempCondition;
 import Enums.Type;
 import Global.Constants;
 import Global.GameData;
+import Global.PlayerData;
 import acm.graphics.GImage;
 
 public class Unit {
+	private int id;
 	private Pokemon pokemon;
+	private int pokemonpartyindex;
 	private int[] modstages;
 	private int movementrange;
 	//list of perm and temp conditions and number of turns that status has been active
 	private Map<String,Integer> conditions;
 	//list of bondconditions and the recipient of the condition
-	private Map<BondCondition,Unit> bondconditions;
+	private Map<BondCondition,Integer> bondconditions;
 	//list of protectionconditions and the number of turns they have been active
 	private Map<ProtectionCondition,Integer> protectionconditions;
 	private boolean controllable;
@@ -33,21 +38,23 @@ public class Unit {
 	private boolean canmove;
 	private boolean canattack;
 	private Move prevmove;
-	private ArrayList<Unit> attackedby;
+	private ArrayList<Integer> attackedby;
 	private boolean isdigging;
 	private boolean isflying;
 	private boolean hasattacked;
 	private int disabledmove;
 	private GImage image;
 	private IntPair coordinates;
-	
-	
-	public Unit(Pokemon pokemon){
+
+
+	public Unit(Pokemon pokemon,int partyindex,int id){
 		this.pokemon=pokemon;
+		this.id=id;
+		pokemonpartyindex=partyindex;
 		modstages=new int[8];
 		calculateMovementRange();
 		conditions=new HashMap<String,Integer>();
-		bondconditions=new HashMap<BondCondition,Unit>();
+		bondconditions=new HashMap<BondCondition,Integer>();
 		protectionconditions=new HashMap<ProtectionCondition,Integer>();
 		controllable=true;
 		directionfacing=Direction.Down;
@@ -58,7 +65,7 @@ public class Unit {
 		canmove=true;
 		canattack=true;
 		prevmove=null;
-		attackedby=new ArrayList<Unit>();
+		attackedby=new ArrayList<Integer>();
 		isdigging=false;
 		isflying=false;
 		hasattacked=false;
@@ -66,59 +73,87 @@ public class Unit {
 		coordinates=new IntPair(-1,-1);
 		image=new GImage(Constants.PATH+"\\Sprites\\"+pokemon.getNum()+".png");
 	}
-	
+
+	public Unit(Pokemon p,int[] modstag,int moverange,HashMap<String,Integer> conds,HashMap<BondCondition,Integer> bondconds,int id,
+			HashMap<ProtectionCondition,Integer> proconds,boolean control,Direction dir,boolean moved,boolean acted,ArrayList<Type> types,
+			boolean ended,boolean move,boolean attack,Move prev,ArrayList<Integer> attby,boolean dig,boolean fly,boolean attacked,int dis,IntPair coord){
+		pokemon=p;
+		this.id=id;
+		modstages=modstag;
+		movementrange=moverange;
+		conditions=conds;
+		bondconditions=bondconds;
+		protectionconditions=proconds;
+		controllable=control;
+		directionfacing=dir;
+		hasmoved=moved;
+		hastakenaction=acted;
+		this.types=types;
+		hasendedturn=ended;
+		canmove=move;
+		canattack=attack;
+		prevmove=prev;
+		attackedby=attby;
+		isdigging=dig;
+		isflying=fly;
+		hasattacked=attacked;
+		disabledmove=dis;
+		coordinates=coord;
+		image=new GImage(Constants.PATH+"\\Sprites\\"+pokemon.getNum()+".png");
+	}
+
 	public GImage getImage(){
 		return image;
 	}
-	
+
 	public IntPair getCoordinates(){
 		return coordinates;
 	}
-	
+
 	public void setCoordinates(int x,int y){
 		coordinates=new IntPair(x,y); 
 	}
-	
+
 	public boolean hasAttacked(){
 		return hasattacked;
 	}
-	
+
 	public void setHasAttacked(boolean hasattacked){
 		this.hasattacked=hasattacked;
 	}
-	
+
 	public int getDisabledMove(){
 		return disabledmove;
 	}
-	
+
 	public void enableDisabledMove(){
 		disabledmove=-1;
 	}
-	
+
 	public void setDisabledMove(int index){
 		disabledmove=index;
 	}
-	
+
 	public void calculateMovementRange(){
 		movementrange=Constants.MOVEMENT_RANGE_MIN+(getStat(Stat.Speed)/Constants.SPEED_PER_UNIT_MOVEMENT_RANGE);
 	}
-	
+
 	public void setFlying(boolean isflying){
 		this.isflying=isflying;
 	}
-	
+
 	public void setDigging(boolean isdigging){
 		this.isdigging=isdigging;
 	}
-	
+
 	public boolean isFlying(){
 		return isflying;
 	}
-	
+
 	public boolean isDigging(){
 		return isdigging;
 	}
-	
+
 	/**
 	 * If the unit already has this protection condition, this method will fail
 	 * @param condition
@@ -129,95 +164,95 @@ public class Unit {
 		protectionconditions.put(condition,0);
 		return true;
 	}
-	
+
 	public void incNumTurnsProtected(ProtectionCondition condition){
 		protectionconditions.put(condition,protectionconditions.get(condition)+1);
 	}
-	
+
 	public void resetNumTurnsProtected(ProtectionCondition condition){
 		protectionconditions.put(condition, 0);
 	}
-	
+
 	public int getNumTurnsProtected(ProtectionCondition condition){
 		return protectionconditions.get(condition);
 	}
-	
+
 	/**
 	 * Will fail if unit already has that bond with a recipient
 	 * @param bond
 	 * @param recipient
 	 * @return
 	 */
-	public boolean addBondCondition(BondCondition bond, Unit recipient){
+	public boolean addBondCondition(BondCondition bond, int recipientid){
 		if(bondconditions.get(bond)!=null)
 			return false;
-		bondconditions.put(bond,recipient);
+		bondconditions.put(bond,recipientid);
 		return true;
 	}
-	
-	public Unit hasBond(BondCondition bond){
+
+	public int hasBond(BondCondition bond){
 		if(bondconditions.containsKey(bond))
 			return bondconditions.get(bond);
-		return null;
+		return -1;
 	}
-	
+
 	public void removeBondCondition(BondCondition bond){
 		bondconditions.remove(bond);
 	}
-	
+
 	public void clearBondConditions(){
 		bondconditions.clear();
 	}
-	
-	public boolean attackedBy(Unit unit){
-		return attackedby.contains(unit);
+
+	public boolean attackedBy(int unitid){
+		return attackedby.contains(unitid);
 	}
-	
-	public void wasAttackedBy(Unit unit){
-		if(!attackedBy(unit))
-			attackedby.add(unit);
+
+	public void wasAttackedBy(int unitid){
+		if(!attackedBy(unitid))
+			attackedby.add(unitid);
 	}
-	
+
 	public Move getPrevMove(){
 		return prevmove;
 	}
-	
+
 	public void setPrevMove(Move m){
 		prevmove=m;
 	}
-	
+
 	public boolean canAttack(){
 		return canattack;
 	}
-	
+
 	public void setCanAttack(boolean newval){
 		canattack=newval;
 	}
-	
+
 	public boolean canMove(){
 		return canmove;
 	}
-	
+
 	public void setCanMove(boolean newval){
 		canmove=newval;
 	}
-	
+
 	public Pokemon getPokemon(){
 		return pokemon;
 	}
-	
+
 	public int getNumTurnsAfflicted(String condition){
 		return conditions.get(condition);
 	}
-	
+
 	public void incNumTurnsAfflicted(String condition){
 		conditions.put(condition,conditions.get(condition)+1);
 	}
-	
+
 	public void resetNumTurnsAfflicted(String condition){
 		conditions.put(condition,0);
 	}
-	
+
 	public boolean incCritRatio(int stages){
 		int stage=modstages[7];
 		if(stage==6)
@@ -228,7 +263,7 @@ public class Unit {
 		modstages[7]=stage;
 		return true;
 	}
-	
+
 	public boolean decCritRatio(int stages){
 		int stage=modstages[7];
 		if(stage==0)
@@ -239,11 +274,11 @@ public class Unit {
 		modstages[7]=stage;
 		return true;
 	}
-	
+
 	public int getCritRatio(){
 		return GameData.getCritRatio(modstages[7]);
 	}
-	
+
 	/**
 	 *  Increases the given battle stat by the given number of stages. If stat would be increased beyond stage 6, it is set to stage 6 instead. If stat
 	 *  cannot be further increased, the method fails
@@ -276,7 +311,7 @@ public class Unit {
 		modstages[index]=stage;
 		return true;
 	}
-	
+
 	/**
 	 *  Decreases the given battle stat by the given number of stages. If stat would be decreased beyond stage -6, it is set to stage -6 instead. If stat
 	 *  cannot be further decreased, the method fails
@@ -309,11 +344,11 @@ public class Unit {
 		modstages[index]=stage;
 		return true;
 	}
-	
+
 	public double getAccuracy(){
 		return GameData.getAccEvaStageMultiplier(Stat.Accuracy,modstages[5]);
 	}
-	
+
 	public double getEvasion(){
 		return GameData.getAccEvaStageMultiplier(Stat.Evasion,modstages[6]);
 	}
@@ -348,11 +383,11 @@ public class Unit {
 			return (int)(GameData.getStatStageMultiplier(modstages[index-1])*pokemon.getStats()[index]);
 		else return -1;
 	}
-	
+
 	public int getMovementRange(){
 		return movementrange;
 	}
-	
+
 	/**
 	 * Attempts to inflict the given volatile status condition on the unit. If it already has that condition, the method fails
 	 * If unit already has a trap condition, it cannot be caught in a damage trap and vice-versa
@@ -367,15 +402,15 @@ public class Unit {
 		conditions.put(newcondition.toString(),0);
 		return true;
 	}
-	
+
 	public boolean hasTempCondition(TempCondition condition){
 		return conditions.containsKey(condition);
 	}
-	
+
 	public void removeconditions(){
 		conditions.clear();
 	}
-	
+
 	/**
 	 * Attempts to alleviate the given volatile condition. If the pokemon doesn't have that condition, method fails
 	 * @param condition
@@ -384,51 +419,51 @@ public class Unit {
 	public boolean removeTcondition(TempCondition condition){
 		return conditions.remove(condition)!=null;
 	}
-	
+
 	public boolean isControllable(){
 		return controllable;
 	}
-	
+
 	public void setControllable(boolean newval){
 		controllable=newval;
 	}
-	
+
 	public Direction getDirectionFacing(){
 		return directionfacing;
 	}
-	
+
 	public void setDirectionFacing(Direction newdirection){
 		directionfacing=newdirection;
 	}
-	
+
 	public boolean hasMoved(){
 		return hasmoved;
 	}
-	
+
 	public boolean hasTakenAction(){
 		return hastakenaction;
 	}
-	
+
 	public void setHasMoved(boolean newval){
 		hasmoved=newval;
 	}
-	
+
 	public void setHasTakenAction(boolean newval){
 		hastakenaction=newval;
 	}
-	
+
 	public boolean hasEndedTurn(){
 		return hasendedturn;
 	}
-	
+
 	public void setHasEndedTurn(boolean newval){
 		hasendedturn=newval;
 	}
-	
+
 	public boolean isType(Type type){
 		return types.contains(type);
 	}
-	
+
 	/**
 	 * Overrides units types to become the current type. Currently only used for Conversion 1 and 2
 	 * @param type
@@ -437,14 +472,115 @@ public class Unit {
 		types.clear();
 		types.add(type);
 	}
-	
+
+	public void setTypes(ArrayList<Type> types){
+		this.types.clear();
+		this.types.add(types.get(0));
+		this.types.add(types.get(1));
+	}
+
 	public ArrayList<Type> getTypes(){
 		return types;
 	}
-	
+
 	public void damage(int damage){
 		pokemon.decHP(damage);
 	}
-	
-	
+
+	public int getID(){
+		return id;
+	}
+
+	public String toString(){
+		String s="";
+		s+=id+"\n";
+		s+=pokemonpartyindex+" "+movementrange+" "+controllable+" "+directionfacing+" "+hasmoved+" "+hastakenaction+" "+hasendedturn+" "+canmove+" "
+				+canattack+" "+isdigging+" "+isflying+" "+hasattacked+" "+disabledmove+"\n";
+		s+=coordinates.toString()+"\n";
+		s+=Arrays.toString(modstages)+"\n";
+		s+=conditions.toString()+"\n";
+		s+=bondconditions.toString()+"\n";
+		s+=protectionconditions.toString()+"\n";
+		s+=types.toString()+"\n";
+		s+=prevmove+"\n";
+		s+=attackedby.toString()+"\n";
+		return s;
+	}
+
+	public static Unit readInUnit(Trainer owner, String s){
+		//TODO:
+		Scanner reader=new Scanner(s);
+		int id=reader.nextInt();
+		reader.nextLine();
+		int partyindex=reader.nextInt();
+		Pokemon p;
+		if(owner==null)
+			p=PlayerData.getParty().get(partyindex);
+		else
+			p=owner.getParty()[partyindex];
+		int moverange=reader.nextInt();
+		boolean control=reader.nextBoolean();
+		Direction dir=Direction.valueOf(reader.next());
+		boolean moved=reader.nextBoolean();
+		boolean acted=reader.nextBoolean();
+		boolean ended=reader.nextBoolean();
+		boolean move=reader.nextBoolean();
+		boolean attack=reader.nextBoolean();
+		boolean dig=reader.nextBoolean();
+		boolean fly=reader.nextBoolean();
+		boolean attacked=reader.nextBoolean();
+		int dis=reader.nextInt();
+		reader.nextLine();
+		IntPair coord=IntPair.readIn(reader.nextLine());
+		int[] modstag=GameData.readIntArray(reader.nextLine());
+		HashMap<String,Integer> conds=new HashMap<String,Integer>();
+		String line=reader.nextLine();
+		String[] entries;
+		if(line.length()>2){
+			entries=line.substring(1,line.length()-1).split(", ");
+			for(String entry:entries){
+				String[] split=entry.split("=");
+				conds.put(split[0],Integer.parseInt(split[1]));
+			}
+		}
+		HashMap<BondCondition,Integer> bondconds=new HashMap<BondCondition,Integer>();
+		line=reader.nextLine();
+		if(line.length()>2){
+			entries=line.substring(1,line.length()-1).split(", ");
+			for(String entry:entries){
+				String[] split=entry.split("=");
+				bondconds.put(BondCondition.valueOf(split[0]),Integer.parseInt(split[1]));
+			}
+		}
+		HashMap<ProtectionCondition,Integer> proconds=new HashMap<ProtectionCondition,Integer>();
+		line=reader.nextLine();
+		if(line.length()>2){
+			entries=line.substring(1,line.length()-1).split(", ");
+			for(String entry:entries){
+				String[] split=entry.split("=");
+				proconds.put(ProtectionCondition.valueOf(split[0]),Integer.parseInt(split[1]));
+			}
+		}
+		line=reader.nextLine();
+		ArrayList<Type> types=new ArrayList<Type>();
+		String[] split=line.substring(1,line.length()-1).split(",");
+		for(int i=0;i<split.length;i++){
+			if(!split[i].trim().equals("null"))
+				types.add(Type.valueOf(split[i].trim()));
+		}
+		line=reader.nextLine();
+		Move prev=null;
+		if(!line.trim().equals("null")){
+			split=line.split(" ");
+			prev=new Move(Integer.parseInt(split[0]),Integer.parseInt(split[1]),Integer.parseInt(split[2]));
+		}
+		ArrayList<Integer> attby=new ArrayList<Integer>();
+		int[] attackbylist=GameData.readIntArray(reader.nextLine());
+		if(attackbylist!=null){
+			for(int x:attackbylist)
+				attby.add(x);
+		}
+		return new Unit(p, modstag, moverange, conds, bondconds, id, proconds, control, dir, moved, acted, types, ended, move, attack, prev, attby, dig, fly, attacked, dis, coord);
+	}
+
 }

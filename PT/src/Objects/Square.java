@@ -60,8 +60,8 @@ public class Square {
 		unit=-1;
 	}
 	
-	public void setUnit(int unit){
-		this.unit=unit;
+	public void setUnit(int unitid){
+		this.unit=unitid;
 	}
 	
 	public boolean hasSpikes(){
