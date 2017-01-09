@@ -30,4 +30,8 @@ public class IntPair {
 		String[] vals=intpair.split(",");
 		return new IntPair(Integer.parseInt(vals[0]),Integer.parseInt(vals[1]));
 	}
+	
+	public boolean equals(IntPair other){
+		return (x==other.x&&y==other.y);
+	}
 }

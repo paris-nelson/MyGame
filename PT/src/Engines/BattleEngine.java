@@ -39,6 +39,7 @@ public class BattleEngine {
 	private static Square[][] battlefield;
 	private static BattlefieldMaker bfmaker;
 	private static ArrayList<IntPair> validdestinations;
+	private static ArrayList<IntPair> previousmoves;
 
 	public static void initialize(Trainer newopponent){
 		//TODO: Add save/load feature. Either add resume feature for picking back up mid battle
@@ -517,26 +518,31 @@ public class BattleEngine {
 	}
 
 	public static void move(){
-		//TODO:display movement range, allow input to traverse and select desired location then move unit to that location.
+		previousmoves=new ArrayList<IntPair>();
+		previousmoves.add(activeunit.getCoordinates());
 		displayMovementRange();
 		takeControl(new BattleMovementKeyListener());
 	}
 
 	private static void displayMovementRange(){
-		System.out.println(activeunit.getPokemon().getName()+" moving up to "+activeunit.getMovementRange()+" units");
 		validdestinations=new ArrayList<IntPair>();
-		int range=activeunit.getMovementRange();
+		int range=activeunit.getMovementRange()-previousmoves.size()+1;
 		int xcoordinate=activeunit.getCoordinates().getX();
 		int ycoordinate=activeunit.getCoordinates().getY();
 		validdestinations.add(activeunit.getCoordinates());
+		System.out.println(activeunit.getPokemon().getName()+" moving up to "+range+" units");
 		for(int x=xcoordinate-range;x<=xcoordinate+range;x++){
 			for(int y=ycoordinate-range;y<=ycoordinate+range;y++){
 				if(y>=Constants.BATTLEFIELD_HEIGHT)
 					break;
-				if(x>0&&y>0&&x<Constants.BATTLEFIELD_WIDTH
+				if(x>=0&&y>=0&&x<Constants.BATTLEFIELD_WIDTH
 						&&Math.abs(x-xcoordinate)+Math.abs(y-ycoordinate)<=range&&canMoveTo(battlefield[x][y]))
 					validdestinations.add(new IntPair(x,y));
 			}
+		}
+		for(IntPair pair:previousmoves){
+			if(!validdestinations.contains(pair))
+				validdestinations.add(pair);
 		}
 		for(IntPair pair:validdestinations){
 			battlefield[pair.getX()][pair.getY()].markValid();
@@ -553,52 +559,91 @@ public class BattleEngine {
 		//TODO: Implement logic so that flyers can move over water/lava tiles, but cannot stop on them
 		//add check in confirmMovement that either disallows movement and/or gives prompt to user that 
 		//they cannot end there.
-		//TODO: NEXT!! rather than use total range, keep queue of moves made. if new square is the most recent
-		//square, then we backtracked, remove it from queue. Base the remaining moves on the length
-		//of the queue of previous moves. Then once movement is confirmed, use list of squares to 
-		//determine how much damage is taken from spikes.Re-draw the display of valid squares after each
-		//move since remaining range changes with number of remaining moves
 		return true;
 	}
 
 	public static void moveLeft(){
 		int x=activeunit.getCoordinates().getX();
 		int y=activeunit.getCoordinates().getY();
-		if(x>0&&battlefield[x-1][y].isValid()){
+		IntPair newcoordinates=new IntPair(x-1,y);
+		if(previousmoves.size()==activeunit.getMovementRange()+1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates)
+				||(x>0&&battlefield[x-1][y].isValid())){
 			int unitid=battlefield[x][y].getUnit();
 			moveOffSquare(activeunit,x,y);
 			moveOnSquare(activeunit,unitid,x-1,y);
+			System.out.println(previousmoves+"   "+newcoordinates);
+			if(previousmoves.size()>1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates))
+				previousmoves.remove(previousmoves.size()-1);
+			else
+				previousmoves.add(newcoordinates);
 		}
+		for(IntPair pair:validdestinations){
+			battlefield[pair.getX()][pair.getY()].markNeutral();
+		}
+		displayMovementRange();
 	}
 
 	public static void moveRight(){
 		int x=activeunit.getCoordinates().getX();
 		int y=activeunit.getCoordinates().getY();
-		if(x<Constants.BATTLEFIELD_WIDTH-1&&battlefield[x+1][y].isValid()){
+		IntPair newcoordinates=new IntPair(x+1,y);
+		if(previousmoves.size()==activeunit.getMovementRange()+1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates)
+				||(x<Constants.BATTLEFIELD_WIDTH-1&&battlefield[x+1][y].isValid())){
 			int unitid=battlefield[x][y].getUnit();
 			moveOffSquare(activeunit,x,y);
 			moveOnSquare(activeunit,unitid,x+1,y);
+			System.out.println(previousmoves+"   "+newcoordinates);
+			if(previousmoves.size()>1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates))
+				previousmoves.remove(previousmoves.size()-1);
+			else
+				previousmoves.add(newcoordinates);
 		}
+		for(IntPair pair:validdestinations){
+			battlefield[pair.getX()][pair.getY()].markNeutral();
+		}
+		displayMovementRange();
 	}
 
 	public static void moveUp(){
 		int x=activeunit.getCoordinates().getX();
 		int y=activeunit.getCoordinates().getY();
-		if(y>0&&battlefield[x][y-1].isValid()){
+		IntPair newcoordinates=new IntPair(x,y-1);
+		if(previousmoves.size()==activeunit.getMovementRange()+1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates)
+				||(y>0&&battlefield[x][y-1].isValid())){
 			int unitid=battlefield[x][y].getUnit();
 			moveOffSquare(activeunit,x,y);
 			moveOnSquare(activeunit,unitid,x,y-1);
+			System.out.println(previousmoves+"   "+newcoordinates);
+			if(previousmoves.size()>1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates))
+				previousmoves.remove(previousmoves.size()-1);
+			else
+				previousmoves.add(newcoordinates);
 		}
+		for(IntPair pair:validdestinations){
+			battlefield[pair.getX()][pair.getY()].markNeutral();
+		}
+		displayMovementRange();
 	}
 
 	public static void moveDown(){
 		int x=activeunit.getCoordinates().getX();
 		int y=activeunit.getCoordinates().getY();
-		if(y<Constants.BATTLEFIELD_HEIGHT-1&&battlefield[x][y+1].isValid()){
+		IntPair newcoordinates=new IntPair(x,y+1);
+		if(previousmoves.size()==activeunit.getMovementRange()+1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates)
+				||(y<Constants.BATTLEFIELD_HEIGHT-1&&battlefield[x][y+1].isValid())){
 			int unitid=battlefield[x][y].getUnit();
 			moveOffSquare(activeunit,x,y);
 			moveOnSquare(activeunit,unitid,x,y+1);
+			System.out.println(previousmoves+"   "+newcoordinates);
+			if(previousmoves.size()>1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates))
+				previousmoves.remove(previousmoves.size()-1);
+			else
+				previousmoves.add(newcoordinates);
 		}
+		for(IntPair pair:validdestinations){
+			battlefield[pair.getX()][pair.getY()].markNeutral();
+		}
+		displayMovementRange();
 	}
 	
 	public static void confirmMovement(){
@@ -606,7 +651,19 @@ public class BattleEngine {
 			battlefield[pair.getX()][pair.getY()].markNeutral();
 		}
 		activeunit.setHasMoved(true);
-		MenuEngine.initialize(new UnitMenu(activeunit));
+		System.out.println(activeunit.getPokemon().getName()+" has moved "+(previousmoves.size()-1)+" squares.");
+		int spikescount=0;
+		for(IntPair pair:previousmoves){
+			if(battlefield[pair.getX()][pair.getY()].hasSpikes())
+				spikescount++;
+		}
+		int damage=round(spikescount*activeunit.getPokemon().getStat(Stat.HP)*Constants.SPIKES_DAMAGE_RATE);
+		System.out.println(activeunit.getPokemon().getName()+" takes "+damage+" damage from spikes");
+		activeunit.getPokemon().decHP(damage);
+		if(!activeunit.getPokemon().isFainted())
+			MenuEngine.initialize(new UnitMenu(activeunit));
+		else
+			nextTurn();
 	}
 
 	public static Unit getActiveUnit(){

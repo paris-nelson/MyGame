@@ -52,6 +52,7 @@ public class Constants {
 	public static final int DISABLE_MAX_TURNS=5;
 	public static final int PARALYSIS_INACTION_CHANCE=25;
 	public static final int ATTRACT_INACTION_CHANCE=50;
+	public static final double SPIKES_DAMAGE_RATE=.125;
 	
 
 	public static final double LEFTOVERS_HP_RECOV_RATE=.0833;
