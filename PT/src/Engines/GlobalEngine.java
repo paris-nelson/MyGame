@@ -262,7 +262,7 @@ public class GlobalEngine {
 			}
 			else if(type==ItemType.ELIXIR){
 				String name=GameData.getItemName(itemid);
-				Move[] moveset=pokemon.getMoveSet();
+				ArrayList<Move> moveset=pokemon.getMoveSet();
 				boolean inced=false;
 				for(Move m:moveset){
 					if(m.getCurrPP()<m.getCurrMax()){

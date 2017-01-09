@@ -30,7 +30,7 @@ public class Pokemon {
 	private boolean wild;
 	private int heldid;
 	private Type helditemboosttype;
-	private Move[] moveset;
+	private ArrayList<Move> moveset;
 	private int happiness;
 	private boolean fainted;
 	private Gender gender;
@@ -52,7 +52,7 @@ public class Pokemon {
 	 * @param level
 	 * @param moveset
 	 */
-	public Pokemon(int num,int level, Move[] moveset){
+	public Pokemon(int num,int level, ArrayList<Move> moveset){
 		this(num,level,moveset,-1,true);
 	}
 	
@@ -84,7 +84,7 @@ public class Pokemon {
 	 * 7=Gym leaders
 	 * 10=Elite 4
 	 */
-	public Pokemon(int num,int level, Move[] moveset,int trainerclass){
+	public Pokemon(int num,int level, ArrayList<Move> moveset,int trainerclass){
 		this(num,level,moveset,trainerclass,false);
 	}
 
@@ -97,7 +97,7 @@ public class Pokemon {
 	 * @param wild
 	 * @param gender
 	 */
-	private Pokemon(int num,int level,Move[] moveset,int trainerclass,boolean wild){
+	private Pokemon(int num,int level,ArrayList<Move> moveset,int trainerclass,boolean wild){
 		this.num=num;
 		name=GameData.getName(num);
 		ivs=Pokemon.generateIVs(trainerclass);
@@ -160,7 +160,7 @@ public class Pokemon {
 	 */
 	public Pokemon(int num, String name, int[] ivs, int[] evs, int[] stats, int currhp,
 			PermCondition pcondition, int level, int exp, boolean wild,
-			int heldid, Type helditemboosttype, Move[] moveset, int happiness,
+			int heldid, Type helditemboosttype, ArrayList<Move> moveset, int happiness,
 			boolean fainted, Gender gender) {
 		this.num = num;
 		this.name = name;
@@ -523,7 +523,7 @@ public class Pokemon {
 		return helditemboosttype;
 	}
 	
-	public Move[] getMoveSet(){
+	public ArrayList<Move> getMoveSet(){
 		return moveset;
 	}
 	
@@ -538,10 +538,10 @@ public class Pokemon {
 	 * @return: false if the pokemon already knows 4 moves, true otherwise
 	 */
 	public boolean learnMove(Move newmove){
-		if(moveset.length==4)
+		if(moveset.size()==4)
 			return false;
 		else
-			moveset[moveset.length]=newmove;
+			moveset.add(newmove);
 		return true;
 	}
 	
@@ -551,7 +551,7 @@ public class Pokemon {
 	 * @param newmove
 	 */
 	public void replaceMove(int indexToReplace,Move newmove){
-		moveset[indexToReplace]=newmove;
+		moveset.set(indexToReplace,newmove);
 	}
 	
 	public int getHappiness(){
@@ -594,7 +594,7 @@ public class Pokemon {
 		s+=name+" "+num+" "+currhp+" "+level+" "+exp+" "+heldid+" "+happiness+" ";
 		s+=wild+" "+fainted+" ";
 		s+=pcondition+" "+helditemboosttype+" "+gender+" ";
-		s+=Arrays.toString(moveset)+"__";
+		s+=moveset+"__";
 		s+=Arrays.toString(ivs)+"__";
 		s+=Arrays.toString(evs)+"__";
 		s+=Arrays.toString(stats);
@@ -640,14 +640,12 @@ public class Pokemon {
 		if(!type.equals("null"))
 			gender=Gender.valueOf(type);
 		String[] arrays=s.nextLine().split("__");
-		Move[] moves=new Move[4];
+		ArrayList<Move> moves=new ArrayList<Move>();
 		String[] movearray=arrays[0].substring(2,arrays[0].length()-1).split(",");
 		for(int i=0;i<4;i++){
-			if(movearray[i].trim().equals("null"))
-				moves[i]=null;
-			else{
+			if(!movearray[i].trim().equals("null")){
 				Scanner s2=new Scanner(movearray[i]);
-				moves[i]=new Move(s2.nextInt(),s2.nextInt(),s2.nextInt());
+				moves.add(new Move(s2.nextInt(),s2.nextInt(),s2.nextInt()));
 				s2.close();
 			}
 		}

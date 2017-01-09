@@ -1,23 +1,29 @@
 package Engines;
 
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import Enums.BondCondition;
 import Enums.PermCondition;
 import Enums.Stat;
 import Enums.TempCondition;
+import Enums.Tile;
 import Enums.Type;
 import Global.Constants;
 import Global.GameData;
 import Global.PlayerData;
-import KeyListeners.BattleKeyListener;
+import KeyListeners.BattleMovementKeyListener;
 import Menus.BattlePlayerMenu;
 import Menus.UnitMenu;
+import Objects.BattlefieldMaker;
+import Objects.IntPair;
 import Objects.Move;
 import Objects.Pokemon;
+import Objects.ProceduralBattlefieldMaker;
+import Objects.Square;
 import Objects.Trainer;
 import Objects.Unit;
-import Objects.WildTrainer;
+import acm.graphics.GCompound;
 
 public class BattleEngine {
 
@@ -29,6 +35,10 @@ public class BattleEngine {
 	private static int activeindex;
 	private static Unit activeunit;
 	private static boolean inbattle;
+	private static GCompound battlefieldimage;
+	private static Square[][] battlefield;
+	private static BattlefieldMaker bfmaker;
+	private static ArrayList<IntPair> validdestinations;
 
 	public static void initialize(Trainer newopponent){
 		//TODO: Add save/load feature. Either add resume feature for picking back up mid battle
@@ -38,15 +48,23 @@ public class BattleEngine {
 		System.out.println("Initializing battle with "+newopponent.getName());
 		inbattle=true;
 		opponent=newopponent;
+		bfmaker=new ProceduralBattlefieldMaker();
+		initBattlefield();
 		initUnits();
-		takeControl();
 		setPriorities();
 		activeindex=0;
 		activeunit=allunits.get(priorities.get(0));
 		takeTurn();
 	}
 
-	public static void setPriorities(){
+	private static void initBattlefield(){
+		bfmaker.makeNew();
+		battlefieldimage=bfmaker.getImage();
+		battlefield=bfmaker.getResult();
+		GameData.getGUI().add(battlefieldimage,10,10);  
+	}
+
+	private static void setPriorities(){
 		priorities=new ArrayList<Integer>();
 		for(int i=0;i<allunits.size();i++){
 			priorities.add(i);
@@ -85,7 +103,7 @@ public class BattleEngine {
 		}
 	}
 
-	public static void nextTurn(){
+	private static void nextTurn(){
 		System.out.println("Going to next turn");
 		if(getNumLiveUnits(punits)==0||getNumLiveUnits(ounits)==0)
 			battleOver();
@@ -295,22 +313,73 @@ public class BattleEngine {
 		}
 	}
 
-	public static void takeControl(){
-		GameData.getGUI().giveControl(new BattleKeyListener());
+	public static void takeControl(KeyListener kl){
+		GameData.getGUI().giveControl(kl);
+	}
+
+	public static void giveControl(){
+		GameData.getGUI().giveControl(null);
 	}
 
 	public static void initUnits(){
 		punits=new ArrayList<Unit>();
 		ounits=new ArrayList<Unit>();
 		allunits=new ArrayList<Unit>();
-		for(Pokemon p:opponent.getParty()){
+		for(Pokemon p:opponent.getParty()){ 
 			ounits.add(new Unit(p));
 		}
 		for(Pokemon p:PlayerData.getParty()){
 			punits.add(new Unit(p));
 		}
+		//insertion sort opp units by desc level
+		for(int pointer=1;pointer<ounits.size();pointer++){
+			int hole=pointer;
+			while(hole>0&&ounits.get(hole).getPokemon().getLevel()>ounits.get(hole-1).getPokemon().getLevel()){
+				Unit temp=ounits.get(hole-1);
+				ounits.set(hole-1,ounits.get(hole));
+				ounits.set(hole,temp);
+				hole--;
+			}
+		}		
 		allunits.addAll(punits);
 		allunits.addAll(ounits);
+		placeOppUnits();
+		placePlayerUnits();
+	}
+
+	private static void placePlayerUnits(){
+		//For now will auto place units the same way it auto places opp.
+		//TODO: Decide if I want to allow player to place as many as they want in their own order
+		switch(punits.size()){
+		case 6:moveOnSquare(punits.get(5),5,Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2-3);
+		case 5:moveOnSquare(punits.get(4),4,Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2+2);
+		case 4:moveOnSquare(punits.get(3),3,Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2-2);
+		case 3:moveOnSquare(punits.get(2),2,Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2+1);
+		case 2:moveOnSquare(punits.get(1),1,Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2-1);
+		case 1:moveOnSquare(punits.get(0),0,Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2);
+		}
+	}
+
+	private static void placeOppUnits(){
+		switch(ounits.size()){
+		case 6:moveOnSquare(ounits.get(5),punits.size()+5,0,Constants.BATTLEFIELD_HEIGHT/2-3);
+		case 5:moveOnSquare(ounits.get(4),punits.size()+4,0,Constants.BATTLEFIELD_HEIGHT/2+2);
+		case 4:moveOnSquare(ounits.get(3),punits.size()+3,0,Constants.BATTLEFIELD_HEIGHT/2-2);
+		case 3:moveOnSquare(ounits.get(2),punits.size()+2,0,Constants.BATTLEFIELD_HEIGHT/2+1);
+		case 2:moveOnSquare(ounits.get(1),punits.size()+1,0,Constants.BATTLEFIELD_HEIGHT/2-1);
+		case 1:moveOnSquare(ounits.get(0),punits.size(),0,Constants.BATTLEFIELD_HEIGHT/2);
+		}
+	}
+
+	private static void moveOnSquare(Unit unit,int index,int x,int y){
+		unit.setCoordinates(x, y);
+		battlefield[x][y].setUnit(index);
+		battlefieldimage.add(unit.getImage(),x*Constants.TILE_SIZE,y*Constants.TILE_SIZE);
+	}
+
+	private static void moveOffSquare(Unit unit,int x,int y){
+		battlefield[x][y].removeUnit();
+		battlefieldimage.remove(unit.getImage());
 	}
 
 	public static void close(){
@@ -341,7 +410,7 @@ public class BattleEngine {
 		else
 			lose();
 	}
-	
+
 	private static ArrayList<Unit> getLiveUnits(ArrayList<Unit> party){
 		ArrayList<Unit> live=new ArrayList<Unit>();
 		for(Unit u:party){
@@ -429,7 +498,7 @@ public class BattleEngine {
 			activeunit.incNumTurnsAfflicted(PermCondition.Confusion.toString());
 		MenuEngine.initialize(new UnitMenu(activeunit));
 	}
-	
+
 	private static void awardExperience(ArrayList<Pokemon> recipients,Pokemon giver){
 		double xpshare=GameData.getBaseExp(giver.getNum())*giver.getLevel();
 		if(!giver.isWild())
@@ -449,6 +518,94 @@ public class BattleEngine {
 
 	public static void move(){
 		//TODO:display movement range, allow input to traverse and select desired location then move unit to that location.
+		displayMovementRange();
+		takeControl(new BattleMovementKeyListener());
+	}
+
+	private static void displayMovementRange(){
+		System.out.println(activeunit.getPokemon().getName()+" moving up to "+activeunit.getMovementRange()+" units");
+		validdestinations=new ArrayList<IntPair>();
+		int range=activeunit.getMovementRange();
+		int xcoordinate=activeunit.getCoordinates().getX();
+		int ycoordinate=activeunit.getCoordinates().getY();
+		validdestinations.add(activeunit.getCoordinates());
+		for(int x=xcoordinate-range;x<=xcoordinate+range;x++){
+			for(int y=ycoordinate-range;y<=ycoordinate+range;y++){
+				if(y>=Constants.BATTLEFIELD_HEIGHT)
+					break;
+				if(x>0&&y>0&&x<Constants.BATTLEFIELD_WIDTH
+						&&Math.abs(x-xcoordinate)+Math.abs(y-ycoordinate)<=range&&canMoveTo(battlefield[x][y]))
+					validdestinations.add(new IntPair(x,y));
+			}
+		}
+		for(IntPair pair:validdestinations){
+			battlefield[pair.getX()][pair.getY()].markValid();
+		}
+	}
+	
+	private static boolean canMoveTo(Square square){
+		if(square.getUnit()>-1)
+			return false;
+		if(square.getTileType()==Tile.Water&&!activeunit.isType(Type.Water))
+			return false;
+		if(square.getTileType()==Tile.Lava&&!activeunit.isType(Type.Fire))
+			return false;
+		//TODO: Implement logic so that flyers can move over water/lava tiles, but cannot stop on them
+		//add check in confirmMovement that either disallows movement and/or gives prompt to user that 
+		//they cannot end there.
+		//TODO: NEXT!! rather than use total range, keep queue of moves made. if new square is the most recent
+		//square, then we backtracked, remove it from queue. Base the remaining moves on the length
+		//of the queue of previous moves. Then once movement is confirmed, use list of squares to 
+		//determine how much damage is taken from spikes.Re-draw the display of valid squares after each
+		//move since remaining range changes with number of remaining moves
+		return true;
+	}
+
+	public static void moveLeft(){
+		int x=activeunit.getCoordinates().getX();
+		int y=activeunit.getCoordinates().getY();
+		if(x>0&&battlefield[x-1][y].isValid()){
+			int unitid=battlefield[x][y].getUnit();
+			moveOffSquare(activeunit,x,y);
+			moveOnSquare(activeunit,unitid,x-1,y);
+		}
+	}
+
+	public static void moveRight(){
+		int x=activeunit.getCoordinates().getX();
+		int y=activeunit.getCoordinates().getY();
+		if(x<Constants.BATTLEFIELD_WIDTH-1&&battlefield[x+1][y].isValid()){
+			int unitid=battlefield[x][y].getUnit();
+			moveOffSquare(activeunit,x,y);
+			moveOnSquare(activeunit,unitid,x+1,y);
+		}
+	}
+
+	public static void moveUp(){
+		int x=activeunit.getCoordinates().getX();
+		int y=activeunit.getCoordinates().getY();
+		if(y>0&&battlefield[x][y-1].isValid()){
+			int unitid=battlefield[x][y].getUnit();
+			moveOffSquare(activeunit,x,y);
+			moveOnSquare(activeunit,unitid,x,y-1);
+		}
+	}
+
+	public static void moveDown(){
+		int x=activeunit.getCoordinates().getX();
+		int y=activeunit.getCoordinates().getY();
+		if(y<Constants.BATTLEFIELD_HEIGHT-1&&battlefield[x][y+1].isValid()){
+			int unitid=battlefield[x][y].getUnit();
+			moveOffSquare(activeunit,x,y);
+			moveOnSquare(activeunit,unitid,x,y+1);
+		}
+	}
+	
+	public static void confirmMovement(){
+		for(IntPair pair:validdestinations){
+			battlefield[pair.getX()][pair.getY()].markNeutral();
+		}
+		activeunit.setHasMoved(true);
 		MenuEngine.initialize(new UnitMenu(activeunit));
 	}
 

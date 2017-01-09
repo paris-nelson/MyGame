@@ -38,7 +38,7 @@ public class GameData {
 	private static int[][] expThresholdsByGroupAndLevel=null;
 	private static ArrayList<ArrayList<Integer>> validtms=null;
 	private static ArrayList<Integer>[][] moveslearned=new ArrayList[Constants.NUM_POKEMON+1][101];
-	private static Move[][][] movesetsbylvl=new Move[Constants.NUM_POKEMON+1][101][4];
+	private static ArrayList<Move>[][] movesetsbylvl=new ArrayList[Constants.NUM_POKEMON+1][101];
 	private static ArrayList<Short> locationids=new ArrayList<Short>();
 	private static ArrayList<LocationName> locationnames=new ArrayList<LocationName>();
 	private static ArrayList<Requirement> locationreqs=new ArrayList<Requirement>();
@@ -305,12 +305,12 @@ public class GameData {
 		return stats[pokenum];
 	}
 
-	public static Move[] getMovesetByLevel(int pokenum,int level){
+	public static ArrayList<Move> getMovesetByLevel(int pokenum,int level){
 		return movesetsbylvl[pokenum][level];
 	}
 
-	private static Move[] setMovesetByLevel(int pokenum,int level){
-		Move[] moveset=new Move[4];
+	private static ArrayList<Move> setMovesetByLevel(int pokenum,int level){
+		ArrayList<Move> moveset=new ArrayList<Move>();
 		int count=0;
 		out:
 			for(int i=level;i>0;i--){
@@ -318,9 +318,9 @@ public class GameData {
 				if(list!=null){
 					for(int j=list.size()-1;j>=0;j--){
 						int num=list.get(j);
-						if(containsMoveNum(moveset,num))
+						if(moveset.contains(num))
 							continue;
-						moveset[count]=new Move(num);
+						moveset.add(new Move(num));
 						count++;
 						if(count==4)
 							break out;

@@ -28,9 +28,13 @@ public class Constants {
 	public static final int LOGICAL_MAP_HEIGHT=58;
 	public static final int LOGICAL_MAP_RATIO=10;
 
+	public static final int BATTLEFIELD_WIDTH=12;
+	public static final int BATTLEFIELD_HEIGHT=12;
 	public static final int MOVEMENT_RANGE_MIN=2;
 	public static final int MOVEMENT_RANGE_MAX=6;
 	public static final int SPEED_PER_UNIT_MOVEMENT_RANGE=76;
+	public static final int TILE_SIZE=56;
+	
 	public static final double BURN_PHYSICAL_ATTACK_DAMAGE_REDUCTION=.33;
 	public static final double BURN_POISON_HP_LOSS_RATE=.0833;
 	public static final double TRAP_HP_LOSS_RATE=.0625;

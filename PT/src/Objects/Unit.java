@@ -12,6 +12,7 @@ import Enums.TempCondition;
 import Enums.Type;
 import Global.Constants;
 import Global.GameData;
+import acm.graphics.GImage;
 
 public class Unit {
 	private Pokemon pokemon;
@@ -37,6 +38,8 @@ public class Unit {
 	private boolean isflying;
 	private boolean hasattacked;
 	private int disabledmove;
+	private GImage image;
+	private IntPair coordinates;
 	
 	
 	public Unit(Pokemon pokemon){
@@ -60,6 +63,20 @@ public class Unit {
 		isflying=false;
 		hasattacked=false;
 		disabledmove=-1;
+		coordinates=new IntPair(-1,-1);
+		image=new GImage(Constants.PATH+"\\Sprites\\"+pokemon.getNum()+".png");
+	}
+	
+	public GImage getImage(){
+		return image;
+	}
+	
+	public IntPair getCoordinates(){
+		return coordinates;
+	}
+	
+	public void setCoordinates(int x,int y){
+		coordinates=new IntPair(x,y); 
 	}
 	
 	public boolean hasAttacked(){

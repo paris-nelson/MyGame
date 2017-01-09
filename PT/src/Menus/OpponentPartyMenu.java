@@ -41,7 +41,7 @@ public class OpponentPartyMenu implements Menu {
 		if(visibleoptions.get(index).equals("Exit")){
 			MenuEngine.close();
 			//MenuEngine.initialize(new PlayerMenu());
-			BattleEngine.takeControl();
+			MenuEngine.initialize(new UnitMenu(BattleEngine.getActiveUnit()));
 		}
 		else{
 			MenuEngine.close();

@@ -21,6 +21,7 @@ public class Helper {
 		
 		GlobalEngine.initialize();
 		MapEngine.initialize(PlayerData.getLocation());
+
 		
 //		File f=new File(Constants.PATH+"\\InitializeData\\moveranges.txt");
 //		PrintWriter pw=new PrintWriter(f);

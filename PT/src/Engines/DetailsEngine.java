@@ -2,6 +2,8 @@ package Engines;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import Enums.DetailsEngineMode;
 import Enums.PartyMenuMode;
@@ -172,11 +174,11 @@ public class DetailsEngine {
 		ev5.setFont(new Font("Dialog",Font.PLAIN,22));
 		GLabel ev6=new GLabel(""+stats[5]);
 		ev6.setFont(new Font("Dialog",Font.PLAIN,22));
-		Move[] moves=pokemon.getMoveSet();
+		ArrayList<Move> moves=pokemon.getMoveSet();
 		GLabel movename1=null,movecurrpp1=null,movemaxpp1=null,movename2=null,movecurrpp2=null,movemaxpp2=null,
-			movename3=null,movecurrpp3=null,movemaxpp3=null,movename4=null,movecurrpp4=null,movemaxpp4=null;
-		if(moves.length>0){
-			Move move1=moves[0];
+				movename3=null,movecurrpp3=null,movemaxpp3=null,movename4=null,movecurrpp4=null,movemaxpp4=null;
+		if(moves.size()>0){
+			Move move1=moves.get(0);
 			int movenum1=move1.getNum();
 			int currpp=move1.getCurrPP();
 			int maxpp=move1.getCurrMax();
@@ -193,8 +195,8 @@ public class DetailsEngine {
 				movecurrpp1.setColor(Color.RED);
 			else
 				movecurrpp1.setColor(Color.GREEN);
-			if(moves.length>1){
-				move1=moves[1];
+			if(moves.size()>1){
+				move1=moves.get(1);
 				movenum1=move1.getNum();
 				currpp=move1.getCurrPP();
 				maxpp=move1.getCurrMax();
@@ -211,8 +213,8 @@ public class DetailsEngine {
 					movecurrpp2.setColor(Color.RED);
 				else
 					movecurrpp2.setColor(Color.GREEN);
-				if(moves.length>2){
-					move1=moves[2];
+				if(moves.size()>2){
+					move1=moves.get(2);
 					movenum1=move1.getNum();
 					currpp=move1.getCurrPP();
 					maxpp=move1.getCurrMax();
@@ -229,8 +231,9 @@ public class DetailsEngine {
 						movecurrpp3.setColor(Color.RED);
 					else
 						movecurrpp3.setColor(Color.GREEN);
-					if(moves.length>3){
-						move1=moves[3];
+					if(moves.size()>3){
+						System.out.println(moves);
+						move1=moves.get(3);
 						movenum1=move1.getNum();
 						currpp=move1.getCurrPP();
 						maxpp=move1.getCurrMax();
@@ -273,7 +276,7 @@ public class DetailsEngine {
 		screen.add(xpend,nextlvl.getX()-10,xpstart.getY());
 		screen.add(xpbar,xpstart.getX()+5,xpstart.getY()+5);
 		screen.add(helditemname,25,nextlvl.getY()+labelheight+20);
-		
+
 		GLabel ivslabel=new GLabel("IVs");
 		ivslabel.setFont(new Font("Dialog",Font.PLAIN,22));
 		GLabel evslabel=new GLabel("EVs");
@@ -330,18 +333,26 @@ public class DetailsEngine {
 		screen.add(currstat4,75+3*xinc+(xinc-currstat4.getWidth())/2,statslabel.getY());
 		screen.add(currstat5,75+4*xinc+(xinc-currstat5.getWidth())/2,statslabel.getY());
 		screen.add(currstat6,75+5*xinc+(xinc-currstat6.getWidth())/2,statslabel.getY());
-		screen.add(movename1,50,ytop+150+labelheight);
-		screen.add(movecurrpp1,movename1.getX()+movename1.getWidth()+30,movename1.getY());
-		screen.add(movemaxpp1,movecurrpp1.getX()+movecurrpp1.getWidth(),movename1.getY());
-		screen.add(movename2,movemaxpp1.getX()+movemaxpp1.getWidth()+100,movename1.getY());
-		screen.add(movecurrpp2,movename2.getX()+movename2.getWidth()+30,movename1.getY());
-		screen.add(movemaxpp2,movecurrpp2.getX()+movecurrpp2.getWidth(),movename1.getY());
-		screen.add(movename3,50,movename1.getY()+labelheight);
-		screen.add(movecurrpp3,movename3.getX()+movename3.getWidth()+30,movename3.getY());
-		screen.add(movemaxpp3,movecurrpp3.getX()+movecurrpp3.getWidth(),movename3.getY());
-		screen.add(movename4,movename2.getX(),movename3.getY());
-		screen.add(movecurrpp4,movename4.getX()+movename4.getWidth()+30,movename3.getY());
-		screen.add(movemaxpp4,movecurrpp4.getX()+movecurrpp4.getWidth(),movename3.getY());
+		if(movename1!=null){
+			screen.add(movename1,50,ytop+150+labelheight);
+			screen.add(movecurrpp1,movename1.getX()+movename1.getWidth()+30,movename1.getY());
+			screen.add(movemaxpp1,movecurrpp1.getX()+movecurrpp1.getWidth(),movename1.getY());
+		}
+		if(movename2!=null){
+			screen.add(movename2,movemaxpp1.getX()+movemaxpp1.getWidth()+100,movename1.getY());
+			screen.add(movecurrpp2,movename2.getX()+movename2.getWidth()+30,movename1.getY());
+			screen.add(movemaxpp2,movecurrpp2.getX()+movecurrpp2.getWidth(),movename1.getY());
+		}
+		if(movename3!=null){
+			screen.add(movename3,50,movename1.getY()+labelheight);
+			screen.add(movecurrpp3,movename3.getX()+movename3.getWidth()+30,movename3.getY());
+			screen.add(movemaxpp3,movecurrpp3.getX()+movecurrpp3.getWidth(),movename3.getY());
+		}
+		if(movename4!=null){
+			screen.add(movename4,movename2.getX(),movename3.getY());
+			screen.add(movecurrpp4,movename4.getX()+movename4.getWidth()+30,movename3.getY());
+			screen.add(movemaxpp4,movecurrpp4.getX()+movecurrpp4.getWidth(),movename3.getY());
+		}
 		GameData.getGUI().add(screen,0,0);
 	}
 

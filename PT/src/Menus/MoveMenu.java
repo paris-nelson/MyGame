@@ -24,11 +24,11 @@ public class MoveMenu implements MenuWithExplanations {
 		mode=m;
 		itemid=GlobalEngine.getItemToUse();
 		pokemon=p;
-		Move[] moveset=p.getMoveSet();
-		for(int i=0;i<moveset.length;i++){
+		ArrayList<Move> moveset=p.getMoveSet();
+		for(int i=0;i<moveset.size();i++){
 			if(m==MoveMenuMode.ATTACK&&BattleEngine.getActiveUnit().getDisabledMove()==i)
 				continue;
-			Move move=moveset[i];
+			Move move=moveset.get(i);
 			options.add(GameData.getMoveName(move.getNum()));
 		}
 		options.add("Back");
@@ -52,7 +52,7 @@ public class MoveMenu implements MenuWithExplanations {
 	@Override
 	public String explain(short index){
 		if(index<options.size()-1)
-			return GameData.getMoveDescription(pokemon.getMoveSet()[index].getNum());
+			return GameData.getMoveDescription(pokemon.getMoveSet().get(index).getNum());
 		return "";
 	}
 
@@ -60,7 +60,7 @@ public class MoveMenu implements MenuWithExplanations {
 	public void select(short index) {
 		MenuEngine.close();
 		if(!options.get(index).equals("Back")){
-			Move m=pokemon.getMoveSet()[index];
+			Move m=pokemon.getMoveSet().get(index);
 			if(mode==MoveMenuMode.ETHER){
 				if(m.getCurrPP()<m.getCurrMax()){
 					int pre=m.getCurrPP();

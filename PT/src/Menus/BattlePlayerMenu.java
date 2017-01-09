@@ -45,7 +45,7 @@ public class BattlePlayerMenu implements Menu {
 		}
 		else if(selected.equals("Exit Menu")){
 			MenuEngine.close();
-			BattleEngine.takeControl();
+			MenuEngine.initialize(new UnitMenu(BattleEngine.getActiveUnit()));
 			//MapEngine.initialize(PlayerData.getLocation());
 		}
 		else if(selected.equals("Party")){

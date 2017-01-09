@@ -49,7 +49,7 @@ public class PartyMenu implements Menu {
 			MenuEngine.close();
 			//MenuEngine.initialize(new PlayerMenu());
 			if(mode==PartyMenuMode.VIEWBATTLE)
-				BattleEngine.takeControl();
+				MenuEngine.initialize(new UnitMenu(BattleEngine.getActiveUnit()));
 			else if(mode==PartyMenuMode.DEPOSIT)
 				PCEngine.takeControl();
 			else if(mode==PartyMenuMode.USE||mode==PartyMenuMode.GIVE)

@@ -58,7 +58,8 @@ public class GUI extends GraphicsProgram{
 		GCanvas canvas=getGCanvas();
 		for(KeyListener oldlistener:canvas.getKeyListeners())
 			canvas.removeKeyListener(oldlistener);
-		getGCanvas().addKeyListener(kl);
+		if(kl!=null)
+			getGCanvas().addKeyListener(kl);
 	}
 
 	public void mouseClicked(MouseEvent e){

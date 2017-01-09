@@ -27,6 +27,7 @@ public class UnitMenu implements Menu {
 			visibleoptions.add("Use Item");
 		}
 		visibleoptions.add("End Turn");
+		visibleoptions.add("Player Menu");
 	}
 
 	@Override
@@ -48,8 +49,7 @@ public class UnitMenu implements Menu {
 	public void select(short index) {
 		MenuEngine.close();
 		if(visibleoptions.get(index).equals("Move")){
-			BattleEngine.win();
-			//BattleEngine.move();
+			BattleEngine.move();
 		}
 		else if(visibleoptions.get(index).equals("Attack")){
 			if(unit.hasTempCondition(TempCondition.Encore)){
@@ -65,6 +65,9 @@ public class UnitMenu implements Menu {
 		}
 		else if(visibleoptions.get(index).equals("End Turn")){
 			BattleEngine.endTurn();
+		}
+		else if(visibleoptions.get(index).equals("Player Menu")){
+			BattleEngine.openPlayerMenu();
 		}
 	}
 
