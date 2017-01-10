@@ -158,7 +158,7 @@ public class InventoryEngine {
 				MenuEngine.initialize(new PartyMenu(PartyMenuMode.GIVE));
 			}
 			else if(type==ItemType.BALL){
-
+				
 			}
 			else if(type==ItemType.REMATCHER){
 				InventoryEngine.close();

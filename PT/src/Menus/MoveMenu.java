@@ -98,7 +98,12 @@ public class MoveMenu implements MenuWithExplanations {
 				InventoryEngine.cleanUp();
 			}
 			else if(mode==MoveMenuMode.ATTACK&&BattleEngine.isLegalMove(m)){
-				BattleEngine.useMove(m);
+				if(m.hasPP())
+					BattleEngine.useMove(m);
+				else{
+					options.set(index,"Out of PP!");
+					MenuEngine.refreshMenu();
+				}
 			}
 		}
 		else if(mode==MoveMenuMode.ATTACK)

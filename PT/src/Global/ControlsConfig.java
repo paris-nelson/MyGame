@@ -10,6 +10,7 @@ public class ControlsConfig {
 	public static int UP;
 	public static int DOWN;
 	public static int START;
+	public static int BACK;
 	
 	public static void setLeftKeyCode(int code){
 		LEFT=code;
@@ -26,6 +27,9 @@ public class ControlsConfig {
 	public static void setStartKeyCode(int code){
 		START=code;
 	}
+	public static void setBackKeyCode(int code){
+		BACK=code;
+	}
 	
 	public static void load(){
 		File f=new File(Constants.PATH+"InitializeData\\controlsavefile.txt");
@@ -36,6 +40,7 @@ public class ControlsConfig {
 			UP=s.nextInt();
 			DOWN=s.nextInt();
 			START=s.nextInt();
+			BACK=s.nextInt();
 			s.close();
 		}catch(Exception e){e.printStackTrace();}
 	}
@@ -49,6 +54,7 @@ public class ControlsConfig {
 			pw.println(UP);
 			pw.println(DOWN);
 			pw.println(START);
+			pw.println(BACK);
 			pw.close();
 		}catch(Exception e){e.printStackTrace();}
 	}

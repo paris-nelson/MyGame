@@ -52,7 +52,7 @@ public class Square {
 		boundary.sendToFront();
 	}
 	
-	public void markInvalid(){
+	public void markRed(){
 		boundary.setColor(Color.RED);
 		boundary.sendToFront();
 	}
@@ -96,7 +96,6 @@ public class Square {
 	
 	public static Square readIn(String s){
 		String[] split=s.split(",");
-		System.out.println(split[0]);
 		return new Square(Tile.valueOf(split[0]),Integer.parseInt(split[1]),Boolean.valueOf(split[2]));
 	}
 }

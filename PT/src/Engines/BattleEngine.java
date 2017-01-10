@@ -4,10 +4,12 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import Enums.BondCondition;
 import Enums.PermCondition;
+import Enums.SelectionType;
 import Enums.Stat;
 import Enums.TempCondition;
 import Enums.Tile;
@@ -15,6 +17,7 @@ import Enums.Type;
 import Global.Constants;
 import Global.GameData;
 import Global.PlayerData;
+import KeyListeners.BattleAttackKeyListener;
 import KeyListeners.BattleMovementKeyListener;
 import Menus.BattlePlayerMenu;
 import Menus.UnitMenu;
@@ -45,6 +48,10 @@ public class BattleEngine {
 	private static Square[][] battlefield;
 	private static BattlefieldMaker bfmaker;
 	private static ArrayList<IntPair> validdestinations;
+	private static SelectionType attackselection;
+	private static int attackrange;
+	private static IntPair epicenter;
+	private static ArrayList<IntPair> validtargets;
 	private static ArrayList<IntPair> previousmoves;
 	private static boolean spikesplaced;
 
@@ -68,7 +75,7 @@ public class BattleEngine {
 		battlefield=bfmaker.getResult();
 		GameData.getGUI().add(battlefieldimage,10,10);  
 	}
-	
+
 	public static void initUnits(){
 		punits=new ArrayList<Unit>();
 		ounits=new ArrayList<Unit>();
@@ -168,7 +175,7 @@ public class BattleEngine {
 	}
 
 
-	
+
 	private static Unit getUnitByID(int id){
 		for(Unit u:allunits){
 			if(u.getID()==id)
@@ -210,7 +217,7 @@ public class BattleEngine {
 		case 1:moveOnSquare(ounits.get(0),0,Constants.BATTLEFIELD_HEIGHT/2);
 		}
 	}
-	
+
 	private static void placeExistingUnits(){
 		for(Unit u:allunits){
 			moveOnSquare(u,u.getCoordinates().getX(),u.getCoordinates().getY());
@@ -368,33 +375,200 @@ public class BattleEngine {
 
 	public static void useMove(Move move){
 		System.out.println(activeunit.getPokemon().getName()+" using "+GameData.getMoveName(move.getNum()));
+		//hits self in confusion check
 		if(activeunit.getPokemon().getPcondition()==PermCondition.Confusion&&GameData.getRandom().nextBoolean()){
 			System.out.println(activeunit.getPokemon().getName()+" hit itself in its confusion");
 			activeunit.damage(calculateConfusionSelfHitDamage(activeunit));
 		}
 		else{
-			ArrayList<Unit> targets=null;
-			//TODO:
-			for(Unit target:targets){
-				System.out.println(activeunit.getPokemon().getName()+" attacks "+target.getPokemon().getName()+" with "+GameData.getMoveName(move.getNum()));
-				target.damage(calculateDamage(activeunit,target,move.getNum()));
-				//TODO: endure/focus band logic
-			}
-			for(Unit target:targets){
-				Pokemon targetpokemon=target.getPokemon();
-				//XP gain if target fainted (note xp is not given to opp units on defeating players units)
-				if(ounits.contains(target)&&targetpokemon.isFainted()){
-					ArrayList<Pokemon> xprecipients=new ArrayList<Pokemon>();
-					for(Unit unit:getLiveUnits(punits)){
-						Pokemon pokemon=unit.getPokemon();
-						if(pokemon.isHolding("Exp Share")||target.attackedBy(unit.getID()))
-							xprecipients.add(pokemon);
-					}
-					awardExperience(xprecipients,targetpokemon);
+			HashMap<String,String> map=GameData.getMoveRange(move.getNum());
+			attackselection=SelectionType.valueOf(map.get("Selection"));
+			attackrange=Integer.parseInt(map.get("Range"));
+			if(activeunit.getPokemon().isHolding("Scope Lens"))
+				attackrange++;
+//			if(GameData.getMoveType(move.getNum())==Type.Electric
+//					&&battlefield[activeunit.getCoordinates().getX()][activeunit.getCoordinates().getY()].getTileType()==Tile.Water)
+//				attackrange++;
+			validtargets=getDefaultAttackSelection();
+			System.out.println(validtargets);
+			displayAttackRange();
+			takeControl(new BattleAttackKeyListener());
+		}
+	}
+
+	private static ArrayList<IntPair> getDefaultAttackSelection(){
+		ArrayList<IntPair> selection=new ArrayList<IntPair>();
+		if(attackselection==SelectionType.Single){
+			IntPair curr=activeunit.getCoordinates();
+			if(curr.getX()>0)
+				selection.add(new IntPair(curr.getX()-1,curr.getY()));
+			else
+				selection.add(new IntPair(curr.getX()+1,curr.getY()));
+		}
+		else if(attackselection==SelectionType.Self){
+			selection.add(activeunit.getCoordinates());
+		}
+		else if(attackselection==SelectionType.Nova){
+			IntPair curr=activeunit.getCoordinates();
+			for(int x=curr.getX()-attackrange;x<=curr.getX()+attackrange;x++){
+				for(int y=curr.getY()-attackrange;y<=curr.getY()+attackrange;y++){
+					if(y>=Constants.BATTLEFIELD_HEIGHT)
+						break;
+					if(x==curr.getX()&&y==curr.getY())
+						continue;
+					if(x>=0&&y>=0&&x<Constants.BATTLEFIELD_WIDTH)
+						selection.add(new IntPair(x,y));
 				}
 			}
-			activeunit.setHasAttacked(true);
 		}
+		else if(attackselection==SelectionType.Beam){
+			IntPair curr=activeunit.getCoordinates();
+			if(curr.getX()-attackrange>=0){
+				for(int i=1;i<=attackrange;i++){
+					selection.add(new IntPair(curr.getX()-i,curr.getY()));
+				}
+			}
+			else{
+				for(int i=1;i<=attackrange;i++){
+					selection.add(new IntPair(curr.getX()+i,curr.getY()));
+				}
+			}	
+		}
+		else if(attackselection==SelectionType.Area){
+			IntPair curr=activeunit.getCoordinates();
+			if(curr.getX()>3){
+				epicenter=new IntPair(curr.getX()-2,curr.getY());
+				for(int x=curr.getX()-3;x<curr.getX();x++){
+					for(int y=curr.getY()-1;y<=curr.getY()+1;y++){
+						if(y>=0)
+							selection.add(new IntPair(x,y));
+					}
+				}
+			}
+			else{
+				epicenter=new IntPair(curr.getX()+2,curr.getY());
+				for(int x=curr.getX()+1;x<curr.getX()+4;x++){
+					for(int y=curr.getY()-1;y<=curr.getY()+1;y++){
+						if(y>=0)
+							selection.add(new IntPair(x,y));
+					}
+				}
+			}
+		}
+		else if(attackselection==SelectionType.Cone){
+			IntPair curr=activeunit.getCoordinates();
+			if(curr.getX()>=attackrange){
+				for(int i=1;i<=attackrange;i++){
+					for(int j=1-i;j<=i-1;j++){
+						IntPair newpair=new IntPair(curr.getX()-i,curr.getY()+j);
+						if(newpair.getY()>0&&newpair.getY()<battlefield[0].length)
+							selection.add(newpair);
+					}
+				}
+			}
+			else{
+				for(int i=1;i<=attackrange;i++){
+					for(int j=1-i;j<=i-1;j++){
+						IntPair newpair=new IntPair(curr.getX()+i,curr.getY()+j);
+						if(newpair.getY()>0&&newpair.getY()<battlefield[0].length)
+							selection.add(newpair);
+					}
+				}
+			}
+		}
+		else if(attackselection==SelectionType.Global||attackselection==SelectionType.Weather){
+			for(int x=0;x<battlefield.length;x++){
+				for(int y=0;y<battlefield[0].length;y++){
+					selection.add(new IntPair(x,y));
+				}
+			}
+		}
+		else if(attackselection==SelectionType.Friendly){
+			if(ounits.contains(activeunit)){
+				for(Unit u:getLiveUnits(ounits)){
+						selection.add(u.getCoordinates());
+				}
+			}
+			else{
+				for(Unit u:getLiveUnits(punits)){
+					selection.add(u.getCoordinates());
+				}
+			}
+		}
+		return selection;
+	}
+
+	private static void removeAttackRange(){
+		for(IntPair pair:validtargets){
+			battlefield[pair.getX()][pair.getY()].markNeutral();
+		}
+	}
+
+	private static void displayAttackRange(){
+		for(IntPair pair:validtargets){
+			battlefield[pair.getX()][pair.getY()].markRed();
+		}
+	}
+
+	public static void moveAttackRangeLeft(){
+		removeAttackRange();
+		displayAttackRange();
+	}
+
+	public static void moveAttackRangeRight(){
+		removeAttackRange();
+		displayAttackRange();
+	}
+
+	public static void moveAttackRangeUp(){
+		removeAttackRange();
+		displayAttackRange();
+	}
+
+	public static void moveAttackRangeDown(){
+		removeAttackRange();
+		displayAttackRange();
+	}
+
+	public static void confirmAttackRange(){
+		//call method to implement self targetting move effects
+		//for all units in validtargets range, call method to implement remaining moveeffects
+	}
+
+	public static void cancelAttackRange(){
+		removeAttackRange();
+		System.out.println(activeunit.getPokemon().getName()+" has cancelled the attack option");
+		MenuEngine.initialize(new UnitMenu(activeunit));
+	}
+
+	private static void afterAttackEffects(){
+
+
+		//implementation logic
+		//TODO:then parse moveeffects file for effects and apply effects below to each target( except self-targetting effects which apply once)
+		//moveeffects implementation logic should likely be in it's own helper class for space reasons.
+		//		for(Unit target:targets){
+		//			System.out.println(activeunit.getPokemon().getName()+" attacks "+target.getPokemon().getName()+" with "+GameData.getMoveName(move.getNum()));
+		//			//target.damage(calculateDamage(activeunit,target,move.getNum()));
+		//			//TODO: endure/focus band logic
+		//		}
+		//		for(Unit target:targets){
+		//			Pokemon targetpokemon=target.getPokemon();
+		//			//XP gain if target fainted (note xp is not given to opp units on defeating players units)
+		//			if(ounits.contains(target)&&targetpokemon.isFainted()){
+		//				ArrayList<Pokemon> xprecipients=new ArrayList<Pokemon>();
+		//				for(Unit unit:getLiveUnits(punits)){
+		//					Pokemon pokemon=unit.getPokemon();
+		//					if(pokemon.isHolding("Exp Share")||target.attackedBy(unit.getID()))
+		//						xprecipients.add(pokemon);
+		//				}
+		//				awardExperience(xprecipients,targetpokemon);
+		//			}
+		//		}
+
+
+
+		activeunit.setHasAttacked(true);
 		activeunit.setHasTakenAction(true);
 		//confusion turn count is only lowered by attacking turns. Pokemon can't avoid confusion by refusing to attack until it's over
 		if(activeunit.getPokemon().getPcondition()==PermCondition.Confusion)
@@ -562,6 +736,14 @@ public class BattleEngine {
 			nextTurn();
 	}
 
+	public static void cancelMovement(){
+		for(IntPair pair:validdestinations){
+			battlefield[pair.getX()][pair.getY()].markNeutral();
+		}
+		System.out.println(activeunit.getPokemon().getName()+" has cancelled the move option");
+		MenuEngine.initialize(new UnitMenu(activeunit));
+	}
+
 
 	/**
 	 * Determine if the given move uses special attack/defense for damage calculation
@@ -690,7 +872,7 @@ public class BattleEngine {
 		}
 		return true;
 	}
-	
+
 	private static void startOfTurnActions(){
 		Pokemon activepokemon=activeunit.getPokemon();
 		System.out.println(activepokemon.getName()+" ("+activeindex+" in order) taking turn");
@@ -873,7 +1055,7 @@ public class BattleEngine {
 				activeunit.incNumTurnsAfflicted(TempCondition.Disable.toString());
 		}
 	}
-	
+
 	public static void win(){
 		System.out.println("Player won the battle against "+opponent.getName());
 		//TODO:
@@ -891,7 +1073,7 @@ public class BattleEngine {
 		close();
 		MapEngine.initialize(PlayerData.getLocation());
 	}
-	
+
 	public static void close(){
 		System.out.println("Ending battle");
 		inbattle=false;

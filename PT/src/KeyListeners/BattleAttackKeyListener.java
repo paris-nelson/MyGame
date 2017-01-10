@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 import Engines.BattleEngine;
 import Global.ControlsConfig;
 
-public class BattleMovementKeyListener implements KeyListener{
+public class BattleAttackKeyListener implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -16,17 +16,17 @@ public class BattleMovementKeyListener implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		int key=e.getKeyCode();
 		if(key==ControlsConfig.LEFT)
-			BattleEngine.moveLeft();
+			BattleEngine.moveAttackRangeLeft();
 		else if(key==ControlsConfig.RIGHT)
-			BattleEngine.moveRight();
+			BattleEngine.moveAttackRangeRight();
 		else if(key==ControlsConfig.UP)
-			BattleEngine.moveUp();
+			BattleEngine.moveAttackRangeUp();
 		else if(key==ControlsConfig.DOWN)
-			BattleEngine.moveDown();
+			BattleEngine.moveAttackRangeDown();
 		else if(key==ControlsConfig.START)
-			BattleEngine.confirmMovement();
+			BattleEngine.confirmAttackRange();
 		else if(key==ControlsConfig.BACK)
-			BattleEngine.cancelMovement();
+			BattleEngine.cancelAttackRange();
 	}
 
 	@Override

@@ -22,7 +22,6 @@ public class LoadExistingBattlefieldMaker implements BattlefieldMaker {
 		for(int y=0;y<Constants.BATTLEFIELD_HEIGHT;y++){
 			String line=reader.nextLine();
 			String[] split=line.split(" ");
-			System.out.println(split[0]);
 			for(int x=0;x<Constants.BATTLEFIELD_WIDTH;x++){
 				Square square=Square.readIn(split[x]);
 				bf[x][y]=square;

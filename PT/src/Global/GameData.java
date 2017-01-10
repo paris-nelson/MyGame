@@ -47,6 +47,7 @@ public class GameData {
 	private static int[] critstages=null;
 	private static double[] accevastages=null;
 	private static String[] moveeffects=null;
+	private static String[] moveranges=null;
 	private static GUI gui;
 	private static Time time;
 
@@ -362,20 +363,20 @@ public class GameData {
 	public static ArrayList<Type> getTypes(int pokenum){
 		if(types==null){
 			try{
-			types=new Type[Constants.NUM_POKEMON+1][2];
-			File f=new File(Constants.PATH+"\\InitializeData\\types.txt");
-			Scanner s=new Scanner(f);
-			for(int i=1;i<types.length;i++){
-				String line=s.nextLine();
-				String[] split=line.split(",");
-				Type[] curr=new Type[2];
-				curr[0]=Type.valueOf(split[0]);
-				if(split.length==2){
-					curr[1]=Type.valueOf(split[1]);
+				types=new Type[Constants.NUM_POKEMON+1][2];
+				File f=new File(Constants.PATH+"\\InitializeData\\types.txt");
+				Scanner s=new Scanner(f);
+				for(int i=1;i<types.length;i++){
+					String line=s.nextLine();
+					String[] split=line.split(",");
+					Type[] curr=new Type[2];
+					curr[0]=Type.valueOf(split[0]);
+					if(split.length==2){
+						curr[1]=Type.valueOf(split[1]);
+					}
+					types[i]=curr;
 				}
-				types[i]=curr;
-			}
-			s.close();
+				s.close();
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -616,24 +617,57 @@ public class GameData {
 		}while((elitetrainer&&getItemLevel(itemid)<(2*level/3)));
 		return itemid;
 	}
-	
+
+	public static HashMap<String,String> getMoveRange(int movenum){
+		if(moveranges==null){
+			try{
+				File f=new File(Constants.PATH+"\\InitializeData\\moveranges.txt");
+				Scanner s=new Scanner(f);
+				moveranges=new String[Constants.NUM_MOVES+1];
+				for(int i=1;i<moveranges.length;i++){
+					moveranges[i]=s.nextLine();
+				}
+				s.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return getMoveRangeMap(moveranges[movenum]);
+	}
+
+	private static HashMap<String,String> getMoveRangeMap(String s){
+		HashMap<String,String> map=new HashMap<String,String>();
+		if(s.contains(",")){
+			String[] split=s.split(",");
+			for(String string:split){
+				String[] split2=string.split("=");
+				map.put(split2[0],split2[1]);
+			}
+		}
+		else{
+			String[] split=s.split("=");
+			map.put(split[0],split[1]);
+		}
+		return map;
+	}
+
 	public static HashMap<MoveEffect,HashMap<String,String>> getMoveEffects(int movenum){
 		if(moveeffects==null){
-		try{
-			File f=new File(Constants.PATH+"\\InitializeData\\moveeffects.txt");
-			Scanner s=new Scanner(f);
-			moveeffects=new String[Constants.NUM_MOVES+1];
-			for(int i=1;i<moveeffects.length;i++){
-				moveeffects[i]=s.nextLine();
+			try{
+				File f=new File(Constants.PATH+"\\InitializeData\\moveeffects.txt");
+				Scanner s=new Scanner(f);
+				moveeffects=new String[Constants.NUM_MOVES+1];
+				for(int i=1;i<moveeffects.length;i++){
+					moveeffects[i]=s.nextLine();
+				}
+				s.close();
+			}catch(Exception e){
+				e.printStackTrace();
 			}
-			s.close();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
 		}
 		return getMoveEffectsMap(moveeffects[movenum]);
 	}
-	
+
 	private static HashMap<MoveEffect,HashMap<String,String>> getMoveEffectsMap(String effectstring){
 		HashMap<MoveEffect,HashMap<String,String>> effectsmap=new HashMap<MoveEffect,HashMap<String,String>>();
 		String[] spliteffects=effectstring.split(";");
