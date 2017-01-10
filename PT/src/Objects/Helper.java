@@ -20,7 +20,7 @@ public class Helper {
 	public static void main(String[] args) throws IOException{
 		
 		GlobalEngine.initialize();
-		MapEngine.initialize(PlayerData.getLocation());
+//		MapEngine.initialize(PlayerData.getLocation());
 
 		
 //		File f=new File(Constants.PATH+"\\InitializeData\\moveranges.txt");

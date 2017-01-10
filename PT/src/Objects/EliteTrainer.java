@@ -3,6 +3,8 @@ package Objects;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Global.Constants;
+
 public class EliteTrainer extends Trainer{
 	private int lootmod;
 
@@ -37,6 +39,8 @@ public class EliteTrainer extends Trainer{
 		int currx=Integer.parseInt(temp);
 		int curry=s.nextInt();
 		String currfilelocation=s.next();
+		if(!currfilelocation.startsWith("C:"))
+			currfilelocation=Constants.PATH+currfilelocation;
 		int currmod=s.nextInt();
 		s.nextLine();//empty end of line
 		temp=s.nextLine();

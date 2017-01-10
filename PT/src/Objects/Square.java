@@ -20,6 +20,20 @@ public class Square {
 		spikes=false;
 	}
 	
+	/**
+	 * Constuctor for reading in
+	 * @param tile
+	 * @param unit
+	 * @param spikes
+	 */
+	public Square(Tile tile,int unit,boolean spikes){
+		this.tile=tile;
+		this.unit=unit;
+		this.spikes=spikes;
+		boundary=new GRect(Constants.TILE_SIZE,Constants.TILE_SIZE);
+		boundary.setFilled(false);
+	}
+	
 	public GRect getBoundary(){
 		return boundary;
 	}
@@ -74,5 +88,15 @@ public class Square {
 	
 	public void setSpikes(){
 		spikes=true;
+	}
+	
+	public String toString(){
+		return tile+","+unit+","+spikes;
+	}
+	
+	public static Square readIn(String s){
+		String[] split=s.split(",");
+		System.out.println(split[0]);
+		return new Square(Tile.valueOf(split[0]),Integer.parseInt(split[1]),Boolean.valueOf(split[2]));
 	}
 }

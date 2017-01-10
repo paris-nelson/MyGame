@@ -490,9 +490,13 @@ public class Unit {
 	public int getID(){
 		return id;
 	}
+	
+	public boolean equals(Unit other){
+		return id==other.id;
+	}
 
 	public String toString(){
-		String s="";
+		String s="Unit: ";
 		s+=id+"\n";
 		s+=pokemonpartyindex+" "+movementrange+" "+controllable+" "+directionfacing+" "+hasmoved+" "+hastakenaction+" "+hasendedturn+" "+canmove+" "
 				+canattack+" "+isdigging+" "+isflying+" "+hasattacked+" "+disabledmove+"\n";
@@ -503,13 +507,11 @@ public class Unit {
 		s+=protectionconditions.toString()+"\n";
 		s+=types.toString()+"\n";
 		s+=prevmove+"\n";
-		s+=attackedby.toString()+"\n";
+		s+=attackedby.toString();
 		return s;
 	}
 
-	public static Unit readInUnit(Trainer owner, String s){
-		//TODO:
-		Scanner reader=new Scanner(s);
+	public static Unit readInUnit(Trainer owner, Scanner reader){
 		int id=reader.nextInt();
 		reader.nextLine();
 		int partyindex=reader.nextInt();

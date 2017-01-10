@@ -642,7 +642,7 @@ public class Pokemon {
 		String[] arrays=s.nextLine().split("__");
 		ArrayList<Move> moves=new ArrayList<Move>();
 		String[] movearray=arrays[0].substring(2,arrays[0].length()-1).split(",");
-		for(int i=0;i<4;i++){
+		for(int i=0;i<movearray.length;i++){
 			if(!movearray[i].trim().equals("null")){
 				Scanner s2=new Scanner(movearray[i]);
 				moves.add(new Move(s2.nextInt(),s2.nextInt(),s2.nextInt()));
