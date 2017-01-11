@@ -195,6 +195,8 @@ public class GameData {
 	}
 
 	public static double getTypeEffectivenessDamageMod(Type attacktype,Type targettype){
+		if(attacktype==null)
+			return 1;
 		if(typechart==null){
 			try{
 				File f=new File(Constants.PATH+"\\InitializeData\\typechart.txt");

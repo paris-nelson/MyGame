@@ -15,10 +15,10 @@ import Objects.Unit;
 
 public class MoveMenu implements MenuWithExplanations {
 
-	private static ArrayList<String> options=new ArrayList<String>();
-	private static Pokemon pokemon;
-	private static MoveMenuMode mode;
-	private static int itemid;
+	private ArrayList<String> options=new ArrayList<String>();
+	private Pokemon pokemon;
+	private MoveMenuMode mode;
+	private int itemid;
 
 	public MoveMenu(Pokemon p,MoveMenuMode m){
 		mode=m;

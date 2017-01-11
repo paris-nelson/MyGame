@@ -19,7 +19,11 @@ import acm.graphics.GImage;
 public class Helper {
 	public static void main(String[] args) throws IOException{
 		
-		GlobalEngine.initialize();
+		ArrayList<Integer> ints=new ArrayList<Integer>();
+		ints.add(0);
+		ints.add(1);
+		
+	//	GlobalEngine.initialize();
 //		MapEngine.initialize(PlayerData.getLocation());
 
 		

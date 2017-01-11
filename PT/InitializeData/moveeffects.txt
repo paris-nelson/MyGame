@@ -134,7 +134,7 @@ Effect=Damage,Power=Level
 Effect=GiveTCondition,Condition=Nightmare
 Effect=Damage,Power=65;Effect=Nerf,Stat=Accuracy,Chance=50,Stages=1
 Effect=Damage,Power=90;Effect=Outrage
-Effect=Damage,Power=PainSplit
+Effect=PainSplit
 Effect=Damage,Power=40;Effect=PayDay
 Effect=Damage,Power=35
 Effect=GiveTCondition,Condition=PerishSong (or change to a destinybond type item that tracks both)
@@ -151,7 +151,7 @@ Effect=Damage,Power=65;Effect=GivePCondition,Condition=Confusion,Chance=10
 Effect=PsychUp
 Effect=Damage,Power=90;Effect=Nerf,Stat=SpecialDefense,Chance=10,Stages=1
 Effect=Damage,Power=Psywave
-Effect=Damage,Power=Flanking
+Effect=Damage,Power=40,Type=Flanking
 Effect=Damage,Power=45;Effect=Buff,Stat=Speed,Chance=10,Stages=1,Target=Self
 Effect=Damage,Power=20,Type=ConsecPowInc
 Effect=Weather,Conditions=Rain

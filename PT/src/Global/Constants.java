@@ -4,6 +4,9 @@ public class Constants {
 	public static final int HAPPINESS_LOST_ON_FAINT=1;
 	public static final int HAPPINES_GAINED_ON_LEVEL_UP_OR_VITAMIN=5;
 	public static final int HAPPINESS_GAINED_ON_EVOLUTION=10;
+	public static final int MAX_HAPPINESS=255;
+	public static final int HAPPINESS_EVOLUTION_THRESHOLD=220;
+	
 	public static final int PRIZE_MONEY_BASE=20;
 	public static final int PRIZE_MONEY_INCREMEMENT=10;
 	public static final int NUM_ITEMS=132;
@@ -53,6 +56,7 @@ public class Constants {
 	public static final int PARALYSIS_INACTION_CHANCE=25;
 	public static final int ATTRACT_INACTION_CHANCE=50;
 	public static final double SPIKES_DAMAGE_RATE=.125;
+	public static final double MINIMIZE_RATIO=.75;
 	
 
 	public static final double LEFTOVERS_HP_RECOV_RATE=.0833;

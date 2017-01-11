@@ -20,6 +20,15 @@ public class IntPair {
 	public String toString(){
 		return x+","+y;
 	}
+	/**
+	 * Not actual distance calculation, but the number of unit movements to get from one point to the other aka the difference in x values 
+	 * plus the difference in y values
+	 * @param other
+	 * @return
+	 */
+	public int distanceFrom(IntPair other){
+		return Math.abs(x-other.x)+Math.abs(y-other.y);
+	}
 	
 	/**
 	 * Read in int pair in the form "x,y" e.g. "37,290"

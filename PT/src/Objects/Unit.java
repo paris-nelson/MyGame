@@ -45,6 +45,7 @@ public class Unit {
 	private int disabledmove;
 	private GImage image;
 	private IntPair coordinates;
+	private boolean isminimized;
 
 
 	public Unit(Pokemon pokemon,int partyindex,int id){
@@ -71,12 +72,13 @@ public class Unit {
 		hasattacked=false;
 		disabledmove=-1;
 		coordinates=new IntPair(-1,-1);
+		isminimized=false;
 		image=new GImage(Constants.PATH+"\\Sprites\\"+pokemon.getNum()+".png");
 	}
 
 	public Unit(Pokemon p,int[] modstag,int moverange,HashMap<String,Integer> conds,HashMap<BondCondition,Integer> bondconds,int id,
 			HashMap<ProtectionCondition,Integer> proconds,boolean control,Direction dir,boolean moved,boolean acted,ArrayList<Type> types,
-			boolean ended,boolean move,boolean attack,Move prev,ArrayList<Integer> attby,boolean dig,boolean fly,boolean attacked,int dis,IntPair coord){
+			boolean ended,boolean move,boolean attack,Move prev,ArrayList<Integer> attby,boolean dig,boolean fly,boolean attacked,int dis,IntPair coord,boolean min){
 		pokemon=p;
 		this.id=id;
 		modstages=modstag;
@@ -99,7 +101,18 @@ public class Unit {
 		hasattacked=attacked;
 		disabledmove=dis;
 		coordinates=coord;
+		isminimized=min;
 		image=new GImage(Constants.PATH+"\\Sprites\\"+pokemon.getNum()+".png");
+		if(min)
+			image.setSize(image.getWidth()*Constants.MINIMIZE_RATIO, image.getHeight()*Constants.MINIMIZE_RATIO);
+	}
+	
+	public boolean isMinimized(){
+		return isminimized;
+	}
+	
+	public void setMinimized(boolean newval){
+		isminimized=newval;
 	}
 
 	public GImage getImage(){
@@ -461,6 +474,8 @@ public class Unit {
 	}
 
 	public boolean isType(Type type){
+		if(type==null)
+			return false;
 		return types.contains(type);
 	}
 
@@ -499,7 +514,7 @@ public class Unit {
 		String s="Unit: ";
 		s+=id+"\n";
 		s+=pokemonpartyindex+" "+movementrange+" "+controllable+" "+directionfacing+" "+hasmoved+" "+hastakenaction+" "+hasendedturn+" "+canmove+" "
-				+canattack+" "+isdigging+" "+isflying+" "+hasattacked+" "+disabledmove+"\n";
+				+canattack+" "+isdigging+" "+isflying+" "+hasattacked+" "+disabledmove+isminimized+"\n";
 		s+=coordinates.toString()+"\n";
 		s+=Arrays.toString(modstages)+"\n";
 		s+=conditions.toString()+"\n";
@@ -532,6 +547,7 @@ public class Unit {
 		boolean fly=reader.nextBoolean();
 		boolean attacked=reader.nextBoolean();
 		int dis=reader.nextInt();
+		boolean ismin=reader.nextBoolean();
 		reader.nextLine();
 		IntPair coord=IntPair.readIn(reader.nextLine());
 		int[] modstag=GameData.readIntArray(reader.nextLine());
@@ -582,7 +598,7 @@ public class Unit {
 			for(int x:attackbylist)
 				attby.add(x);
 		}
-		return new Unit(p, modstag, moverange, conds, bondconds, id, proconds, control, dir, moved, acted, types, ended, move, attack, prev, attby, dig, fly, attacked, dis, coord);
+		return new Unit(p, modstag, moverange, conds, bondconds, id, proconds, control, dir, moved, acted, types, ended, move, attack, prev, attby, dig, fly, attacked, dis, coord,ismin);
 	}
 
 }

@@ -564,9 +564,9 @@ public class Pokemon {
 	 */
 	public void incHappiness(int delta){
 		happiness+=delta;
-		if(happiness>255)
-			happiness=255;
-		if(happiness>=220&&GameData.getEvolutionConditions(num).contains("Happiness"))
+		if(happiness>Constants.MAX_HAPPINESS)
+			happiness=Constants.MAX_HAPPINESS;
+		if(happiness>=Constants.HAPPINESS_EVOLUTION_THRESHOLD&&GameData.getEvolutionConditions(num).contains("Happiness"))
 			GlobalEngine.evolve(this,"Happiness");
 	}
 
