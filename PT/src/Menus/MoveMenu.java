@@ -26,9 +26,9 @@ public class MoveMenu implements MenuWithExplanations {
 		pokemon=p;
 		ArrayList<Move> moveset=p.getMoveSet();
 		for(int i=0;i<moveset.size();i++){
-			if(m==MoveMenuMode.ATTACK&&BattleEngine.getActiveUnit().getDisabledMove()==i)
-				continue;
 			Move move=moveset.get(i);
+			if(m==MoveMenuMode.ATTACK&&BattleEngine.getActiveUnit().getDisabledMove()==move.getNum())
+				continue;
 			options.add(GameData.getMoveName(move.getNum()));
 		}
 		options.add("Back");

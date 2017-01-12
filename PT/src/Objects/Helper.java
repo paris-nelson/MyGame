@@ -18,11 +18,7 @@ import acm.graphics.GImage;
 
 public class Helper {
 	public static void main(String[] args) throws IOException{
-		
-		ArrayList<Integer> ints=new ArrayList<Integer>();
-		ints.add(0);
-		ints.add(1);
-		
+				
 	//	GlobalEngine.initialize();
 //		MapEngine.initialize(PlayerData.getLocation());
 
@@ -49,7 +45,7 @@ public class Helper {
 //		}
 //		System.out.println(strings.size());
 		
-//		getPokemonThatLearnMove(GameData.getMoveNum("Roar"));
+		getPokemonThatLearnMove(GameData.getMoveNum("Pursuit"));
 //		getPokemonThatLearnMove(GameData.getMoveNum("Whirlwind"));
 //		getPokemonThatLearnMove(GameData.getMoveNum("Recover"));
 		//getPokemonThatLearnMove(GameData.getMoveNum("Protect"));

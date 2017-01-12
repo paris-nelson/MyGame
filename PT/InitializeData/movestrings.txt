@@ -168,7 +168,7 @@ Rock Slide,Rock,Has a 30% chance to make the target flinch
 Rock Smash,Fighting,Has a 50% chance to lower the target's Defense by 1 stage
 Rock Throw,Rock,Damages the target
 Rolling Kick,Fighting,Has a 30% chance to make the target flinch
-Rollout,Rock,The user attacks uncontrollably for five turns; this move's power doubles after each turn and also if Defense Curl was used beforehand. Its power resets after five turns have ended or if the attack misses. Provides a slight increase in movement range (+1?) and will target the nearest enemy. If multiple enemies are equidistant it will choose the one with the least health. If still a tie it will choose randomly
+Rollout,Rock,The user attacks uncontrollably for five turns; this move's power doubles after each turn and also if Defense Curl was used beforehand. Its power resets after five turns have ended or if the attack misses.
 Sacred Fire,Fire,Has a 50% chance to burn the target; can be used while frozen which both attacks the target normally and thaws the user
 Safeguard,Normal,Protects the user's entire team from status conditions for five turns
 Sand Attack,Ground,Lowers the target's Accuracy by 1 stage

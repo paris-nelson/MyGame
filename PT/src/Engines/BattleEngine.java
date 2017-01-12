@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import Enums.BondCondition;
 import Enums.PermCondition;
+import Enums.ProtectionCondition;
 import Enums.SelectionType;
 import Enums.Stat;
 import Enums.TempCondition;
@@ -393,9 +394,6 @@ public class BattleEngine {
 				attackrange=-1;
 			if(activeunit.getPokemon().isHolding("Scope Lens"))
 				attackrange++;
-//			if(GameData.getMoveType(move.getNum())==Type.Electric
-//					&&battlefield[activeunit.getCoordinates().getX()][activeunit.getCoordinates().getY()].getTileType()==Tile.Water)
-//				attackrange++;
 			validtargets=getDefaultAttackSelection();
 			System.out.println(validtargets);
 			displayAttackRange();
@@ -508,10 +506,6 @@ public class BattleEngine {
 			friends.addAll(punits);
 		}
 		return friends;
-	}
-	
-	public static boolean isFlanking(Unit attacker,Unit defender){
-		return false;
 	}
 
 	private static void removeAttackRange(){
@@ -947,15 +941,6 @@ public class BattleEngine {
 		}
 		System.out.println(activeunit.getPokemon().getName()+" has cancelled the move option");
 		MenuEngine.initialize(new UnitMenu(activeunit));
-	}
-
-	public static boolean doesMoveHit(Unit defender, Unit attacker, int movenum){
-		return GameData.getRandom().nextInt(100)<calculateChanceOfHitting(defender,attacker,movenum);
-	}
-
-	private static int calculateChanceOfHitting(Unit defender, Unit attacker, int movenum){
-		System.out.println(GameData.getMoveAccuracy(movenum)+"*"+defender.getEvasion()+"*"+attacker.getAccuracy());
-		return round(GameData.getMoveAccuracy(movenum)*defender.getEvasion()*attacker.getAccuracy());
 	}
 
 	private static int round(double num){

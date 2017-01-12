@@ -6,5 +6,5 @@ public enum MoveEffect {
 	Metronome,Heal,Mimic,MirrorMove,TimeHeal,Outrage,PayDay,PsychUp,Weather,Knockback,Sketch,
 	Spite,SleepTalk,Splash,Substitute,Teleport,Thief,Transform,Endure,GiveBondCondition,
 	RemoveBondCondition,GiveProtectionCondition,Spikes,RemoveSpikes,RemoveProtectionCondition,Dig,Fly,
-	Rollout
+	Rollout,Rage
 }

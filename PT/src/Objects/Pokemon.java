@@ -554,6 +554,14 @@ public class Pokemon {
 		moveset.set(indexToReplace,newmove);
 	}
 	
+	public Move getMove(int movenum){
+		for(Move m:moveset){
+			if(m.getNum()==movenum)
+				return m;
+		}
+		return null;
+	}
+	
 	public int getHappiness(){
 		return happiness;
 	}

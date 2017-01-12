@@ -57,9 +57,12 @@ public class Constants {
 	public static final int ATTRACT_INACTION_CHANCE=50;
 	public static final double SPIKES_DAMAGE_RATE=.125;
 	public static final double MINIMIZE_RATIO=.75;
+	public static final double SIDE_FACING_ACCURACY_RATE=.9;
+	public static final double FRONT_FACING_ACCURACY_RATE=.8;
 	
 
 	public static final double LEFTOVERS_HP_RECOV_RATE=.0833;
 	public static final int QUICK_CLAW_CHANCE=20;
 	public static final int FOCUS_BAND_CHANCE=20;
+	public static final int KINGS_ROCK_FLINCH_CHANCE=10;
 }

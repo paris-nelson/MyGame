@@ -37,7 +37,7 @@ public class Unit {
 	private boolean hasendedturn;
 	private boolean canmove;
 	private boolean canattack;
-	private Move prevmove;
+	private int prevmove;
 	private ArrayList<Integer> attackedby;
 	private boolean isdigging;
 	private boolean isflying;
@@ -46,6 +46,8 @@ public class Unit {
 	private GImage image;
 	private IntPair coordinates;
 	private boolean isminimized;
+	private boolean israging;
+	private int consecuses;
 
 
 	public Unit(Pokemon pokemon,int partyindex,int id){
@@ -65,7 +67,7 @@ public class Unit {
 		hasendedturn=false;
 		canmove=true;
 		canattack=true;
-		prevmove=null;
+		prevmove=-1;
 		attackedby=new ArrayList<Integer>();
 		isdigging=false;
 		isflying=false;
@@ -73,12 +75,15 @@ public class Unit {
 		disabledmove=-1;
 		coordinates=new IntPair(-1,-1);
 		isminimized=false;
+		israging=false;
+		consecuses=0;
 		image=new GImage(Constants.PATH+"\\Sprites\\"+pokemon.getNum()+".png");
 	}
 
 	public Unit(Pokemon p,int[] modstag,int moverange,HashMap<String,Integer> conds,HashMap<BondCondition,Integer> bondconds,int id,
 			HashMap<ProtectionCondition,Integer> proconds,boolean control,Direction dir,boolean moved,boolean acted,ArrayList<Type> types,
-			boolean ended,boolean move,boolean attack,Move prev,ArrayList<Integer> attby,boolean dig,boolean fly,boolean attacked,int dis,IntPair coord,boolean min){
+			boolean ended,boolean move,boolean attack,int prev,ArrayList<Integer> attby,boolean dig,boolean fly,boolean attacked,int dis,
+			IntPair coord,boolean min,boolean raging,int consec){
 		pokemon=p;
 		this.id=id;
 		modstages=modstag;
@@ -102,9 +107,31 @@ public class Unit {
 		disabledmove=dis;
 		coordinates=coord;
 		isminimized=min;
+		israging=raging;
+		consecuses=consec;
 		image=new GImage(Constants.PATH+"\\Sprites\\"+pokemon.getNum()+".png");
 		if(min)
 			image.setSize(image.getWidth()*Constants.MINIMIZE_RATIO, image.getHeight()*Constants.MINIMIZE_RATIO);
+	}
+	
+	public int getNumConsecUses(){
+		return consecuses;
+	}
+	
+	public void incNumConsecUses(){
+		consecuses++;
+	}
+	
+	public void resetConsecUses(){
+		consecuses=0;
+	}
+	
+	public boolean isRaging(){
+		return israging;
+	}
+	
+	public void setRaging(boolean newval){
+		israging=newval;
 	}
 	
 	public boolean isMinimized(){
@@ -143,8 +170,8 @@ public class Unit {
 		disabledmove=-1;
 	}
 
-	public void setDisabledMove(int index){
-		disabledmove=index;
+	public void setDisabledMove(int movenum){
+		disabledmove=movenum;
 	}
 
 	public void calculateMovementRange(){
@@ -176,6 +203,10 @@ public class Unit {
 			return false;
 		protectionconditions.put(condition,0);
 		return true;
+	}
+	
+	public boolean hasProtectionCondition(ProtectionCondition condition){
+		return protectionconditions.containsKey(condition);
 	}
 
 	public void incNumTurnsProtected(ProtectionCondition condition){
@@ -226,12 +257,12 @@ public class Unit {
 			attackedby.add(unitid);
 	}
 
-	public Move getPrevMove(){
+	public int getPrevMove(){
 		return prevmove;
 	}
 
-	public void setPrevMove(Move m){
-		prevmove=m;
+	public void setPrevMove(int movenum){
+		prevmove=movenum;
 	}
 
 	public boolean canAttack(){
@@ -506,6 +537,18 @@ public class Unit {
 		return id;
 	}
 	
+	public boolean isFlanking(Unit other){
+		int ydiff=Math.abs(coordinates.getY()-other.coordinates.getY());
+		int xdiff=Math.abs(coordinates.getX()-other.coordinates.getX());
+		return ydiff<=xdiff;
+	}
+	
+	public boolean isFacing(Unit other){
+		int ydiff=Math.abs(coordinates.getY()-other.coordinates.getY());
+		int xdiff=Math.abs(coordinates.getX()-other.coordinates.getX());
+		return ydiff<=xdiff-1;
+	}
+	
 	public boolean equals(Unit other){
 		return id==other.id;
 	}
@@ -514,14 +557,14 @@ public class Unit {
 		String s="Unit: ";
 		s+=id+"\n";
 		s+=pokemonpartyindex+" "+movementrange+" "+controllable+" "+directionfacing+" "+hasmoved+" "+hastakenaction+" "+hasendedturn+" "+canmove+" "
-				+canattack+" "+isdigging+" "+isflying+" "+hasattacked+" "+disabledmove+isminimized+"\n";
+				+canattack+" "+isdigging+" "+isflying+" "+hasattacked+" "+isminimized+" "+israging+" "+consecuses
+				+prevmove+" "+disabledmove+"\n";
 		s+=coordinates.toString()+"\n";
 		s+=Arrays.toString(modstages)+"\n";
 		s+=conditions.toString()+"\n";
 		s+=bondconditions.toString()+"\n";
 		s+=protectionconditions.toString()+"\n";
 		s+=types.toString()+"\n";
-		s+=prevmove+"\n";
 		s+=attackedby.toString();
 		return s;
 	}
@@ -546,8 +589,11 @@ public class Unit {
 		boolean dig=reader.nextBoolean();
 		boolean fly=reader.nextBoolean();
 		boolean attacked=reader.nextBoolean();
-		int dis=reader.nextInt();
 		boolean ismin=reader.nextBoolean();
+		boolean raging=reader.nextBoolean();
+		int consec=reader.nextInt();
+		int prev=reader.nextInt();
+		int dis=reader.nextInt();
 		reader.nextLine();
 		IntPair coord=IntPair.readIn(reader.nextLine());
 		int[] modstag=GameData.readIntArray(reader.nextLine());
@@ -587,18 +633,14 @@ public class Unit {
 				types.add(Type.valueOf(split[i].trim()));
 		}
 		line=reader.nextLine();
-		Move prev=null;
-		if(!line.trim().equals("null")){
-			split=line.split(" ");
-			prev=new Move(Integer.parseInt(split[0]),Integer.parseInt(split[1]),Integer.parseInt(split[2]));
-		}
 		ArrayList<Integer> attby=new ArrayList<Integer>();
 		int[] attackbylist=GameData.readIntArray(reader.nextLine());
 		if(attackbylist!=null){
 			for(int x:attackbylist)
 				attby.add(x);
 		}
-		return new Unit(p, modstag, moverange, conds, bondconds, id, proconds, control, dir, moved, acted, types, ended, move, attack, prev, attby, dig, fly, attacked, dis, coord,ismin);
+		return new Unit(p, modstag, moverange, conds, bondconds, id, proconds, control, dir, moved, acted, types, ended,
+				move, attack, prev, attby, dig, fly, attacked, dis, coord,ismin,raging,consec);
 	}
 
 }

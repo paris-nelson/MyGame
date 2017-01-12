@@ -53,8 +53,8 @@ public class UnitMenu implements Menu {
 		}
 		else if(visibleoptions.get(index).equals("Attack")){
 			if(unit.hasTempCondition(TempCondition.Encore)){
-				if(unit.getPrevMove().hasPP())
-					BattleEngine.useMove(unit.getPrevMove());
+				if(unit.getPokemon().getMove(unit.getPrevMove()).hasPP())
+					BattleEngine.useMove(unit.getPokemon().getMove(unit.getPrevMove()));
 				else
 					BattleEngine.useMove(new Move(GameData.getMoveNum("Struggle")));
 			}

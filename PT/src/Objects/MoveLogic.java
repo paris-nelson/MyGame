@@ -7,6 +7,7 @@ import java.util.Iterator;
 import Engines.BattleEngine;
 import Enums.MoveEffect;
 import Enums.PermCondition;
+import Enums.ProtectionCondition;
 import Enums.Stat;
 import Enums.Type;
 import Global.Constants;
@@ -26,13 +27,31 @@ public class MoveLogic {
 		move=thismove;
 		effects=GameData.getMoveEffects(move.getNum());
 		HashMap<MoveEffect,HashMap<String,String>> selftargetting=getSelfTargettingEffects();
-		for(MoveEffect effect:selftargetting.keySet()){
-			implement(effect,selftargetting.get(effect),user);
-		}
+		int count=0;
 		for(Unit u:thistargets){
-			for(MoveEffect effect:effects.keySet()){
-				implement(effect,effects.get(effect),u);
+			if(doesMoveHit(u,user,move.getNum())){
+				if(count==0){
+					if(user.getPrevMove()==move.getNum())
+						user.incNumConsecUses();
+					else
+						user.resetConsecUses();
+				}
+				count++;
+				for(MoveEffect effect:effects.keySet()){
+					implement(effect,effects.get(effect),u);
+				}
+				if(user.getPokemon().isHolding("King's Rock")&&GameData.getMoveEffects(move.getNum()).size()==1
+						&&effects.containsKey(MoveEffect.Damage)&&GameData.getRandom().nextInt(100)<Constants.KINGS_ROCK_FLINCH_CHANCE){
+					HashMap<String,String> map=new HashMap<String,String>();
+					map.put("Condition","Flinch");
+					implement(MoveEffect.GiveTCondition,map,u);
+				}
 			}
+		}
+		for(MoveEffect effect:selftargetting.keySet()){
+			if(effect==MoveEffect.MissRecoil&&count>0)
+				continue;
+			implement(effect,selftargetting.get(effect),user);
 		}
 	}
 
@@ -56,65 +75,96 @@ public class MoveLogic {
 	private static void implement(MoveEffect effect,HashMap<String,String> params,Unit target){
 		curreffects=params;
 		if(effect==MoveEffect.Damage){
-			int damage=0;
-			String power=params.get("Power");
-			String param=params.get("Type");
-			try{
-				int powernum=Integer.parseInt(power);
-				int numtimes=1;
-				if(param!=null){
-					if(param.equals("DoubleAttack"))
-						numtimes=2;
-					else if(param.equals("TripleAttack"))
-						numtimes=3;
-					else if(param.equals("TripleAttack"))
-						numtimes=GameData.getRandom().nextInt(4)+2;
-					else if(param.equals("BeatUp")){
-						for(Unit u:BattleEngine.getFriendlyUnits(user)){
-							if(u.equals(user))
-								continue;
-							damage+=calculateDamage(u,target,null,10);
-						}
+			implementDamageEffect(target);
+		}
+	}
+
+	private static void implementDamageEffect(Unit target){
+		int damage=0;
+		String power=curreffects.get("Power");
+		String param=curreffects.get("Type");
+		try{
+			//pre damage calculation parameters that affect ultimate damage calculation
+			int powernum=Integer.parseInt(power);
+			int numtimes=1;
+			if(param!=null){
+				if(param.equals("DoubleAttack"))
+					numtimes=2;
+				else if(param.equals("TripleAttack"))
+					numtimes=3;
+				else if(param.equals("TripleAttack"))
+					numtimes=GameData.getRandom().nextInt(4)+2;
+				else if(param.equals("BeatUp")){
+					for(Unit u:BattleEngine.getFriendlyUnits(user)){
+						if(u.equals(user))
+							continue;
+						damage+=calculateDamage(u,target,null,10);
 					}
 				}
-				for(int i=0;i<numtimes;i++){
-					damage+=calculateDamage(user,target,GameData.getMoveType(move.getNum()),powernum);
-				}
 			}
-			catch(Exception e){
-				//different types of power
-				if(power.equals("Invariant"))
-					damage=Integer.parseInt(params.get("Damage"));
-				else if(power.equals("OneHitKO"))
-					damage=target.getStat(Stat.HP);
-				else if(power.equals("Flail"))
-					damage=calculateDamage(user,target,GameData.getMoveType(move.getNum()),calculateFlailPower());
-				else if(power.equals("Hidden Power"))
-					damage=calculateDamage(user,target,calculateHiddenType(),calculateHiddenPower());
-				else if(power.equals("Magnitude"))
-					damage=calculateDamage(user,target,GameData.getMoveType(move.getNum()),calculateMagnitudePower());
-				else if(power.equals("Level"))
-					damage=user.getPokemon().getLevel();
-				else if(power.equals("Present"))
-					damage=calculatePresentDamage(target);
-				else if(power.equals("Psywave"))
-					damage=calculatePsywaveDamage();
-				else if(power.equals("HappinessBased"))
-					damage=calculateDamage(user,target,GameData.getMoveType(move.getNum()),calculateHappinessBasedPower());
-				else if(power.equals("HalveHP"))
-					damage=target.getStat(Stat.HP)/2;
-			}
-			if(param!=null){
-				if(param.equals("DigMultiplier")&&target.isDigging())
-					damage*=2;
-				else if(param.equals("FlyMultiplier")&&target.isFlying())
-					damage*=2;
-				else if(param.equals("MinimizeMultiplier")&&target.isMinimized())
-					damage*=2;
-				if(param.equals("CannotKill")&&damage>=target.getStat(Stat.HP))
-					damage=target.getStat(Stat.HP)-1;
+			System.out.println("Attacking "+numtimes+" times.");
+			for(int i=0;i<numtimes;i++){
+				damage+=calculateDamage(user,target,GameData.getMoveType(move.getNum()),powernum);
 			}
 		}
+		catch(Exception e){
+			//parameters that determine base power or damage calculations
+			if(power.equals("Invariant"))
+				damage=Integer.parseInt(curreffects.get("Damage"));
+			else if(power.equals("OneHitKO"))
+				damage=target.getStat(Stat.HP);
+			else if(power.equals("Flail"))
+				damage=calculateDamage(user,target,GameData.getMoveType(move.getNum()),calculateFlailPower());
+			else if(power.equals("Hidden Power"))
+				damage=calculateDamage(user,target,calculateHiddenType(),calculateHiddenPower());
+			else if(power.equals("Magnitude"))
+				damage=calculateDamage(user,target,GameData.getMoveType(move.getNum()),calculateMagnitudePower());
+			else if(power.equals("Level"))
+				damage=user.getPokemon().getLevel();
+			else if(power.equals("Present"))
+				damage=calculatePresentDamage(target);
+			else if(power.equals("Psywave"))
+				damage=calculatePsywaveDamage();
+			else if(power.equals("HappinessBased"))
+				damage=calculateDamage(user,target,GameData.getMoveType(move.getNum()),calculateHappinessBasedPower());
+			else if(power.equals("HalveHP"))
+				damage=target.getStat(Stat.HP)/2;
+		}
+		if(param!=null){
+			//post damage calculation parameters that affect ultimate damage calculation
+			if(param.equals("DigMultiplier")&&target.isDigging()){
+				System.out.println(target.getPokemon().getName()+" takes double damage from "
+						+GameData.getMoveName(move.getNum())+" because it is digging");
+				damage*=2;
+			}
+			else if(param.equals("FlyMultiplier")&&target.isFlying()){
+				System.out.println(target.getPokemon().getName()+" takes double damage from "
+						+GameData.getMoveName(move.getNum())+" because it is flying");
+				damage*=2;
+			}
+			else if(param.equals("MinimizeMultiplier")&&target.isMinimized()){
+				System.out.println(target.getPokemon().getName()+" takes double damage from "
+						+GameData.getMoveName(move.getNum())+" because it is minimized");
+				damage*=2;
+			}
+			else if(param.equals("Flanking")&&user.isFlanking(target)){
+				System.out.println(target.getPokemon().getName()+" takes extra damage from "
+						+GameData.getMoveName(move.getNum())+" because it is being flanked");
+				damage*=2;
+			}
+			else if(param.equals("ConsecPowInc")&&user.getNumConsecUses()>0){
+				damage*=Math.pow(2,user.getNumConsecUses());
+				System.out.println(target.getPokemon().getName()+" takes "+Math.pow(2,user.getNumConsecUses())+" times damage "
+						+" because "+GameData.getMoveName(move.getNum())+" has been used "+(user.getNumConsecUses()+1)+" turns.");
+			}
+			if((param.equals("CannotKill")||
+					(target.getPokemon().isHolding("Focus Band")&&GameData.getRandom().nextInt(100)<Constants.FOCUS_BAND_CHANCE))
+					&&damage>=target.getStat(Stat.HP)){
+				System.out.println(target.getPokemon().getName()+" survives the attack at one life");
+				damage=target.getStat(Stat.HP)-1;
+			}
+		}
+		target.damage(damage);
 	}
 
 	private static int calculateHappinessBasedPower(){
@@ -275,5 +325,47 @@ public class MoveLogic {
 		System.out.println("( "+parta+" * "+partb+" * "+power+" + 2) * "+stabmod+" * "+typemod+" * "+critmod+" * "
 				+heldmod+" * "+randommod+" * "+burnmod+" = "+damage);
 		return damage;
+	}
+
+	public static boolean doesMoveHit(Unit defender, Unit attacker, int movenum){
+		if(defender.hasProtectionCondition(ProtectionCondition.Protect)||defender.hasProtectionCondition(ProtectionCondition.Detect)){
+			System.out.println(defender.getPokemon().getName()+" cannot be hit because they are protected.");
+			return false;
+		}
+		if(defender.isFlying()&&movenum!=85&&movenum!=230&&movenum!=240&&movenum!=72){
+			System.out.println(GameData.getMoveName(movenum)+" could not hit because "+defender.getPokemon().getName()+" is mid-air using Fly.");
+			return false;
+		}
+		if(defender.isDigging()&&movenum!=43&&movenum!=55&&movenum!=67&&movenum!=114){
+			System.out.println(GameData.getMoveName(movenum)+" could not hit because "+defender.getPokemon().getName()+" is underground using Dig.");
+			return false;
+		}
+		if(movenum==62||movenum==221||movenum==243)
+			return true;
+		return GameData.getRandom().nextInt(100)<calculateChanceOfHitting(defender,attacker,movenum);
+	}
+
+	private static int calculateChanceOfHitting(Unit defender, Unit attacker, int movenum){
+		double mod=1;
+		if(attacker.isFlanking(defender))
+			System.out.println(attacker.getPokemon().getName()+" is flanking "+defender.getPokemon().getName()+" so will suffer no accuracy penalty");
+		else if(attacker.isFacing(defender)){
+			System.out.println(attacker.getPokemon().getName()+" is facing "+defender.getPokemon().getName()+" so will take an accuracy penalty");
+			mod=Constants.FRONT_FACING_ACCURACY_RATE;
+		}
+		else{
+			System.out.println(attacker.getPokemon().getName()+" is facing "+defender.getPokemon().getName()+"'s side so will take a slight accuracy penalty");
+			mod=Constants.SIDE_FACING_ACCURACY_RATE;
+		}
+		System.out.println(GameData.getMoveAccuracy(movenum)+"*"+defender.getEvasion()+"*"+attacker.getAccuracy()+"*"+mod);
+		return round(GameData.getMoveAccuracy(movenum)*defender.getEvasion()*attacker.getAccuracy()*mod);
+	}
+
+	private static int round(double num){
+		int intnum=(int)num;
+		if(num<intnum+0.5)
+			return intnum;
+		else 
+			return intnum+1;
 	}
 }

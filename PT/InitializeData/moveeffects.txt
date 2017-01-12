@@ -153,7 +153,7 @@ Effect=Damage,Power=90;Effect=Nerf,Stat=SpecialDefense,Chance=10,Stages=1
 Effect=Damage,Power=Psywave
 Effect=Damage,Power=40,Type=Flanking
 Effect=Damage,Power=45;Effect=Buff,Stat=Speed,Chance=10,Stages=1,Target=Self
-Effect=Damage,Power=20,Type=ConsecPowInc
+Effect=Damage,Power=20;Effect=Rage
 Effect=Weather,Conditions=Rain
 Effect=Damage,Power=20;Effect=RemoveTCondition,Condition=Trap,Target=Self;Effect=RemoveTCondition,Condition=DamageTrap,Target=Self;Effect=RemoveBondCondition,Condition=LeechSeed,Target=Self;Effect=RemoveSpikes;Effect=RemoveSpikes,Target=Self
 Effect=Damage,Power=55,Type=HighCritRatio
