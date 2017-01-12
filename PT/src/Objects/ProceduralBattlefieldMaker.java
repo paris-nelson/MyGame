@@ -18,14 +18,14 @@ public class ProceduralBattlefieldMaker implements BattlefieldMaker {
 		for(int x=0;x<bf.length;x++){
 			for(int y=0;y<bf[0].length;y++){
 				if(x>5&&x<10&&y>3&&y<8){
-					image.add(new GImage(Constants.PATH+"\\WaterTile.png"),x*56,y*56);
+					image.add(new GImage(Constants.PATH+"\\WaterTile.png"),x*Constants.TILE_SIZE,y*Constants.TILE_SIZE);
 					bf[x][y]=new Square(Tile.Water);
-					image.add(bf[x][y].getBoundary(),x*56,y*56);
+					image.add(bf[x][y].getBoundary(),x*Constants.TILE_SIZE,y*Constants.TILE_SIZE);
 				}
 				else{
-					image.add(new GImage(Constants.PATH+"\\GrassTile.png"),x*56,y*56);
+					image.add(new GImage(Constants.PATH+"\\GrassTile.png"),x*Constants.TILE_SIZE,y*Constants.TILE_SIZE);
 					bf[x][y]=new Square(Tile.Grass);
-					image.add(bf[x][y].getBoundary(),x*56,y*56 );
+					image.add(bf[x][y].getBoundary(),x*Constants.TILE_SIZE,y*Constants.TILE_SIZE );
 				}
 			}
 		}

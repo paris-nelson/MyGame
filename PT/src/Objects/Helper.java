@@ -45,7 +45,7 @@ public class Helper {
 //		}
 //		System.out.println(strings.size());
 		
-		getPokemonThatLearnMove(GameData.getMoveNum("Pursuit"));
+		getPokemonThatLearnMove(GameData.getMoveNum("Pay Day"));
 //		getPokemonThatLearnMove(GameData.getMoveNum("Whirlwind"));
 //		getPokemonThatLearnMove(GameData.getMoveNum("Recover"));
 		//getPokemonThatLearnMove(GameData.getMoveNum("Protect"));

@@ -25,8 +25,8 @@ public class LoadExistingBattlefieldMaker implements BattlefieldMaker {
 			for(int x=0;x<Constants.BATTLEFIELD_WIDTH;x++){
 				Square square=Square.readIn(split[x]);
 				bf[x][y]=square;
-				image.add(new GImage(Constants.PATH+"Sprites\\"+square.getTileType().toString()+"Tile.png"),x*56,y*56);
-				image.add(square.getBoundary(),x*56,y*56);
+				image.add(new GImage(Constants.PATH+"Sprites\\"+square.getTileType().toString()+"Tile.png"),x*Constants.TILE_SIZE,y*Constants.TILE_SIZE);
+				image.add(square.getBoundary(),x*Constants.TILE_SIZE,y*Constants.TILE_SIZE);
 			}
 		}
 	}

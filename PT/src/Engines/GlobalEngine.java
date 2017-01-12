@@ -120,14 +120,18 @@ public class GlobalEngine {
 		int highestlevel=defeated.getHighestLevel();
 		int base=Constants.PRIZE_MONEY_INCREMEMENT*defeated.getParty().length+Constants.PRIZE_MONEY_BASE;
 		int mod=1;
+		System.out.println("Player gets "+base+" prize money for their victory.");
 		for(Pokemon p:PlayerData.getParty()){
 			if(p.isHolding("Amulet Coin")){
+				System.out.println("Player's prize money is doubled because "+p.getName()+" is holding an Amulet Coin.");
 				mod=2;
 				break;
 			}
 		}
-		System.out.println("Player gains "+(highestlevel*base*mod)+" money for beating "+defeated.getName());
-		PlayerData.gainMoney(highestlevel*base*mod);
+		int paydaybonus=BattleEngine.getPayDayVal()*Constants.PAY_DAY_MULTIPLIER;
+		System.out.println("Player receives a bonus of "+paydaybonus+" from uses of Pay Day.");
+		System.out.println("Player gains "+(highestlevel*base*mod+paydaybonus)+" money for beating "+defeated.getName());
+		PlayerData.gainMoney(highestlevel*base*mod+paydaybonus);
 	}
 
 	private static void rewardLoot(Trainer defeated){

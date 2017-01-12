@@ -77,6 +77,9 @@ public class MoveLogic {
 		if(effect==MoveEffect.Damage){
 			implementDamageEffect(target);
 		}
+		else if(effect==MoveEffect.PayDay){
+			BattleEngine.incPayDayVal(user.getPokemon().getLevel());
+		}
 	}
 
 	private static void implementDamageEffect(Unit target){

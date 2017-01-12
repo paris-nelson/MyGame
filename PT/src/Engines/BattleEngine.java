@@ -57,6 +57,7 @@ public class BattleEngine {
 	private static Move currattack;
 	private static ArrayList<IntPair> previousmoves;
 	private static boolean spikesplaced;
+	private static int numpaydays;
 
 	public static void initialize(Trainer newopponent){
 		System.out.println("Initializing battle with "+newopponent.getName());
@@ -64,6 +65,7 @@ public class BattleEngine {
 		opponent=newopponent;
 		bfmaker=new ProceduralBattlefieldMaker();
 		spikesplaced=false;
+		numpaydays=0;
 		initBattlefield();
 		initUnits();
 		setPriorities();
@@ -277,6 +279,7 @@ public class BattleEngine {
 				priorities.add(i);
 			}
 			spikesplaced=s.nextBoolean();
+			numpaydays=s.nextInt();
 			activeindex=s.nextInt();
 			activeunit=getUnitByID(s.nextInt());
 			s.nextLine();
@@ -305,10 +308,18 @@ public class BattleEngine {
 			}
 			pw.println("End Opponent Units");
 			pw.println(priorities);
-			pw.println(spikesplaced+" "+activeindex+" "+activeunit.getID());
+			pw.println(spikesplaced+" "+numpaydays+" "+activeindex+" "+activeunit.getID());
 			pw.println(bfmaker.toString());
 			pw.close();
 		}catch(Exception e){e.printStackTrace();}
+	}
+	
+	public static int getPayDayVal(){
+		return numpaydays;
+	}
+	
+	public static void incPayDayVal(int lvl){
+		numpaydays+=lvl;
 	}
 
 	public static Unit getActiveUnit(){
