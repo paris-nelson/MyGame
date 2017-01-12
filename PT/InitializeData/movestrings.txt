@@ -29,13 +29,13 @@ Confuse Ray,Ghost,Confuses the target
 Confusion,Psychic,Has a 10% chance to confuse the target
 Constrict,Normal,Has a 10% chance to lower the target's Speed by 1 stage
 Conversion,Normal,The user's types changes to match the target's types
-Conversion 2,Normal,The user's type changes to one that resists the type of the last attack that hit the user
+Conversion 2,Normal,The user's type changes to one that resists the type of the last attack used by the target; if there is a type that is immune, the user's type becomes that type instead
 Cotton Spore,Grass,Lowers the target's Speed by 2 stages
 Counter,Fighting,If user is hit with a Physical attack before the user's turn the user retaliates for twice the damage it had endured
 Crabhammer,Water,Has a high critical hit ratio
 Cross Chop,Fighting,Has a high critical hit ratio
 Crunch,Dark,Has a 20% chance to lower the target's Special Defense by 1 stage
-Curse,Normal,When used by a Ghost-type the user sacrifices half of its max HP to sap the target by 1/4 of its max HP per turn. When used by anything else the user's Speed is decreased by 1 stage and its Attack and Defense are increased by 1 stage
+Curse,Ghost,When used by a Ghost-type the user sacrifices half of its max HP to sap the target by 1/4 of its max HP per turn. When used by anything else the user's Speed is decreased by 1 stage and its Attack and Defense are increased by 1 stage
 Cut,Normal,Damages the target
 Defense Curl,Normal,Raises the user's Defense by 1 stage; after one use of this move the user's starting base power is doubled for every use of Rollout
 Destiny Bond,Ghost,Causes an opponent to faint if its next attack KOs the user
@@ -148,7 +148,7 @@ Powder Snow,Ice,Has a 10% chance to freeze the target
 Present,Normal,Randomly either attacks with a variable power between 40 base power and 120 base power or heals the target by 80 HP
 Protect,Normal,Almost always goes first. The user is protected from all attacks for one turn but the move's success rate halves with each consecutive use of Protect Detect or Endure
 Psybeam,Psychic,Has a 10% chance to confuse the target
-Psych Up,Normal,The user copies all seven of the target's current stat modifiers
+Psych Up,Normal,The user copies all eight of the target's current stat modifiers
 Psychic,Psychic,Has a 10% chance to lower the target's Special Defense by 1 stage
 Psywave,Psychic,Randomly inflicts set damage between a minimum of 1 HP and a maximum of [1.5x the user's level] HP
 Pursuit,Dark,Does 1.5x damage if flanking

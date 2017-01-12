@@ -218,6 +218,39 @@ public class GameData {
 		}
 		return typechart.get(attacktype).get(targettype);
 	}
+	
+	public static Type getResistantType(Type attacktype){
+		if(attacktype==null)
+			return Type.Normal;
+		if(typechart==null){
+			try{
+				File f=new File(Constants.PATH+"\\InitializeData\\typechart.txt");
+				Scanner s=new Scanner(f);
+				typechart=new HashMap<Type,HashMap<Type,Double>>();
+				Type[] typesordered={Type.Normal,Type.Fighting,Type.Flying,Type.Poison,Type.Ground,Type.Rock,Type.Bug,Type.Ghost,Type.Steel,Type.Fire,Type.Water,Type.Grass,Type.Electric,Type.Psychic,Type.Ice,Type.Dragon,Type.Dark};
+				for(int i=0;i<typesordered.length;i++){
+					HashMap<Type,Double> thistype=new HashMap<Type,Double>();
+					for(int j=0;j<typesordered.length;j++){
+						thistype.put(typesordered[j],s.nextDouble());
+					}
+					s.nextLine();
+					typechart.put(typesordered[i],thistype);
+				}
+				s.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		Type newtype=Type.Normal;
+		HashMap<Type,Double> vals=typechart.get(attacktype);
+		for(Type type:vals.keySet()){
+			if(vals.get(type)==0)
+				return type;
+			if(vals.get(type)<1)
+				newtype=type;
+		}
+		return newtype;
+	}
 
 	public static int getBaseExp(int pokenum){
 		if(basexps==null){
@@ -257,7 +290,7 @@ public class GameData {
 	public static double getMoveAccuracy(int movenum){
 		if(movenums==null)
 			loadMoveNums();
-		return movenums[movenum][3]/100;
+		return movenums[movenum][3]/((double)100);
 	}
 
 	public static int getMoveNum(String movename){

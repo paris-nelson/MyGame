@@ -212,12 +212,12 @@ public class Pokemon {
 		int[] newstats=new int[6];
 		double hp1=(basestats[0]+ivs[0])*2;
 		double hp2=Math.floor(Math.ceil(Math.sqrt((double)evs[0]))/4);
-		hp1=(hp1+hp2)*level/100;
+		hp1=(hp1+hp2)*level/((double)100);
 		newstats[0]=(int)Math.floor(hp1)+level+10;
 		for(int i=1;i<6;i++){
 			double stat1=(basestats[i]+ivs[i])*2;
 			double stat2=Math.floor(Math.ceil(Math.sqrt((double)evs[i]))/4);
-			stat1=(stat1+stat2)*level/100;
+			stat1=(stat1+stat2)*((double)100);
 			newstats[i]=(int)Math.floor(stat1)+5;
 		}
 		return newstats;
@@ -595,6 +595,18 @@ public class Pokemon {
 	
 	public void revive(){
 		this.fainted=false;
+	}
+	
+	public void setHP(int newval){
+		currhp=newval;
+	}
+	
+	public boolean knowsMove(int movenum){
+		for(Move m:moveset){
+			if(m.getNum()==movenum)
+				return true;
+		}
+		return false;
 	}
 	
 	public String toString(){

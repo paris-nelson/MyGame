@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import Enums.BondCondition;
 import Enums.Direction;
+import Enums.PermCondition;
 import Enums.ProtectionCondition;
 import Enums.Stat;
 import Enums.TempCondition;
@@ -48,6 +49,7 @@ public class Unit {
 	private boolean isminimized;
 	private boolean israging;
 	private int consecuses;
+	private boolean ischarging;
 
 
 	public Unit(Pokemon pokemon,int partyindex,int id){
@@ -77,13 +79,14 @@ public class Unit {
 		isminimized=false;
 		israging=false;
 		consecuses=0;
+		ischarging=false;
 		image=new GImage(Constants.PATH+"\\Sprites\\"+pokemon.getNum()+".png");
 	}
 
 	public Unit(Pokemon p,int[] modstag,int moverange,HashMap<String,Integer> conds,HashMap<BondCondition,Integer> bondconds,int id,
 			HashMap<ProtectionCondition,Integer> proconds,boolean control,Direction dir,boolean moved,boolean acted,ArrayList<Type> types,
 			boolean ended,boolean move,boolean attack,int prev,ArrayList<Integer> attby,boolean dig,boolean fly,boolean attacked,int dis,
-			IntPair coord,boolean min,boolean raging,int consec){
+			IntPair coord,boolean min,boolean raging,int consec,boolean charging){
 		pokemon=p;
 		this.id=id;
 		modstages=modstag;
@@ -109,9 +112,24 @@ public class Unit {
 		isminimized=min;
 		israging=raging;
 		consecuses=consec;
+		ischarging=charging;
 		image=new GImage(Constants.PATH+"\\Sprites\\"+pokemon.getNum()+".png");
 		if(min)
 			image.setSize(image.getWidth()*Constants.MINIMIZE_RATIO, image.getHeight()*Constants.MINIMIZE_RATIO);
+	}
+	
+	public void copyStatMods(Unit other){
+		for(int i=0;i<modstages.length;i++){
+			modstages[i]=other.modstages[i];
+		}
+	}
+	
+	public boolean isRecharging(){
+		return ischarging;
+	}
+	
+	public void setRecharging(boolean newval){
+		ischarging=newval;
 	}
 	
 	public int getNumConsecUses(){
@@ -208,6 +226,10 @@ public class Unit {
 	public boolean hasProtectionCondition(ProtectionCondition condition){
 		return protectionconditions.containsKey(condition);
 	}
+	
+	public boolean removeProtectionCondition(ProtectionCondition condition){
+		return protectionconditions.remove(condition)!=null;
+	}
 
 	public void incNumTurnsProtected(ProtectionCondition condition){
 		protectionconditions.put(condition,protectionconditions.get(condition)+1);
@@ -240,8 +262,8 @@ public class Unit {
 		return -1;
 	}
 
-	public void removeBondCondition(BondCondition bond){
-		bondconditions.remove(bond);
+	public boolean removeBondCondition(BondCondition bond){
+		return bondconditions.remove(bond)!=null;
 	}
 
 	public void clearBondConditions(){
@@ -398,8 +420,7 @@ public class Unit {
 	}
 	/**
 	 * Returns the functional stat of the unit. Note that these are the stats in this battle and not representative of
-	 * the innate stats. e.g. pokemon.getStat(Stat.HP) gives the max hp, but unit.getStat(Stat.HP) gives current
-	 * or if a (de)buff move has been used on a unit, it will impact the functional stat in that battle
+	 * the innate stats. e.g. if a (de)buff move has been used on a unit, it will impact the functional stat in that battle
 	 * 
 	 * This method should only be used for 6 primary stats, otherwise use getAccuracy, getEvasion, or getCritRatio
 	 * @param stat
@@ -410,22 +431,22 @@ public class Unit {
 			return pokemon.getStat(stat);
 		int index=-1;
 		if(stat==Stat.Attack)
-			index=1;
+			index=0;
 		else if(stat==Stat.Defense)
-			index=2;
+			index=1;
 		else if(stat==Stat.SpecialAttack)
-			index=3;
+			index=2;
 		else if(stat==Stat.SpecialDefense)
-			index=4;
+			index=3;
 		else if(stat==Stat.Speed)
-			index=5;
-		else if(stat==Stat.Accuracy)
-			index=6;
-		else if(stat==Stat.Evasion)
-			index=7;
-		if(index<6)
-			return (int)(GameData.getStatStageMultiplier(modstages[index-1])*pokemon.getStats()[index]);
+			index=4;
+		if(index<5&&index>=0)
+			return (int)(GameData.getStatStageMultiplier(modstages[index])*pokemon.getStats()[index+1]);
 		else return -1;
+	}
+	
+	public void clearStatMods(){
+		modstages=new int[8];
 	}
 
 	public int getMovementRange(){
@@ -448,7 +469,7 @@ public class Unit {
 	}
 
 	public boolean hasTempCondition(TempCondition condition){
-		return conditions.containsKey(condition);
+		return conditions.containsKey(condition.toString());
 	}
 
 	public void removeconditions(){
@@ -460,8 +481,41 @@ public class Unit {
 	 * @param condition
 	 * @return
 	 */
-	public boolean removeTcondition(TempCondition condition){
-		return conditions.remove(condition)!=null;
+	public boolean removeTempCondition(TempCondition condition){
+		return conditions.remove(condition.toString())!=null;
+	}
+	
+	/**
+	 * Attempts to inflict the given nonvolatile status condition on the unit. If it already has a perm condition, the method fails
+	 * @param newcondition
+	 * @return: false if unit already has the condition, true otherwise
+	 */
+	public boolean addPermCondition(PermCondition newcondition){
+		if((newcondition==PermCondition.Burn&&types.contains(Type.Fire))||(newcondition==PermCondition.Frozen&&types.contains(Type.Ice))
+			||(newcondition==PermCondition.Paralysis&&types.contains(Type.Electric))||(newcondition==PermCondition.Poison&&types.contains(Type.Poison))
+			||(newcondition==PermCondition.BadlyPoison&&types.contains(Type.Poison)))
+			return false;
+		if(!pokemon.setPcondition(newcondition))
+			return false;
+		conditions.put(newcondition.toString(),0);
+		return true;
+	}
+
+	public boolean hasPermCondition(PermCondition condition){
+		return conditions.containsKey(condition.toString());
+	}
+
+	/**
+	 * Attempts to alleviate the given nonvolatile condition. If the pokemon doesn't have that condition, method fails
+	 * @param condition
+	 * @return
+	 */
+	public boolean removePermCondition(PermCondition condition){
+		if(!hasPermCondition(condition))
+			return false;
+		conditions.remove(condition.toString());
+		pokemon.removePcondition();
+		return true;
 	}
 
 	public boolean isControllable(){
@@ -558,7 +612,7 @@ public class Unit {
 		s+=id+"\n";
 		s+=pokemonpartyindex+" "+movementrange+" "+controllable+" "+directionfacing+" "+hasmoved+" "+hastakenaction+" "+hasendedturn+" "+canmove+" "
 				+canattack+" "+isdigging+" "+isflying+" "+hasattacked+" "+isminimized+" "+israging+" "+consecuses
-				+prevmove+" "+disabledmove+"\n";
+				+prevmove+" "+disabledmove+" "+ischarging+"\n";
 		s+=coordinates.toString()+"\n";
 		s+=Arrays.toString(modstages)+"\n";
 		s+=conditions.toString()+"\n";
@@ -594,6 +648,7 @@ public class Unit {
 		int consec=reader.nextInt();
 		int prev=reader.nextInt();
 		int dis=reader.nextInt();
+		boolean charging=reader.nextBoolean();
 		reader.nextLine();
 		IntPair coord=IntPair.readIn(reader.nextLine());
 		int[] modstag=GameData.readIntArray(reader.nextLine());
@@ -640,7 +695,7 @@ public class Unit {
 				attby.add(x);
 		}
 		return new Unit(p, modstag, moverange, conds, bondconds, id, proconds, control, dir, moved, acted, types, ended,
-				move, attack, prev, attby, dig, fly, attacked, dis, coord,ismin,raging,consec);
+				move, attack, prev, attby, dig, fly, attacked, dis, coord,ismin,raging,consec,charging);
 	}
 
 }

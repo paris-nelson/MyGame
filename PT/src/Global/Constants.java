@@ -65,6 +65,8 @@ public class Constants {
 	public static final double SPIKES_DAMAGE_RATE=.125;
 	public static final double MINIMIZE_RATIO=.75;
 	public static final int PAY_DAY_MULTIPLIER=5;
+	public static final double HEAL_RIGHT_TIME_PERCENTAGE=.5;
+	public static final double HEAL_WRONG_TIME_PERCENTAGE=.25;
 	
 	//item specific constants
 	public static final double LEFTOVERS_HP_RECOV_RATE=.0833;

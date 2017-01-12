@@ -7,6 +7,12 @@ import Engines.BattleEngine;
 import Global.ControlsConfig;
 
 public class BattleAttackKeyListener implements KeyListener {
+	
+	private boolean cancellable;
+	
+	public BattleAttackKeyListener(boolean cancellable){
+		this.cancellable=cancellable;
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -25,7 +31,7 @@ public class BattleAttackKeyListener implements KeyListener {
 			BattleEngine.moveAttackRangeDown();
 		else if(key==ControlsConfig.START)
 			BattleEngine.confirmAttackRange();
-		else if(key==ControlsConfig.BACK)
+		else if(key==ControlsConfig.BACK&&cancellable)
 			BattleEngine.cancelAttackRange();
 	}
 

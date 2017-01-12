@@ -99,7 +99,7 @@ public class MoveMenu implements MenuWithExplanations {
 			}
 			else if(mode==MoveMenuMode.ATTACK&&BattleEngine.isLegalMove(m)){
 				if(m.hasPP())
-					BattleEngine.useMove(m);
+					BattleEngine.useMove(m,true);
 				else{
 					options.set(index,"Out of PP!");
 					MenuEngine.refreshMenu();

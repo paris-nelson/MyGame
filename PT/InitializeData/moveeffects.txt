@@ -1,4 +1,4 @@
-Effect=Damage,Power=20;Effect=HealthSteal
+Effect=Damage,Power=20;Effect=Healthsteal,Target=Self
 Effect=Damage,Power=40;Effect=Nerf,Stat=Defense,Chance=10,Stages=1
 Effect=Buff,Stat=Defense,Stages=2
 Effect=Damage,Power=100,Type=HighCritRatio
@@ -49,7 +49,7 @@ Effect=Damage,Power=120;Effect=Recoil,Percentage=25,Target=Self
 Effect=Damage,Power=15,Type=MultiAttack
 Effect=Damage,Power=Invariant,Damage=40
 Effect=Damage,Power=60;Effect=GivePCondition,Condition=Paralysis,Chance=30
-Effect=Damage,Power=100;Effect=HealthSteal
+Effect=Damage,Power=100;Effect=Healthsteal,Target=Self
 Effect=Damage,Power=80
 Effect=Damage,Power=100;Effect=GivePCondition,Condition=Confusion
 Effect=Damage,Power=100,Type=DigMultiplier
@@ -77,7 +77,7 @@ Effect=Damage,Power=15,Type=MultiAttack
 Effect=Damage,Power=10,Type=ConsecPowInc
 Effect=Damage,Power=10,Type=MultiAttack
 Effect=GiveBondCondition,Condition=FutureSight
-Effect=Damage,Power=60;Effect=HealthSteal
+Effect=Damage,Power=60;Effect=Healthsteal,Target=Self
 Effect=GivePCondition,Condition=Paralysis
 Effect=Nerf,Stat=Attack,Stages=1
 Effect=Buff,Stat=SpecialAttack,Stages=1
@@ -102,7 +102,7 @@ Effect=Damage,Power=100;Effect=Nerf,Stat=Defense,Stages=1
 Effect=Damage,Power=70;Effect=MissRecoil,Percentage=12,Target=Self
 Effect=Damage,Power=55,Type=HighCritRatio
 Effect=Nerf,Stat=Accuracy,Stages=1
-Effect=Damage,Power=20;Effect=HealthSteal
+Effect=Damage,Power=20;Effect=Healthsteal,Target=Self
 Effect=GiveBondCondition,Condition=LeechSeed
 Effect=Nerf,Stat=Defense,Stages=1
 Effect=Damage,Power=20;Effect=GivePCondition,Condition=Paralysis,Chance=30
@@ -114,7 +114,7 @@ Effect=Damage,Power=45;Effect=Buff,Stat=Speed,Chance=15,Stages=1,Target=Self
 Effect=Damage,Power=Magnitude,Type=DigMultiplier
 Effect=GiveTCondition,Condition=Trap
 Effect=Buff,Stat=Attack,Stages=1;Effect=RemovePCondition,Condition=Confusion
-Effect=Damage,Power=40;Effect=HealthSteal
+Effect=Damage,Power=40;Effect=Healthsteal,Target=Self
 Effect=Damage,Power=120
 Effect=Damage,Power=80
 Effect=Damage,Power=120

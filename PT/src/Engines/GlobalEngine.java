@@ -232,6 +232,8 @@ public class GlobalEngine {
 				String name=GameData.getItemName(itemid);
 				if(name.equals("Full Heal")){
 					pokemon.removePcondition();
+					//TODO: how to remove from unit as well when used in battle?
+					//TODO: possibly need to have separate interface for battle use of items
 					System.out.println(pokemon.getName()+": status cured");
 					useItemImpl(itemid,pokemon);
 				}
@@ -337,7 +339,7 @@ public class GlobalEngine {
 				pokemon.restoreHP();
 			}
 			else{
-				pokemon.incHP(pokemon.getStat(Stat.HP)/2);
+				pokemon.setHP(pokemon.getStat(Stat.HP)/2);
 			}
 			useItemImpl(itemid,pokemon);
 		}
@@ -350,5 +352,13 @@ public class GlobalEngine {
 	public static void setItemToUse(int itemid){
 		itemtouse=itemid;
 	}
-
+	
+	public static void wait(int milliseconds){
+		//TODO: there's gotta be a better way
+		long starttime=System.nanoTime();
+		int count=0;
+		while(System.nanoTime()-starttime<milliseconds*1000000){
+			count=count+count*count;
+		}
+	}
 }
