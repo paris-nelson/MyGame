@@ -108,7 +108,7 @@ public class Pokemon {
 		pcondition=null;
 		exp=0;
 		this.wild=wild;
-		this.heldid=-1;
+		generateHeldItem();
 		helditemboosttype=null;
 		this.moveset=moveset;
 		happiness=70;
@@ -221,6 +221,19 @@ public class Pokemon {
 			newstats[i]=(int)Math.floor(stat1)+5;
 		}
 		return newstats;
+	}
+	
+	/**
+	 * For trainer pokemon has a chance to spawn the pokemon with a held item.
+	 * @return
+	 */
+	private void generateHeldItem(){
+		if(level<33)
+			heldid=-1;
+		else if(GameData.getRandom().nextInt(100)>=level)
+			heldid=-1;
+		else
+			holdItem(GameData.getRandomHeldItem());
 	}
 
 	
@@ -496,9 +509,11 @@ public class Pokemon {
 	/**
 	 * Removes the currently held item if one is present, and sets helditemboosttype to null
 	 */
-	public void removeHeldItem(){
+	public int removeHeldItem(){
+		int currid=heldid;
 		heldid=-1;
 		helditemboosttype=null;
+		return currid;
 	}
 	
 	/**

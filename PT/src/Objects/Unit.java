@@ -124,11 +124,11 @@ public class Unit {
 		}
 	}
 	
-	public boolean isRecharging(){
+	public boolean isCharging(){
 		return ischarging;
 	}
 	
-	public void setRecharging(boolean newval){
+	public void setCharging(boolean newval){
 		ischarging=newval;
 	}
 	

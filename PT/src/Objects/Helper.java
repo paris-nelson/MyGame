@@ -6,11 +6,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import Engines.GlobalEngine;
 import Engines.MapEngine;
 import Enums.BondCondition;
+import Enums.MoveEffect;
 import Global.Constants;
 import Global.GameData;
 import Global.PlayerData;
@@ -18,6 +20,11 @@ import acm.graphics.GImage;
 
 public class Helper {
 	public static void main(String[] args) throws IOException{
+		
+		HashMap<MoveEffect,HashMap<String,String>> effects=GameData.getMoveEffects(69);
+		
+		for(MoveEffect effect:effects.keySet())
+			System.out.println(effect.toString());
 				
 	//	GlobalEngine.initialize();
 //		MapEngine.initialize(PlayerData.getLocation());
@@ -45,7 +52,7 @@ public class Helper {
 //		}
 //		System.out.println(strings.size());
 		
-		getPokemonThatLearnMove(GameData.getMoveNum("Pay Day"));
+//		getPokemonThatLearnMove(GameData.getMoveNum("Pay Day"));
 //		getPokemonThatLearnMove(GameData.getMoveNum("Whirlwind"));
 //		getPokemonThatLearnMove(GameData.getMoveNum("Recover"));
 		//getPokemonThatLearnMove(GameData.getMoveNum("Protect"));

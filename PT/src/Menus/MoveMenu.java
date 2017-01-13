@@ -98,8 +98,7 @@ public class MoveMenu implements MenuWithExplanations {
 				if(mode==MoveMenuMode.TMHM)
 					InventoryEngine.cleanUp();
 				else if(mode==MoveMenuMode.SKETCH)
-					return;
-					//TODO: after attack effects
+					BattleEngine.afterAttackEffects(true);
 			}
 			else if(mode==MoveMenuMode.ATTACK&&BattleEngine.isLegalMove(m)){
 				if(m.hasPP())

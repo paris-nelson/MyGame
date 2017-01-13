@@ -31,37 +31,11 @@ public class MoveLogic {
 	public static void implementEffects(Unit thisuser,ArrayList<Unit> thistargets,Move thismove){
 		user=thisuser;
 		userpokemon=user.getPokemon();
-		if(GameData.getMoveName(thismove.getNum()).equals("Metronome")){
-			int newmove;
-			String name;
-			do{
-				newmove=GameData.getRandom().nextInt(Constants.NUM_MOVES)+1;
-				name=GameData.getMoveName(newmove);
-			}while(name.equals("Sketch")||name.equals("Struggle")||name.equals("Metronome")||name.equals("Transform")||name.equals("Snore")
-					||name.equals("Sleep Talk")||name.equals("Mimic")||name.equals("Mirror Move")||userpokemon.knowsMove(newmove));
-			BattleEngine.useMove(new Move(newmove),false);
-			return;
-		}
-		else if(GameData.getMoveName(thismove.getNum()).equals("Mirror Move")){
-			Unit target=thistargets.get(0);
-			int lastmove=target.getPrevMove();
-			if(lastmove==-1)
-				System.out.println(target.getPokemon().getName()+" has no used a move yet. There's nothing to copy.");
-			else{
-				String name=GameData.getMoveName(lastmove);
-				if(name.equals("Sketch")||name.equals("Struggle")||name.equals("Metronome")||name.equals("Transform")||name.equals("Snore")
-						||name.equals("Sleep Talk")||name.equals("Mimic")||name.equals("Mirror Move")||userpokemon.knowsMove(lastmove))
-					System.out.println(name+" cannot be copied with Mirror Move.");
-				else{
-					BattleEngine.useMove(new Move(lastmove),false);
-					return;
-				}
-			}
-		}
+		
 		targets=thistargets;
 		move=thismove;
 		effects=GameData.getMoveEffects(move.getNum());
-		HashMap<MoveEffect,HashMap<String,String>> selftargetting=getSelfTargettingEffects();
+//		HashMap<MoveEffect,HashMap<String,String>> selftargetting=getSelfTargettingEffects();
 		int count=0;
 		damagedone=0;
 		for(Unit u:targets){
@@ -78,20 +52,24 @@ public class MoveLogic {
 				for(MoveEffect effect:effects.keySet()){
 					implement(effect,effects.get(effect),u);
 				}
-				if(userpokemon.isHolding("King's Rock")&&GameData.getMoveEffects(move.getNum()).size()==1
+				if(userpokemon.isHolding("King's Rock")&&effects.size()==1
 						&&effects.containsKey(MoveEffect.Damage)&&GameData.getRandom().nextInt(100)<Constants.KINGS_ROCK_FLINCH_CHANCE){
 					HashMap<String,String> map=new HashMap<String,String>();
 					map.put("Condition","Flinch");
 					implement(MoveEffect.GiveTCondition,map,u);
 				}
 			}
+			else{
+				System.out.println("The move does not hit");
+				user.resetConsecUses();
+			}
 		}
-		//do self targetting effects last
-		for(MoveEffect effect:selftargetting.keySet()){
-			if(effect==MoveEffect.MissRecoil&&count>0)
-				continue;
-			implement(effect,selftargetting.get(effect),user);
-		}
+//		//do self targetting effects last
+//		for(MoveEffect effect:selftargetting.keySet()){
+//			if(effect==MoveEffect.MissRecoil&&count>0)
+//				continue;
+//			implement(effect,selftargetting.get(effect),user);
+//		}
 	}
 
 	/**
@@ -156,7 +134,8 @@ public class MoveLogic {
 		}
 		else if(effect==MoveEffect.Recharge){
 			System.out.println(userpokemon.getName()+" must recharge next turn");
-			user.isRecharging();
+			user.isCharging();
+			user.setCanMove(false);
 		}
 		else if(effect==MoveEffect.Heal){
 			int amount=target.getPokemon().getStat(Stat.HP)*round((Double.parseDouble(curreffects.get("Percentage"))/100));
@@ -180,6 +159,55 @@ public class MoveLogic {
 			move.decCurrPP(GameData.getRandom().nextInt(Constants.SPITE_MAX_PP-Constants.SPITE_MIN_PP+1)+Constants.SPITE_MIN_PP);
 			System.out.println(userpokemon.getName()+"'s move "+GameData.getMoveName(move.getNum())+" PP reduced to "+move.getCurrPP());
 		}
+		else if(effect==MoveEffect.Splash)
+			System.out.println(userpokemon.getName()+" splashes around, doing nothing.");
+		else if(effect==MoveEffect.Thief){
+			if(target.getPokemon().getHeldID()!=-1&&userpokemon.getHeldID()==-1&&GameData.getRandom().nextInt(100)<Constants.THIEF_STEAL_CHANCE){
+				int id=target.getPokemon().removeHeldItem();
+				System.out.println(userpokemon.getName()+" steals "+GameData.getItemName(id)+" from "+target.getPokemon().getName());
+				userpokemon.holdItem(id);
+			}
+		}
+		else if(effect==MoveEffect.RemoveSpikes){
+			System.out.println("Spikes are removed from the battlefield");
+			BattleEngine.removeSpikes();
+		}
+		else if(effect==MoveEffect.Rage){
+			System.out.println(userpokemon.getName()+" has become enraged");
+			user.setRaging(true);
+		}
+		else if(effect==MoveEffect.BatonPass){
+			System.out.println(userpokemon.getName()+" swapping positions with "+target.getPokemon().getName());
+			swapPositions(user,target);
+		}
+		else if(effect==MoveEffect.RandomSwap){
+			ArrayList<Unit> options=BattleEngine.getFriendlyUnits(target);
+			options.remove(target);
+			Unit othertarget=options.get(GameData.getRandom().nextInt(options.size()));
+			System.out.println(othertarget.getPokemon().getName()+" swapping positions with "+target.getPokemon().getName());
+			swapPositions(othertarget,target);
+		}
+		else if(effect==MoveEffect.Dig&&!user.isDigging()){
+			user.setDigging(true);
+			System.out.println(userpokemon.getName()+" digs down to attack");
+		}
+		else if(effect==MoveEffect.Fly&&!user.isFlying()){
+			user.setFlying(true);
+			System.out.println(userpokemon.getName()+" flies up to attack");
+		}
+		else if(effect==MoveEffect.ChargeUp&&!user.isCharging()){
+			user.setCharging(true);
+			System.out.println(userpokemon.getName()+" charges up to attack");
+		}
+	}
+
+	private static void swapPositions(Unit a,Unit b){
+		IntPair apair=a.getCoordinates();
+		IntPair bpair=b.getCoordinates();
+		BattleEngine.moveOffSquare(a,apair.getX(),apair.getY());
+		BattleEngine.moveOffSquare(b,bpair.getX(),bpair.getY());
+		BattleEngine.moveOnSquare(b,apair.getX(),apair.getY());
+		BattleEngine.moveOnSquare(a,bpair.getX(),bpair.getY());
 	}
 
 	private static void implementConditionEffect(MoveEffect effect,Unit target){
@@ -239,6 +267,15 @@ public class MoveLogic {
 		int damage=0;
 		String power=curreffects.get("Power");
 		String param=curreffects.get("Type");
+		//If the user is not currently dug/flying/charging then don't do the damage portion yet.
+		if(param!=null){
+			if(param.equals("Dig")&&!user.isDigging())
+				return;
+			if(param.equals("Fly")&&!user.isFlying())
+				return;
+			if(param.equals("ChargeUp")&&!user.isCharging())
+				return;
+		}
 		try{
 			//pre damage calculation parameters that affect ultimate damage calculation
 			int powernum=Integer.parseInt(power);
@@ -728,10 +765,14 @@ public class MoveLogic {
 		}
 		if(activeunit.isRaging())
 			activeunit.setRaging(false);
-		if(activeunit.isRecharging()){
-			System.out.println(userpokemon.getName()+" skips its turn to recharge");
-			activeunit.setRecharging(false);
-			BattleEngine.endTurn();
+		if(activeunit.isCharging()){
+			String move=GameData.getMoveName(activeunit.getPrevMove());
+			if(move.equals("Hyper Beam")){
+				activeunit.setCharging(false);
+				activeunit.setHasEndedTurn(true);
+				System.out.println(userpokemon.getName()+" skips its turn to recharge");
+				BattleEngine.endTurn();
+			}
 		}
 	}
 

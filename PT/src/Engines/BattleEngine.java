@@ -179,6 +179,11 @@ public class BattleEngine {
 		MoveLogic.startOfTurnActions(activeunit);
 		if(activeunit.getPokemon().isFainted())
 			nextTurn();
+		else if(activeunit.isDigging()||activeunit.isFlying()||activeunit.isCharging()){
+			//TODO: Create separate moves for the actual damage protion of these attacks. This way the charge up and attacks
+			//can have their appropriate ranges, etc. charge up moves just set the status. Then at start of turn, if the unit
+			//is in of those states, remove state and perform damaging portion of move instead of normal menu flow.
+		}
 		else
 			openUnitMenu();
 	}
@@ -233,13 +238,13 @@ public class BattleEngine {
 		}
 	}
 
-	private static void moveOnSquare(Unit unit,int x,int y){
+	public static void moveOnSquare(Unit unit,int x,int y){
 		unit.setCoordinates(x, y);
 		battlefield[x][y].setUnit(unit.getID());
 		battlefieldimage.add(unit.getImage(),x*Constants.TILE_SIZE,y*Constants.TILE_SIZE);
 	}
 
-	private static void moveOffSquare(Unit unit,int x,int y){
+	public static void moveOffSquare(Unit unit,int x,int y){
 		battlefield[x][y].removeUnit();
 		battlefieldimage.remove(unit.getImage());
 	}
@@ -512,6 +517,11 @@ public class BattleEngine {
 		return selection;
 	}
 
+	/**
+	 * Returns the party that the target unit belongs to (including the unit itself)
+	 * @param unit
+	 * @return
+	 */
 	public static ArrayList<Unit> getFriendlyUnits(Unit unit){
 		ArrayList<Unit> friends=new ArrayList<Unit>();
 		if(ounits.contains(unit)){
@@ -744,26 +754,78 @@ public class BattleEngine {
 		for(IntPair pair:validtargets){
 			targets.add(getUnitByID(battlefield[pair.getX()][pair.getY()].getUnit()));
 		}
-		if(GameData.getMoveName(currattack.getNum()).equals("Sketch")){
+		String name=GameData.getMoveName(currattack.getNum());
+		if(name.equals("Sketch")){
 			Pokemon userpokemon=activeunit.getPokemon();
 			int lastmove=targets.get(0).getPrevMove();
-			String name=GameData.getMoveName(lastmove);
-			if(name.equals("Sketch")||name.equals("Struggle")||name.equals("Transform")||name.equals("Snore")||name.equals("Sleep Talk")
-					||name.equals("Mimic")||name.equals("Mirror Move")||name.equals("Explosion")||name.equals("Self Destruct")
-					||userpokemon.knowsMove(lastmove))
-				System.out.println(name+" cannot be learned with Sketch.");
+			String lastname=GameData.getMoveName(lastmove);
+			if(lastname.equals("Sketch")||lastname.equals("Struggle")||lastname.equals("Transform")||lastname.equals("Snore")||lastname.equals("Sleep Talk")
+					||lastname.equals("Mimic")||lastname.equals("Mirror Move")||lastname.equals("Explosion")||lastname.equals("Self Destruct")
+					||userpokemon.knowsMove(lastmove)){
+				System.out.println(lastname+" cannot be learned with Sketch.");
+				afterAttackEffects(cancellable);
+			}
 			else{
-				System.out.println(userpokemon.getName()+" learning "+name);
+				System.out.println(userpokemon.getName()+" learning "+lastname);
 				if(!userpokemon.learnMove(new Move(lastmove))){
-					System.out.println(userpokemon.getName()+" wants to learn "+name+". Needs to replace a move");
+					System.out.println(userpokemon.getName()+" wants to learn "+lastname+". Needs to replace a move");
 					MoveMenu mm=new MoveMenu(userpokemon,MoveMenuMode.SKETCH);
 					MenuEngine.initialize(mm);
 				}
 			}
 		}
+		else if(name.equals("Teleport")){
+			IntPair destination=validtargets.get(0);
+			if(canMoveTo(battlefield[destination.getX()][destination.getY()])){
+				System.out.println(activeunit.getPokemon().getName()+" uses to teleport to move to the square at "+destination.toString());
+				moveOffSquare(activeunit,activeunit.getCoordinates().getX(),activeunit.getCoordinates().getY());
+				moveOnSquare(activeunit,destination.getX(),destination.getY());
+			}
+			else
+				System.out.println(activeunit.getPokemon().getName()+" cannot be placed on that square");
+			afterAttackEffects(cancellable);
+		}
+		else if(name.equals("Spikes")){
+			removeSpikes();
+			for(IntPair pair:validtargets){
+				battlefield[pair.getX()][pair.getY()].setSpikes();
+			}
+			afterAttackEffects(cancellable);
+		}
+		else if(name.equals("Metronome")){
+			int newmove;
+			String newname;
+			do{
+				newmove=GameData.getRandom().nextInt(Constants.NUM_MOVES)+1;
+				newname=GameData.getMoveName(newmove);
+			}while(newname.equals("Sketch")||newname.equals("Struggle")||newname.equals("Metronome")||newname.equals("Transform")||newname.equals("Snore")
+					||newname.equals("Sleep Talk")||newname.equals("Mimic")||newname.equals("Mirror Move")||activeunit.getPokemon().knowsMove(newmove));
+			activeunit.setPrevMove(currattack.getNum());
+			BattleEngine.useMove(new Move(newmove),false);
+		}
+		else if(name.equals("Mirror Move")){
+			Unit target=targets.get(0);
+			int lastmove=target.getPrevMove();
+			if(lastmove==-1){
+				System.out.println(target.getPokemon().getName()+" has no used a move yet. There's nothing to copy.");
+				afterAttackEffects(cancellable);
+			}
+			else{
+				String newname=GameData.getMoveName(lastmove);
+				if(newname.equals("Sketch")||newname.equals("Struggle")||newname.equals("Metronome")||newname.equals("Transform")||newname.equals("Snore")
+						||newname.equals("Sleep Talk")||newname.equals("Mimic")||newname.equals("Mirror Move")||activeunit.getPokemon().knowsMove(lastmove)){
+					System.out.println(newname+" cannot be copied with Mirror Move.");
+					afterAttackEffects(cancellable);
+				}
+				else{
+					activeunit.setPrevMove(currattack.getNum());
+					BattleEngine.useMove(new Move(lastmove),false);
+				}
+			}
+		}
 		else{
 			MoveLogic.implementEffects(activeunit,targets,currattack);
-			//TODO: after atack effects
+			afterAttackEffects(cancellable);
 		}
 	}
 
@@ -773,17 +835,10 @@ public class BattleEngine {
 		MenuEngine.initialize(new UnitMenu(activeunit));
 	}
 
-	private static void afterAttackEffects(){
+	public static void afterAttackEffects(boolean cancellable){
 
 
-		//implementation logic
-		//TODO:then parse moveeffects file for effects and apply effects below to each target( except self-targetting effects which apply once)
-		//moveeffects implementation logic should likely be in it's own helper class for space reasons.
-		//		for(Unit target:targets){
-		//			System.out.println(activeunit.getPokemon().getName()+" attacks "+target.getPokemon().getName()+" with "+GameData.getMoveName(move.getNum()));
-		//			//target.damage(calculateDamage(activeunit,target,move.getNum()));
-		//			//TODO: endure/focus band logic
-		//		}
+
 		//		for(Unit target:targets){
 		//			Pokemon targetpokemon=target.getPokemon();
 		//			//XP gain if target fainted (note xp is not given to opp units on defeating players units)
@@ -802,6 +857,8 @@ public class BattleEngine {
 
 		activeunit.setHasAttacked(true);
 		activeunit.setHasTakenAction(true);
+		if(cancellable)
+			activeunit.setPrevMove(currattack.getNum());
 		//confusion turn count is only lowered by attacking turns. Pokemon can't avoid confusion by refusing to attack until it's over
 		if(activeunit.getPokemon().getPcondition()==PermCondition.Confusion)
 			activeunit.incNumTurnsAfflicted(PermCondition.Confusion.toString());
@@ -984,6 +1041,17 @@ public class BattleEngine {
 			return intnum;
 		else 
 			return intnum+1;
+	}
+	
+	public static void removeSpikes(){
+		if(!spikesplaced)
+			return;
+		for(int x=0;x<battlefield.length;x++){
+			for(int y=0;y<battlefield[0].length;y++){
+				if(battlefield[x][y].hasSpikes())
+					battlefield[x][y].removeSpikes();
+			}
+		}
 	}
 
 	//based on formula found here https://www.math.miami.edu/~jam/azure/attacks/comp/confuse.htm

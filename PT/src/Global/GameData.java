@@ -652,6 +652,15 @@ public class GameData {
 		}while((elitetrainer&&getItemLevel(itemid)<(2*level/3)));
 		return itemid;
 	}
+	
+	public static int getRandomHeldItem(){
+		ArrayList<Integer> ids=new ArrayList<Integer>();
+		for(int i=1;i<Constants.NUM_ITEMS+1;i++){
+			if(isHeldItem(i))
+				ids.add(i);
+		}
+		return ids.get(getRandom().nextInt(ids.size()));
+	}
 
 	public static HashMap<String,String> getMoveRange(int movenum){
 		if(moveranges==null){
@@ -709,6 +718,7 @@ public class GameData {
 		for(String spliteffect:spliteffects){
 			String[] components=spliteffect.split(",");
 			try{
+				//System.out.println(components[0]);
 				MoveEffect effectname=MoveEffect.valueOf(components[0].substring(7));
 				if(components.length>1){
 					HashMap<String,String> componentsmap=new HashMap<String,String>();

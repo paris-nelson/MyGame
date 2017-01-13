@@ -163,7 +163,7 @@ Selection=Friendly
 Selection=Self
 Selection=Single,Range=1
 Selection=Single,Range=1
-Selection=Cone,Range=2
+Selection=Single,Range=2
 Selection=Beam,Range=3
 Selection=Single,Range=1
 Selection=Single,Range=3
@@ -244,7 +244,7 @@ Selection=Single,Range=1
 Selection=Single,Range=3
 Selection=Beam,Range=3
 Selection=Single,Range=3
-Selection=Cone,Range=2
+Selection=Single,Range=2
 Selection=Single,Range=2
 Selection=Single,Range=1
 Selection=Single,Range=1
