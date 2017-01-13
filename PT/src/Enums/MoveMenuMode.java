@@ -1,5 +1,5 @@
 package Enums;
 
 public enum MoveMenuMode {
-	ETHER,PPUP,TMHM,ATTACK
+	ETHER,PPUP,TMHM,ATTACK,SKETCH
 }

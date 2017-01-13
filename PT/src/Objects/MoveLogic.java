@@ -175,27 +175,11 @@ public class MoveLogic {
 			System.out.println(userpokemon.getName()+" copies "+target.getPokemon().getName()+"'s stat modifications");
 			user.copyStatMods(target);
 		}
-		else if(effect==MoveEffect.Sketch){
-			int lastmove=target.getPrevMove();
-			String name=GameData.getMoveName(lastmove);
-			if(name.equals("Sketch")||name.equals("Struggle")||name.equals("Transform")||name.equals("Snore")||name.equals("Sleep Talk")
-					||name.equals("Mimic")||name.equals("Mirror Move")||name.equals("Explosion")||name.equals("Self Destruct")
-					||userpokemon.knowsMove(lastmove))
-				System.out.println(name+" cannot be learned with Sketch.");
-			else{
-				System.out.println(userpokemon.getName()+" learning "+name);
-				if(!userpokemon.learnMove(new Move(lastmove))){
-					System.out.println(userpokemon.getName()+" wants to learn "+name+". Needs to replace a move");
-					MoveMenu mm=new MoveMenu(userpokemon,MoveMenuMode.TMHM);
-					MenuEngine.initialize(mm);
-					while(!userpokemon.knowsMove(lastmove)){
-						GlobalEngine.wait(500);
-						//TODO: there's gotta be a better way
-					}
-				}
-			}
+		else if(effect==MoveEffect.Spite){
+			Move move=userpokemon.getMove(user.getPrevMove());
+			move.decCurrPP(GameData.getRandom().nextInt(Constants.SPITE_MAX_PP-Constants.SPITE_MIN_PP+1)+Constants.SPITE_MIN_PP);
+			System.out.println(userpokemon.getName()+"'s move "+GameData.getMoveName(move.getNum())+" PP reduced to "+move.getCurrPP());
 		}
-		
 	}
 
 	private static void implementConditionEffect(MoveEffect effect,Unit target){

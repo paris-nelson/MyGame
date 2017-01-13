@@ -89,13 +89,17 @@ public class MoveMenu implements MenuWithExplanations {
 					System.out.println(GameData.getItemName(itemid)+" has no effect on "+pokemon.getName());
 				InventoryEngine.cleanUp();
 			}
-			else if(mode==MoveMenuMode.TMHM){
+			else if(mode==MoveMenuMode.TMHM||mode==MoveMenuMode.SKETCH){
 				String descrip=GameData.getItemDescription(itemid);
 				descrip=descrip.substring(5,descrip.indexOf(':'));
 				Integer movenum=Integer.parseInt(descrip);
 				pokemon.replaceMove(index,new Move(movenum));
 				System.out.println(GameData.getMoveName(m.getNum())+" replaced with "+GameData.getMoveName(movenum));
-				InventoryEngine.cleanUp();
+				if(mode==MoveMenuMode.TMHM)
+					InventoryEngine.cleanUp();
+				else if(mode==MoveMenuMode.SKETCH)
+					return;
+					//TODO: after attack effects
 			}
 			else if(mode==MoveMenuMode.ATTACK&&BattleEngine.isLegalMove(m)){
 				if(m.hasPP())

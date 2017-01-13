@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import Enums.BondCondition;
+import Enums.MoveEffect;
+import Enums.MoveMenuMode;
 import Enums.PermCondition;
 import Enums.ProtectionCondition;
 import Enums.SelectionType;
@@ -21,6 +23,7 @@ import Global.PlayerData;
 import KeyListeners.BattleAttackKeyListener;
 import KeyListeners.BattleMovementKeyListener;
 import Menus.BattlePlayerMenu;
+import Menus.MoveMenu;
 import Menus.UnitMenu;
 import Objects.BattlefieldMaker;
 import Objects.EliteTrainer;
@@ -314,11 +317,11 @@ public class BattleEngine {
 			pw.close();
 		}catch(Exception e){e.printStackTrace();}
 	}
-	
+
 	public static int getPayDayVal(){
 		return numpaydays;
 	}
-	
+
 	public static void incPayDayVal(int lvl){
 		numpaydays+=lvl;
 	}
@@ -508,7 +511,7 @@ public class BattleEngine {
 		}
 		return selection;
 	}
-	
+
 	public static ArrayList<Unit> getFriendlyUnits(Unit unit){
 		ArrayList<Unit> friends=new ArrayList<Unit>();
 		if(ounits.contains(unit)){
@@ -539,7 +542,7 @@ public class BattleEngine {
 			if(curr.getX()>0){
 				IntPair next=new IntPair(curr.getX()-1,curr.getY());
 				if(curr.distanceFrom(next)<=attackrange)
-				validtargets.set(0,next);
+					validtargets.set(0,next);
 			}
 		}
 		else if(attackselection==SelectionType.Beam){
@@ -590,7 +593,7 @@ public class BattleEngine {
 			if(curr.getX()<battlefield.length-1){
 				IntPair next=new IntPair(curr.getX()+1,curr.getY());
 				if(curr.distanceFrom(next)<=attackrange)
-				validtargets.set(0,next);
+					validtargets.set(0,next);
 			}
 		}
 		else if(attackselection==SelectionType.Beam){
@@ -641,7 +644,7 @@ public class BattleEngine {
 			if(curr.getY()>0){
 				IntPair next=new IntPair(curr.getX(),curr.getY()-1);
 				if(curr.distanceFrom(next)<=attackrange)
-				validtargets.set(0,next);
+					validtargets.set(0,next);
 			}
 		}
 		else if(attackselection==SelectionType.Beam){
@@ -692,7 +695,7 @@ public class BattleEngine {
 			if(curr.getY()<battlefield.length-1){
 				IntPair next=new IntPair(curr.getX(),curr.getY()+1);
 				if(curr.distanceFrom(next)<=attackrange)
-				validtargets.set(0,next);
+					validtargets.set(0,next);
 			}
 		}
 		else if(attackselection==SelectionType.Beam){
@@ -736,15 +739,32 @@ public class BattleEngine {
 		displayAttackRange();
 	}
 
-	public static void confirmAttackRange(){
-		//TODO: get passed whether or not this is a cancellable move. if not, don't set prevmove
+	public static void confirmAttackRange(boolean cancellable){
 		ArrayList<Unit> targets=new ArrayList<Unit>();
 		for(IntPair pair:validtargets){
 			targets.add(getUnitByID(battlefield[pair.getX()][pair.getY()].getUnit()));
 		}
-		MoveLogic.implementEffects(activeunit,targets,currattack);
-		//call method to implement self targetting move effects
-		//for all units in validtargets range, call method to implement remaining moveeffects
+		if(GameData.getMoveName(currattack.getNum()).equals("Sketch")){
+			Pokemon userpokemon=activeunit.getPokemon();
+			int lastmove=targets.get(0).getPrevMove();
+			String name=GameData.getMoveName(lastmove);
+			if(name.equals("Sketch")||name.equals("Struggle")||name.equals("Transform")||name.equals("Snore")||name.equals("Sleep Talk")
+					||name.equals("Mimic")||name.equals("Mirror Move")||name.equals("Explosion")||name.equals("Self Destruct")
+					||userpokemon.knowsMove(lastmove))
+				System.out.println(name+" cannot be learned with Sketch.");
+			else{
+				System.out.println(userpokemon.getName()+" learning "+name);
+				if(!userpokemon.learnMove(new Move(lastmove))){
+					System.out.println(userpokemon.getName()+" wants to learn "+name+". Needs to replace a move");
+					MoveMenu mm=new MoveMenu(userpokemon,MoveMenuMode.SKETCH);
+					MenuEngine.initialize(mm);
+				}
+			}
+		}
+		else{
+			MoveLogic.implementEffects(activeunit,targets,currattack);
+			//TODO: after atack effects
+		}
 	}
 
 	public static void cancelAttackRange(){
@@ -965,7 +985,7 @@ public class BattleEngine {
 		else 
 			return intnum+1;
 	}
-	
+
 	//based on formula found here https://www.math.miami.edu/~jam/azure/attacks/comp/confuse.htm
 	//if this is unsatisfactory, use modification of normal damage formula for base 40 power typeless physical attack.
 	private static int calculateConfusionSelfHitDamage(Unit attacker){

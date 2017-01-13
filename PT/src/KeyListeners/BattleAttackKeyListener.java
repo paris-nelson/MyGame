@@ -30,7 +30,7 @@ public class BattleAttackKeyListener implements KeyListener {
 		else if(key==ControlsConfig.DOWN)
 			BattleEngine.moveAttackRangeDown();
 		else if(key==ControlsConfig.START)
-			BattleEngine.confirmAttackRange();
+			BattleEngine.confirmAttackRange(cancellable);
 		else if(key==ControlsConfig.BACK&&cancellable)
 			BattleEngine.cancelAttackRange();
 	}
