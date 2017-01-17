@@ -180,9 +180,21 @@ public class BattleEngine {
 		if(activeunit.getPokemon().isFainted())
 			nextTurn();
 		else if(activeunit.isDigging()||activeunit.isFlying()||activeunit.isCharging()){
-			//TODO: Create separate moves for the actual damage protion of these attacks. This way the charge up and attacks
-			//can have their appropriate ranges, etc. charge up moves just set the status. Then at start of turn, if the unit
-			//is in of those states, remove state and perform damaging portion of move instead of normal menu flow.
+			if(activeunit.isDigging()){
+				System.out.println(activeunit.getPokemon().getName()+" surfaces to attack.");
+				activeunit.setDigging(false);
+				useMove(new Move(252),false);
+			}
+			else if(activeunit.isFlying()){
+				System.out.println(activeunit.getPokemon().getName()+" swoops down to attack.");
+				activeunit.setFlying(false);
+				useMove(new Move(253),false);
+			}
+			else if(activeunit.isCharging()){
+				System.out.println(activeunit.getPokemon().getName()+" has finished charging and unleashes their attack.");
+				activeunit.setCharging(false);
+				useMove(new Move(GameData.getChargeMoveNum(activeunit.getPrevMove())),false);
+			}
 		}
 		else
 			openUnitMenu();
@@ -415,7 +427,6 @@ public class BattleEngine {
 			if(activeunit.getPokemon().isHolding("Scope Lens"))
 				attackrange++;
 			validtargets=getDefaultAttackSelection();
-			System.out.println(validtargets);
 			displayAttackRange();
 			takeControl(new BattleAttackKeyListener(cancellable));
 		}
@@ -862,7 +873,7 @@ public class BattleEngine {
 		//confusion turn count is only lowered by attacking turns. Pokemon can't avoid confusion by refusing to attack until it's over
 		if(activeunit.getPokemon().getPcondition()==PermCondition.Confusion)
 			activeunit.incNumTurnsAfflicted(PermCondition.Confusion.toString());
-		MenuEngine.initialize(new UnitMenu(activeunit));
+		openUnitMenu();
 	}
 
 	private static void awardExperience(ArrayList<Pokemon> recipients,Pokemon giver){

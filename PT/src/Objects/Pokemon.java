@@ -409,7 +409,7 @@ public class Pokemon {
 	 * @return: false if pokemon already has a non-volatile status condition, true otherwise
 	 */
 	public boolean setPcondition(PermCondition condition) {
-		if(condition==null){
+		if(this.pcondition==null){
 			pcondition = condition;
 			return true;
 		}

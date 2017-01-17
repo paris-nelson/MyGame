@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
@@ -695,7 +696,7 @@ public class GameData {
 		return map;
 	}
 
-	public static HashMap<MoveEffect,HashMap<String,String>> getMoveEffects(int movenum){
+	public static LinkedHashMap<MoveEffect,LinkedHashMap<String,String>> getMoveEffects(int movenum){
 		if(moveeffects==null){
 			try{
 				File f=new File(Constants.PATH+"\\InitializeData\\moveeffects.txt");
@@ -712,16 +713,15 @@ public class GameData {
 		return getMoveEffectsMap(moveeffects[movenum]);
 	}
 
-	private static HashMap<MoveEffect,HashMap<String,String>> getMoveEffectsMap(String effectstring){
-		HashMap<MoveEffect,HashMap<String,String>> effectsmap=new HashMap<MoveEffect,HashMap<String,String>>();
+	private static LinkedHashMap<MoveEffect,LinkedHashMap<String,String>> getMoveEffectsMap(String effectstring){
+		LinkedHashMap<MoveEffect,LinkedHashMap<String,String>> effectsmap=new LinkedHashMap<MoveEffect,LinkedHashMap<String,String>>();
 		String[] spliteffects=effectstring.split(";");
 		for(String spliteffect:spliteffects){
 			String[] components=spliteffect.split(",");
 			try{
-				//System.out.println(components[0]);
 				MoveEffect effectname=MoveEffect.valueOf(components[0].substring(7));
 				if(components.length>1){
-					HashMap<String,String> componentsmap=new HashMap<String,String>();
+					LinkedHashMap<String,String> componentsmap=new LinkedHashMap<String,String>();
 					for(int i=1;i<components.length;i++){
 						String[] component=components[i].split("=");
 						componentsmap.put(component[0],component[1]);
@@ -794,5 +794,14 @@ public class GameData {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	public static int getChargeMoveNum(int prevmovenum){
+		String name=getMoveName(prevmovenum);
+		for(int i=252;i<Constants.NUM_MOVES;i++){
+			if(getMoveName(i).startsWith(name))
+				return i;
+		}
+		return -1;
 	}
 }

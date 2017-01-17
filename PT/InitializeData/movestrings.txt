@@ -249,3 +249,9 @@ Wing Attack,Flying,Damages the target
 Withdraw,Water,Raises the user's Defense by 1 stage
 Wrap,Normal,Traps the target for 2-5 turns causing damage equal to 1/16 of its max HP each turn; this trapped effect can be broken by Rapid Spin. The target can still switch out if it uses Baton Pass
 Zap Cannon,Electric,Paralyzes the target
+Dig_Attack,Ground,Damages the target
+Fly_Attack,Flying,Damages the target
+Razor Wind_Attack,Flying,Damages the target
+Skull Bash_Attack,Normal,Damages the target
+Sky Attack_Attack,Flying,Damages the target
+Solar Beam_Attack,Grass,Damages the target

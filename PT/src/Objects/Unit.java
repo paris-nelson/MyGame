@@ -611,7 +611,7 @@ public class Unit {
 		String s="Unit: ";
 		s+=id+"\n";
 		s+=pokemonpartyindex+" "+movementrange+" "+controllable+" "+directionfacing+" "+hasmoved+" "+hastakenaction+" "+hasendedturn+" "+canmove+" "
-				+canattack+" "+isdigging+" "+isflying+" "+hasattacked+" "+isminimized+" "+israging+" "+consecuses
+				+canattack+" "+isdigging+" "+isflying+" "+hasattacked+" "+isminimized+" "+israging+" "+consecuses+" "
 				+prevmove+" "+disabledmove+" "+ischarging+"\n";
 		s+=coordinates.toString()+"\n";
 		s+=Arrays.toString(modstages)+"\n";
@@ -687,7 +687,7 @@ public class Unit {
 			if(!split[i].trim().equals("null"))
 				types.add(Type.valueOf(split[i].trim()));
 		}
-		line=reader.nextLine();
+		//line=reader.nextLine();
 		ArrayList<Integer> attby=new ArrayList<Integer>();
 		int[] attackbylist=GameData.readIntArray(reader.nextLine());
 		if(attackbylist!=null){

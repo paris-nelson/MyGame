@@ -2,13 +2,11 @@ package Objects;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import Engines.BattleEngine;
-import Engines.GlobalEngine;
-import Engines.MenuEngine;
 import Enums.BondCondition;
 import Enums.MoveEffect;
-import Enums.MoveMenuMode;
 import Enums.PermCondition;
 import Enums.ProtectionCondition;
 import Enums.Stat;
@@ -16,14 +14,13 @@ import Enums.TempCondition;
 import Enums.Type;
 import Global.Constants;
 import Global.GameData;
-import Menus.MoveMenu;
 
 public class MoveLogic {
 	private static Unit user;
 	private static Pokemon userpokemon;
 	private static ArrayList<Unit> targets;
 	private static Move move;
-	private static HashMap<MoveEffect,HashMap<String,String>> effects;
+	private static LinkedHashMap<MoveEffect,LinkedHashMap<String,String>> effects;
 	private static HashMap<String,String> curreffects;
 	private static int damagedone;
 
@@ -31,7 +28,6 @@ public class MoveLogic {
 	public static void implementEffects(Unit thisuser,ArrayList<Unit> thistargets,Move thismove){
 		user=thisuser;
 		userpokemon=user.getPokemon();
-		
 		targets=thistargets;
 		move=thismove;
 		effects=GameData.getMoveEffects(move.getNum());
@@ -47,9 +43,8 @@ public class MoveLogic {
 						user.resetConsecUses();
 				}
 				count++;
-				//TODO: should look into maybe sorting effects in movefile so they are executed in particular order. for example with brickbreaker, where 
-				//shields need to be broken first, then damage calculated
 				for(MoveEffect effect:effects.keySet()){
+					System.out.println("Effect: "+effect.toString());
 					implement(effect,effects.get(effect),u);
 				}
 				if(userpokemon.isHolding("King's Rock")&&effects.size()==1
@@ -91,8 +86,13 @@ public class MoveLogic {
 
 	private static void implement(MoveEffect effect,HashMap<String,String> params,Unit target){
 		curreffects=params;
-		if(effect==MoveEffect.Damage)
+		if(effect==MoveEffect.Damage){
 			implementDamageEffect(target);
+			if(!target.getPokemon().isFainted()&&target.isRaging()){
+				System.out.println(target.getPokemon().getName()+"'s rage grows.");
+				target.incStat(1,Stat.Attack);
+			}
+		}
 		else if(effect==MoveEffect.Buff||effect==MoveEffect.Nerf)
 			implementBuffNerfEffect(effect,target);
 		else if(effect==MoveEffect.PayDay)
@@ -211,7 +211,7 @@ public class MoveLogic {
 	}
 
 	private static void implementConditionEffect(MoveEffect effect,Unit target){
-		if(curreffects.containsKey("Chance")&&GameData.getRandom().nextInt(100)<Integer.parseInt(curreffects.get("Chance"))){
+		if(!curreffects.containsKey("Chance")||(curreffects.containsKey("Chance")&&GameData.getRandom().nextInt(100)<Integer.parseInt(curreffects.get("Chance")))){
 			if(effect==MoveEffect.GiveTCondition){
 				if(target.addTempCondition(TempCondition.valueOf(curreffects.get("Condition"))))
 					System.out.println(target.getPokemon().getName()+" is now afflicted by "+curreffects.get("Condition"));
@@ -626,6 +626,7 @@ public class MoveLogic {
 				System.out.println(activepokemon.getName()+" is too paralyzed to do anything");
 				activeunit.setCanAttack(false);
 				activeunit.setCanMove(false);
+				activeunit.setHasTakenAction(true);
 			}
 		}
 		else if(activepokemon.getPcondition()==PermCondition.Confusion){

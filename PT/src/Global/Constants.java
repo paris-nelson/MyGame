@@ -12,7 +12,7 @@ public class Constants {
 	public static final int PRIZE_MONEY_BASE=20;
 	public static final int PRIZE_MONEY_INCREMEMENT=10;
 	public static final int NUM_ITEMS=132;
-	public static final int NUM_MOVES=251;
+	public static final int NUM_MOVES=257;
 	public static final int NUM_POKEMON=251;
 	public static final int MAX_ITEM_QUANTITY=99;
 	public static final int MAX_PC_POKEMON_QUANTITY=6;

@@ -40,7 +40,7 @@ Selection=Single,Range=1
 Selection=Single,Range=1
 Selection=Single,Range=1
 Selection=Self
-Selection=Single,Range=4
+Selection=Self
 Selection=Single,Range=2
 Selection=Single,Range=1
 Selection=Single,Range=1
@@ -69,7 +69,7 @@ Selection=Single,Range=1
 Selection=Nova,Range=1
 Selection=Beam,Range=3
 Selection=Single,Range=1
-Selection=Single,Range=4
+Selection=Self
 Selection=Single,Range=1
 Selection=Single,Range=2
 Selection=Single,Range=1
@@ -157,7 +157,7 @@ Selection=Single,Range=1
 Selection=Weather
 Selection=Nova,Range=1
 Selection=Single,Range=3
-Selection=Single,Range=4
+Selection=Self
 Selection=Single,Range=1
 Selection=Friendly
 Selection=Self
@@ -182,8 +182,8 @@ Selection=Single,Range=3
 Selection=Single,Range=1
 Selection=Single,Range=1
 Selection=Single,Range=3
-Selection=Single,Range=4
-Selection=Single,Range=4
+Selection=Self
+Selection=Self
 Selection=Single,Range=1
 Selection=Single,Range=2
 Selection=Single,Range=2
@@ -194,7 +194,7 @@ Selection=Cone,Range=1
 Selection=Single,Range=1
 Selection=Single,Range=1
 Selection=Single,Range=1
-Selection=Beam,Range=4
+Selection=Self
 Selection=Single,Range=3
 Selection=Single,Range=1
 Selection=Nova,Range=1
@@ -248,4 +248,10 @@ Selection=Single,Range=2
 Selection=Single,Range=2
 Selection=Single,Range=1
 Selection=Single,Range=1
+Selection=Single,Range=4
+Selection=Single,Range=4
+Selection=Single,Range=4
+Selection=Single,Range=4
+Selection=Single,Range=4
+Selection=Single,Range=4
 Selection=Single,Range=4
