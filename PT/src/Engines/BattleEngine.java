@@ -4,29 +4,23 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
-import Enums.BondCondition;
-import Enums.MoveEffect;
-import Enums.MoveMenuMode;
 import Enums.PermCondition;
-import Enums.ProtectionCondition;
-import Enums.SelectionType;
 import Enums.Stat;
-import Enums.TempCondition;
 import Enums.Tile;
 import Enums.Type;
 import Global.Constants;
 import Global.GameData;
 import Global.PlayerData;
-import KeyListeners.BattleAttackKeyListener;
-import KeyListeners.BattleMovementKeyListener;
 import Menus.BattlePlayerMenu;
-import Menus.MoveMenu;
 import Menus.UnitMenu;
+import Objects.BattleAttackLogic;
+import Objects.BattleMovementLogic;
 import Objects.BattlefieldMaker;
+import Objects.CatchLogic;
 import Objects.EliteTrainer;
+import Objects.Helper;
 import Objects.IntPair;
 import Objects.LoadExistingBattlefieldMaker;
 import Objects.Move;
@@ -52,13 +46,6 @@ public class BattleEngine {
 	private static GCompound battlefieldimage;
 	private static Square[][] battlefield;
 	private static BattlefieldMaker bfmaker;
-	private static ArrayList<IntPair> validdestinations;
-	private static SelectionType attackselection;
-	private static int attackrange;
-	private static IntPair epicenter;
-	private static ArrayList<IntPair> validtargets;
-	private static Move currattack;
-	private static ArrayList<IntPair> previousmoves;
 	private static boolean spikesplaced;
 	private static int numpaydays;
 
@@ -71,10 +58,7 @@ public class BattleEngine {
 		numpaydays=0;
 		initBattlefield();
 		initUnits();
-		setPriorities();
-		activeindex=0;
-		activeunit=getUnitByID(priorities.get(0));
-		takeTurn();
+		placeNewPlayerUnits();
 	}
 
 	private static void initBattlefield(){
@@ -108,11 +92,30 @@ public class BattleEngine {
 				ounits.set(hole,temp);
 				hole--;
 			}
-		}		
-		allunits.addAll(punits);
+		}
 		allunits.addAll(ounits);
 		placeNewOppUnits();
-		placeNewPlayerUnits();
+	}
+	
+	public static void continueInit(ArrayList<Unit> newpunits){
+		punits=newpunits;
+		allunits.addAll(punits);
+		setPriorities();
+		activeindex=0;
+		activeunit=getUnitByID(priorities.get(0));
+		System.out.println("Player units: ");
+		for(Unit u:punits){
+			System.out.println(u.getPokemon().getName()+" Lvl "+u.getPokemon().getLevel()+" ID "+u.getID());
+		}
+		System.out.println("Opponent units: ");
+		for(Unit u:ounits){
+			System.out.println(u.getPokemon().getName()+" Lvl "+u.getPokemon().getLevel()+" ID "+u.getID());
+		}
+		System.out.println("Turn order: ");
+		for(int id:priorities){
+			System.out.println(getUnitByID(id).getPokemon().getName()+" ID "+getUnitByID(id).getID());
+		}
+		takeTurn();
 	}
 
 	private static void setPriorities(){
@@ -154,7 +157,7 @@ public class BattleEngine {
 		}
 	}
 
-	private static void nextTurn(){
+	public static void nextTurn(){
 		System.out.println("Going to next turn");
 		if(getNumLiveUnits(punits)==0||getNumLiveUnits(ounits)==0)
 			battleOver();
@@ -200,8 +203,6 @@ public class BattleEngine {
 			openUnitMenu();
 	}
 
-
-
 	public static Unit getUnitByID(int id){
 		for(Unit u:allunits){
 			if(u.getID()==id)
@@ -218,19 +219,20 @@ public class BattleEngine {
 		GameData.getGUI().giveControl(null);
 	}
 
-
-
 	private static void placeNewPlayerUnits(){
-		//For now will auto place units the same way it auto places opp.
-		//TODO: Decide if I want to allow player to place as many as they want in their own order
-		switch(punits.size()){
-		case 6:moveOnSquare(punits.get(5),Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2-3);
-		case 5:moveOnSquare(punits.get(4),Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2+2);
-		case 4:moveOnSquare(punits.get(3),Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2-2);
-		case 3:moveOnSquare(punits.get(2),Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2+1);
-		case 2:moveOnSquare(punits.get(1),Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2-1);
-		case 1:moveOnSquare(punits.get(0),Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2);
-		}
+//		switch(punits.size()){
+//		case 6:moveOnSquare(punits.get(5),Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2-3);
+//		case 5:moveOnSquare(punits.get(4),Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2+2);
+//		case 4:moveOnSquare(punits.get(3),Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2-2);
+//		case 3:moveOnSquare(punits.get(2),Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2+1);
+//		case 2:moveOnSquare(punits.get(1),Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2-1);
+//		case 1:moveOnSquare(punits.get(0),Constants.BATTLEFIELD_WIDTH-1,Constants.BATTLEFIELD_HEIGHT/2);
+//		}
+		
+
+		System.out.println("Player placing their units");
+		UnitPlacementEngine.initialize(punits);
+		//takeTurn();
 	}
 
 	private static void placeNewOppUnits(){
@@ -259,6 +261,14 @@ public class BattleEngine {
 	public static void moveOffSquare(Unit unit,int x,int y){
 		battlefield[x][y].removeUnit();
 		battlefieldimage.remove(unit.getImage());
+	}
+	
+	public static void markGreen(int x,int y){
+		battlefield[x][y].markValid();
+	}
+	
+	public static void markBlack(int x,int y){
+		battlefield[x][y].markNeutral();
 	}
 
 	/**
@@ -315,7 +325,6 @@ public class BattleEngine {
 	 * Saves all battle data to file to be loaded on initialization of program. Used when player saves mid battle.
 	 */
 	public static void save(){
-		System.out.println("Saving battle data");
 		try{
 			File f=new File(Constants.PATH+"\\InitializeData\\battlesavefile.txt");
 			PrintWriter pw=new PrintWriter(f);
@@ -408,124 +417,33 @@ public class BattleEngine {
 		MenuEngine.initialize(new UnitMenu(activeunit));
 	}
 
-	public static void useMove(Move move,boolean cancellable){
-		System.out.println(activeunit.getPokemon().getName()+" using "+GameData.getMoveName(move.getNum()));
-		//hits self in confusion check
-		if(cancellable&&activeunit.getPokemon().getPcondition()==PermCondition.Confusion&&GameData.getRandom().nextBoolean()){
-			System.out.println(activeunit.getPokemon().getName()+" hit itself in its confusion");
-			activeunit.damage(calculateConfusionSelfHitDamage(activeunit));
-		}
-		else{
-			currattack=move;
-			HashMap<String,String> map=GameData.getMoveRange(move.getNum());
-			attackselection=SelectionType.valueOf(map.get("Selection"));
-			if(attackselection==SelectionType.Area||attackselection==SelectionType.Beam||attackselection==SelectionType.Cone
-					||attackselection==SelectionType.Nova||attackselection==SelectionType.Single)
-				attackrange=Integer.parseInt(map.get("Range"));
-			else
-				attackrange=-1;
-			if(activeunit.getPokemon().isHolding("Scope Lens"))
-				attackrange++;
-			validtargets=getDefaultAttackSelection();
-			displayAttackRange();
-			takeControl(new BattleAttackKeyListener(cancellable));
-		}
+	public static void move(){
+		BattleMovementLogic.move(battlefield);
 	}
 
-	private static ArrayList<IntPair> getDefaultAttackSelection(){
-		ArrayList<IntPair> selection=new ArrayList<IntPair>();
-		if(attackselection==SelectionType.Single){
-			IntPair curr=activeunit.getCoordinates();
-			if(curr.getX()>0)
-				selection.add(new IntPair(curr.getX()-1,curr.getY()));
-			else
-				selection.add(new IntPair(curr.getX()+1,curr.getY()));
+	public static void useMove(Move move,boolean cancellable){
+		BattleAttackLogic.useMove(battlefield,move,cancellable);
+	}
+
+	public static void catchLogic(int ballid){
+		CatchLogic.catchLogic(battlefield,ballid);
+	}
+
+	
+	public static void removeUnit(int unitid){
+		Unit u=getUnitByID(unitid);
+		IntPair coord=u.getCoordinates();
+		moveOffSquare(u,coord.getX(),coord.getY());
+		int index=ounits.indexOf(u);
+		if(index>-1){
+			ounits.remove(index);
 		}
-		else if(attackselection==SelectionType.Self){
-			selection.add(activeunit.getCoordinates());
+		else{
+			index=punits.indexOf(u);
+			punits.remove(index);
 		}
-		else if(attackselection==SelectionType.Nova){
-			IntPair curr=activeunit.getCoordinates();
-			for(int x=curr.getX()-attackrange;x<=curr.getX()+attackrange;x++){
-				for(int y=curr.getY()-attackrange;y<=curr.getY()+attackrange;y++){
-					if(y>=Constants.BATTLEFIELD_HEIGHT)
-						break;
-					if(x==curr.getX()&&y==curr.getY())
-						continue;
-					if(x>=0&&y>=0&&x<Constants.BATTLEFIELD_WIDTH)
-						selection.add(new IntPair(x,y));
-				}
-			}
-		}
-		else if(attackselection==SelectionType.Beam){
-			IntPair curr=activeunit.getCoordinates();
-			if(curr.getX()-1>=0){
-				for(int i=1;i<=attackrange;i++){
-					if(curr.getX()-i>=0)
-						selection.add(new IntPair(curr.getX()-i,curr.getY()));
-				}
-			}
-			else{
-				for(int i=1;i<=attackrange;i++){
-					selection.add(new IntPair(curr.getX()+i,curr.getY()));
-				}
-			}	
-		}
-		else if(attackselection==SelectionType.Area){
-			IntPair curr=activeunit.getCoordinates();
-			if(curr.getX()>3){
-				epicenter=new IntPair(curr.getX()-2,curr.getY());
-				for(int x=curr.getX()-3;x<curr.getX();x++){
-					for(int y=curr.getY()-1;y<=curr.getY()+1;y++){
-						if(y>=0)
-							selection.add(new IntPair(x,y));
-					}
-				}
-			}
-			else{
-				epicenter=new IntPair(curr.getX()+2,curr.getY());
-				for(int x=curr.getX()+1;x<curr.getX()+4;x++){
-					for(int y=curr.getY()-1;y<=curr.getY()+1;y++){
-						if(y>=0)
-							selection.add(new IntPair(x,y));
-					}
-				}
-			}
-		}
-		else if(attackselection==SelectionType.Cone){
-			IntPair curr=activeunit.getCoordinates();
-			if(curr.getX()>=attackrange){
-				for(int i=1;i<=attackrange;i++){
-					for(int j=1-i;j<=i-1;j++){
-						IntPair newpair=new IntPair(curr.getX()-i,curr.getY()+j);
-						if(newpair.getY()>0&&newpair.getY()<battlefield[0].length)
-							selection.add(newpair);
-					}
-				}
-			}
-			else{
-				for(int i=1;i<=attackrange;i++){
-					for(int j=1-i;j<=i-1;j++){
-						IntPair newpair=new IntPair(curr.getX()+i,curr.getY()+j);
-						if(newpair.getY()>0&&newpair.getY()<battlefield[0].length)
-							selection.add(newpair);
-					}
-				}
-			}
-		}
-		else if(attackselection==SelectionType.Global||attackselection==SelectionType.Weather){
-			for(int x=0;x<battlefield.length;x++){
-				for(int y=0;y<battlefield[0].length;y++){
-					selection.add(new IntPair(x,y));
-				}
-			}
-		}
-		else if(attackselection==SelectionType.Friendly){
-			for(Unit u:getFriendlyUnits(activeunit)){
-				selection.add(u.getCoordinates());
-			}
-		}
-		return selection;
+		priorities.remove(new Integer(unitid));
+		allunits.remove(u);
 	}
 
 	/**
@@ -544,337 +462,23 @@ public class BattleEngine {
 		return friends;
 	}
 
-	private static void removeAttackRange(){
-		for(IntPair pair:validtargets){
-			battlefield[pair.getX()][pair.getY()].markNeutral();
+	public static void experienceGainLogic(ArrayList<IntPair> validtargets){
+		for(IntPair valid:validtargets){
+			Unit target=BattleEngine.getUnitByID(battlefield[valid.getX()][valid.getY()].getUnit());
+			Pokemon targetpokemon=target.getPokemon();
+			//XP gain if target fainted (note xp is not given to opp units on defeating players units)
+			if(ounits.contains(target)&&targetpokemon.isFainted()){
+				ArrayList<Pokemon> xprecipients=new ArrayList<Pokemon>();
+				for(Unit unit:getLiveUnits(punits)){
+					Pokemon pokemon=unit.getPokemon();
+					if(pokemon.isHolding("Exp Share")||target.attackedBy(unit.getID()))
+						xprecipients.add(pokemon);
+				}
+				awardExperience(xprecipients,targetpokemon);
+			}
 		}
 	}
 
-	private static void displayAttackRange(){
-		for(IntPair pair:validtargets){
-			battlefield[pair.getX()][pair.getY()].markValid();
-		}
-	}
-
-	public static void moveAttackRangeLeft(){
-		removeAttackRange();
-		if(attackselection==SelectionType.Single){
-			IntPair curr=validtargets.get(0);
-			if(curr.getX()>0){
-				IntPair next=new IntPair(curr.getX()-1,curr.getY());
-				if(curr.distanceFrom(next)<=attackrange)
-					validtargets.set(0,next);
-			}
-		}
-		else if(attackselection==SelectionType.Beam){
-			IntPair curr=validtargets.get(0);
-			int x=activeunit.getCoordinates().getX();
-			if(curr.getX()>=x&&x>0){
-				validtargets.clear();
-				for(int i=1;i<=attackrange;i++){
-					if(x-i>=0)
-						validtargets.add(new IntPair(x-i,curr.getY()));
-				}
-			}
-		}
-		else if(attackselection==SelectionType.Cone){
-			IntPair curr=validtargets.get(0);
-			IntPair active=activeunit.getCoordinates();
-			if(curr.getX()>=active.getX()){
-				validtargets.clear();
-				for(int i=1;i<=attackrange;i++){
-					for(int j=1-i;j<=i-1;j++){
-						IntPair newpair=new IntPair(active.getX()-i,active.getY()+j);
-						if(newpair.getY()>=00&&newpair.getY()<battlefield[0].length)
-							validtargets.add(newpair);
-					}
-				}
-			}
-		}
-		else if(attackselection==SelectionType.Area){
-			if(epicenter.getX()>0&&activeunit.getCoordinates().distanceFrom(new IntPair(epicenter.getX()-1,epicenter.getY()))<=attackrange){
-				for(int i=0;i<validtargets.size();i++){
-					IntPair pair=validtargets.get(i);
-					if(pair.getX()-1>=0)
-						validtargets.set(i,new IntPair(pair.getX()-1,pair.getY()));
-					else{
-						validtargets.remove(i);
-						i--;
-					}
-				}
-			}
-		}
-		displayAttackRange();
-	}
-
-	public static void moveAttackRangeRight(){
-		removeAttackRange();
-		if(attackselection==SelectionType.Single){
-			IntPair curr=validtargets.get(0);
-			if(curr.getX()<battlefield.length-1){
-				IntPair next=new IntPair(curr.getX()+1,curr.getY());
-				if(curr.distanceFrom(next)<=attackrange)
-					validtargets.set(0,next);
-			}
-		}
-		else if(attackselection==SelectionType.Beam){
-			IntPair curr=validtargets.get(0);
-			int x=activeunit.getCoordinates().getX();
-			if(curr.getX()<=x&&x<battlefield.length-1){
-				validtargets.clear();
-				for(int i=1;i<=attackrange;i++){
-					if(x+i<=battlefield.length-1)
-						validtargets.add(new IntPair(x+i,curr.getY()));
-				}
-			}
-		}
-		else if(attackselection==SelectionType.Cone){
-			IntPair curr=validtargets.get(0);
-			IntPair active=activeunit.getCoordinates();
-			if(curr.getX()<=active.getX()){
-				validtargets.clear();
-				for(int i=1;i<=attackrange;i++){
-					for(int j=1-i;j<=i-1;j++){
-						IntPair newpair=new IntPair(active.getX()+i,active.getY()+j);
-						if(newpair.getY()>=0&&newpair.getY()<battlefield[0].length)
-							validtargets.add(newpair);
-					}
-				}
-			}
-		}
-		else if(attackselection==SelectionType.Area){
-			if(epicenter.getX()<battlefield.length-1&&activeunit.getCoordinates().distanceFrom(new IntPair(epicenter.getX()+1,epicenter.getY()))<=attackrange){
-				for(int i=0;i<validtargets.size();i++){
-					IntPair pair=validtargets.get(i);
-					if(pair.getX()+1<=battlefield.length-1)
-						validtargets.set(i,new IntPair(pair.getX()+1,pair.getY()));
-					else{
-						validtargets.remove(i);
-						i--;
-					}
-				}
-			}
-		}
-		displayAttackRange();
-	}
-
-	public static void moveAttackRangeUp(){
-		removeAttackRange();
-		if(attackselection==SelectionType.Single){
-			IntPair curr=validtargets.get(0);
-			if(curr.getY()>0){
-				IntPair next=new IntPair(curr.getX(),curr.getY()-1);
-				if(curr.distanceFrom(next)<=attackrange)
-					validtargets.set(0,next);
-			}
-		}
-		else if(attackselection==SelectionType.Beam){
-			IntPair curr=validtargets.get(0);
-			int y=activeunit.getCoordinates().getY();
-			if(curr.getY()>=y&&y>0){
-				validtargets.clear();
-				for(int i=1;i<=attackrange;i++){
-					if(y-i>=0)
-						validtargets.add(new IntPair(curr.getX(),y-i));
-				}
-			}
-		}
-		else if(attackselection==SelectionType.Cone){
-			IntPair curr=validtargets.get(0);
-			IntPair active=activeunit.getCoordinates();
-			if(curr.getY()>=active.getY()){
-				validtargets.clear();
-				for(int i=1;i<=attackrange;i++){
-					for(int j=1-i;j<=i-1;j++){
-						IntPair newpair=new IntPair(active.getX()+j,active.getY()-i);
-						if(newpair.getX()>=0&&newpair.getX()<battlefield[0].length)
-							validtargets.add(newpair);
-					}
-				}
-			}
-		}
-		else if(attackselection==SelectionType.Area){
-			if(epicenter.getY()>0&&activeunit.getCoordinates().distanceFrom(new IntPair(epicenter.getX(),epicenter.getY()-1))<=attackrange){
-				for(int i=0;i<validtargets.size();i++){
-					IntPair pair=validtargets.get(i);
-					if(pair.getY()-1>=0)
-						validtargets.set(i,new IntPair(pair.getX(),pair.getY()-1));
-					else{
-						validtargets.remove(i);
-						i--;
-					}
-				}
-			}
-		}
-		displayAttackRange();
-	}
-
-	public static void moveAttackRangeDown(){
-		removeAttackRange();
-		if(attackselection==SelectionType.Single){
-			IntPair curr=validtargets.get(0);
-			if(curr.getY()<battlefield.length-1){
-				IntPair next=new IntPair(curr.getX(),curr.getY()+1);
-				if(curr.distanceFrom(next)<=attackrange)
-					validtargets.set(0,next);
-			}
-		}
-		else if(attackselection==SelectionType.Beam){
-			IntPair curr=validtargets.get(0);
-			int y=activeunit.getCoordinates().getY();
-			if(curr.getY()<=y&&y<battlefield.length-1){
-				validtargets.clear();
-				for(int i=1;i<=attackrange;i++){
-					if(y+i<=battlefield.length-1)
-						validtargets.add(new IntPair(curr.getX(),y+i));
-				}
-			}
-		}
-		else if(attackselection==SelectionType.Cone){
-			IntPair curr=validtargets.get(0);
-			IntPair active=activeunit.getCoordinates();
-			if(curr.getY()<=active.getY()){
-				validtargets.clear();
-				for(int i=1;i<=attackrange;i++){
-					for(int j=1-i;j<=i-1;j++){
-						IntPair newpair=new IntPair(active.getX()+j,active.getY()+i);
-						if(newpair.getX()>=0&&newpair.getX()<battlefield[0].length)
-							validtargets.add(newpair);
-					}
-				}
-			}
-		}
-		else if(attackselection==SelectionType.Area){
-			if(epicenter.getY()<battlefield.length-1&&activeunit.getCoordinates().distanceFrom(new IntPair(epicenter.getX(),epicenter.getY()+1))<=attackrange){
-				for(int i=0;i<validtargets.size();i++){
-					IntPair pair=validtargets.get(i);
-					if(pair.getY()+1<=battlefield.length-1)
-						validtargets.set(i,new IntPair(pair.getX(),pair.getY()+1));
-					else{
-						validtargets.remove(i);
-						i--;
-					}
-				}
-			}
-		}
-		displayAttackRange();
-	}
-
-	public static void confirmAttackRange(boolean cancellable){
-		ArrayList<Unit> targets=new ArrayList<Unit>();
-		for(IntPair pair:validtargets){
-			targets.add(getUnitByID(battlefield[pair.getX()][pair.getY()].getUnit()));
-		}
-		String name=GameData.getMoveName(currattack.getNum());
-		if(name.equals("Sketch")){
-			Pokemon userpokemon=activeunit.getPokemon();
-			int lastmove=targets.get(0).getPrevMove();
-			String lastname=GameData.getMoveName(lastmove);
-			if(lastname.equals("Sketch")||lastname.equals("Struggle")||lastname.equals("Transform")||lastname.equals("Snore")||lastname.equals("Sleep Talk")
-					||lastname.equals("Mimic")||lastname.equals("Mirror Move")||lastname.equals("Explosion")||lastname.equals("Self Destruct")
-					||userpokemon.knowsMove(lastmove)){
-				System.out.println(lastname+" cannot be learned with Sketch.");
-				afterAttackEffects(cancellable);
-			}
-			else{
-				System.out.println(userpokemon.getName()+" learning "+lastname);
-				if(!userpokemon.learnMove(new Move(lastmove))){
-					System.out.println(userpokemon.getName()+" wants to learn "+lastname+". Needs to replace a move");
-					MoveMenu mm=new MoveMenu(userpokemon,MoveMenuMode.SKETCH);
-					MenuEngine.initialize(mm);
-				}
-			}
-		}
-		else if(name.equals("Teleport")){
-			IntPair destination=validtargets.get(0);
-			if(canMoveTo(battlefield[destination.getX()][destination.getY()])){
-				System.out.println(activeunit.getPokemon().getName()+" uses to teleport to move to the square at "+destination.toString());
-				moveOffSquare(activeunit,activeunit.getCoordinates().getX(),activeunit.getCoordinates().getY());
-				moveOnSquare(activeunit,destination.getX(),destination.getY());
-			}
-			else
-				System.out.println(activeunit.getPokemon().getName()+" cannot be placed on that square");
-			afterAttackEffects(cancellable);
-		}
-		else if(name.equals("Spikes")){
-			removeSpikes();
-			for(IntPair pair:validtargets){
-				battlefield[pair.getX()][pair.getY()].setSpikes();
-			}
-			afterAttackEffects(cancellable);
-		}
-		else if(name.equals("Metronome")){
-			int newmove;
-			String newname;
-			do{
-				newmove=GameData.getRandom().nextInt(Constants.NUM_MOVES)+1;
-				newname=GameData.getMoveName(newmove);
-			}while(newname.equals("Sketch")||newname.equals("Struggle")||newname.equals("Metronome")||newname.equals("Transform")||newname.equals("Snore")
-					||newname.equals("Sleep Talk")||newname.equals("Mimic")||newname.equals("Mirror Move")||activeunit.getPokemon().knowsMove(newmove));
-			activeunit.setPrevMove(currattack.getNum());
-			BattleEngine.useMove(new Move(newmove),false);
-		}
-		else if(name.equals("Mirror Move")){
-			Unit target=targets.get(0);
-			int lastmove=target.getPrevMove();
-			if(lastmove==-1){
-				System.out.println(target.getPokemon().getName()+" has no used a move yet. There's nothing to copy.");
-				afterAttackEffects(cancellable);
-			}
-			else{
-				String newname=GameData.getMoveName(lastmove);
-				if(newname.equals("Sketch")||newname.equals("Struggle")||newname.equals("Metronome")||newname.equals("Transform")||newname.equals("Snore")
-						||newname.equals("Sleep Talk")||newname.equals("Mimic")||newname.equals("Mirror Move")||activeunit.getPokemon().knowsMove(lastmove)){
-					System.out.println(newname+" cannot be copied with Mirror Move.");
-					afterAttackEffects(cancellable);
-				}
-				else{
-					activeunit.setPrevMove(currattack.getNum());
-					BattleEngine.useMove(new Move(lastmove),false);
-				}
-			}
-		}
-		else{
-			MoveLogic.implementEffects(activeunit,targets,currattack);
-			afterAttackEffects(cancellable);
-		}
-	}
-
-	public static void cancelAttackRange(){
-		removeAttackRange();
-		System.out.println(activeunit.getPokemon().getName()+" has cancelled the attack option");
-		MenuEngine.initialize(new UnitMenu(activeunit));
-	}
-
-	public static void afterAttackEffects(boolean cancellable){
-
-
-
-		//		for(Unit target:targets){
-		//			Pokemon targetpokemon=target.getPokemon();
-		//			//XP gain if target fainted (note xp is not given to opp units on defeating players units)
-		//			if(ounits.contains(target)&&targetpokemon.isFainted()){
-		//				ArrayList<Pokemon> xprecipients=new ArrayList<Pokemon>();
-		//				for(Unit unit:getLiveUnits(punits)){
-		//					Pokemon pokemon=unit.getPokemon();
-		//					if(pokemon.isHolding("Exp Share")||target.attackedBy(unit.getID()))
-		//						xprecipients.add(pokemon);
-		//				}
-		//				awardExperience(xprecipients,targetpokemon);
-		//			}
-		//		}
-
-
-
-		activeunit.setHasAttacked(true);
-		activeunit.setHasTakenAction(true);
-		if(cancellable)
-			activeunit.setPrevMove(currattack.getNum());
-		//confusion turn count is only lowered by attacking turns. Pokemon can't avoid confusion by refusing to attack until it's over
-		if(activeunit.getPokemon().getPcondition()==PermCondition.Confusion)
-			activeunit.incNumTurnsAfflicted(PermCondition.Confusion.toString());
-		openUnitMenu();
-	}
 
 	private static void awardExperience(ArrayList<Pokemon> recipients,Pokemon giver){
 		double xpshare=GameData.getBaseExp(giver.getNum())*giver.getLevel();
@@ -893,39 +497,8 @@ public class BattleEngine {
 		nextTurn();
 	}
 
-	public static void move(){
-		previousmoves=new ArrayList<IntPair>();
-		previousmoves.add(activeunit.getCoordinates());
-		displayMovementRange();
-		takeControl(new BattleMovementKeyListener());
-	}
 
-	private static void displayMovementRange(){
-		validdestinations=new ArrayList<IntPair>();
-		int range=activeunit.getMovementRange()-previousmoves.size()+1;
-		int xcoordinate=activeunit.getCoordinates().getX();
-		int ycoordinate=activeunit.getCoordinates().getY();
-		validdestinations.add(activeunit.getCoordinates());
-		System.out.println(activeunit.getPokemon().getName()+" moving up to "+range+" units");
-		for(int x=xcoordinate-range;x<=xcoordinate+range;x++){
-			for(int y=ycoordinate-range;y<=ycoordinate+range;y++){
-				if(y>=Constants.BATTLEFIELD_HEIGHT)
-					break;
-				if(x>=0&&y>=0&&x<Constants.BATTLEFIELD_WIDTH
-						&&Math.abs(x-xcoordinate)+Math.abs(y-ycoordinate)<=range&&canMoveTo(battlefield[x][y]))
-					validdestinations.add(new IntPair(x,y));
-			}
-		}
-		for(IntPair pair:previousmoves){
-			if(!validdestinations.contains(pair))
-				validdestinations.add(pair);
-		}
-		for(IntPair pair:validdestinations){
-			battlefield[pair.getX()][pair.getY()].markValid();
-		}
-	}
-
-	private static boolean canMoveTo(Square square){
+	public static boolean canMoveTo(Square square){
 		if(square.getUnit()>-1)
 			return false;
 		if(square.getTileType()==Tile.Rock||square.getTileType()==Tile.Tree)
@@ -940,120 +513,18 @@ public class BattleEngine {
 		return true;
 	}
 
-	public static void moveLeft(){
-		int x=activeunit.getCoordinates().getX();
-		int y=activeunit.getCoordinates().getY();
-		IntPair newcoordinates=new IntPair(x-1,y);
-		if(previousmoves.size()==activeunit.getMovementRange()+1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates)
-				||(x>0&&battlefield[x-1][y].isValid())){
-			moveOffSquare(activeunit,x,y);
-			moveOnSquare(activeunit,x-1,y);
-			if(previousmoves.size()>1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates))
-				previousmoves.remove(previousmoves.size()-1);
-			else
-				previousmoves.add(newcoordinates);
-		}
-		for(IntPair pair:validdestinations){
-			battlefield[pair.getX()][pair.getY()].markNeutral();
-		}
-		displayMovementRange();
-	}
-
-	public static void moveRight(){
-		int x=activeunit.getCoordinates().getX();
-		int y=activeunit.getCoordinates().getY();
-		IntPair newcoordinates=new IntPair(x+1,y);
-		if(previousmoves.size()==activeunit.getMovementRange()+1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates)
-				||(x<Constants.BATTLEFIELD_WIDTH-1&&battlefield[x+1][y].isValid())){
-			moveOffSquare(activeunit,x,y);
-			moveOnSquare(activeunit,x+1,y);
-			if(previousmoves.size()>1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates))
-				previousmoves.remove(previousmoves.size()-1);
-			else
-				previousmoves.add(newcoordinates);
-		}
-		for(IntPair pair:validdestinations){
-			battlefield[pair.getX()][pair.getY()].markNeutral();
-		}
-		displayMovementRange();
-	}
-
-	public static void moveUp(){
-		int x=activeunit.getCoordinates().getX();
-		int y=activeunit.getCoordinates().getY();
-		IntPair newcoordinates=new IntPair(x,y-1);
-		if(previousmoves.size()==activeunit.getMovementRange()+1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates)
-				||(y>0&&battlefield[x][y-1].isValid())){
-			moveOffSquare(activeunit,x,y);
-			moveOnSquare(activeunit,x,y-1);
-			if(previousmoves.size()>1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates))
-				previousmoves.remove(previousmoves.size()-1);
-			else
-				previousmoves.add(newcoordinates);
-		}
-		for(IntPair pair:validdestinations){
-			battlefield[pair.getX()][pair.getY()].markNeutral();
-		}
-		displayMovementRange();
-	}
-
-	public static void moveDown(){
-		int x=activeunit.getCoordinates().getX();
-		int y=activeunit.getCoordinates().getY();
-		IntPair newcoordinates=new IntPair(x,y+1);
-		if(previousmoves.size()==activeunit.getMovementRange()+1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates)
-				||(y<Constants.BATTLEFIELD_HEIGHT-1&&battlefield[x][y+1].isValid())){
-			moveOffSquare(activeunit,x,y);
-			moveOnSquare(activeunit,x,y+1);
-			if(previousmoves.size()>1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates))
-				previousmoves.remove(previousmoves.size()-1);
-			else
-				previousmoves.add(newcoordinates);
-		}
-		for(IntPair pair:validdestinations){
-			battlefield[pair.getX()][pair.getY()].markNeutral();
-		}
-		displayMovementRange();
-	}
-
-	public static void confirmMovement(){
-		for(IntPair pair:validdestinations){
-			battlefield[pair.getX()][pair.getY()].markNeutral();
-		}
-		activeunit.setHasMoved(true);
-		System.out.println(activeunit.getPokemon().getName()+" has moved "+(previousmoves.size()-1)+" squares.");
-		if(spikesplaced){
-			int spikescount=0;
-			for(IntPair pair:previousmoves){
-				if(battlefield[pair.getX()][pair.getY()].hasSpikes())
-					spikescount++;
-			}
-			int damage=round(spikescount*activeunit.getPokemon().getStat(Stat.HP)*Constants.SPIKES_DAMAGE_RATE);
-			System.out.println(activeunit.getPokemon().getName()+" takes "+damage+" damage from spikes");
-			activeunit.getPokemon().decHP(damage);
-		}
-		if(!activeunit.getPokemon().isFainted())
-			MenuEngine.initialize(new UnitMenu(activeunit));
-		else
-			nextTurn();
-	}
-
-	public static void cancelMovement(){
-		for(IntPair pair:validdestinations){
-			battlefield[pair.getX()][pair.getY()].markNeutral();
-		}
-		System.out.println(activeunit.getPokemon().getName()+" has cancelled the move option");
-		MenuEngine.initialize(new UnitMenu(activeunit));
-	}
-
-	private static int round(double num){
+	public static int round(double num){
 		int intnum=(int)num;
 		if(num<intnum+0.5)
 			return intnum;
 		else 
 			return intnum+1;
 	}
-	
+
+	public static boolean areSpikesPlaced(){
+		return spikesplaced;
+	}
+
 	public static void removeSpikes(){
 		if(!spikesplaced)
 			return;
@@ -1065,53 +536,7 @@ public class BattleEngine {
 		}
 	}
 
-	//based on formula found here https://www.math.miami.edu/~jam/azure/attacks/comp/confuse.htm
-	//if this is unsatisfactory, use modification of normal damage formula for base 40 power typeless physical attack.
-	private static int calculateConfusionSelfHitDamage(Unit attacker){
-		int damage=0;
-		damage=2*activeunit.getPokemon().getLevel()/5+2;
-		damage*=40;
-		damage*=activeunit.getStat(Stat.Attack);
-		damage/=activeunit.getStat(Stat.Defense);
-		damage/=50;
-		damage+=2;
-		System.out.println(activeunit.getPokemon().getName()+" hits itself for "+damage+" damage");
-		return damage;
-	}
 
-	public static boolean doesCatchSucceed(Pokemon target, double ballbonus){
-		double a=calculateA(target,ballbonus);
-		System.out.println("Catch Rate A: "+a);
-		if(GameData.getRandom().nextInt(256)<a)
-			return true;
-		else{
-			for(int i=0;i<3;i++){
-				double b=calculateB(a);
-				System.out.println("Catch Rate B: "+b);
-				if(GameData.getRandom().nextInt(65536)>=b)
-					return false;
-				System.out.println("Catch passes shake #"+(i+1));
-			}
-			return true;
-		}
-	}
-
-	private static double calculateB(double a){
-		return 1048560/(Math.sqrt((int)Math.sqrt(16711680/a)));
-	}
-
-	private static double calculateA(Pokemon target, double ballbonus){
-		double a=3*target.getStat(Stat.HP)-2*target.getCurrHP();
-		a*=GameData.getCatchRate(target.getNum());
-		a*=ballbonus;
-		PermCondition condition=target.getPcondition();
-		if(condition==PermCondition.Frozen||condition==PermCondition.Sleep)
-			a*=2;
-		else if(condition==PermCondition.Burn||condition==PermCondition.Paralysis||condition==PermCondition.Poison||condition==PermCondition.BadlyPoison)
-			a*=1.5;
-		a/=(3*target.getStat(Stat.HP));
-		return a;
-	}
 
 	public static boolean isLegalMove(Move m){
 		Pokemon activepokemon=activeunit.getPokemon();
@@ -1120,8 +545,6 @@ public class BattleEngine {
 		}
 		return true;
 	}
-
-
 
 	public static void win(){
 		System.out.println("Player won the battle against "+opponent.getName());

@@ -3,8 +3,8 @@ package KeyListeners;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import Engines.BattleEngine;
 import Global.ControlsConfig;
+import Objects.BattleAttackLogic;
 
 public class BattleAttackKeyListener implements KeyListener {
 	
@@ -22,17 +22,17 @@ public class BattleAttackKeyListener implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		int key=e.getKeyCode();
 		if(key==ControlsConfig.LEFT)
-			BattleEngine.moveAttackRangeLeft();
+			BattleAttackLogic.moveAttackRangeLeft();
 		else if(key==ControlsConfig.RIGHT)
-			BattleEngine.moveAttackRangeRight();
+			BattleAttackLogic.moveAttackRangeRight();
 		else if(key==ControlsConfig.UP)
-			BattleEngine.moveAttackRangeUp();
+			BattleAttackLogic.moveAttackRangeUp();
 		else if(key==ControlsConfig.DOWN)
-			BattleEngine.moveAttackRangeDown();
+			BattleAttackLogic.moveAttackRangeDown();
 		else if(key==ControlsConfig.START)
-			BattleEngine.confirmAttackRange(cancellable);
+			BattleAttackLogic.confirmAttackRange(cancellable);
 		else if(key==ControlsConfig.BACK&&cancellable)
-			BattleEngine.cancelAttackRange();
+			BattleAttackLogic.cancelAttackRange();
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 
+import Global.Constants;
 import Global.GameData;
 import KeyListeners.MenuKeyListener;
 import Menus.Menu;
@@ -63,7 +64,7 @@ public class MenuEngine {
 	private static void initExplanation(){
 		explanation=new GLabel(((MenuWithExplanations)menu).explain(menuindex));
 		explanation.setColor(Color.BLACK);
-		explanation.setFont(new Font("Times New Roman",Font.PLAIN,18));
+		explanation.setFont(new Font(Constants.FONT,Font.PLAIN,18));
 		explanationbg=new GRect(explanation.getWidth()+20,explanation.getHeight()+10);
 		explanationbg.setFilled(true);
 		explanationbg.setFillColor(Color.WHITE);

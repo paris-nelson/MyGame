@@ -59,17 +59,17 @@ public class DetailsEngine {
 		}
 		sprite.setSize(75,75);
 		GLabel hp=new GLabel("HP:");
-		hp.setFont(new Font("Dialog",Font.PLAIN,28));
+		hp.setFont(new Font(Constants.FONT,Font.PLAIN,28));
 		int currhpint=pokemon.getCurrHP();
 		int maxhpint=pokemon.getStat(Stat.HP);
 		GLabel name=new GLabel(pokemon.getName());
-		name.setFont(new Font("Dialog",Font.BOLD,32));
+		name.setFont(new Font(Constants.FONT,Font.BOLD,32));
 		GLabel gender=new GLabel(pokemon.getGender().toString());
-		gender.setFont(new Font("Dialog",Font.ITALIC,24));
+		gender.setFont(new Font(Constants.FONT,Font.ITALIC,24));
 		GLabel currhp=new GLabel(""+currhpint);
-		currhp.setFont(new Font("Dialog",Font.BOLD,28));
+		currhp.setFont(new Font(Constants.FONT,Font.BOLD,28));
 		GLabel maxhp=new GLabel("/"+maxhpint);
-		maxhp.setFont(new Font("Dialog",Font.BOLD,28));
+		maxhp.setFont(new Font(Constants.FONT,Font.BOLD,28));
 		double quotient=((double)currhpint/(double)maxhpint);
 		if(quotient<.2)
 			currhp.setColor(Color.RED);
@@ -99,17 +99,17 @@ public class DetailsEngine {
 			else if(pcon==PermCondition.Poison)
 				pcondition.setColor(Color.MAGENTA);
 		}
-		condition.setFont(new Font("Dialog",Font.PLAIN,24));
-		pcondition.setFont(new Font("Dialog",Font.PLAIN,24));
+		condition.setFont(new Font(Constants.FONT,Font.PLAIN,24));
+		pcondition.setFont(new Font(Constants.FONT,Font.PLAIN,24));
 		int id=pokemon.getHeldID();
 		GLabel helditemname;
 		if(id>=0)
 			helditemname=new GLabel("Held Item: "+GameData.getItemName(id));
 		else
 			helditemname=new GLabel("Held Item: No Held Item");
-		helditemname.setFont(new Font("Dialog",Font.BOLD,24));
+		helditemname.setFont(new Font(Constants.FONT,Font.BOLD,24));
 		GLabel happiness=new GLabel("Happiness:    "+pokemon.getHappiness());
-		happiness.setFont(new Font("Dialog",Font.PLAIN,24));
+		happiness.setFont(new Font(Constants.FONT,Font.PLAIN,24));
 		int lvl=pokemon.getLevel();
 		int currxpint=pokemon.getExp();
 		int prevxpint=GameData.getExpThreshold(pokemon.getNum(),lvl);
@@ -117,13 +117,13 @@ public class DetailsEngine {
 		int totalxpdiff=nextxpint-prevxpint;
 		int currxpdiff=currxpint-prevxpint;
 		GLabel level=new GLabel("Level "+lvl);
-		level.setFont(new Font("Dialog",Font.BOLD,24));
+		level.setFont(new Font(Constants.FONT,Font.BOLD,24));
 		GLabel currxp=new GLabel(""+currxpint);
-		currxp.setFont(new Font("Dialog",Font.PLAIN,22));
+		currxp.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel nextxp=new GLabel("/"+nextxpint);
-		nextxp.setFont(new Font("Dialog",Font.PLAIN,22));
+		nextxp.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel nextlvl=new GLabel("Level "+Math.min(100,(lvl+1)));
-		nextlvl.setFont(new Font("Dialog",Font.BOLD,24));
+		nextlvl.setFont(new Font(Constants.FONT,Font.BOLD,24));
 		double xpratio=((double)currxpdiff/(double)totalxpdiff);
 		double barratio=xpratio*250.0;
 		GRect xpbar=new GRect(barratio,nextlvl.getHeight());
@@ -137,43 +137,43 @@ public class DetailsEngine {
 		xpend.setColor(Color.RED);
 		int[] stats=pokemon.getStats();
 		GLabel currstat1=new GLabel(""+stats[0]);
-		currstat1.setFont(new Font("Dialog",Font.BOLD,22));
+		currstat1.setFont(new Font(Constants.FONT,Font.BOLD,22));
 		GLabel currstat2=new GLabel(""+stats[1]);
-		currstat2.setFont(new Font("Dialog",Font.BOLD,22));
+		currstat2.setFont(new Font(Constants.FONT,Font.BOLD,22));
 		GLabel currstat3=new GLabel(""+stats[2]);
-		currstat3.setFont(new Font("Dialog",Font.BOLD,22));
+		currstat3.setFont(new Font(Constants.FONT,Font.BOLD,22));
 		GLabel currstat4=new GLabel(""+stats[3]);
-		currstat4.setFont(new Font("Dialog",Font.BOLD,22));
+		currstat4.setFont(new Font(Constants.FONT,Font.BOLD,22));
 		GLabel currstat5=new GLabel(""+stats[4]);
-		currstat5.setFont(new Font("Dialog",Font.BOLD,22));
+		currstat5.setFont(new Font(Constants.FONT,Font.BOLD,22));
 		GLabel currstat6=new GLabel(""+stats[5]);
-		currstat6.setFont(new Font("Dialog",Font.BOLD,22));
+		currstat6.setFont(new Font(Constants.FONT,Font.BOLD,22));
 		stats=pokemon.getIVs();
 		GLabel iv1=new GLabel(""+stats[0]);
-		iv1.setFont(new Font("Dialog",Font.PLAIN,22));
+		iv1.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel iv2=new GLabel(""+stats[1]);
-		iv2.setFont(new Font("Dialog",Font.PLAIN,22));
+		iv2.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel iv3=new GLabel(""+stats[2]);
-		iv3.setFont(new Font("Dialog",Font.PLAIN,22));
+		iv3.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel iv4=new GLabel(""+stats[3]);
-		iv4.setFont(new Font("Dialog",Font.PLAIN,22));
+		iv4.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel iv5=new GLabel(""+stats[4]);
-		iv5.setFont(new Font("Dialog",Font.PLAIN,22));
+		iv5.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel iv6=new GLabel(""+stats[5]);
-		iv6.setFont(new Font("Dialog",Font.PLAIN,22));
+		iv6.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		stats=pokemon.getEVs();
 		GLabel ev1=new GLabel(""+stats[0]);
-		ev1.setFont(new Font("Dialog",Font.PLAIN,22));
+		ev1.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel ev2=new GLabel(""+stats[1]);
-		ev2.setFont(new Font("Dialog",Font.PLAIN,22));
+		ev2.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel ev3=new GLabel(""+stats[2]);
-		ev3.setFont(new Font("Dialog",Font.PLAIN,22));
+		ev3.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel ev4=new GLabel(""+stats[3]);
-		ev4.setFont(new Font("Dialog",Font.PLAIN,22));
+		ev4.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel ev5=new GLabel(""+stats[4]);
-		ev5.setFont(new Font("Dialog",Font.PLAIN,22));
+		ev5.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel ev6=new GLabel(""+stats[5]);
-		ev6.setFont(new Font("Dialog",Font.PLAIN,22));
+		ev6.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		ArrayList<Move> moves=pokemon.getMoveSet();
 		GLabel movename1=null,movecurrpp1=null,movemaxpp1=null,movename2=null,movecurrpp2=null,movemaxpp2=null,
 				movename3=null,movecurrpp3=null,movemaxpp3=null,movename4=null,movecurrpp4=null,movemaxpp4=null;
@@ -183,11 +183,11 @@ public class DetailsEngine {
 			int currpp=move1.getCurrPP();
 			int maxpp=move1.getCurrMax();
 			movename1=new GLabel(GameData.getMoveName(movenum1));
-			movename1.setFont(new Font("Dialog",Font.BOLD,24));
+			movename1.setFont(new Font(Constants.FONT,Font.BOLD,24));
 			movecurrpp1=new GLabel(""+currpp);
-			movecurrpp1.setFont(new Font("Dialog",Font.PLAIN,22));
+			movecurrpp1.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 			movemaxpp1=new GLabel("/"+maxpp);
-			movemaxpp1.setFont(new Font("Dialog",Font.PLAIN,22));
+			movemaxpp1.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 			quotient=((double)currpp)/((double)maxpp);
 			if(quotient<.2)
 				movecurrpp1.setColor(Color.YELLOW);
@@ -201,11 +201,11 @@ public class DetailsEngine {
 				currpp=move1.getCurrPP();
 				maxpp=move1.getCurrMax();
 				movename2=new GLabel(GameData.getMoveName(movenum1));
-				movename2.setFont(new Font("Dialog",Font.BOLD,24));
+				movename2.setFont(new Font(Constants.FONT,Font.BOLD,24));
 				movecurrpp2=new GLabel(""+currpp);
-				movecurrpp2.setFont(new Font("Dialog",Font.PLAIN,22));
+				movecurrpp2.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 				movemaxpp2=new GLabel("/"+maxpp);
-				movemaxpp2.setFont(new Font("Dialog",Font.PLAIN,22));
+				movemaxpp2.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 				quotient=((double)currpp)/((double)maxpp);
 				if(quotient<.2)
 					movecurrpp2.setColor(Color.YELLOW);
@@ -219,11 +219,11 @@ public class DetailsEngine {
 					currpp=move1.getCurrPP();
 					maxpp=move1.getCurrMax();
 					movename3=new GLabel(GameData.getMoveName(movenum1));
-					movename3.setFont(new Font("Dialog",Font.BOLD,24));
+					movename3.setFont(new Font(Constants.FONT,Font.BOLD,24));
 					movecurrpp3=new GLabel(""+currpp);
-					movecurrpp3.setFont(new Font("Dialog",Font.PLAIN,22));
+					movecurrpp3.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 					movemaxpp3=new GLabel("/"+maxpp);
-					movemaxpp3.setFont(new Font("Dialog",Font.PLAIN,22));
+					movemaxpp3.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 					quotient=((double)currpp)/((double)maxpp);
 					if(quotient<.2)
 						movecurrpp3.setColor(Color.YELLOW);
@@ -238,11 +238,11 @@ public class DetailsEngine {
 						currpp=move1.getCurrPP();
 						maxpp=move1.getCurrMax();
 						movename4=new GLabel(GameData.getMoveName(movenum1));
-						movename4.setFont(new Font("Dialog",Font.BOLD,24));
+						movename4.setFont(new Font(Constants.FONT,Font.BOLD,24));
 						movecurrpp4=new GLabel(""+currpp);
-						movecurrpp4.setFont(new Font("Dialog",Font.PLAIN,22));
+						movecurrpp4.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 						movemaxpp4=new GLabel("/"+maxpp);
-						movemaxpp4.setFont(new Font("Dialog",Font.PLAIN,22));
+						movemaxpp4.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 						quotient=((double)currpp)/((double)maxpp);
 						if(quotient<.2)
 							movecurrpp4.setColor(Color.YELLOW);
@@ -278,23 +278,23 @@ public class DetailsEngine {
 		screen.add(helditemname,25,nextlvl.getY()+labelheight+20);
 
 		GLabel ivslabel=new GLabel("IVs");
-		ivslabel.setFont(new Font("Dialog",Font.PLAIN,22));
+		ivslabel.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel evslabel=new GLabel("EVs");
-		evslabel.setFont(new Font("Dialog",Font.PLAIN,22));
+		evslabel.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel statslabel=new GLabel("Stats");
-		statslabel.setFont(new Font("Dialog",Font.PLAIN,22));
+		statslabel.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel hplabel=new GLabel("HP");
-		hplabel.setFont(new Font("Dialog",Font.PLAIN,22));
+		hplabel.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel att=new GLabel("Attack");
-		att.setFont(new Font("Dialog",Font.PLAIN,22));
+		att.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel def=new GLabel("Defense");
-		def.setFont(new Font("Dialog",Font.PLAIN,22));
+		def.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel satt=new GLabel("Sp. Attack");
-		satt.setFont(new Font("Dialog",Font.PLAIN,22));
+		satt.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel sdef=new GLabel("Sp. Defense");
-		sdef.setFont(new Font("Dialog",Font.PLAIN,22));
+		sdef.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		GLabel speed=new GLabel("Speed");
-		speed.setFont(new Font("Dialog",Font.PLAIN,22));
+		speed.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		double ytop=helditemname.getY()+10;
 		int xinc=150;
 		screen.add(hplabel,75+(xinc-hplabel.getWidth())/2,ytop+hplabel.getHeight());

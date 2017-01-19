@@ -23,6 +23,7 @@ public class Constants {
 	public static final String PATH=System.getProperty("user.dir")+"\\";
 			//"C:\\Users\\paris.nelson\\Documents\\PT\\PT\\";
 	public static final int MAX_MONEY=999999;
+	public static final String FONT="Dialog";
 	
 	//MapEngine variables
 	public static final int WILD_ENCOUNTER_RATE=18;
@@ -76,4 +77,14 @@ public class Constants {
 	public static final int QUICK_CLAW_CHANCE=20;
 	public static final int FOCUS_BAND_CHANCE=20;
 	public static final int KINGS_ROCK_FLINCH_CHANCE=10;
+	public static final int POKEBALL_RANGE=2;
+	public static final int FRIENDBALL_RANGE=2;
+	public static final int GREATBALL_RANGE=3;
+	public static final int ULTRABALL_RANGE=4;
+	public static final int MASTERBALL_RANGE=BATTLEFIELD_WIDTH;
+	public static final double POKEBALL_MULTIPLIER=1;
+	public static final double FRIENDBALL_MULTIPLIER=1;
+	public static final double GREATBALL_MULTIPLIER=1.5;
+	public static final double ULTRABALL_MULTIPLIER=2;
+	public static final double MASTERBALL_MULTIPLIER=256;
 }

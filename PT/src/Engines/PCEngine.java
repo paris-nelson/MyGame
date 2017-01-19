@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.util.ArrayList;
 
 import Enums.PartyMenuMode;
+import Global.Constants;
 import Global.GameData;
 import Global.PlayerData;
 import KeyListeners.PCKeyListener;
@@ -54,7 +55,7 @@ public class PCEngine {
 				goptions.add(rect);
 				gmenu.add(rect);
 				GLabel label=new GLabel("#"+count+": "+GameData.getName(count));
-				label.setFont(new Font("Times New Roman",Font.PLAIN,16));
+				label.setFont(new Font(Constants.FONT,Font.PLAIN,16));
 				gmenu.add(label,(rect.getWidth()-label.getWidth())/2+115*x,22+22*y-(rect.getHeight()-label.getHeight()));
 				count++;
 			}
@@ -64,19 +65,19 @@ public class PCEngine {
 		rect.setFillColor(Color.WHITE);
 		goptions.add(rect);
 		GLabel label=new GLabel("#251: Celebi");
-		label.setFont(new Font("Times New Roman",Font.PLAIN,16));
+		label.setFont(new Font(Constants.FONT,Font.PLAIN,16));
 		GRect rect2=new GRect(1150,22,115,22);
 		rect2.setFilled(true);
 		rect2.setFillColor(Color.LIGHT_GRAY);
 		goptions.add(rect2);
 		GLabel label2=new GLabel("Deposit");
-		label2.setFont(new Font("Times New Roman",Font.PLAIN,16));
+		label2.setFont(new Font(Constants.FONT,Font.PLAIN,16));
 		GRect rect3=new GRect(1150,44,115,22);
 		rect3.setFilled(true);
 		rect3.setFillColor(Color.WHITE);
 		goptions.add(rect3);
 		GLabel label3=new GLabel("Exit P.C.");
-		label3.setFont(new Font("Times New Roman",Font.PLAIN,16));
+		label3.setFont(new Font(Constants.FONT,Font.PLAIN,16));
 		gmenu.add(rect);
 		gmenu.add(rect2);
 		gmenu.add(rect3);

@@ -9,9 +9,9 @@ import Engines.MenuEngine;
 import Enums.MoveMenuMode;
 import Global.GameData;
 import Global.PlayerData;
+import Objects.BattleAttackLogic;
 import Objects.Move;
 import Objects.Pokemon;
-import Objects.Unit;
 
 public class MoveMenu implements MenuWithExplanations {
 
@@ -98,7 +98,7 @@ public class MoveMenu implements MenuWithExplanations {
 				if(mode==MoveMenuMode.TMHM)
 					InventoryEngine.cleanUp();
 				else if(mode==MoveMenuMode.SKETCH)
-					BattleEngine.afterAttackEffects(true);
+					BattleAttackLogic.afterAttackEffects(true);
 			}
 			else if(mode==MoveMenuMode.ATTACK&&BattleEngine.isLegalMove(m)){
 				if(m.hasPP())

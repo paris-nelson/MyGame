@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import Engines.BattleEngine;
+import Engines.GlobalEngine;
 import Engines.MapEngine;
 import Engines.MenuEngine;
 import Engines.PCEngine;
@@ -58,8 +59,7 @@ public class TownMenu implements Menu{
 			MenuEngine.close();
 			if(selected.endsWith("Rival")){
 				try{
-					MapEngine.close();
-					BattleEngine.initialize(Trainer.readInTrainer(new Scanner(new File("EventData\\RivalEncounter7.txt"))));
+					GlobalEngine.enterBattle(Trainer.readInTrainer(new Scanner(new File("EventData\\RivalEncounter7.txt"))));
 				}catch(Exception e){e.printStackTrace();}
 			}
 			else if(selected.endsWith("Challenger")){
@@ -68,8 +68,7 @@ public class TownMenu implements Menu{
 				for(int i=0;i<6;i++){
 					party[i]=new Pokemon(r.nextInt(251)+1,50,10);
 				}
-				MapEngine.close();
-				BattleEngine.initialize(new Trainer(Short.valueOf("0"),"Challenger",party,0,0,Constants.PATH+"Sprites\\CooltrainerF.png"));
+				GlobalEngine.enterBattle(new Trainer(Short.valueOf("0"),"Challenger",party,0,0,Constants.PATH+"Sprites\\CooltrainerF.png"));
 			}
 		}
 		else if(selected.startsWith("Exit to ")){

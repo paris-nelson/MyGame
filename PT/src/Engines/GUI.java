@@ -29,7 +29,7 @@ public class GUI extends GraphicsProgram{
 
 	public void run(){
 		GLabel label=new GLabel("#251: Feraligatr");
-		label.setFont(new Font("Times New Roman",Font.PLAIN,17));
+		label.setFont(new Font(Constants.FONT,Font.PLAIN,17));
 		System.out.println(label.getWidth());
 		System.out.println(label.getHeight());
 	}
@@ -43,7 +43,7 @@ public class GUI extends GraphicsProgram{
 //		for(int i=0;i<8;i++){
 //			GLabel label=new GLabel("Enter Rocket Hideout 2 Entrance");
 //			label.setColor(Color.WHITE);
-//			//label.setFont(new Font("Times New Roman",Font.PLAIN,24));
+//			//label.setFont(new Font(Constants.FONT,Font.PLAIN,24));
 //			test2.add(label,1100,25+50*i);
 //			GLine line=new GLine(1100,50*i,1300,50*i);
 //			line.setColor(Color.WHITE);

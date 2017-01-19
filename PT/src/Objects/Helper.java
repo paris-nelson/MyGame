@@ -5,24 +5,35 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 import Engines.GlobalEngine;
-import Enums.MoveEffect;
+import Engines.InventoryEngine;
+import Engines.MapEngine;
 import Global.Constants;
 import Global.GameData;
+import acm.graphics.GRect;
 
 public class Helper {
 	public static void main(String[] args) throws IOException{
 		
-		LinkedHashMap<MoveEffect,LinkedHashMap<String,String>> effects=GameData.getMoveEffects(158);
+		//TODO: add logic to carry over permconditions. unit should init with permconditions of the pokemon
+		//poisoned/badly poisoned pokemon should take damage on mapengine steps (also burned?)
+		//TODO: Also if leading pokemon faints in battle, should they be replaced? what if they have a status condition
+		//TODO: create right facing images and add logic to swap images on directionchange if I still want to do flanking
+		//TODO: should facing affect catch success rates the way it affects attack success rates?
 		
-		for(MoveEffect effect:effects.keySet())
-			System.out.println(effect.toString());
+//		LinkedHashMap<MoveEffect,LinkedHashMap<String,String>> effects=GameData.getMoveEffects(158);
+//		
+//		for(MoveEffect effect:effects.keySet())
+//			System.out.println(effect.toString());
+		
+
 				
 		GlobalEngine.initialize();
+//		Pokemon p=new Pokemon(120,5);
+//		System.out.println(GlobalEngine.evolve(p,"Water"));
+//		System.out.println(p.getNum());
 //		MapEngine.initialize(PlayerData.getLocation());
 
 		
@@ -665,5 +676,10 @@ public class Helper {
 				}
 			}
 		}
+	}
+	
+	public static void test(ArrayList<Unit> input){
+		ArrayList<Unit> temp=(ArrayList<Unit>) input.clone();
+		temp.add(null);
 	}
 }

@@ -3,11 +3,10 @@ package KeyListeners;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import Engines.MapEngine;
 import Global.ControlsConfig;
-import Objects.BattleMovementLogic;
+import Objects.CatchLogic;
 
-public class BattleMovementKeyListener implements KeyListener{
+public class CatchKeyListener implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -17,17 +16,17 @@ public class BattleMovementKeyListener implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		int key=e.getKeyCode();
 		if(key==ControlsConfig.LEFT)
-			BattleMovementLogic.moveLeft();
+			CatchLogic.moveCatchRangeLeft();
 		else if(key==ControlsConfig.RIGHT)
-			BattleMovementLogic.moveRight();
+			CatchLogic.moveCatchRangeRight();
 		else if(key==ControlsConfig.UP)
-			BattleMovementLogic.moveUp();
+			CatchLogic.moveCatchRangeUp();
 		else if(key==ControlsConfig.DOWN)
-			BattleMovementLogic.moveDown();
+			CatchLogic.moveCatchRangeDown();
 		else if(key==ControlsConfig.START)
-			BattleMovementLogic.confirmMovement();
+			CatchLogic.confirmCatchTarget();
 		else if(key==ControlsConfig.BACK)
-			BattleMovementLogic.cancelMovement();
+			CatchLogic.cancelCatchRange();
 	}
 
 	@Override

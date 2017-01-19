@@ -959,3 +959,4 @@ selection
 TargetCondition-for moves that require that the target meet a condition to be included (e.g. nightmare/dream eater require sleeping target)
 TargetInclusion-for moves that can hit pokemon in the middle of using fly or dig.
 
+TODO: Catch logic (may piggyback off of move logic, may just copy/past code)

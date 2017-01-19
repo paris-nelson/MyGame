@@ -12,7 +12,6 @@ public class ProceduralBattlefieldMaker implements BattlefieldMaker {
 	
 	@Override
 	public void makeNew() {
-		//TODO:
 		bf=new Square[Constants.BATTLEFIELD_HEIGHT][Constants.BATTLEFIELD_WIDTH];
 		image=new GCompound();
 		for(int x=0;x<bf.length;x++){

@@ -36,7 +36,6 @@ public class GlobalEngine {
 		System.out.println("Initializing Controls");
 		ControlsConfig.load();
 		System.out.println("Initializing Complete");
-		//TODO: Add logic to determine if player is in battle or in map and load appropriate engine
 		File f=new File(Constants.PATH+"\\InitializeData\\battlesavefile.txt");
 		if(f.exists())
 			BattleEngine.load();
@@ -47,21 +46,27 @@ public class GlobalEngine {
 	public static void save(){
 		System.out.println("Saving Player Data");
 		PlayerData.save();
-		System.out.println("Saving Map Data");
-		MapEngine.save();
+		if(BattleEngine.isInBattle()){
+			System.out.println("Saving Battle Data");
+			BattleEngine.save();
+		}
+		else{
+			System.out.println("Saving Map Data");
+			MapEngine.save();
+		}
 		System.out.println("Saving Controls");
 		ControlsConfig.save();
 		System.out.println("Saving Complete");
-		//TODO:Add save for battleengine in case player saves mid battle
 	}
-	
+
 	public static void enterBattle(Trainer opponent){
 		MapEngine.close();
 		BattleEngine.initialize(opponent);
 	}
 
 	public static boolean evolve(Pokemon base,String condition){
-		if(GameData.getItemName(base.getHeldID()).equals("Everstone"))
+		int heldid=base.getHeldID();
+		if(heldid>0&&GameData.getItemName(heldid).equals("Everstone"))
 			return false;
 		int evolutionnum=-1;
 		if(base.getNum()==236){//tyrogue, evolves into one of three different based on stats
@@ -76,6 +81,8 @@ public class GlobalEngine {
 		}
 		else
 			evolutionnum=GameData.getEvolutionNum(base.getNum(), condition);
+		if(PlayerData.getLeadingPokemon().equals(base))
+			MapEngine.changePlayerIcon("");
 		base.evolve(evolutionnum);
 		return true;
 	}
@@ -89,8 +96,7 @@ public class GlobalEngine {
 			try{
 				rival=EliteTrainer.readInTrainer(new Scanner(f));
 			}catch(Exception e){e.printStackTrace();}
-			MapEngine.close();
-			BattleEngine.initialize(rival);
+			GlobalEngine.enterBattle(rival);
 		}
 	}
 
@@ -115,7 +121,7 @@ public class GlobalEngine {
 			PlayerData.addNewPokemon(new Pokemon(7,5));
 		}
 	}
-	
+
 	private static void rewardMoney(Trainer defeated){
 		int highestlevel=defeated.getHighestLevel();
 		int base=Constants.PRIZE_MONEY_INCREMEMENT*defeated.getParty().length+Constants.PRIZE_MONEY_BASE;
@@ -176,9 +182,8 @@ public class GlobalEngine {
 	public static void useItem(int itemid){
 		System.out.println("Using "+GameData.getItemName(itemid));
 		ItemType type=GameData.getItemType(itemid);
-		//TODO
 		if(type==ItemType.BALL){
-
+			BattleEngine.catchLogic(itemid);
 		}
 		else if(type==ItemType.REMATCHER){
 			PlayerData.getLocation().reactivateTrainers();
@@ -196,62 +201,87 @@ public class GlobalEngine {
 	 * @param itemid
 	 * @return
 	 */
-	private static void useItemImpl(int itemid,Pokemon pokemon){
-		System.out.println("Using "+GameData.getItemName(itemid)+" on "+pokemon.getName());
+	public static void useItemImpl(int itemid,Pokemon pokemon){
 		if(!GameData.getItemName(itemid).startsWith("HM"))
 			PlayerData.removeItem(itemid,1);
-		if(BattleEngine.isInBattle())
-			MenuEngine.initialize(new UnitMenu(BattleEngine.getActiveUnit()));
+		if(BattleEngine.isInBattle()){
+			InventoryEngine.close();
+			BattleEngine.getActiveUnit().setHasTakenAction(true);
+			BattleEngine.openUnitMenu();
+		}
+		else
+			InventoryEngine.cleanUp();
 	}
 
 	public static void useItem(int itemid,Pokemon pokemon){
 		ItemType type=GameData.getItemType(itemid);
 		setItemToUse(itemid);
 		if(!pokemon.isFainted()){
-			if(type==ItemType.POTION&&pokemon.getCurrHP()<pokemon.getStat(Stat.HP)){
-				String name=GameData.getItemName(itemid);
-				if(name.equals("Max Potion")){
-					pokemon.restoreHP();
-					System.out.println(pokemon.getName()+": HP restored to full");
-					useItemImpl(itemid,pokemon);
-				}
-				else if(name.equals("Full Restore")){
-					pokemon.restoreHP();
-					pokemon.removePcondition();
-					System.out.println(pokemon.getName()+": cured and HP restored to full");
-					useItemImpl(itemid,pokemon);
-				}
-				String descrip=GameData.getItemDescription(itemid);
-				String amount=descrip.substring(9,descrip.indexOf(" HP"));
-				int intamount=Integer.parseInt(amount);
-				pokemon.incHP(intamount);
-				System.out.println(pokemon.getName()+": "+amount+" HP restored");
-				useItemImpl(itemid,pokemon);
-			}
-			else if(type==ItemType.STATUSCURE&&pokemon.getPcondition()!=null){
-				String name=GameData.getItemName(itemid);
-				if(name.equals("Full Heal")){
-					pokemon.removePcondition();
-					//TODO: how to remove from unit as well when used in battle?
-					//TODO: possibly need to have separate interface for battle use of items
-					System.out.println(pokemon.getName()+": status cured");
-					useItemImpl(itemid,pokemon);
-				}
-				else if(name.equals("Antidote")&&(pokemon.getPcondition()==PermCondition.BadlyPoison||pokemon.getPcondition()==PermCondition.Poison)){
-					pokemon.removePcondition();
-					System.out.println(pokemon.getName()+": status cured");
+			if(type==ItemType.POTION){
+				if(pokemon.getCurrHP()<pokemon.getStat(Stat.HP)){
+					String name=GameData.getItemName(itemid);
+					if(name.equals("Max Potion")){
+						pokemon.restoreHP();
+						System.out.println(pokemon.getName()+": HP restored to full");
+						useItemImpl(itemid,pokemon);
+					}
+					else if(name.equals("Full Restore")){
+						pokemon.restoreHP();
+						pokemon.removePcondition();
+						System.out.println(pokemon.getName()+": cured and HP restored to full");
+						useItemImpl(itemid,pokemon);
+					}
+					String descrip=GameData.getItemDescription(itemid);
+					String amount=descrip.substring(9,descrip.indexOf(" HP"));
+					int intamount=Integer.parseInt(amount);
+					pokemon.incHP(intamount);
+					System.out.println(pokemon.getName()+": "+amount+" HP restored");
 					useItemImpl(itemid,pokemon);
 				}
 				else{
-					String condition=GameData.getItemDescription(itemid);
-					condition=condition.substring(6);
-					PermCondition pcondition=PermCondition.valueOf(condition);
-					if(pokemon.removePcondition(pcondition)){
-						System.out.println(pokemon.getName()+": status cured");
-						useItemImpl(itemid, pokemon);
+					System.out.println(GameData.getItemName(itemid)+" has no effect on "+pokemon.getName());
+					InventoryEngine.cleanUp();
+				}
+			}
+			else if(type==ItemType.STATUSCURE){
+				if(pokemon.getPcondition()!=null){
+					String name=GameData.getItemName(itemid);
+					if(name.equals("Full Heal")){
+						PermCondition condition=pokemon.getPcondition();
+						pokemon.removePcondition();
+						if(BattleEngine.isInBattle())
+							BattleEngine.getActiveUnit().removePermCondition(condition);
+						System.out.println(pokemon.getName()+": cured of "+condition.toString());
+						useItemImpl(itemid,pokemon);
 					}
-					else
-						System.out.println(GameData.getItemName(itemid)+" has no effect on "+pokemon.getName());
+					else if(name.equals("Antidote")){
+						if((pokemon.getPcondition()==PermCondition.BadlyPoison||pokemon.getPcondition()==PermCondition.Poison)){
+							pokemon.removePcondition();
+							System.out.println(pokemon.getName()+": status cured");
+							useItemImpl(itemid,pokemon);
+						}
+						else{
+							System.out.println(GameData.getItemName(itemid)+" has no effect on "+pokemon.getName());
+							InventoryEngine.cleanUp();
+						}
+					}
+					else{
+						String condition=GameData.getItemDescription(itemid);
+						condition=condition.substring(6);
+						PermCondition pcondition=PermCondition.valueOf(condition);
+						if(pokemon.removePcondition(pcondition)){
+							System.out.println(pokemon.getName()+": status cured");
+							useItemImpl(itemid, pokemon);
+						}
+						else{
+							System.out.println(GameData.getItemName(itemid)+" has no effect on "+pokemon.getName());
+							InventoryEngine.cleanUp();
+						}
+					}
+				}
+				else{
+					System.out.println(GameData.getItemName(itemid)+" has no effect on "+pokemon.getName());
+					InventoryEngine.cleanUp();
 				}
 			}
 			else if(type==ItemType.STONE){
@@ -261,11 +291,15 @@ public class GlobalEngine {
 					stonetype=stonetype.substring(stonetype.indexOf(" "));
 					if(evolve(pokemon,stonetype))
 						useItemImpl(itemid, pokemon);
-					else
+					else{
 						System.out.println(GameData.getItemName(itemid)+" has no effect on "+pokemon.getName());
-
+						InventoryEngine.cleanUp();
+					}
 				}
-				System.out.println(GameData.getItemName(itemid)+" has no effect on "+pokemon.getName());
+				else{
+					System.out.println(GameData.getItemName(itemid)+" has no effect on "+pokemon.getName());
+					InventoryEngine.cleanUp();
+				}
 			}
 			else if(type==ItemType.ETHER){
 				MoveMenu mm=new MoveMenu(pokemon,MoveMenuMode.ETHER);
@@ -290,8 +324,10 @@ public class GlobalEngine {
 					System.out.println(pokemon.getName()+": curr pp of all moves restored");
 					useItemImpl(itemid, pokemon);
 				}
-				else
+				else{
 					System.out.println(GameData.getItemName(itemid)+" has no effect on "+pokemon.getName());
+					InventoryEngine.cleanUp();
+				}
 			}
 			else if(type==ItemType.VITAMIN){
 				String descrip=GameData.getItemDescription(itemid);
@@ -300,8 +336,10 @@ public class GlobalEngine {
 					System.out.println(pokemon.getName()+": "+descrip+" stat increased");
 					useItemImpl(itemid, pokemon);
 				}
-				else
+				else{
 					System.out.println(GameData.getItemName(itemid)+" has no effect on "+pokemon.getName());
+					InventoryEngine.cleanUp();
+				}
 			}
 			else if(type==ItemType.PPUP){
 				MoveMenu mm=new MoveMenu(pokemon,MoveMenuMode.PPUP);
@@ -332,6 +370,10 @@ public class GlobalEngine {
 				else
 					MenuEngine.initialize(new BreedMenu(pokemon));
 			}
+			else if(type==ItemType.REVIVE){
+				System.out.println(GameData.getItemName(itemid)+" has no effect on "+pokemon.getName());
+				InventoryEngine.cleanUp();
+			}
 		}
 		else if(type==ItemType.REVIVE){
 			pokemon.revive();
@@ -343,6 +385,10 @@ public class GlobalEngine {
 			}
 			useItemImpl(itemid,pokemon);
 		}
+		else{
+			System.out.println(GameData.getItemName(itemid)+" has no effect on "+pokemon.getName());
+			InventoryEngine.cleanUp();
+		}
 	}
 
 	public static int getItemToUse(){
@@ -352,9 +398,8 @@ public class GlobalEngine {
 	public static void setItemToUse(int itemid){
 		itemtouse=itemid;
 	}
-	
+
 	public static void wait(int milliseconds){
-		//TODO: there's gotta be a better way
 		long starttime=System.nanoTime();
 		int count=0;
 		while(System.nanoTime()-starttime<milliseconds*1000000){

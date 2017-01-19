@@ -39,7 +39,6 @@ public class BattlePlayerMenu implements Menu {
 	public void select(short index) {
 		String selected=visibleoptions.get(index);
 		if(selected.equals("Save")){
-			BattleEngine.save();
 			GlobalEngine.save();
 			visibleoptions.set(index,"Game Saved!");
 			MenuEngine.refreshMenu();

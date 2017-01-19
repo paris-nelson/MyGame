@@ -24,7 +24,7 @@ import acm.graphics.GPoint;
 
 public class MapEngine {
 	//turns off wild pokemon encounters for quick testing. Remove when done testing
-	private static final boolean DEBUG=true;
+	private static final boolean DEBUG=false;
 
 	private static short[][] logicalmap;
 	private static short gridx=0;
@@ -38,7 +38,7 @@ public class MapEngine {
 
 	public static void initialize(Location l){
 		System.out.println("Initializing "+l.getName());
-		System.out.println("Repel steps"+repelstepsleft);
+		System.out.println("Repel steps remaining: "+repelstepsleft);
 		logicalmap=new short[Constants.LOGICAL_MAP_WIDTH][Constants.LOGICAL_MAP_HEIGHT];
 		load();
 		showMap(l,true);
@@ -47,6 +47,7 @@ public class MapEngine {
 	}
 
 	private static void load(){
+		System.out.println("Loading map data");
 		File f=new File("InitializeData\\mapsavefile.txt");
 		try{
 			Scanner s=new Scanner(f);
@@ -56,7 +57,7 @@ public class MapEngine {
 			gridyoffset=s.nextShort();
 			s.nextLine();
 			playericonpath=s.nextLine();
-			playericon=new GImage(Constants.PATH+playericonpath);
+			playericon=new GImage(playericonpath);
 			repelstepsleft=s.nextInt();
 			s.close();
 		}catch(Exception e){e.printStackTrace();}
@@ -110,15 +111,15 @@ public class MapEngine {
 			addIconToPosition(Short.valueOf(coordinates.getX()+""),Short.valueOf(coordinates.getY()+""));
 		}
 		loadLogicalMap(location);
-//		System.out.println(logicalmap.length);
-//		for(int y=0;y<logicalmap[0].length;y++){
-//			for(int x=0;x<logicalmap.length;x++){
-//				System.out.print(logicalmap[x][y]);
-//			}
-//			System.out.println();
-//		}
+		//		System.out.println(logicalmap.length);
+		//		for(int y=0;y<logicalmap[0].length;y++){
+		//			for(int x=0;x<logicalmap.length;x++){
+		//				System.out.print(logicalmap[x][y]);
+		//			}
+		//			System.out.println();
+		//		}
 	}
-	
+
 	public static void incRepelSteps(int num){
 		repelstepsleft+=num;
 	}
@@ -141,11 +142,16 @@ public class MapEngine {
 
 	public static void changePlayerIcon(String newpath){
 		playericonpath=newpath;
-		GUI gui=GameData.getGUI();
-		GPoint point=playericon.getLocation();
-		gui.remove(playericon);
-		playericon=new GImage(playericonpath);
-		gui.add(playericon,point);
+		if(playericon!=null){
+			GUI gui=GameData.getGUI();
+			GPoint point=playericon.getLocation();
+			System.out.println(point.getX()+","+point.getY());
+			gui.remove(playericon);
+			playericon=new GImage(playericonpath);
+			gui.add(playericon,point);
+		}
+		else
+			save();
 	}
 
 	private static void movePlayer(int xdelta,int ydelta){
@@ -178,12 +184,10 @@ public class MapEngine {
 				if(validids.size()>0){
 					int index=GameData.getRandom().nextInt(validids.size());
 					Pokemon[] legend={new Pokemon(validids.get(index),40)};
-					MapEngine.close();
 					GlobalEngine.enterBattle(new WildTrainer(legend));
 				}
 			}
 			else if(repelstepsleft==0||PlayerData.getLocation().getMinWildLevel()>=PlayerData.getLeadingPokemon().getLevel()){
-				MapEngine.close();
 				Pokemon[] wildteam=PlayerData.getLocation().encounterWildPokemon(PlayerData.getPartySize(),GameData.getTime());
 				GlobalEngine.enterBattle(new WildTrainer(wildteam));
 			}
@@ -222,8 +226,7 @@ public class MapEngine {
 			else if(nextid<=Constants.NUM_TRAINERS){
 				movePlayer(-movementspeed,0);
 				gridx--;
-				gridxoffset=Short.valueOf(""+(10-movementspeed-gridxoffset));;
-				close();
+				gridxoffset=Short.valueOf(""+(10-movementspeed-gridxoffset));
 				GlobalEngine.enterBattle(PlayerData.getLocation().getTrainerByID(nextid));
 			}
 		}
@@ -262,7 +265,6 @@ public class MapEngine {
 				movePlayer(movementspeed,0);
 				gridx++;
 				gridxoffset=Short.valueOf(""+(gridxoffset+movementspeed-10));
-				close();
 				GlobalEngine.enterBattle(PlayerData.getLocation().getTrainerByID(nextid));
 			}
 		}
@@ -301,7 +303,6 @@ public class MapEngine {
 				movePlayer(0,-movementspeed);
 				gridy--;
 				gridyoffset=Short.valueOf(""+(10-movementspeed-gridxoffset));
-				close();
 				GlobalEngine.enterBattle(PlayerData.getLocation().getTrainerByID(nextid));
 			}
 		}
@@ -338,8 +339,7 @@ public class MapEngine {
 			else if(nextid<=Constants.NUM_TRAINERS){
 				movePlayer(0,movementspeed);
 				gridy++;
-				gridyoffset=Short.valueOf(""+(gridxoffset+movementspeed-10));;
-				close();
+				gridyoffset=Short.valueOf(""+(gridxoffset+movementspeed-10));
 				GlobalEngine.enterBattle(PlayerData.getLocation().getTrainerByID(nextid));
 			}
 		}
@@ -359,6 +359,7 @@ public class MapEngine {
 		PlayerData.save();
 		PlayerData.getLocation().leave();
 		clearMap();
+		playericon=null;
 	}
 
 	/**
@@ -376,7 +377,7 @@ public class MapEngine {
 			MapEngine.showMap(currlocation,false);
 		currlocation.enter();
 	}
-	
+
 	public static void addIconToPosition(short x, short y){
 		GameData.getGUI().add(playericon);
 		setIconToPosition(x,y);
@@ -392,6 +393,7 @@ public class MapEngine {
 
 
 	private static void clearMap(){
+		System.out.println("Clearing Map");
 		GUI gui=GameData.getGUI();
 		GObject object=gui.getElementAt(1,1);
 		while(object!=null&&object instanceof GImage){

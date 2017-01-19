@@ -77,55 +77,55 @@ public class ShopEngine {
 		bg.setFillColor(Color.WHITE);
 		screen.add(bg);
 		GLabel label=new GLabel("SELL");
-		label.setFont(new Font("Dialog",Font.BOLD,20));
+		label.setFont(new Font(Constants.FONT,Font.BOLD,20));
 		screen.add(label,630+(245-label.getWidth())/2,label.getHeight());
 		GLabel label2=new GLabel("BUY");
-		label2.setFont(new Font("Dialog",Font.BOLD,20));
+		label2.setFont(new Font(Constants.FONT,Font.BOLD,20));
 		screen.add(label2,(180-label2.getWidth())/2,label2.getHeight());
 		GLabel label3=new GLabel("TRANSACTION");
-		label3.setFont(new Font("Dialog",Font.BOLD,20));
+		label3.setFont(new Font(Constants.FONT,Font.BOLD,20));
 		screen.add(label3,275+(245-label3.getWidth())/2,label3.getHeight());
 		GLabel header1=new GLabel("Item Name");
 		GLabel header2=new GLabel("Cost");
 		GLabel header3=new GLabel("Qty");
-		header1.setFont(new Font("Dialog",Font.ITALIC,17));
-		header2.setFont(new Font("Dialog",Font.ITALIC,17));
-		header3.setFont(new Font("Dialog",Font.ITALIC,17));
+		header1.setFont(new Font(Constants.FONT,Font.ITALIC,17));
+		header2.setFont(new Font(Constants.FONT,Font.ITALIC,17));
+		header3.setFont(new Font(Constants.FONT,Font.ITALIC,17));
 		screen.add(header1,630,header1.getHeight()+31);
 		screen.add(header2,755,header1.getY());
 		screen.add(header3,820,header1.getY());
 		GLabel header4=new GLabel("Item Name");
 		GLabel header5=new GLabel("Cost");
 		GLabel header6=new GLabel("Qty");
-		header4.setFont(new Font("Dialog",Font.ITALIC,17));
-		header5.setFont(new Font("Dialog",Font.ITALIC,17));
-		header6.setFont(new Font("Dialog",Font.ITALIC,17));
+		header4.setFont(new Font(Constants.FONT,Font.ITALIC,17));
+		header5.setFont(new Font(Constants.FONT,Font.ITALIC,17));
+		header6.setFont(new Font(Constants.FONT,Font.ITALIC,17));
 		screen.add(header4,275,header1.getHeight()+31);
 		screen.add(header5,400,header1.getY());
 		screen.add(header6,465,header1.getY());
 		GLabel clear=new GLabel("Clear");
-		clear.setFont(new Font("Dialog",Font.ITALIC,18));
+		clear.setFont(new Font(Constants.FONT,Font.ITALIC,18));
 		clearbox=new GRect(200,508,75,30);
 		clearbox.setFilled(true);
 		clearbox.setFillColor(Color.WHITE);
 		screen.add(clearbox);
 		screen.add(clear,214,530);
 		GLabel commit=new GLabel("Commit Transaction");
-		commit.setFont(new Font("Dialog",Font.ITALIC,18));
+		commit.setFont(new Font(Constants.FONT,Font.ITALIC,18));
 		commitbox=new GRect(300,508,175,30);
 		commitbox.setFilled(true);
 		commitbox.setFillColor(Color.WHITE);
 		screen.add(commitbox);
 		screen.add(commit,306,530);
 		GLabel exit=new GLabel("Exit Shop");
-		exit.setFont(new Font("Dialog",Font.ITALIC,18));
+		exit.setFont(new Font(Constants.FONT,Font.ITALIC,18));
 		exitbox=new GRect(500,508,100,30);
 		exitbox.setFilled(true);
 		exitbox.setFillColor(Color.WHITE);
 		screen.add(exitbox);
 		screen.add(exit,512,530);
 		footer=new GLabel("");
-		footer.setFont(new Font("Dialog",Font.PLAIN,20));
+		footer.setFont(new Font(Constants.FONT,Font.PLAIN,20));
 		screen.add(footer,10,565);
 	}
 
@@ -167,8 +167,8 @@ public class ShopEngine {
 				count++;
 				GLabel header1=new GLabel("Item Name");
 				GLabel header2=new GLabel("Cost");
-				header1.setFont(new Font("Dialog",Font.ITALIC,17));
-				header2.setFont(new Font("Dialog",Font.ITALIC,17));
+				header1.setFont(new Font(Constants.FONT,Font.ITALIC,17));
+				header2.setFont(new Font(Constants.FONT,Font.ITALIC,17));
 				screen.add(header1,5,header1.getHeight()*count+31);
 				screen.add(header2,130,header1.getY());
 			}
@@ -176,8 +176,8 @@ public class ShopEngine {
 				count++;
 				GLabel label1=new GLabel(GameData.getItemName(i));
 				GLabel label2=new GLabel("$"+buyval);
-				label1.setFont(new Font("Dialog",Font.PLAIN,18));
-				label2.setFont(new Font("Dialog",Font.PLAIN,18));
+				label1.setFont(new Font(Constants.FONT,Font.PLAIN,18));
+				label2.setFont(new Font(Constants.FONT,Font.PLAIN,18));
 				GCompound item=new GCompound();
 				item.add(label1,5,label1.getHeight()*count+31);
 				item.add(label2,130,label1.getY());
@@ -221,9 +221,9 @@ public class ShopEngine {
 			GLabel label1=new GLabel(GameData.getItemName(itemid));
 			GLabel label2=new GLabel("$"+sellval);
 			GLabel label3=new GLabel(quantity+"");
-			label1.setFont(new Font("Dialog",Font.PLAIN,18));
-			label2.setFont(new Font("Dialog",Font.PLAIN,18));
-			label3.setFont(new Font("Dialog",Font.PLAIN,18));
+			label1.setFont(new Font(Constants.FONT,Font.PLAIN,18));
+			label2.setFont(new Font(Constants.FONT,Font.PLAIN,18));
+			label3.setFont(new Font(Constants.FONT,Font.PLAIN,18));
 			GCompound item=new GCompound();
 			item.add(label1,630,label1.getHeight()*count+31);
 			item.add(label2,755,label1.getY());
@@ -249,7 +249,7 @@ public class ShopEngine {
 		transactionInventory=new ArrayList<GCompound>();
 		transactionportion=new GCompound();
 		GLabel buy1pt1=new GLabel("TOTAL:  ");
-		buy1pt1.setFont(new Font("Dialog",Font.PLAIN,20));
+		buy1pt1.setFont(new Font(Constants.FONT,Font.PLAIN,20));
 		total=0;
 		for(int i=0;i<buyIds.size();i++){
 			total-=(buyvals[buyIds.get(i)]*buyQuants.get(i));
@@ -261,7 +261,7 @@ public class ShopEngine {
 			buy1pt2=new GLabel("+$"+total);
 		else
 			buy1pt2=new GLabel("-$"+Math.abs(total));
-		buy1pt2.setFont(new Font("Dialog",Font.PLAIN,20));
+		buy1pt2.setFont(new Font(Constants.FONT,Font.PLAIN,20));
 		if(total<0&&Math.abs(total)>PlayerData.getMoney())
 			buy1pt2.setColor(Color.RED);
 		GCompound buy1=new GCompound();
@@ -271,7 +271,7 @@ public class ShopEngine {
 		GLine horizontal0=new GLine(270,buy1.getY()+3,520,buy1.getY()+3);
 		transactionportion.add(horizontal0);
 		GLabel buy2=new GLabel("BUYING \u2192");
-		buy2.setFont(new Font("Dialog",Font.PLAIN,20));
+		buy2.setFont(new Font(Constants.FONT,Font.PLAIN,20));
 		transactionportion.add(buy2,275+(250-buy2.getWidth())/2,buy1.getY()+buy2.getHeight());
 		GLine horizontal=new GLine(270,buy2.getY()+3,520,buy2.getY()+3);
 		transactionportion.add(horizontal);
@@ -285,9 +285,9 @@ public class ShopEngine {
 			GLabel label1=new GLabel(GameData.getItemName(itemid));
 			GLabel label2=new GLabel("$"+buyval);
 			GLabel label3=new GLabel(quantity+"");
-			label1.setFont(new Font("Dialog",Font.PLAIN,18));
-			label2.setFont(new Font("Dialog",Font.PLAIN,18));
-			label3.setFont(new Font("Dialog",Font.PLAIN,18));
+			label1.setFont(new Font(Constants.FONT,Font.PLAIN,18));
+			label2.setFont(new Font(Constants.FONT,Font.PLAIN,18));
+			label3.setFont(new Font(Constants.FONT,Font.PLAIN,18));
 			GCompound item=new GCompound();
 			item.add(label1,275,label1.getHeight()*count+31);
 			item.add(label2,400,label1.getY());
@@ -299,7 +299,7 @@ public class ShopEngine {
 			bottom=horizontal2.getY();
 		}
 		GLabel buy4=new GLabel("SELLING \u2190");
-		buy4.setFont(new Font("Dialog",Font.PLAIN,20));
+		buy4.setFont(new Font(Constants.FONT,Font.PLAIN,20));
 		transactionportion.add(buy4,275+(250-buy4.getWidth())/2,24*count+31+buy2.getHeight());
 		GLine horizontal3=new GLine(270,buy4.getY()+3,520,buy4.getY()+3);
 		transactionportion.add(horizontal3);
@@ -313,9 +313,9 @@ public class ShopEngine {
 			GLabel label1=new GLabel(GameData.getItemName(itemid));
 			GLabel label2=new GLabel("$"+sellval);
 			GLabel label3=new GLabel(quantity+"");
-			label1.setFont(new Font("Dialog",Font.PLAIN,18));
-			label2.setFont(new Font("Dialog",Font.PLAIN,18));
-			label3.setFont(new Font("Dialog",Font.PLAIN,18));
+			label1.setFont(new Font(Constants.FONT,Font.PLAIN,18));
+			label2.setFont(new Font(Constants.FONT,Font.PLAIN,18));
+			label3.setFont(new Font(Constants.FONT,Font.PLAIN,18));
 			GCompound item=new GCompound();
 			item.add(label1,275,label1.getHeight()*count+31);
 			item.add(label2,400,label1.getY());

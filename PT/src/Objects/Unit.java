@@ -324,8 +324,10 @@ public class Unit {
 		if(stage==6)
 			return false;
 		stage+=stages;
-		if(stage>6)
+		if(stage>6){
 			stage=6;
+			System.out.println(pokemon.getName()+" has hit maximum value for critical ratio");
+		}
 		modstages[7]=stage;
 		return true;
 	}
@@ -335,8 +337,10 @@ public class Unit {
 		if(stage==0)
 			return false;
 		stage-=stages;
-		if(stage<0)
+		if(stage<0){
 			stage=0;
+			System.out.println(pokemon.getName()+" has hit minimum value for critical ratio");
+		}
 		modstages[7]=stage;
 		return true;
 	}
@@ -372,8 +376,10 @@ public class Unit {
 		if(stage==6)
 			return false;
 		stage+=stages;
-		if(stage>6)
+		if(stage>6){
 			stage=6;
+			System.out.println(pokemon.getName()+" has hit maximum value for "+stat.toString());
+		}
 		modstages[index]=stage;
 		return true;
 	}
@@ -405,8 +411,10 @@ public class Unit {
 		if(stage==-6)
 			return false;
 		stage-=stages;
-		if(stage<-6)
+		if(stage<-6){
 			stage=-6;
+			System.out.println(pokemon.getName()+" has hit minimum value for "+stat.toString());
+		}
 		modstages[index]=stage;
 		return true;
 	}

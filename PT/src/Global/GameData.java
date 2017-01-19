@@ -428,7 +428,7 @@ public class GameData {
 	public static int getCatchRate(int pokenum){
 		if(catchrates==null){
 			catchrates=new int[Constants.NUM_POKEMON+1];
-			File f=new File(Constants.PATH+Constants.PATH+"\\InitializeData\\catchrates.txt");
+			File f=new File(Constants.PATH+"\\InitializeData\\catchrates.txt");
 			Scanner s=null;
 			try {
 				s = new Scanner(f);

@@ -116,6 +116,7 @@ public class PlayerData {
 	 */
 	public static boolean addPokemonToParty(Pokemon p){
 		if(party.size()==6){
+			System.out.println("Party full. Moving "+p.getName()+" to the PC");
 			addToPC(p);
 			return false;
 		}

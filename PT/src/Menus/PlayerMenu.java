@@ -52,7 +52,7 @@ public class PlayerMenu implements Menu {
 		}
 		else if(selected.equals("Inventory")){
 			MenuEngine.close();
-			MapEngine.close();
+			//MapEngine.close();
 			InventoryEngine.initialize();
 		}
 	}

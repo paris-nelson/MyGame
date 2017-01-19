@@ -40,5 +40,17 @@ public class LoadExistingBattlefieldMaker implements BattlefieldMaker {
 	public Square[][] getResult() {
 		return bf;
 	}
+	
+	@Override
+	public String toString(){
+		String s="";
+		for(int y=0;y<bf[0].length;y++){
+			for(int x=0;x<bf.length;x++){
+				s+=bf[x][y].toString()+" ";
+			}
+			s+="\n";
+		}
+		return s;
+	}
 
 }

@@ -34,6 +34,7 @@ public class MoveLogic {
 //		HashMap<MoveEffect,HashMap<String,String>> selftargetting=getSelfTargettingEffects();
 		int count=0;
 		damagedone=0;
+		System.out.println("Targets: "+targets.size());
 		for(Unit u:targets){
 			if(doesMoveHit(u,user,move.getNum())){
 				if(count==0){
@@ -359,6 +360,8 @@ public class MoveLogic {
 		}
 		damagedone+=damage;
 		target.damage(damage);
+		Pokemon p=target.getPokemon();
+		System.out.println(p.getName()+" has "+p.getCurrHP()+" HP remaining");
 	}
 
 	private static int calculateHappinessBasedPower(){
@@ -465,7 +468,7 @@ public class MoveLogic {
 		Pokemon attackerpokemon=userpokemon;
 		String param=curreffects.get("Type");
 		//BASE DAMAGE CALCULATION
-		double parta=(2*attackerpokemon.getLevel()+10)/250;
+		double parta=(2*(double)attackerpokemon.getLevel()+10)/250;
 		double partb=0;
 		int att;
 		int def;

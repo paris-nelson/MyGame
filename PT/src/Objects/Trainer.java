@@ -15,7 +15,7 @@ public class Trainer{
 	private int y;
 	private String filelocation;
 	private GImage image;
-	
+
 	public Trainer(short id, String name, Pokemon[] party,
 			int x, int y,String imageFileLocation) {
 		this.id=id;
@@ -24,15 +24,19 @@ public class Trainer{
 		this.x = x;
 		this.y = y;
 		filelocation=imageFileLocation;
-		image=new GImage(imageFileLocation);
-		image.setSize(Constants.TRAINER_ICON_SIZE,Constants.TRAINER_ICON_SIZE);
-		image.setLocation(x, y);
+		if(filelocation==null)
+			image=null;
+		else{
+			image=new GImage(imageFileLocation);
+			image.setSize(Constants.TRAINER_ICON_SIZE,Constants.TRAINER_ICON_SIZE);
+			image.setLocation(x, y);
+		}
 	}
-	
+
 	public short getID(){
 		return id;
 	}
-	
+
 	public GImage getImage(){
 		return image;
 	}
@@ -60,11 +64,11 @@ public class Trainer{
 		}
 		return max;
 	}
-	
+
 	protected String getFileLocation(){
 		return filelocation;
 	}
-	
+
 	public String toString(){
 		String s="Trainer: "+id+" "+name+" "+x+" "+y+" "+filelocation;
 		for(Pokemon p:party){
@@ -73,7 +77,7 @@ public class Trainer{
 		s+="\n End Trainer";
 		return s;
 	}
-	
+
 	public static Trainer readInTrainer(Scanner s){
 		short currid=s.nextShort();
 		String currname=s.next();
