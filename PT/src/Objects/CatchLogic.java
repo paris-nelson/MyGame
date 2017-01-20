@@ -171,14 +171,14 @@ public class CatchLogic {
 		return 1048560/(Math.sqrt((int)Math.sqrt(16711680/a)));
 	}
 
-	private static double calculateA(Pokemon target, double ballbonus){
-		double a=3*target.getStat(Stat.HP)-2*target.getCurrHP();
-		System.out.println("3 * "+target.getStat(Stat.HP)+" - 2 * "+target.getCurrHP()+" = "+a);
-		a*=GameData.getCatchRate(target.getNum());
-		System.out.println("a * "+GameData.getCatchRate(target.getNum())+" = "+a);
+	private static double calculateA(Pokemon targetp, double ballbonus){
+		double a=3*targetp.getStat(Stat.HP)-2*targetp.getCurrHP();
+		System.out.println("3 * "+targetp.getStat(Stat.HP)+" - 2 * "+targetp.getCurrHP()+" = "+a);
+		a*=GameData.getCatchRate(targetp.getNum());
+		System.out.println("a * "+GameData.getCatchRate(targetp.getNum())+" = "+a);
 		a*=ballbonus;
 		System.out.println("a * "+ballbonus+" = "+a);
-		PermCondition condition=target.getPcondition();
+		PermCondition condition=targetp.getPcondition();
 		if(condition==PermCondition.Frozen||condition==PermCondition.Sleep){
 			a*=2;
 			System.out.println("a * 2 = "+a);
@@ -187,8 +187,15 @@ public class CatchLogic {
 			a*=1.5;
 			System.out.println("a * 1.5 = "+a);
 		}
-		a/=(3*target.getStat(Stat.HP));
-		System.out.println("a / (3 * "+target.getStat(Stat.HP)+") = "+a);
+		a/=(3*targetp.getStat(Stat.HP));
+		System.out.println("a / (3 * "+targetp.getStat(Stat.HP)+") = "+a);
+		Unit tocatch=BattleEngine.getUnitByID(battlefield[target.getX()][target.getY()].getUnit());
+		if(activeunit.isFlanking(tocatch))
+			a*=1;
+		else if(activeunit.isFacing(tocatch))
+			a*=Constants.FRONT_FACING_ACCURACY_RATE;
+		else
+			a*=Constants.SIDE_FACING_ACCURACY_RATE;
 		return a;
 	}
 }

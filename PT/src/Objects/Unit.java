@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import Engines.BattleEngine;
 import Enums.BondCondition;
 import Enums.Direction;
 import Enums.PermCondition;
@@ -59,10 +60,12 @@ public class Unit {
 		modstages=new int[8];
 		calculateMovementRange();
 		conditions=new HashMap<String,Integer>();
+		if(pokemon.getPcondition()!=null)
+			addPermCondition(pokemon.getPcondition());
 		bondconditions=new HashMap<BondCondition,Integer>();
 		protectionconditions=new HashMap<ProtectionCondition,Integer>();
 		controllable=true;
-		directionfacing=Direction.Down;
+		directionfacing=Direction.Left;
 		hasmoved=false;
 		hastakenaction=false;
 		types=GameData.getTypes(pokemon.getNum());
@@ -80,7 +83,7 @@ public class Unit {
 		israging=false;
 		consecuses=0;
 		ischarging=false;
-		image=new GImage(Constants.PATH+"\\Sprites\\"+pokemon.getNum()+".png");
+		image=new GImage(Constants.PATH+"\\Left\\Sprites\\"+pokemon.getNum()+".png");
 	}
 
 	public Unit(Pokemon p,int[] modstag,int moverange,HashMap<String,Integer> conds,HashMap<BondCondition,Integer> bondconds,int id,
@@ -113,49 +116,49 @@ public class Unit {
 		israging=raging;
 		consecuses=consec;
 		ischarging=charging;
-		image=new GImage(Constants.PATH+"\\Sprites\\"+pokemon.getNum()+".png");
+		image=new GImage(Constants.PATH+"\\Left\\Sprites\\"+pokemon.getNum()+".png");
 		if(min)
 			image.setSize(image.getWidth()*Constants.MINIMIZE_RATIO, image.getHeight()*Constants.MINIMIZE_RATIO);
 	}
-	
+
 	public void copyStatMods(Unit other){
 		for(int i=0;i<modstages.length;i++){
 			modstages[i]=other.modstages[i];
 		}
 	}
-	
+
 	public boolean isCharging(){
 		return ischarging;
 	}
-	
+
 	public void setCharging(boolean newval){
 		ischarging=newval;
 	}
-	
+
 	public int getNumConsecUses(){
 		return consecuses;
 	}
-	
+
 	public void incNumConsecUses(){
 		consecuses++;
 	}
-	
+
 	public void resetConsecUses(){
 		consecuses=0;
 	}
-	
+
 	public boolean isRaging(){
 		return israging;
 	}
-	
+
 	public void setRaging(boolean newval){
 		israging=newval;
 	}
-	
+
 	public boolean isMinimized(){
 		return isminimized;
 	}
-	
+
 	public void setMinimized(boolean newval){
 		isminimized=newval;
 	}
@@ -222,11 +225,11 @@ public class Unit {
 		protectionconditions.put(condition,0);
 		return true;
 	}
-	
+
 	public boolean hasProtectionCondition(ProtectionCondition condition){
 		return protectionconditions.containsKey(condition);
 	}
-	
+
 	public boolean removeProtectionCondition(ProtectionCondition condition){
 		return protectionconditions.remove(condition)!=null;
 	}
@@ -452,7 +455,7 @@ public class Unit {
 			return (int)(GameData.getStatStageMultiplier(modstages[index])*pokemon.getStats()[index+1]);
 		else return -1;
 	}
-	
+
 	public void clearStatMods(){
 		modstages=new int[8];
 	}
@@ -492,7 +495,7 @@ public class Unit {
 	public boolean removeTempCondition(TempCondition condition){
 		return conditions.remove(condition.toString())!=null;
 	}
-	
+
 	/**
 	 * Attempts to inflict the given nonvolatile status condition on the unit. If it already has a perm condition, the method fails
 	 * @param newcondition
@@ -500,8 +503,8 @@ public class Unit {
 	 */
 	public boolean addPermCondition(PermCondition newcondition){
 		if((newcondition==PermCondition.Burn&&types.contains(Type.Fire))||(newcondition==PermCondition.Frozen&&types.contains(Type.Ice))
-			||(newcondition==PermCondition.Paralysis&&types.contains(Type.Electric))||(newcondition==PermCondition.Poison&&types.contains(Type.Poison))
-			||(newcondition==PermCondition.BadlyPoison&&types.contains(Type.Poison)))
+				||(newcondition==PermCondition.Paralysis&&types.contains(Type.Electric))||(newcondition==PermCondition.Poison&&types.contains(Type.Poison))
+				||(newcondition==PermCondition.BadlyPoison&&types.contains(Type.Poison)))
 			return false;
 		if(!pokemon.setPcondition(newcondition))
 			return false;
@@ -539,7 +542,12 @@ public class Unit {
 	}
 
 	public void setDirectionFacing(Direction newdirection){
-		directionfacing=newdirection;
+		if(directionfacing!=newdirection){
+			BattleEngine.moveOffSquare(this,coordinates.getX(),coordinates.getY());
+			directionfacing=newdirection;
+			image=new GImage(Constants.PATH+"\\"+newdirection.toString()+"\\Sprites\\"+pokemon.getNum()+".png");
+			BattleEngine.moveOnSquare(this,coordinates.getX(),coordinates.getY());
+		}
 	}
 
 	public boolean hasMoved(){
@@ -598,19 +606,27 @@ public class Unit {
 	public int getID(){
 		return id;
 	}
-	
+
 	public boolean isFlanking(Unit other){
-		int ydiff=Math.abs(coordinates.getY()-other.coordinates.getY());
-		int xdiff=Math.abs(coordinates.getX()-other.coordinates.getX());
-		return ydiff<=xdiff;
+		if((other.directionfacing==Direction.Left&&coordinates.getX()>other.coordinates.getX())
+				||(other.directionfacing==Direction.Right&&coordinates.getX()<other.coordinates.getX())){
+			int ydiff=Math.abs(coordinates.getY()-other.coordinates.getY());
+			int xdiff=Math.abs(coordinates.getX()-other.coordinates.getX());
+			return ydiff<=xdiff;
+		}
+		return false;
 	}
-	
+
 	public boolean isFacing(Unit other){
+		if((other.directionfacing==Direction.Left&&coordinates.getX()<other.coordinates.getX())
+				||(other.directionfacing==Direction.Right&&coordinates.getX()>other.coordinates.getX())){
 		int ydiff=Math.abs(coordinates.getY()-other.coordinates.getY());
 		int xdiff=Math.abs(coordinates.getX()-other.coordinates.getX());
 		return ydiff<=xdiff-1;
 	}
-	
+	return false;
+	}
+
 	public boolean equals(Unit other){
 		return id==other.id;
 	}

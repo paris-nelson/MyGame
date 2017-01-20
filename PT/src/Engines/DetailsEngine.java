@@ -52,10 +52,10 @@ public class DetailsEngine {
 		//create objects, no position or formatting
 		GImage sprite=null;
 		try{
-			sprite=new GImage(Constants.PATH+"Sprites\\"+pokemon.getNum()+".png");
+			sprite=new GImage(Constants.PATH+"Left\\Sprites\\"+pokemon.getNum()+".png");
 		}
 		catch(Exception e){
-			sprite=new GImage(Constants.PATH+"Sprites\\180.png");
+			sprite=new GImage(Constants.PATH+"Left\\Sprites\\180.png");
 		}
 		sprite.setSize(75,75);
 		GLabel hp=new GLabel("HP:");

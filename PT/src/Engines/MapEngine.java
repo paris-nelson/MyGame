@@ -195,6 +195,8 @@ public class MapEngine {
 	}
 
 	public static void moveLeft(){
+		if(!playericonpath.contains("Left"))
+			changePlayerIcon(playericonpath.replace("\\Right\\","\\Left\\"));
 		if(gridxoffset>=movementspeed){
 			movePlayer(-movementspeed,0);
 			gridxoffset-=movementspeed;
@@ -233,6 +235,8 @@ public class MapEngine {
 	}
 
 	public static void moveRight(){
+		if(!playericonpath.contains("Right"))
+			changePlayerIcon(playericonpath.replace("\\Left\\","\\Right\\"));
 		if(gridxoffset<(10-movementspeed)){
 			movePlayer(movementspeed,0);
 			gridxoffset+=movementspeed;

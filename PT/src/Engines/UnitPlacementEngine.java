@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 
+import Enums.Direction;
 import Global.Constants;
 import Global.GameData;
 import KeyListeners.UnitPlacementKeyListener;
@@ -164,8 +165,10 @@ public class UnitPlacementEngine {
 	public static void close(){
 		ArrayList<Unit> newpunits=new ArrayList<Unit>();
 		for(Unit u:tempunits){
-			if(u!=null)
+			if(u!=null){
+				u.setDirectionFacing(Direction.Left);
 				newpunits.add(u);
+			}
 		}
 		BattleEngine.continueInit(newpunits);
 	}

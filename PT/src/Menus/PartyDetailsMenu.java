@@ -57,7 +57,7 @@ public class PartyDetailsMenu implements Menu {
 //			MenuEngine.refreshMenu();
 			MenuEngine.close();
 			DetailsEngine.close();
-			MapEngine.changePlayerIcon(Constants.PATH+"Sprites\\"+pokemon.getNum()+".png");
+			MapEngine.changePlayerIcon(Constants.PATH+"Left\\Sprites\\"+pokemon.getNum()+".png");
 			MenuEngine.initialize(new PartyMenu(mode));
 		}
 		else if(selected.equals("Release")){

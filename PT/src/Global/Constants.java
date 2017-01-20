@@ -21,7 +21,6 @@ public class Constants {
 	public static final int SCREEN_WIDTH=1325;
 	public static final int SCREEN_HEIGHT=1000;
 	public static final String PATH=System.getProperty("user.dir")+"\\";
-			//"C:\\Users\\paris.nelson\\Documents\\PT\\PT\\";
 	public static final int MAX_MONEY=999999;
 	public static final String FONT="Dialog";
 	

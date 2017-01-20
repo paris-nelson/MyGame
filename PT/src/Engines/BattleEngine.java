@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Enums.Direction;
 import Enums.PermCondition;
 import Enums.Stat;
 import Enums.Tile;
@@ -20,7 +21,6 @@ import Objects.BattleMovementLogic;
 import Objects.BattlefieldMaker;
 import Objects.CatchLogic;
 import Objects.EliteTrainer;
-import Objects.Helper;
 import Objects.IntPair;
 import Objects.LoadExistingBattlefieldMaker;
 import Objects.Move;
@@ -243,6 +243,9 @@ public class BattleEngine {
 		case 3:moveOnSquare(ounits.get(2),0,Constants.BATTLEFIELD_HEIGHT/2+1);
 		case 2:moveOnSquare(ounits.get(1),0,Constants.BATTLEFIELD_HEIGHT/2-1);
 		case 1:moveOnSquare(ounits.get(0),0,Constants.BATTLEFIELD_HEIGHT/2);
+		}
+		for(Unit u:ounits){
+			u.setDirectionFacing(Direction.Right);
 		}
 	}
 
