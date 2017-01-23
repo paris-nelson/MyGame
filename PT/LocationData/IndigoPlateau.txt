@@ -1,5 +1,5 @@
 ID: 260
-Type: Kanto
+Type: Kanto 19,3
 Event: RivalEncounter7
 Trainers: 
 End Trainers

@@ -29,6 +29,15 @@ public class PlayerData {
 	private static HashMap<Requirement, Boolean> requirementsmet=new HashMap<Requirement, Boolean>();
 	private static int money=0;
 	private static Pokemon leadingpokemon=null;
+	private static LocationName lastTown;
+	
+	public static LocationName getLastTown(){
+		return lastTown;
+	}
+	
+	public static void setLastTown(LocationName newval){
+		lastTown=newval;
+	}
 
 	public static boolean hasClearedEvent(EventName name){
 		if(eventscleared.containsKey(name))
@@ -96,12 +105,14 @@ public class PlayerData {
 	public static void changeLocation(LocationName ln){
 		if(ln==prevlocation.getName()){
 			Location temp=location;
-			PlayerData.setLocation(prevlocation);
-			PlayerData.setPrevLocation(temp);
+			setLocation(prevlocation);
+			setPrevLocation(temp);
 		}
 		else{
-			PlayerData.setPrevLocation(location);
-			PlayerData.setLocation(new Location(ln));
+			if(ln.toString().contains("City")||ln.toString().contains("Town")||ln==LocationName.IndigoPlateau||ln==LocationName.CinnabarIsland)
+				setLastTown(ln);
+			setPrevLocation(location);
+			setLocation(new Location(ln));
 		}
 	}
 
@@ -219,6 +230,7 @@ public class PlayerData {
 			out.println(Arrays.toString(hasCaught));
 			out.println(prevlocation.getName().toString());
 			out.println(location.getName().toString());
+			out.println(lastTown.toString());
 			out.println(Arrays.toString(trainersbeaten));
 			out.println(eventscleared);
 			out.println(requirementsmet);
@@ -244,6 +256,7 @@ public class PlayerData {
 			hasCaught=readBoolArray(reader.nextLine());
 			prevlocation=new Location(LocationName.valueOf(reader.nextLine()));
 			location=new Location(LocationName.valueOf(reader.nextLine()));
+			lastTown=LocationName.valueOf(reader.nextLine());
 			trainersbeaten=readBoolArray(reader.nextLine());
 			eventscleared=readEventsMap(reader.nextLine());
 			requirementsmet=readRequirementsMap(reader.nextLine());

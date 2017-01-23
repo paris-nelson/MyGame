@@ -537,6 +537,16 @@ public class GameData {
 			loadItemStrings();
 		return itemstrings[itemnum][0];
 	}
+	
+	public static int getItemNum(String name){
+		if(itemstrings==null)
+			loadItemStrings();
+		for(int i=1;i<Constants.NUM_ITEMS;i++){
+			if(itemstrings[i][0].equals(name))
+				return i;
+		}
+		return -1;
+	}
 
 	public static ItemType getItemType(int itemnum){
 		if(itemstrings==null)

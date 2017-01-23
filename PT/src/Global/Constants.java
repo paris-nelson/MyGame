@@ -33,6 +33,8 @@ public class Constants {
 	public static final int LOGICAL_MAP_WIDTH=125;
 	public static final int LOGICAL_MAP_HEIGHT=58;
 	public static final int LOGICAL_MAP_RATIO=10;
+	public static final int POISON_HP_LOSS_RATE=4;
+	public static final int POISON_HP_LOSS_AMOUNT=1;
 
 	//BattleEngine params
 	public static final int BATTLEFIELD_WIDTH=12;
@@ -70,6 +72,7 @@ public class Constants {
 	public static final int SPITE_MIN_PP=2;
 	public static final int SPITE_MAX_PP=5;
 	public static final int THIEF_STEAL_CHANCE=100;
+	public static final int KNOCKBACK_DISTANCE=2;
 	
 	//item specific constants
 	public static final double LEFTOVERS_HP_RECOV_RATE=.0833;

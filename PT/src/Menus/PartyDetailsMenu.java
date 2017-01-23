@@ -53,8 +53,6 @@ public class PartyDetailsMenu implements Menu {
 		}
 		else if(selected.equals("Make Leading Pokemon")){
 			PlayerData.setLeadingPokemon(pokemon);
-//			visibleoptions.set(index,"Leading Pokemon Set!");
-//			MenuEngine.refreshMenu();
 			MenuEngine.close();
 			DetailsEngine.close();
 			MapEngine.changePlayerIcon(Constants.PATH+"Left\\Sprites\\"+pokemon.getNum()+".png");

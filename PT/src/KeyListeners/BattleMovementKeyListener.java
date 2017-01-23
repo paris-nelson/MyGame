@@ -3,7 +3,7 @@ package KeyListeners;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import Engines.MapEngine;
+import Engines.BattleEngine;
 import Global.ControlsConfig;
 import Objects.BattleMovementLogic;
 
@@ -28,6 +28,8 @@ public class BattleMovementKeyListener implements KeyListener{
 			BattleMovementLogic.confirmMovement();
 		else if(key==ControlsConfig.BACK)
 			BattleMovementLogic.cancelMovement();
+		else if(key==KeyEvent.VK_G)
+			BattleEngine.lose();
 	}
 
 	@Override

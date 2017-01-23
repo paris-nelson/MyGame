@@ -8,20 +8,17 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import Engines.GlobalEngine;
-import Engines.InventoryEngine;
-import Engines.MapEngine;
 import Global.Constants;
 import Global.GameData;
-import acm.graphics.GRect;
+import Global.PlayerData;
 
 public class Helper {
 	public static void main(String[] args) throws IOException{
 		
-		System.out.println(System.getProperty("user.dir"));
+
 		
-		//TODO: add logic to carry over permconditions. unit should init with permconditions of the pokemon
-		//poisoned/badly poisoned pokemon should take damage on mapengine steps (also burned?)
-		//TODO: Also if leading pokemon faints in battle, should they be replaced? what if they have a status condition
+		
+		//TODO: poisoned/badly poisoned pokemon should take damage on mapengine steps (also burned?)
 		
 //		LinkedHashMap<MoveEffect,LinkedHashMap<String,String>> effects=GameData.getMoveEffects(158);
 //		
@@ -31,6 +28,7 @@ public class Helper {
 
 				
 		GlobalEngine.initialize();
+		System.out.println(PlayerData.getMoney());
 //		Pokemon p=new Pokemon(120,5);
 //		System.out.println(GlobalEngine.evolve(p,"Water"));
 //		System.out.println(p.getNum());

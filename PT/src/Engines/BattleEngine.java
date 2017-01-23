@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Enums.Direction;
+import Enums.EventName;
 import Enums.PermCondition;
+import Enums.Requirement;
 import Enums.Stat;
 import Enums.Tile;
 import Enums.Type;
@@ -181,7 +183,7 @@ public class BattleEngine {
 		System.out.println(activeunit.getPokemon().getName()+" ("+activeindex+" in order) taking turn");
 		MoveLogic.startOfTurnActions(activeunit);
 		if(activeunit.getPokemon().isFainted())
-			nextTurn();
+			endTurn();
 		else if(activeunit.isDigging()||activeunit.isFlying()||activeunit.isCharging()){
 			if(activeunit.isDigging()){
 				System.out.println(activeunit.getPokemon().getName()+" surfaces to attack.");
@@ -283,11 +285,11 @@ public class BattleEngine {
 			File f=new File(Constants.PATH+"\\InitializeData\\battlesavefile.txt");
 			Scanner s=new Scanner(f);
 			String curr=s.next();
-			if(curr.equals("WildTrainer"))
+			if(curr.equals("WildTrainer:"))
 				opponent=WildTrainer.readInTrainer(s);
-			else if(curr.equals("EliteTrainer"))
+			else if(curr.equals("EliteTrainer:"))
 				opponent=EliteTrainer.readInTrainer(s);
-			else
+			else if(curr.equals("Trainer:"))
 				opponent=Trainer.readInTrainer(s);
 			System.out.println("Initializing previous battle against "+opponent.getName());
 			curr=s.next();
@@ -496,19 +498,24 @@ public class BattleEngine {
 
 	public static void endTurn(){
 		activeunit.setHasEndedTurn(true);
-		MoveLogic.endOfTurnActions(activeunit);
-		nextTurn();
+		if(!activeunit.getPokemon().isFainted())
+			MoveLogic.endOfTurnActions(activeunit);
+		else
+			nextTurn();
+	}
+	
+	public static boolean canMoveTo(Unit u,IntPair square){
+		return canMoveTo(u,battlefield[square.getX()][square.getY()]);
 	}
 
-
-	public static boolean canMoveTo(Square square){
+	public static boolean canMoveTo(Unit u,Square square){
 		if(square.getUnit()>-1)
 			return false;
 		if(square.getTileType()==Tile.Rock||square.getTileType()==Tile.Tree)
 			return false;
-		if(square.getTileType()==Tile.Water&&!activeunit.isType(Type.Water))
+		if(square.getTileType()==Tile.Water&&!u.isType(Type.Water))
 			return false;
-		if(square.getTileType()==Tile.Lava&&!activeunit.isType(Type.Fire))
+		if(square.getTileType()==Tile.Lava&&!u.isType(Type.Fire))
 			return false;
 		//TODO: Implement logic so that flyers can move over water/lava tiles, but cannot stop on them
 		//add check in confirmMovement that either disallows movement and/or gives prompt to user that 
@@ -551,14 +558,15 @@ public class BattleEngine {
 
 	public static void win(){
 		System.out.println("Player won the battle against "+opponent.getName());
-		//TODO:
 		GlobalEngine.defeatedTrainer(opponent);
 		close();
 		MapEngine.initialize(PlayerData.getLocation());
 	}
 
-	private static void lose(){
-		//TODO:
+	public static void lose(){
+		System.out.println("Player lost the battle against "+opponent.getName());
+		GlobalEngine.loseMoney();
+		close();
 	}
 
 	public static void flee(){
@@ -568,10 +576,33 @@ public class BattleEngine {
 	}
 
 	public static void close(){
+		GlobalEngine.giveUpControl();
 		System.out.println("Ending battle");
+		GameData.getGUI().remove(battlefieldimage);
 		inbattle=false;
 		File f=new File(Constants.PATH+"\\InitializeData\\battlesavefile.txt");
 		if(f.exists())
 			f.delete();
+		GlobalEngine.updateLeadingPokemon();
+		delete();
+	}
+	
+	public static void delete(){
+		for(Unit u:allunits){
+			u.delete();
+		}
+		opponent=null;
+		punits=null;
+		ounits=null;
+		allunits=null;
+		priorities=null;
+		activeunit=null;
+		battlefieldimage=null;
+		battlefield=null;
+		bfmaker=null;
+		MoveLogic.delete();
+		CatchLogic.delete();
+		BattleAttackLogic.delete();
+		BattleMovementLogic.delete();
 	}
 }

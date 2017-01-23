@@ -1,5 +1,5 @@
 ID: 269
-Type: Kanto
+Type: Kanto 73,47
 Event: N/A
 Trainers: 
 End Trainers

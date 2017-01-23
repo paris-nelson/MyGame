@@ -1,5 +1,5 @@
 ID: 255
-Type: Johto
+Type: Johto 12,39
 Event: N/A
 Trainers: 
 End Trainers

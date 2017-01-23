@@ -31,7 +31,6 @@ public class MoveLogic {
 		targets=thistargets;
 		move=thismove;
 		effects=GameData.getMoveEffects(move.getNum());
-//		HashMap<MoveEffect,HashMap<String,String>> selftargetting=getSelfTargettingEffects();
 		int count=0;
 		damagedone=0;
 		System.out.println("Targets: "+targets.size());
@@ -60,12 +59,6 @@ public class MoveLogic {
 				user.resetConsecUses();
 			}
 		}
-//		//do self targetting effects last
-//		for(MoveEffect effect:selftargetting.keySet()){
-//			if(effect==MoveEffect.MissRecoil&&count>0)
-//				continue;
-//			implement(effect,selftargetting.get(effect),user);
-//		}
 	}
 
 	/**
@@ -178,15 +171,23 @@ public class MoveLogic {
 			user.setRaging(true);
 		}
 		else if(effect==MoveEffect.BatonPass){
-			System.out.println(userpokemon.getName()+" swapping positions with "+target.getPokemon().getName());
-			swapPositions(user,target);
+			if(BattleEngine.canMoveTo(user,target.getCoordinates())&&BattleEngine.canMoveTo(target,user.getCoordinates())){
+				System.out.println(userpokemon.getName()+" swapping positions with "+target.getPokemon().getName());
+				swapPositions(user,target);
+			}
+			else
+				System.out.println("One or more illegal destinations involved in psoition swamp between "+userpokemon.getName()+" and "+target.getPokemon().getName());
 		}
 		else if(effect==MoveEffect.RandomSwap){
 			ArrayList<Unit> options=BattleEngine.getFriendlyUnits(target);
 			options.remove(target);
 			Unit othertarget=options.get(GameData.getRandom().nextInt(options.size()));
+			if(BattleEngine.canMoveTo(target,othertarget.getCoordinates())&&BattleEngine.canMoveTo(othertarget,target.getCoordinates())){
 			System.out.println(othertarget.getPokemon().getName()+" swapping positions with "+target.getPokemon().getName());
 			swapPositions(othertarget,target);
+			}
+			else
+				System.out.println("One or more illegal destinations involved in psoition swamp between "+othertarget.getPokemon().getName()+" and "+target.getPokemon().getName());
 		}
 		else if(effect==MoveEffect.Dig&&!user.isDigging()){
 			user.setDigging(true);
@@ -818,5 +819,14 @@ public class MoveLogic {
 			if(activeunit.hasAttacked())
 				activeunit.incNumTurnsAfflicted(TempCondition.Disable.toString());
 		}
+	}
+	
+	public static void delete(){
+		user=null;
+		userpokemon=null;
+		targets=null;
+		move=null;
+		effects=null;
+		curreffects=null;
 	}
 }

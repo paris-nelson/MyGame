@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import Engines.BattleEngine;
+import Engines.GlobalEngine;
 import Engines.MenuEngine;
 import Enums.MoveMenuMode;
 import Enums.PermCondition;
@@ -368,6 +369,7 @@ public class BattleAttackLogic {
 	}
 
 	public static void confirmAttackRange(boolean cancellable){
+		GlobalEngine.giveUpControl();
 		ArrayList<Unit> targets=new ArrayList<Unit>();
 		for(IntPair pair:validtargets){
 			Square s=battlefield[pair.getX()][pair.getY()];
@@ -398,7 +400,7 @@ public class BattleAttackLogic {
 		}
 		else if(name.equals("Teleport")){
 			IntPair destination=validtargets.get(0);
-			if(BattleEngine.canMoveTo(battlefield[destination.getX()][destination.getY()])){
+			if(BattleEngine.canMoveTo(activeunit,destination)){
 				System.out.println(activeunit.getPokemon().getName()+" uses to teleport to move to the square at "+destination.toString());
 				BattleEngine.moveOffSquare(activeunit,activeunit.getCoordinates().getX(),activeunit.getCoordinates().getY());
 				BattleEngine.moveOnSquare(activeunit,destination.getX(),destination.getY());
@@ -481,5 +483,14 @@ public class BattleAttackLogic {
 		damage+=2;
 		System.out.println(activeunit.getPokemon().getName()+" hits itself for "+damage+" damage");
 		return damage;
+	}
+	
+	public static void delete(){
+		attackselection=null;
+		epicenter=null;
+		validtargets=null;
+		currattack=null;
+		activeunit=null;
+		battlefield=null;
 	}
 }

@@ -34,25 +34,7 @@ public class GUI extends GraphicsProgram{
 		System.out.println(label.getHeight());
 	}
 
-	public void doStuff(){
-//		GRect test=new GRect(1100,0,200,400);
-//		test.setFilled(true);
-//		test.setColor(Color.BLUE);
-//		add(test);
-//		GCompound test2=new GCompound();
-//		for(int i=0;i<8;i++){
-//			GLabel label=new GLabel("Enter Rocket Hideout 2 Entrance");
-//			label.setColor(Color.WHITE);
-//			//label.setFont(new Font(Constants.FONT,Font.PLAIN,24));
-//			test2.add(label,1100,25+50*i);
-//			GLine line=new GLine(1100,50*i,1300,50*i);
-//			line.setColor(Color.WHITE);
-//			test2.add(line);
-//		}
-//		add(test2);
-//		pause(1000);
-//		test2.move(-100,100);
-	}
+
 
 	public void giveControl(KeyListener kl){
 		GCanvas canvas=getGCanvas();

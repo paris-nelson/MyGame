@@ -2,13 +2,13 @@ package Engines;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import Enums.EventName;
 import Enums.ItemType;
 import Enums.LocationName;
 import Enums.MoveMenuMode;
 import Enums.PermCondition;
+import Enums.Requirement;
 import Enums.Stat;
 import Global.Constants;
 import Global.ControlsConfig;
@@ -16,8 +16,8 @@ import Global.GameData;
 import Global.PlayerData;
 import Menus.BreedMenu;
 import Menus.MoveMenu;
-import Menus.UnitMenu;
 import Objects.EliteTrainer;
+import Objects.EventLogic;
 import Objects.Location;
 import Objects.Move;
 import Objects.Pokemon;
@@ -90,14 +90,7 @@ public class GlobalEngine {
 	public static void triggerEvent(EventName event){
 		save();
 		//TODO
-		if(event.toString().startsWith("RivalEncounter")){
-			File f=new File(Constants.PATH+"EventData\\"+event.toString()+".txt");
-			EliteTrainer rival=null;
-			try{
-				rival=EliteTrainer.readInTrainer(new Scanner(f));
-			}catch(Exception e){e.printStackTrace();}
-			GlobalEngine.enterBattle(rival);
-		}
+		EventLogic.triggerEvent(event);
 	}
 
 	public static void defeatedTrainer(Trainer defeated){
@@ -138,6 +131,32 @@ public class GlobalEngine {
 		System.out.println("Player receives a bonus of "+paydaybonus+" from uses of Pay Day.");
 		System.out.println("Player gains "+(highestlevel*base*mod+paydaybonus)+" money for beating "+defeated.getName());
 		PlayerData.gainMoney(highestlevel*base*mod+paydaybonus);
+	}
+	
+	public static void loseMoney(){
+		int loss=-1;
+		if(PlayerData.hasMetRequirement(Requirement.PlainBadge))
+			loss=PlayerData.getMoney()/2;
+		else
+			loss=PlayerData.getMoney()/3;
+		System.out.println("Player loses "+loss+" money");
+		PlayerData.loseMoney(loss);
+	}
+	
+	public static void updateLeadingPokemon(){
+		ArrayList<Pokemon> party=PlayerData.getParty();
+		ArrayList<Pokemon> alive=new ArrayList<Pokemon>();
+		for(Pokemon p: party){
+			if(!p.isFainted())
+				alive.add(p);
+		}
+		if(alive.size()==0)
+			triggerEvent(EventName.BlackOut);
+		else if(!alive.contains(PlayerData.getLeadingPokemon())){
+			PlayerData.setLeadingPokemon(alive.get(0));
+			MapEngine.changePlayerIcon(Constants.PATH+"Left\\Sprites\\"+alive.get(0).getNum()+".png");
+		}
+		
 	}
 
 	private static void rewardLoot(Trainer defeated){
@@ -397,6 +416,11 @@ public class GlobalEngine {
 
 	public static void setItemToUse(int itemid){
 		itemtouse=itemid;
+	}
+	
+	public static void giveUpControl(){
+		GUI gui=GameData.getGUI();
+		gui.giveControl(null);
 	}
 
 	public static void wait(int milliseconds){

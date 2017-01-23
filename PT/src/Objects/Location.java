@@ -25,26 +25,27 @@ public class Location {
 	private EventName event;
 	private boolean haswilds;
 	private MapType type;
-	
+
 	//when leaving a cave/forest/etc, what locations do you end up in
 	private ArrayList<LocationName> endpoints;
-	//when leaving a cave/forest/etc, where should player icon be moved to
-	private ArrayList<IntPair> outputcoordinates;
-	
+	//when leaving a cave/forest/etc, where should player icon be moved to; in the case of a town/city, it's the coordinates the icon is
+	//moved to when entering this place
+	private ArrayList<IntPair> coordinates;
+
 	private int lvlmin;
 	private int lvlmax;
 	private int[] mornwild;
 	private int[] daywild;
 	private int[] nightwild;
-	
+
 	private Menu menu;
-	
-	
+
+
 	public Location(LocationName name){
 		this.name=name;
 		loadLocationData();
 	}
-	
+
 	public void enter(){
 		activateTrainers();
 		if(menu!=null)
@@ -52,59 +53,59 @@ public class Location {
 		if(event!=null&&!PlayerData.hasClearedEvent(event))
 			GlobalEngine.triggerEvent(event);
 	}
-	
+
 	public void leave(){
 		deactivateTrainers();
 	}
-	
+
 	public void deactivateTrainers(){
 		for(Trainer t:trainers)
 			MapEngine.removeTrainerFromMap(t,id);
 	}
-	
+
 	public void activateTrainers(){
 		for(Trainer t:trainers){
 			if(!PlayerData.hasBeatenTrainer(t.getID())||t.getName().startsWith("Elite Four "))
 				MapEngine.addTrainerToMap(t);
 		}
 	}
-	
+
 	public void reactivateTrainers(){
 		for(Trainer t:trainers){
 			if(PlayerData.hasBeatenTrainer(t.getID())&&!(t instanceof EliteTrainer))
 				MapEngine.addTrainerToMap(t);
 		}
 	}
-	
+
 	public int getMinWildLevel(){
 		return lvlmin;
 	}
-	
+
 	public EventName getEvent(){
 		return event;
 	}
-	
+
 	public short getID(){
 		return id;
 	}
-	
+
 	public MapType getType(){
 		return type;
 	}
-	
+
 	public ArrayList<LocationName> getEndpoints(){
 		return endpoints;
 	}
-	
-	public ArrayList<IntPair> getOutputCoordinates(){
-		return outputcoordinates;
+
+	public ArrayList<IntPair> getCoordinates(){
+		return coordinates;
 	}
-	
+
 	private void loadLocationData(){
 		System.out.println("Loading Location "+name.toString());
 		trainers=new ArrayList<Trainer>();
 		endpoints=new ArrayList<LocationName>();
-		outputcoordinates=new ArrayList<IntPair>();
+		coordinates=new ArrayList<IntPair>();
 		File f=new File(Constants.PATH+"LocationData\\"+name.toString()+".txt");
 		try{
 			Scanner s=new Scanner(f);
@@ -112,15 +113,21 @@ public class Location {
 			id=s.nextShort();
 			s.next();//Type: 
 			type=MapType.valueOf(s.next());
-			if(type==MapType.Cave||type==MapType.Forest||type==MapType.TeamRocket||type==MapType.Gym||type==MapType.OlivineTower){
-				String line=s.nextLine().trim();
-				String[] ends=line.split(" ");
-				endpoints.add(LocationName.valueOf(ends[0]));
-				outputcoordinates.add(IntPair.readIn(ends[1]));
-				if(ends.length>2){
-					endpoints.add(LocationName.valueOf(ends[2]));
-					outputcoordinates.add(IntPair.readIn(ends[3]));
+			String line=s.nextLine().trim();
+			if(line.length()>0){
+				if(type==MapType.Cave||type==MapType.Forest||type==MapType.TeamRocket||type==MapType.Gym||type==MapType.OlivineTower){
+					String[] ends=line.split(" ");
+					endpoints.add(LocationName.valueOf(ends[0]));
+					coordinates.add(IntPair.readIn(ends[1]));
+					if(ends.length>2){
+						endpoints.add(LocationName.valueOf(ends[2]));
+						coordinates.add(IntPair.readIn(ends[3]));
+					}
 				}
+				//Town or city, has coordinates
+				else{
+					coordinates.add(IntPair.readIn(line));
+				}	
 			}
 			s.next();//Event: 
 			String curr=s.next();
@@ -159,19 +166,19 @@ public class Location {
 			event=null;
 		}
 	}
-	
+
 	public LocationName getName(){
 		return name;
 	}
-	
+
 	public Menu getMenu(){
 		return menu;
 	}
-	
+
 	public ArrayList<Trainer> getTrainers(){
 		return trainers;
 	}
-	
+
 	public Trainer getTrainerByID(short id){
 		for(Trainer t:trainers){
 			if(t.getID()==id)
@@ -179,11 +186,11 @@ public class Location {
 		}
 		return null;
 	}
-	
+
 	public boolean hasWilds(){
 		return haswilds;
 	}
-	
+
 	public Pokemon[] encounterWildPokemon(int partysize,Time time){
 		Pokemon[] wilds=new Pokemon[partysize];
 		Random rand=GameData.getRandom();

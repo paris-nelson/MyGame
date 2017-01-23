@@ -3,7 +3,9 @@ package Objects;
 import java.util.ArrayList;
 
 import Engines.BattleEngine;
+import Engines.GlobalEngine;
 import Engines.MenuEngine;
+import Enums.Direction;
 import Enums.Stat;
 import Global.Constants;
 import KeyListeners.BattleMovementKeyListener;
@@ -34,13 +36,12 @@ public class BattleMovementLogic {
 		int xcoordinate=activeunit.getCoordinates().getX();
 		int ycoordinate=activeunit.getCoordinates().getY();
 		validdestinations.add(activeunit.getCoordinates());
-		System.out.println(activeunit.getPokemon().getName()+" moving up to "+range+" units");
 		for(int x=xcoordinate-range;x<=xcoordinate+range;x++){
 			for(int y=ycoordinate-range;y<=ycoordinate+range;y++){
 				if(y>=Constants.BATTLEFIELD_HEIGHT)
 					break;
 				if(x>=0&&y>=0&&x<Constants.BATTLEFIELD_WIDTH
-						&&Math.abs(x-xcoordinate)+Math.abs(y-ycoordinate)<=range&&BattleEngine.canMoveTo(battlefield[x][y]))
+						&&Math.abs(x-xcoordinate)+Math.abs(y-ycoordinate)<=range&&BattleEngine.canMoveTo(activeunit,battlefield[x][y]))
 					validdestinations.add(new IntPair(x,y));
 			}
 		}
@@ -62,6 +63,7 @@ public class BattleMovementLogic {
 				||(x>0&&battlefield[x-1][y].isValid())){
 			BattleEngine.moveOffSquare(activeunit,x,y);
 			BattleEngine.moveOnSquare(activeunit,x-1,y);
+			activeunit.setDirectionFacing(Direction.Left);
 			if(previousmoves.size()>1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates))
 				previousmoves.remove(previousmoves.size()-1);
 			else
@@ -81,6 +83,7 @@ public class BattleMovementLogic {
 				||(x<Constants.BATTLEFIELD_WIDTH-1&&battlefield[x+1][y].isValid())){
 			BattleEngine.moveOffSquare(activeunit,x,y);
 			BattleEngine.moveOnSquare(activeunit,x+1,y);
+			activeunit.setDirectionFacing(Direction.Right);
 			if(previousmoves.size()>1&&previousmoves.get(previousmoves.size()-2).equals(newcoordinates))
 				previousmoves.remove(previousmoves.size()-1);
 			else
@@ -131,6 +134,7 @@ public class BattleMovementLogic {
 	}
 
 	public static void confirmMovement(){
+		GlobalEngine.giveUpControl();
 		for(IntPair pair:validdestinations){
 			battlefield[pair.getX()][pair.getY()].markNeutral();
 		}
@@ -149,7 +153,7 @@ public class BattleMovementLogic {
 		if(!activeunit.getPokemon().isFainted())
 			MenuEngine.initialize(new UnitMenu(activeunit));
 		else
-			BattleEngine.nextTurn();
+			BattleEngine.endTurn();
 	}
 
 	public static void cancelMovement(){
@@ -160,5 +164,10 @@ public class BattleMovementLogic {
 		MenuEngine.initialize(new UnitMenu(activeunit));
 	}
 	
-
+	public static void delete(){
+		validdestinations=null;
+		previousmoves=null;
+		activeunit=null;
+		battlefield=null;
+	}
 }

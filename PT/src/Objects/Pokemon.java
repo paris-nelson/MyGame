@@ -604,6 +604,7 @@ public class Pokemon {
 	public void faint() {
 		this.fainted=true;
 		happiness-=Constants.HAPPINESS_LOST_ON_FAINT;
+		pcondition=null;
 		if(happiness<0)
 			happiness=0;
 	}

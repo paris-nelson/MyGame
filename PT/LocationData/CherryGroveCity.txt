@@ -1,5 +1,5 @@
 ID: 243
-Type: Johto
+Type: Johto 66,19
 Event: RivalEncounter1
 Trainers: 
 End Trainers

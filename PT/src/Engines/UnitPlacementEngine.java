@@ -163,6 +163,7 @@ public class UnitPlacementEngine {
 	}
 
 	public static void close(){
+		GlobalEngine.giveUpControl();
 		ArrayList<Unit> newpunits=new ArrayList<Unit>();
 		for(Unit u:tempunits){
 			if(u!=null){
@@ -170,6 +171,9 @@ public class UnitPlacementEngine {
 				newpunits.add(u);
 			}
 		}
+		GUI gui=GameData.getGUI();
+		gui.remove(button);
+		gui.remove(buttonlabel);
 		BattleEngine.continueInit(newpunits);
 	}
 }

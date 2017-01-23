@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import Enums.LocationName;
 import Enums.MapType;
+import Enums.PermCondition;
 import Global.Constants;
 import Global.GameData;
 import Global.PlayerData;
@@ -35,6 +36,7 @@ public class MapEngine {
 	private static GImage playericon;
 	private static int repelstepsleft=0;
 	private static int movementspeed;
+	private static int stepstaken=0;
 
 	public static void initialize(Location l){
 		System.out.println("Initializing "+l.getName());
@@ -104,9 +106,9 @@ public class MapEngine {
 			Location prevlocation=PlayerData.getPrevLocation();
 			IntPair coordinates=null;
 			if(location.getName()==prevlocation.getEndpoints().get(0))
-				coordinates=prevlocation.getOutputCoordinates().get(0);
+				coordinates=prevlocation.getCoordinates().get(0);
 			else
-				coordinates=prevlocation.getOutputCoordinates().get(1);
+				coordinates=prevlocation.getCoordinates().get(1);
 			System.out.println(coordinates.toString());
 			addIconToPosition(Short.valueOf(coordinates.getX()+""),Short.valueOf(coordinates.getY()+""));
 		}
@@ -156,10 +158,21 @@ public class MapEngine {
 
 	private static void movePlayer(int xdelta,int ydelta){
 		playericon.move(xdelta,ydelta);
-		if(repelstepsleft>=movementspeed)
-			repelstepsleft-=movementspeed;
-		else
-			repelstepsleft=0;
+		if(repelstepsleft>0)
+			repelstepsleft--;
+		if(stepstaken<Constants.POISON_HP_LOSS_RATE)
+			stepstaken++;
+		if(stepstaken==Constants.POISON_HP_LOSS_RATE){
+			stepstaken=0;
+			for(Pokemon p:PlayerData.getParty()){
+				if(!p.isFainted()){
+					PermCondition condition=p.getPcondition();
+					if(condition!=null&&(condition==PermCondition.Poison||condition==PermCondition.BadlyPoison))
+						p.decHP(Constants.POISON_HP_LOSS_AMOUNT);
+				}
+			}
+			GlobalEngine.updateLeadingPokemon();
+		}
 		int modifier=1;
 		if(PlayerData.getLeadingPokemon().isHolding("Cleanse Tag"))
 			modifier=3;
@@ -358,6 +371,7 @@ public class MapEngine {
 	}
 
 	public static void close(){
+		GlobalEngine.giveUpControl();
 		System.out.println("Closing map");
 		save();
 		PlayerData.save();
@@ -392,7 +406,8 @@ public class MapEngine {
 		gridy=y;
 		gridxoffset=0;
 		gridyoffset=0;
-		playericon.setLocation(gridx*10+gridxoffset-playericon.getWidth()/2,gridy*10+gridyoffset-playericon.getHeight()/2);
+		if(playericon!=null)
+			playericon.setLocation(gridx*10+gridxoffset-playericon.getWidth()/2,gridy*10+gridyoffset-playericon.getHeight()/2);
 	}
 
 

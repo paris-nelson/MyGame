@@ -1,5 +1,5 @@
 ID: 257
-Type: Johto
+Type: Johto 107,11
 Event: N/A
 Trainers: 
 End Trainers

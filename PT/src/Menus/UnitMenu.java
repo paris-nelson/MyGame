@@ -26,6 +26,7 @@ public class UnitMenu implements Menu {
 			}
 			visibleoptions.add("Use Item");
 		}
+		visibleoptions.add("Change Direction");
 		visibleoptions.add("End Turn");
 		visibleoptions.add("Player Menu");
 	}
@@ -47,11 +48,13 @@ public class UnitMenu implements Menu {
 
 	@Override
 	public void select(short index) {
-		MenuEngine.close();
-		if(visibleoptions.get(index).equals("Move")){
+		String selected=visibleoptions.get(index);
+		if(selected.equals("Move")){
+			MenuEngine.close();
 			BattleEngine.move();
 		}
-		else if(visibleoptions.get(index).equals("Attack")){
+		else if(selected.equals("Attack")){
+			MenuEngine.close();
 			if(unit.hasTempCondition(TempCondition.Encore)){
 				if(unit.getPokemon().getMove(unit.getPrevMove()).hasPP())
 					BattleEngine.useMove(unit.getPokemon().getMove(unit.getPrevMove()),true);
@@ -60,14 +63,21 @@ public class UnitMenu implements Menu {
 			}
 			MenuEngine.initialize(new MoveMenu(unit.getPokemon(),MoveMenuMode.ATTACK));
 		}
-		else if(visibleoptions.get(index).equals("Use Item")){
+		else if(selected.equals("Use Item")){
+			MenuEngine.close();
 			InventoryEngine.initialize();
 		}
-		else if(visibleoptions.get(index).equals("End Turn")){
+		else if(selected.equals("End Turn")){
+			MenuEngine.close();
 			BattleEngine.endTurn();
 		}
-		else if(visibleoptions.get(index).equals("Player Menu")){
+		else if(selected.equals("Player Menu")){
+			MenuEngine.close();
 			BattleEngine.openPlayerMenu();
+		}
+		else if(selected.equals("Change Direction")){
+			BattleEngine.getActiveUnit().changeDirectionFacing();
+			MenuEngine.refreshMenu();
 		}
 	}
 

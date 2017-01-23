@@ -549,6 +549,13 @@ public class Unit {
 			BattleEngine.moveOnSquare(this,coordinates.getX(),coordinates.getY());
 		}
 	}
+	
+	public void changeDirectionFacing(){
+		Direction newdirection=Direction.Left;
+		if(directionfacing==Direction.Left)
+			newdirection=Direction.Right;
+		setDirectionFacing(newdirection);
+	}
 
 	public boolean hasMoved(){
 		return hasmoved;
@@ -629,6 +636,17 @@ public class Unit {
 
 	public boolean equals(Unit other){
 		return id==other.id;
+	}
+	
+	public void delete(){
+		this.pokemon=null;
+		modstages=null;
+		conditions=null;
+		bondconditions=null;
+		protectionconditions=null;
+		directionfacing=null;
+		types=null;
+		image=null;
 	}
 
 	public String toString(){

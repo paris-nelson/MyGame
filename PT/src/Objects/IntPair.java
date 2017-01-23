@@ -17,6 +17,18 @@ public class IntPair {
 		return y;
 	}
 	
+	public void setX(int newval){
+		x=newval;
+	}
+	
+	public void setY(int newval){
+		y=newval;
+	}
+	
+	public IntPair add(IntPair other){
+		return new IntPair(x+other.x,y+other.y);
+	}
+	
 	public String toString(){
 		return x+","+y;
 	}

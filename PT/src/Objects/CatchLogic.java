@@ -1,6 +1,7 @@
 package Objects;
 
 import Engines.BattleEngine;
+import Engines.GUI;
 import Engines.GlobalEngine;
 import Engines.MenuEngine;
 import Enums.PermCondition;
@@ -105,6 +106,7 @@ public class CatchLogic {
 	}
 
 	public static void confirmCatchTarget(){
+		GlobalEngine.giveUpControl();
 		removeCatchRange();
 		Unit tocatch=BattleEngine.getUnitByID(battlefield[target.getX()][target.getY()].getUnit());
 		Pokemon tocatchpoke=tocatch.getPokemon();
@@ -197,5 +199,12 @@ public class CatchLogic {
 		else
 			a*=Constants.SIDE_FACING_ACCURACY_RATE;
 		return a;
+	}
+	
+	public static void delete(){
+		battlefield=null;
+		activeunit=null;
+		ball=null;
+		target=null;
 	}
 }
