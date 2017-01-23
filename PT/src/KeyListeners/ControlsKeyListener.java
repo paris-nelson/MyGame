@@ -4,6 +4,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import Engines.ControlsEngine;
+import Enums.Control;
+import Global.ControlsConfig;
 
 public class ControlsKeyListener implements KeyListener {
 
@@ -15,7 +17,16 @@ public class ControlsKeyListener implements KeyListener {
 			ControlsEngine.map(key);
 		}
 		else{
-			//navigate display list of controls
+			if(key==ControlsConfig.getKey(Control.Up))
+				ControlsEngine.previous();
+			else if(key==ControlsConfig.getKey(Control.Down)&&ControlsEngine.isOnControlsList())
+				ControlsEngine.next();
+			else if(key==ControlsConfig.getKey(Control.Left))
+				ControlsEngine.moveLeft();
+			else if(key==ControlsConfig.getKey(Control.Right))
+				ControlsEngine.moveRight();
+			else if(key==ControlsConfig.getKey(Control.Start))
+				ControlsEngine.select();
 		}
 	}
 

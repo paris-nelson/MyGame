@@ -2,6 +2,7 @@ package Menus;
 
 import java.util.ArrayList;
 
+import Engines.ControlsEngine;
 import Engines.GlobalEngine;
 import Engines.InventoryEngine;
 import Engines.MapEngine;
@@ -16,6 +17,7 @@ public class PlayerMenu implements Menu {
 		visibleoptions.add("Party");
 		visibleoptions.add("Inventory");
 		visibleoptions.add("Save");
+		visibleoptions.add("Controls");
 		visibleoptions.add("Exit Menu");
 	}
 
@@ -54,6 +56,10 @@ public class PlayerMenu implements Menu {
 			MenuEngine.close();
 			//MapEngine.close();
 			InventoryEngine.initialize();
+		}
+		else if(selected.equals("Controls")){
+			MenuEngine.close();
+			ControlsEngine.initialize();
 		}
 	}
 

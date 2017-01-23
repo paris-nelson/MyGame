@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import Engines.BattleEngine;
+import Enums.Control;
 import Global.ControlsConfig;
 import Objects.BattleMovementLogic;
 
@@ -16,17 +17,17 @@ public class BattleMovementKeyListener implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key=e.getKeyCode();
-		if(key==ControlsConfig.LEFT)
+		if(key==ControlsConfig.getKey(Control.Left))
 			BattleMovementLogic.moveLeft();
-		else if(key==ControlsConfig.RIGHT)
+		else if(key==ControlsConfig.getKey(Control.Right))
 			BattleMovementLogic.moveRight();
-		else if(key==ControlsConfig.UP)
+		else if(key==ControlsConfig.getKey(Control.Up))
 			BattleMovementLogic.moveUp();
-		else if(key==ControlsConfig.DOWN)
+		else if(key==ControlsConfig.getKey(Control.Down))
 			BattleMovementLogic.moveDown();
-		else if(key==ControlsConfig.START)
+		else if(key==ControlsConfig.getKey(Control.Start))
 			BattleMovementLogic.confirmMovement();
-		else if(key==ControlsConfig.BACK)
+		else if(key==ControlsConfig.getKey(Control.Back))
 			BattleMovementLogic.cancelMovement();
 		else if(key==KeyEvent.VK_G)
 			BattleEngine.lose();

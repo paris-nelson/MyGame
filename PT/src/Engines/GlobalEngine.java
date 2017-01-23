@@ -154,7 +154,7 @@ public class GlobalEngine {
 			triggerEvent(EventName.BlackOut);
 		else if(!alive.contains(PlayerData.getLeadingPokemon())){
 			PlayerData.setLeadingPokemon(alive.get(0));
-			MapEngine.changePlayerIcon(Constants.PATH+"Left\\Sprites\\"+alive.get(0).getNum()+".png");
+			MapEngine.changePlayerIcon(Constants.PATH+"\\Sprites\\Left\\"+alive.get(0).getNum()+".png");
 		}
 		
 	}

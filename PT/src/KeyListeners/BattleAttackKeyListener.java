@@ -3,6 +3,7 @@ package KeyListeners;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import Enums.Control;
 import Global.ControlsConfig;
 import Objects.BattleAttackLogic;
 
@@ -21,17 +22,17 @@ public class BattleAttackKeyListener implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key=e.getKeyCode();
-		if(key==ControlsConfig.LEFT)
+		if(key==ControlsConfig.getKey(Control.Left))
 			BattleAttackLogic.moveAttackRangeLeft();
-		else if(key==ControlsConfig.RIGHT)
+		else if(key==ControlsConfig.getKey(Control.Right))
 			BattleAttackLogic.moveAttackRangeRight();
-		else if(key==ControlsConfig.UP)
+		else if(key==ControlsConfig.getKey(Control.Up))
 			BattleAttackLogic.moveAttackRangeUp();
-		else if(key==ControlsConfig.DOWN)
+		else if(key==ControlsConfig.getKey(Control.Down))
 			BattleAttackLogic.moveAttackRangeDown();
-		else if(key==ControlsConfig.START)
+		else if(key==ControlsConfig.getKey(Control.Start))
 			BattleAttackLogic.confirmAttackRange(cancellable);
-		else if(key==ControlsConfig.BACK&&cancellable)
+		else if(key==ControlsConfig.getKey(Control.Back)&&cancellable)
 			BattleAttackLogic.cancelAttackRange();
 	}
 

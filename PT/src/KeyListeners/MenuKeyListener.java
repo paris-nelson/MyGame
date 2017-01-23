@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import Engines.MenuEngine;
+import Enums.Control;
 import Global.ControlsConfig;
 
 public class MenuKeyListener implements KeyListener{
@@ -16,11 +17,11 @@ public class MenuKeyListener implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key=e.getKeyCode();
-		if(key==ControlsConfig.DOWN)
+		if(key==ControlsConfig.getKey(Control.Down))
 			MenuEngine.moveDown();
-		else if(key==ControlsConfig.UP)
+		else if(key==ControlsConfig.getKey(Control.Up))
 			MenuEngine.moveUp();
-		else if(key==ControlsConfig.START)
+		else if(key==ControlsConfig.getKey(Control.Start))
 			MenuEngine.select();
 	}
 

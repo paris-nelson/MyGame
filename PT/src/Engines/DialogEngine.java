@@ -71,6 +71,7 @@ public class DialogEngine {
 	}
 	
 	private static void close(){
+		GlobalEngine.giveUpControl();
 		GameData.getGUI().remove(label);
 		label=null;
 		lines=null;

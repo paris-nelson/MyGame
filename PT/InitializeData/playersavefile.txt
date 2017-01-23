@@ -12,6 +12,6 @@ UnionCave
 VioletCity
 [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 {}
-{FogBadge=true, RisingBadge=true, ZephyrBadge=true, NONE=true}
+{FogBadge=true, RisingBadge=true, NONE=true, ZephyrBadge=true}
 65
-0
+4

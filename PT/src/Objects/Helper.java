@@ -17,18 +17,10 @@ public class Helper {
 		
 
 		
-		
-		//TODO: poisoned/badly poisoned pokemon should take damage on mapengine steps (also burned?)
-		
-//		LinkedHashMap<MoveEffect,LinkedHashMap<String,String>> effects=GameData.getMoveEffects(158);
-//		
-//		for(MoveEffect effect:effects.keySet())
-//			System.out.println(effect.toString());
-		
-
 				
 		GlobalEngine.initialize();
-		System.out.println(PlayerData.getMoney());
+		
+		
 //		Pokemon p=new Pokemon(120,5);
 //		System.out.println(GlobalEngine.evolve(p,"Water"));
 //		System.out.println(p.getNum());

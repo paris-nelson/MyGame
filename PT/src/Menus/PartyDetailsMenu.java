@@ -55,7 +55,7 @@ public class PartyDetailsMenu implements Menu {
 			PlayerData.setLeadingPokemon(pokemon);
 			MenuEngine.close();
 			DetailsEngine.close();
-			MapEngine.changePlayerIcon(Constants.PATH+"Left\\Sprites\\"+pokemon.getNum()+".png");
+			MapEngine.changePlayerIcon(Constants.PATH+"\\Sprites\\Left\\"+pokemon.getNum()+".png");
 			MenuEngine.initialize(new PartyMenu(mode));
 		}
 		else if(selected.equals("Release")){

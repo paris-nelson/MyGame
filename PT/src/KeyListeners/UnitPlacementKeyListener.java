@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import Engines.UnitPlacementEngine;
+import Enums.Control;
 import Global.ControlsConfig;
 
 public class UnitPlacementKeyListener implements KeyListener {
@@ -15,15 +16,15 @@ public class UnitPlacementKeyListener implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key=e.getKeyCode();
-		if(key==ControlsConfig.UP)
+		if(key==ControlsConfig.getKey(Control.Up))
 			UnitPlacementEngine.moveUp();
-		else if(key==ControlsConfig.DOWN)
+		else if(key==ControlsConfig.getKey(Control.Down))
 			UnitPlacementEngine.moveDown();
-		else if(key==ControlsConfig.LEFT)
+		else if(key==ControlsConfig.getKey(Control.Left))
 			UnitPlacementEngine.cycleLeft();
-		else if(key==ControlsConfig.RIGHT)
+		else if(key==ControlsConfig.getKey(Control.Right))
 			UnitPlacementEngine.cycleRight();
-		else if(key==ControlsConfig.START)
+		else if(key==ControlsConfig.getKey(Control.Start))
 			UnitPlacementEngine.select();
 	}
 

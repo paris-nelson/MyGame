@@ -83,7 +83,7 @@ public class Unit {
 		israging=false;
 		consecuses=0;
 		ischarging=false;
-		image=new GImage(Constants.PATH+"\\Left\\Sprites\\"+pokemon.getNum()+".png");
+		image=new GImage(Constants.PATH+"\\Sprites\\Left\\"+pokemon.getNum()+".png");
 	}
 
 	public Unit(Pokemon p,int[] modstag,int moverange,HashMap<String,Integer> conds,HashMap<BondCondition,Integer> bondconds,int id,
@@ -116,7 +116,7 @@ public class Unit {
 		israging=raging;
 		consecuses=consec;
 		ischarging=charging;
-		image=new GImage(Constants.PATH+"\\Left\\Sprites\\"+pokemon.getNum()+".png");
+		image=new GImage(Constants.PATH+"\\Sprites\\Left\\"+pokemon.getNum()+".png");
 		if(min)
 			image.setSize(image.getWidth()*Constants.MINIMIZE_RATIO, image.getHeight()*Constants.MINIMIZE_RATIO);
 	}
@@ -545,7 +545,7 @@ public class Unit {
 		if(directionfacing!=newdirection){
 			BattleEngine.moveOffSquare(this,coordinates.getX(),coordinates.getY());
 			directionfacing=newdirection;
-			image=new GImage(Constants.PATH+"\\"+newdirection.toString()+"\\Sprites\\"+pokemon.getNum()+".png");
+			image=new GImage(Constants.PATH+"\\Sprites\\"+newdirection.toString()+"\\"+pokemon.getNum()+".png");
 			BattleEngine.moveOnSquare(this,coordinates.getX(),coordinates.getY());
 		}
 	}
