@@ -9,15 +9,18 @@ import Enums.EventName;
 import Global.Constants;
 import Global.GameData;
 import KeyListeners.DialogKeyListener;
+import Objects.EventLogic;
 import acm.graphics.GLabel;
 
 public class DialogEngine {
+	private static EventName event;
 	private static ArrayList<String> lines;
 	private static int linenum;
 	private static GLabel label;
 
-	public static void initialize(EventName event){
-		loadLines(event);
+	public static void initialize(EventName currevent){
+		event=currevent;
+		loadLines();
 		linenum=0;
 		initLabel();
 		updateLabel();
@@ -58,7 +61,7 @@ public class DialogEngine {
 		label.setLabel(lines.get(linenum));
 	}
 
-	private static void loadLines(EventName event){
+	private static void loadLines(){
 		lines=new ArrayList<String>();
 		try{
 			File f=new File(Constants.PATH+"\\EventData\\Dialogs\\"+event.toString()+".txt");
@@ -75,5 +78,6 @@ public class DialogEngine {
 		GameData.getGUI().remove(label);
 		label=null;
 		lines=null;
+		EventLogic.continueEvent(event);
 	}
 }

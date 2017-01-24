@@ -559,18 +559,21 @@ public class BattleEngine {
 	public static void win(){
 		System.out.println("Player won the battle against "+opponent.getName());
 		GlobalEngine.defeatedTrainer(opponent);
-		close();
-		MapEngine.initialize(PlayerData.getLocation());
 	}
 
 	public static void lose(){
 		System.out.println("Player lost the battle against "+opponent.getName());
 		GlobalEngine.loseMoney();
 		close();
+		GlobalEngine.triggerEvent(EventName.BlackOut);
 	}
 
 	public static void flee(){
 		System.out.println("You have fled from the battle!");
+		toMap();
+	}
+	
+	public static void toMap(){
 		close();
 		MapEngine.initialize(PlayerData.getLocation());
 	}

@@ -8,5 +8,5 @@ public enum EventName {
 	VioletGym,ViridianGym,EliteFour,PokeCenter,EliteFourBeaten,BlackOut,ZephyrBadge,
 	InsectBadge,PlainBadge,FogBadge,StormBadge,MineralBadge,GlacierBadge,RisingBadge,
 	BoulderBadge,CascadeBadge,ThunderBadge,MarshBadge,RainbowBadge,SoulBadge,VolcanoBadge,
-	EarthBadge
+	EarthBadge,UnleashLegends
 }

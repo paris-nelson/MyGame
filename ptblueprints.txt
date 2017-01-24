@@ -790,55 +790,8 @@ four with same conditions as dogs (lvl 40, don't heal, same encounter rate, etc.
 
 Kanto has Victory Road Cave, Diglett caves connecting
 
-Fly can be used outside of battle to travel to any town instantly (takes 0 steps). 
-Legendaries' positions will be kept track of by the game with invisible markers. They will spawn on a 
-random spot on a random route. Every x seconds, the legend will roll for a new location on that route,
-with a 10% chance of going to an adjacent route instead. When the player and legend are on the same spot 
-of a route, it will trigger an encounter (legend cannot move onto trainer spot or player spot directly.
-if it would, it rerolls new spot. This also prevents player from landing on trainer+legend at same time).
-If legend or player flee, legend will be sent to new random spawn on the map. If legend is fainted, it 
-will respawn at random spot on the map after elite four is beaten.
-
-Battle requires player's team and enemy team, which is either the team object of the
-trainer or a randomly generated team of wild pokemon from the area.
-
-Array will track legendaries and their locations
-Array will track badges that the player has
-
-Player will be repped on map by leading pokemon. Leading pokemon defaults to starter chosen. On faint,
-volatile condition, or replacement, this is replaced by next pokemon in queue. Player can also set leading
-pokemon themself.
-Trainers are repped by their icon
-
-Battle Engine will:f
--Launch UI change to battle screen based on terrain param
--Create BattlePokemon based on Pokemon params
--Store Battle related params
--Launch placement process of units
--Launch turn based action management process which will take over the fight until conclusion
--Close out BattlePokemon
--Close UI
 
 
-
-options for pc pokemon
--release
--add to party
-
-options for party pokemon
--release
--use item
--give item
--take item
-
-
-player menu:
-party
-items
-save game
-
-item menu:
-use/give
 
 How to handle terrain movement
 
@@ -889,23 +842,6 @@ Unless one of below is specified, any effects will assume to hit target of the m
 -Not sure there is a move with nonglobal range but global effect, but if so, Global will be applied to all active(non-fainted) units in battle
 
 
-Move effects file dictates effects of move. 
-
-Need to remove things like conditions of use from file
-For each target of the move, all effects without a specified target will be applied.
-Effects with a specified target will only be applied once per move use, regardless of number of targets for primary effects of move.
-
-
-Possible move replacements for moves I don't like:
-Distract-Makes the target chase after the user. Can choose attacks as normal, but movement must always be towards the user and 
-and targetting attacks must target the user.
-Intimidate-Makes the target flee from the user.
-
-
-Moves to replace:
-Substitute:Follow Me? Distract?
-
-
 BondConditions an condition object that tracks two units and something connecting them
 -Destiny Bond
 -Lock-On
@@ -919,44 +855,9 @@ TempCOnditions can be healed explicitly (rapid spin), or altogether (heal bell)
 BondCOnditions cannot be healed or removed (except leech seed which is removed by rapid spin)
 
 
-TODO!!!
-Decide whether to keep moves Bide,Counter,MirrorCoat.
-Decide what to replace Mr. Mime's move Substitute with (a new move or just have him learn Recover and never use move 213?)
-Handle logic for fly/dig and light screen/barrier/safeguard/mist.
-
-
-
-
 SSSSB
 FSSBB
 FFXBB
 FSSBB
 SSSSB
 
-
-
-MoveRanges
-selection
--single-impacts a single square
- -range dictates the range of squares from which the singe square can be chosen
--beam-impacts all square along a straight line
- -range dictates how far the beam goes
--area-impacts all squares around a single square (9 squares total)
- -range dictates the range of squares from which the epicentre of the move can be chosen
--nova-impacts all squares around the user's square
- -range dictates how far the impact of the move spreads (I imagine most nova moves will have range 1, with some having range 2)
--cone-impacts all squares in a cone eminating from user
- -range dictates how far the cone spreads
--friendly-impacts all active friendly units
- -no range field
--global-impacts all active units
- -no range field
--self-impacts the user only
- -no range field
--weather-does not impact any units, impacts weather of battlefield
-
-
-TargetCondition-for moves that require that the target meet a condition to be included (e.g. nightmare/dream eater require sleeping target)
-TargetInclusion-for moves that can hit pokemon in the middle of using fly or dig.
-
-TODO: Catch logic (may piggyback off of move logic, may just copy/past code)

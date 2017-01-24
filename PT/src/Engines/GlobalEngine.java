@@ -89,7 +89,6 @@ public class GlobalEngine {
 
 	public static void triggerEvent(EventName event){
 		save();
-		//TODO
 		EventLogic.triggerEvent(event);
 	}
 
@@ -101,17 +100,56 @@ public class GlobalEngine {
 		rewardLoot(defeated);
 		if(! (defeated instanceof WildTrainer))
 			rewardMoney(defeated);
-		if(defeated.getName().equals("Rival")){
+		String name=defeated.getName();
+		if(name.equals("Rival")){
 			Location location=PlayerData.getLocation();
-			//trigger a cutscene?
 			if(location.getName()==LocationName.IlexForest){
 				PlayerData.addNewPokemon(new Pokemon(175,5));
 			}
+			else if(location.getName()==LocationName.IndigoPlateau){
+				PlayerData.markRequirementMet(Requirement.RivalEncountersBeaten);
+			}
 		}
-		else if(defeated.getName().equals("Red")){
-			PlayerData.addNewPokemon(new Pokemon(1,5));
-			PlayerData.addNewPokemon(new Pokemon(4,5));
-			PlayerData.addNewPokemon(new Pokemon(7,5));
+		if(name.equals("Elite Four Champion Lance")){
+			triggerEvent(EventName.EliteFourBeaten);
+		}
+		else if(name.startsWith("Gym Leader")){
+			LocationName ln=PlayerData.getLocation().getName();
+			if(ln==LocationName.VioletGym)
+				triggerEvent(EventName.ZephyrBadge);
+			else if(ln==LocationName.AzaleaGym)
+				triggerEvent(EventName.InsectBadge);
+			else if(ln==LocationName.GoldenrodGym)
+				triggerEvent(EventName.PlainBadge);
+			else if(ln==LocationName.EcruteakGym)
+				triggerEvent(EventName.FogBadge);
+			else if(ln==LocationName.OlivineGym)
+				triggerEvent(EventName.MineralBadge);
+			else if(ln==LocationName.CianwoodGym)
+				triggerEvent(EventName.StormBadge);
+			else if(ln==LocationName.MahoganyGym)
+				triggerEvent(EventName.GlacierBadge);
+			else if(ln==LocationName.BlackthornGym)
+				triggerEvent(EventName.RisingBadge);
+			else if(ln==LocationName.PewterGym)
+				triggerEvent(EventName.BoulderBadge);
+			else if(ln==LocationName.CeruleanGym)
+				triggerEvent(EventName.CascadeBadge);
+			else if(ln==LocationName.CeladonGym)
+				triggerEvent(EventName.RainbowBadge);
+			else if(ln==LocationName.SaffronGym)
+				triggerEvent(EventName.MarshBadge);
+			else if(ln==LocationName.VermilionGym)
+				triggerEvent(EventName.ThunderBadge);
+			else if(ln==LocationName.FuchsiaGym)
+				triggerEvent(EventName.SoulBadge);
+			else if(ln==LocationName.CinnabarGym)
+				triggerEvent(EventName.VolcanoBadge);
+			else if(ln==LocationName.ViridianGym)
+				triggerEvent(EventName.EarthBadge);	
+		}
+		else{
+			BattleEngine.toMap();
 		}
 	}
 

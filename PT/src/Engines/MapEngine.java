@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import Enums.EventName;
 import Enums.LocationName;
 import Enums.MapType;
 import Enums.PermCondition;
@@ -178,7 +179,8 @@ public class MapEngine {
 			modifier=3;
 		if(!DEBUG&&GameData.getRandom().nextInt(Constants.WILD_ENCOUNTER_RATE*modifier)==0){
 			Location ln=PlayerData.getLocation();
-			if(GameData.getRandom().nextInt(Constants.LEGEND_ENCOUNTER_RATE)==0&&(ln.getType()==MapType.Johto||ln.getType()==MapType.Kanto)){
+			//encounter legendary
+			if(encounterLegend()){
 				ArrayList<Integer> validids=new ArrayList<Integer>();
 				if(ln.getType()==MapType.Johto){
 					validids.add(243);
@@ -200,11 +202,19 @@ public class MapEngine {
 					GlobalEngine.enterBattle(new WildTrainer(legend));
 				}
 			}
+			//normal wild encounter
 			else if(repelstepsleft==0||PlayerData.getLocation().getMinWildLevel()>=PlayerData.getLeadingPokemon().getLevel()){
 				Pokemon[] wildteam=PlayerData.getLocation().encounterWildPokemon(PlayerData.getPartySize(),GameData.getTime());
 				GlobalEngine.enterBattle(new WildTrainer(wildteam));
 			}
 		}
+	}
+	
+	private static boolean encounterLegend(){
+		Location ln=PlayerData.getLocation();
+		return 	PlayerData.hasClearedEvent(EventName.UnleashLegends)
+				&&(ln.getType()==MapType.Johto||ln.getType()==MapType.Kanto)
+				&&GameData.getRandom().nextInt(Constants.LEGEND_ENCOUNTER_RATE)==0;
 	}
 
 	public static void moveLeft(){

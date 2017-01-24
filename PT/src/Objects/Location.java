@@ -65,7 +65,7 @@ public class Location {
 
 	public void activateTrainers(){
 		for(Trainer t:trainers){
-			if(!PlayerData.hasBeatenTrainer(t.getID())||t.getName().startsWith("Elite Four "))
+			if(!PlayerData.hasBeatenTrainer(t.getID())||t.getName().startsWith("Elite Four ")||t.getName().equals("Red"))
 				MapEngine.addTrainerToMap(t);
 		}
 	}

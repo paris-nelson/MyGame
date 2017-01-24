@@ -1,6 +1,6 @@
 ID: 269
 Type: Kanto 73,47
-Event: N/A
+Event: UnleashLegends
 Trainers: 
 End Trainers
 Wild Pokemon: N/A
