@@ -98,22 +98,18 @@ public class GlobalEngine {
 			MapEngine.removeTrainerFromMap(defeated,PlayerData.getLocation().getID());
 		}
 		rewardLoot(defeated);
-		if(! (defeated instanceof WildTrainer))
+		if(!(defeated instanceof WildTrainer))
 			rewardMoney(defeated);
 		String name=defeated.getName();
 		if(name.equals("Rival")){
-			Location location=PlayerData.getLocation();
-			if(location.getName()==LocationName.IlexForest){
-				PlayerData.addNewPokemon(new Pokemon(175,5));
-			}
-			else if(location.getName()==LocationName.IndigoPlateau){
-				PlayerData.markRequirementMet(Requirement.RivalEncountersBeaten);
-			}
+			Location ln=PlayerData.getLocation();
+			triggerEvent(EventName.valueOf(ln.getEvent().toString()+"Beaten"));
 		}
-		if(name.equals("Elite Four Champion Lance")){
+		else if(name.equals("Elite Four Champion Lance")){
 			triggerEvent(EventName.EliteFourBeaten);
 		}
 		else if(name.startsWith("Gym Leader")){
+			BattleEngine.close();
 			LocationName ln=PlayerData.getLocation().getName();
 			if(ln==LocationName.VioletGym)
 				triggerEvent(EventName.ZephyrBadge);
@@ -148,6 +144,12 @@ public class GlobalEngine {
 			else if(ln==LocationName.ViridianGym)
 				triggerEvent(EventName.EarthBadge);	
 		}
+		else if(name.equals("Rocket Grunt")&&defeated.getID()==110)
+			triggerEvent(EventName.RocketEncounter1Beaten);
+		else if(name.equals("Rocket Execs")&&defeated.getID()==44)
+			triggerEvent(EventName.RocketEncounter2Beaten);
+		else if(name.equals("Rocket Execs")&&defeated.getID()==47)
+			triggerEvent(EventName.RocketEncounter3Beaten);
 		else{
 			BattleEngine.toMap();
 		}

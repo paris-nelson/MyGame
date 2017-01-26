@@ -1,0 +1,3 @@
+Nurse Joy: Welcome to our PokeCenter!
+Nurse Joy: We'll heal your Pokemon to perfect health
+Your Pokemon's HP are restored and are cured of status conditions.

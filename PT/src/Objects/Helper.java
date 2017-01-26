@@ -7,19 +7,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import Engines.DialogEngine;
 import Engines.GlobalEngine;
+import Enums.EventName;
 import Global.Constants;
 import Global.GameData;
-import Global.PlayerData;
 
 public class Helper {
 	public static void main(String[] args) throws IOException{
 		
-		
-		
 				
 		GlobalEngine.initialize();
 		
+		DialogEngine.initialize(EventName.BlackOut);
 		
 //		Pokemon p=new Pokemon(120,5);
 //		System.out.println(GlobalEngine.evolve(p,"Water"));

@@ -70,6 +70,9 @@ public class TownMenu implements Menu{
 				}
 				GlobalEngine.enterBattle(new Trainer(Short.valueOf("0"),"Challenger",party,0,0,Constants.PATH+"Sprites\\CooltrainerF.png"));
 			}
+			else if(selected.endsWith("Elite Four")){
+				//TODO:
+			}
 		}
 		else if(selected.startsWith("Exit to ")){
 			MenuEngine.close();

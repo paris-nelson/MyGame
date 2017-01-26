@@ -48,10 +48,10 @@ public class Location {
 
 	public void enter(){
 		activateTrainers();
-		if(menu!=null)
-			MenuEngine.initialize(menu);
 		if(event!=null&&!PlayerData.hasClearedEvent(event))
 			GlobalEngine.triggerEvent(event);
+		else if(menu!=null)
+			MenuEngine.initialize(menu);
 	}
 
 	public void leave(){

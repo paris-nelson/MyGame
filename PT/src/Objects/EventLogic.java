@@ -15,7 +15,7 @@ import Global.PlayerData;
 
 public class EventLogic {
 
-	
+
 	public static void triggerEvent(EventName event){
 		DialogEngine.initialize(event);
 	}
@@ -28,6 +28,7 @@ public class EventLogic {
 				p.restoreHP();
 				p.removePcondition();
 			}
+			MapEngine.takeControl();
 		}
 		else if(event==EventName.BlackOut){
 			PlayerData.changeLocation(PlayerData.getLastTown());
@@ -55,24 +56,51 @@ public class EventLogic {
 				PlayerData.addItem(GameData.getItemNum("HM07"),1);
 			else if(event==EventName.MineralBadge)
 				PlayerData.addItem(GameData.getItemNum("Rematcher"),1);
+			MapEngine.initialize(PlayerData.getLocation());
 		}
 		else if(event.toString().startsWith("RivalEncounter")){
-			File f=new File(Constants.PATH+"EventData\\"+event.toString()+".txt");
-			EliteTrainer rival=null;
-			try{
-				rival=EliteTrainer.readInTrainer(new Scanner(f));
-			}catch(Exception e){e.printStackTrace();}
-			GlobalEngine.enterBattle(rival);
+			if(event.toString().endsWith("Beaten")){
+				if(event==EventName.RivalEncounter2Beaten)
+					PlayerData.addNewPokemon(new Pokemon(175,5));
+				else if(event==EventName.RivalEncounter6Beaten)
+					PlayerData.markRequirementMet(Requirement.RivalEncounter6);
+				else if(event==EventName.RivalEncounter7Beaten&&!PlayerData.hasMetRequirement(Requirement.RivalEncountersBeaten))
+					PlayerData.markRequirementMet(Requirement.RivalEncountersBeaten);
+				MapEngine.initialize(PlayerData.getLocation());
+			}
+			else{
+				File f=new File(Constants.PATH+"EventData\\Trainers\\"+event.toString()+".txt");
+				EliteTrainer rival=null;
+				try{
+					rival=EliteTrainer.readInTrainer(new Scanner(f));
+				}catch(Exception e){e.printStackTrace();}
+				GlobalEngine.enterBattle(rival);
+			}
 		}
 		else if(event==EventName.EliteFourBeaten){
 			PlayerData.addNewPokemon(new Pokemon(1,5));
 			PlayerData.addNewPokemon(new Pokemon(4,5));
 			PlayerData.addNewPokemon(new Pokemon(7,5));
 			PlayerData.changeLocation(LocationName.IndigoPlateau);
+			PlayerData.markRequirementMet(Requirement.EliteFourChampion);
 			IntPair coordinates=PlayerData.getLocation().getCoordinates().get(0);
 			MapEngine.setIconToPosition(Short.valueOf(coordinates.getX()+""),Short.valueOf(coordinates.getY()+""));
 			MapEngine.save();
 			MapEngine.initialize(PlayerData.getLocation());
 		}
+		else if(event==EventName.RocketEncounter1Beaten){
+			PlayerData.markRequirementMet(Requirement.RocketEncounterOneBeaten);
+			MapEngine.takeControl();
+		}
+		else if(event==EventName.RocketEncounter2Beaten){
+			PlayerData.markRequirementMet(Requirement.RocketEncounterTwoBeaten);
+			MapEngine.takeControl();
+		}
+		else if(event==EventName.RocketEncounter3Beaten){
+			PlayerData.markRequirementMet(Requirement.RocketEncounterThreeBeaten);
+			MapEngine.takeControl();
+		}
+		else
+			MapEngine.takeControl();
 	}
 }

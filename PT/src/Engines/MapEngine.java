@@ -45,7 +45,6 @@ public class MapEngine {
 		logicalmap=new short[Constants.LOGICAL_MAP_WIDTH][Constants.LOGICAL_MAP_HEIGHT];
 		load();
 		showMap(l,true);
-		takeControl();
 		l.enter();
 	}
 

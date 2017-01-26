@@ -733,6 +733,7 @@ Cinnabar Gym
 Viridian Gym
 Elite Four Champion Lance (rematchable)
 Rival at Indigo Plateau (rematchable)
+Red (rematchable)
 
 Maybe have eggs as either loot or rewards from nemesis. Maybe allow breeding for prevolutions.
 Item like incense can be used to breed two pokemon of same species,opp gender or ditto+other.
