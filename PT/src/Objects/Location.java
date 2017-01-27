@@ -52,6 +52,8 @@ public class Location {
 			GlobalEngine.triggerEvent(event);
 		else if(menu!=null)
 			MenuEngine.initialize(menu);
+		else
+			MapEngine.takeControl();
 	}
 
 	public void leave(){
@@ -117,14 +119,16 @@ public class Location {
 			if(line.length()>0){
 				if(type==MapType.Cave||type==MapType.Forest||type==MapType.TeamRocket||type==MapType.Gym||type==MapType.OlivineTower){
 					String[] ends=line.split(" ");
-					endpoints.add(LocationName.valueOf(ends[0]));
-					coordinates.add(IntPair.readIn(ends[1]));
-					if(ends.length>2){
-						endpoints.add(LocationName.valueOf(ends[2]));
-						coordinates.add(IntPair.readIn(ends[3]));
+					if(ends.length>0){
+						endpoints.add(LocationName.valueOf(ends[0]));
+						coordinates.add(IntPair.readIn(ends[1]));
+						if(ends.length>2){
+							endpoints.add(LocationName.valueOf(ends[2]));
+							coordinates.add(IntPair.readIn(ends[3]));
+						}
 					}
 				}
-				//Town or city, has coordinates
+				//Town or city coordinates
 				else{
 					coordinates.add(IntPair.readIn(line));
 				}	

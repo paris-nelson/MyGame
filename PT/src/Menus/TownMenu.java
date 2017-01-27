@@ -102,8 +102,8 @@ public class TownMenu implements Menu{
 			if(PlayerData.hasMetRequirement(GameData.getLocationRequirement(ln))){
 				PlayerData.changeLocation(ln);
 				MapEngine.changeLocation();
-				MapEngine.addIconToPosition(Short.valueOf("3"),Short.valueOf("29"));
-				MapEngine.takeControl();
+				//MapEngine.addIconToPosition(Short.valueOf("3"),Short.valueOf("29"));
+				//MapEngine.takeControl();
 			}
 		}
 		else if(selected.equals("Use P.C.")){

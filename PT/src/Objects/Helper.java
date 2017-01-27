@@ -3,22 +3,40 @@ package Objects;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import Engines.DialogEngine;
+import javazoom.jlgui.basicplayer.BasicPlayer;
+import javazoom.jlgui.basicplayer.BasicPlayerException;
 import Engines.GlobalEngine;
-import Enums.EventName;
 import Global.Constants;
 import Global.GameData;
 
+
 public class Helper {
+	
 	public static void main(String[] args) throws IOException{
 				
 		GlobalEngine.initialize();
 		
-		DialogEngine.initialize(EventName.BlackOut);
+		//TODO: make global player like GameData.getGUI() which plays/pauses tracks.
+		//Want separate tracks for normal map, gym, elite four, battle, etc. Might have playlist of songs that play on
+		//shuffle or just one track. swap logic can be handled in MapEngine.changeLocation and GlobalEngine.enterBattle
+		//and either BattleEngine.close()/BattleEngine.toMap() or MapEngine.initialize()
+//		BasicPlayer player = new BasicPlayer();
+
+//		try {
+//		    player.open(new URL("file:////"+Constants.PATH+"\\LR_371.mp3"));
+//		    player.play();
+//		} catch (Exception e) {
+//		    e.printStackTrace();
+//		}
+		
+		
+//		DialogEngine.initialize(EventName.RocketEncounter1);
 		
 //		Pokemon p=new Pokemon(120,5);
 //		System.out.println(GlobalEngine.evolve(p,"Water"));

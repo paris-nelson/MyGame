@@ -208,7 +208,7 @@ public class MapEngine {
 			}
 		}
 	}
-	
+
 	private static boolean encounterLegend(){
 		Location ln=PlayerData.getLocation();
 		return 	PlayerData.hasClearedEvent(EventName.UnleashLegends)
@@ -471,18 +471,22 @@ public class MapEngine {
 		Location prev=PlayerData.getPrevLocation();
 		ArrayList<LocationName> endpoints=location.getEndpoints();
 		if(prev==null){
-			addLogicalEntrance(endpoints.get(0));
-			if(endpoints.size()>1)
-				addLogicalExit(endpoints.get(1));
+			if(endpoints.size()>0){
+				addLogicalEntrance(endpoints.get(0));
+				if(endpoints.size()>1)
+					addLogicalExit(endpoints.get(1));
+			}
 		}
 		else{
-			LocationName ln=prev.getName();
-			addLogicalEntrance(ln);
-			if(endpoints.size()>1){
-				if(endpoints.get(0)==ln)
-					addLogicalExit(endpoints.get(1));
-				else
-					addLogicalExit(endpoints.get(0));
+			if(endpoints.size()>0){
+				LocationName ln=prev.getName();
+				addLogicalEntrance(ln);
+				if(endpoints.size()>1){
+					if(endpoints.get(0)==ln)
+						addLogicalExit(endpoints.get(1));
+					else
+						addLogicalExit(endpoints.get(0));
+				}
 			}
 		}
 	}

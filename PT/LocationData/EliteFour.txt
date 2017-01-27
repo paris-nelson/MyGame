@@ -1,5 +1,5 @@
 ID: 289
-Type: Gym IndigoPlateau 18,3
+Type: Gym
 Event: EliteFour
 Trainers: 
 EliteTrainer: 23 Elite Four Will 120 270 Sprites\EliteFourWill.png 8

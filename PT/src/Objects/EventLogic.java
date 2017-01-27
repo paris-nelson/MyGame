@@ -6,17 +6,20 @@ import java.util.Scanner;
 import Engines.DialogEngine;
 import Engines.GlobalEngine;
 import Engines.MapEngine;
+import Engines.MenuEngine;
 import Enums.EventName;
 import Enums.LocationName;
 import Enums.Requirement;
 import Global.Constants;
 import Global.GameData;
 import Global.PlayerData;
+import Menus.TownMenu;
 
 public class EventLogic {
 
 
 	public static void triggerEvent(EventName event){
+		System.out.println("Triggered event "+event.toString());
 		DialogEngine.initialize(event);
 	}
 
@@ -78,11 +81,13 @@ public class EventLogic {
 			}
 		}
 		else if(event==EventName.EliteFourBeaten){
-			PlayerData.addNewPokemon(new Pokemon(1,5));
-			PlayerData.addNewPokemon(new Pokemon(4,5));
-			PlayerData.addNewPokemon(new Pokemon(7,5));
+			if(!PlayerData.hasMetRequirement(Requirement.EliteFourChampion)){
+				PlayerData.addNewPokemon(new Pokemon(1,5));
+				PlayerData.addNewPokemon(new Pokemon(4,5));
+				PlayerData.addNewPokemon(new Pokemon(7,5));
+				PlayerData.markRequirementMet(Requirement.EliteFourChampion);
+			}
 			PlayerData.changeLocation(LocationName.IndigoPlateau);
-			PlayerData.markRequirementMet(Requirement.EliteFourChampion);
 			IntPair coordinates=PlayerData.getLocation().getCoordinates().get(0);
 			MapEngine.setIconToPosition(Short.valueOf(coordinates.getX()+""),Short.valueOf(coordinates.getY()+""));
 			MapEngine.save();
@@ -99,6 +104,9 @@ public class EventLogic {
 		else if(event==EventName.RocketEncounter3Beaten){
 			PlayerData.markRequirementMet(Requirement.RocketEncounterThreeBeaten);
 			MapEngine.takeControl();
+		}
+		else if(PlayerData.getLocation().getMenu()!=null){
+			MenuEngine.initialize(PlayerData.getLocation().getMenu());
 		}
 		else
 			MapEngine.takeControl();

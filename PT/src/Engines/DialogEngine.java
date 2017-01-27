@@ -9,6 +9,7 @@ import java.util.Scanner;
 import Enums.EventName;
 import Global.Constants;
 import Global.GameData;
+import Global.PlayerData;
 import KeyListeners.DialogKeyListener;
 import Objects.EventLogic;
 import acm.graphics.GLabel;
@@ -36,7 +37,7 @@ public class DialogEngine {
 	}
 	
 	private static void initLabel(){
-		label=new GLabel(lines.get(linenum),50,40);
+		label=new GLabel(lines.get(linenum).replace("$PlayerName$",PlayerData.getName()),50,40);
 		if(label.getLabel().contains(":"))
 			label.setFont(new Font(Constants.FONT,Font.ITALIC,22));
 		else
@@ -69,7 +70,11 @@ public class DialogEngine {
 	private static void updateLabel(){
 		GUI gui=GameData.getGUI();
 		gui.remove(label);
-		label.setLabel(lines.get(linenum));
+		label.setLabel(lines.get(linenum).replace("$PlayerName$",PlayerData.getName()));
+		if(label.getLabel().contains(":"))
+			label.setFont(new Font(Constants.FONT,Font.ITALIC,22));
+		else
+			label.setFont(new Font(Constants.FONT,Font.PLAIN,22));
 		gui.add(label);
 	}
 
@@ -87,7 +92,9 @@ public class DialogEngine {
 	
 	private static void close(){
 		GlobalEngine.giveUpControl();
-		GameData.getGUI().remove(label);
+		GUI gui=GameData.getGUI();
+		gui.remove(label);
+		gui.remove(bg);
 		label=null;
 		lines=null;
 		EventLogic.continueEvent(event);
