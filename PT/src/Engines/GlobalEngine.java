@@ -102,10 +102,12 @@ public class GlobalEngine {
 			rewardMoney(defeated);
 		String name=defeated.getName();
 		if(name.equals("Rival")){
+			BattleEngine.close();
 			Location ln=PlayerData.getLocation();
 			triggerEvent(EventName.valueOf(ln.getEvent().toString()+"Beaten"));
 		}
 		else if(name.equals("Elite Four Champion Lance")){
+			BattleEngine.close();
 			triggerEvent(EventName.EliteFourBeaten);
 		}
 		else if(name.startsWith("Gym Leader")){
@@ -144,12 +146,18 @@ public class GlobalEngine {
 			else if(ln==LocationName.ViridianGym)
 				triggerEvent(EventName.EarthBadge);	
 		}
-		else if(name.equals("Rocket Grunt")&&defeated.getID()==110)
+		else if(name.equals("Rocket Grunt")&&defeated.getID()==110){
+			BattleEngine.close();
 			triggerEvent(EventName.RocketEncounter1Beaten);
-		else if(name.equals("Rocket Execs")&&defeated.getID()==44)
+		}
+		else if(name.equals("Rocket Execs")&&defeated.getID()==44){
+			BattleEngine.close();
 			triggerEvent(EventName.RocketEncounter2Beaten);
-		else if(name.equals("Rocket Execs")&&defeated.getID()==47)
+		}
+		else if(name.equals("Rocket Execs")&&defeated.getID()==47){
+			BattleEngine.close();
 			triggerEvent(EventName.RocketEncounter3Beaten);
+		}
 		else{
 			BattleEngine.toMap();
 		}
