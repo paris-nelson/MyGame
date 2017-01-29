@@ -1,0 +1,3 @@
+Gym Leader Blue: Welcome to the Viridian City Gym, $PlayerName$!
+Gym Leader Blue: I don't specialize in any particular type of Pokemon.
+Gym Leader Blue: I simply train my party of powerful friends to the best of my abilities!

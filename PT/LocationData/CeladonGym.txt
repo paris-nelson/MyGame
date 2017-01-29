@@ -12,6 +12,7 @@ Trainer: 7 Beauty Julia 120 270 Sprites\Beauty.png
  End Trainer
 EliteTrainer: 8 Gym Leader Erika 1200 270 Sprites\GymLeaderErika.png 8
    Pokemon: 71 136 46 0 -1 70 false false null null Male [159 25 25, 2 30 30, 214 5 5, 223 5 5]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[136, 108, 71, 103, 66, 75]
+   Pokemon: 45 126 44 0 0 70 false false null null Female [141 20 20, 211 30 30, 220 20 20, 1 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[126, 81, 85, 99, 90, 55]
    Pokemon: 103 143 44 0 -1 70 false false null null Male [56 10 10, 207 20 20, 29 25 25, 97 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[143, 94, 85, 121, 68, 59]
    Pokemon: 114 112 42 0 -1 70 false false null null Female [242 10 10, 211 30 30, 80 5 5, 16 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[112, 57, 107, 94, 44, 61]
    Pokemon: 182 131 46 0 -1 70 false false null null Female [141 20 20, 197 10 10, 214 5 5, 223 5 5]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[131, 85, 89, 94, 103, 57]

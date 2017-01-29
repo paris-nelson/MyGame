@@ -16,9 +16,12 @@ import Global.GameData;
 public class Helper {
 	public static void main(String[] args) throws IOException{
 				
-		GlobalEngine.initialize();
+//		GlobalEngine.initialize();
 		
-		DialogEngine.initialize(EventName.BlackOut);
+		GameData.initialize();
+
+		
+//		DialogEngine.initialize(EventName.BlackOut);
 		
 //		Pokemon p=new Pokemon(120,5);
 //		System.out.println(GlobalEngine.evolve(p,"Water"));

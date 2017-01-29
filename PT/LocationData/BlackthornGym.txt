@@ -15,6 +15,7 @@ EliteTrainer: 6 Gym Leader Clair 1200 270 Sprites\GymLeaderClair.png 8
    Pokemon: 148 104 37 0 -1 70 false false null null Female [217 15 15, 187 20 20, 231 20 20, 51 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[104, 77, 62, 66, 66, 66]
    Pokemon: 148 104 37 0 -1 70 false false null null Male [232 15 15, 187 20 20, 231 20 20, 51 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[104, 77, 62, 66, 66, 66]
    Pokemon: 148 104 37 0 -1 70 false false null null Female [70 15 15, 187 20 20, 231 20 20, 51 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[104, 77, 62, 66, 66, 66]
+   Pokemon: 130 125 38 0 -1 70 false false null null Female [240 20 20, 107 30 30, 50 10 10, 17 25 25]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[125, 105, 70, 55, 86, 71]
    Pokemon: 230 115 40 0 -1 70 false false null null Male [51 20 20, 217 15 15, 95 5 5, 194 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[115, 86, 86, 86, 86, 78]
  End Trainer
 End Trainers

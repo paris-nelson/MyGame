@@ -1,0 +1,2 @@
+Gym Leader Misty: Welcome to the Cerulean City Gym, $PlayerName$!
+Gym Leader Misty: We specialize in Water type Pokemon.

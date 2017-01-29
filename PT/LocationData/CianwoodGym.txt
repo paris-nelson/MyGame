@@ -16,9 +16,13 @@ Trainer: 12 Black Belt Lao 660 270 Sprites\BlackBelt.png
    Pokemon: 57 72 26 0 -1 70 false false null null Female [78 15 15, 103 25 25, 112 20 20, 156 20 20]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[72, 62, 38, 38, 44, 57]
  End Trainer
 EliteTrainer: 13 Gym Leader Chuck 1200 270 Sprites\GymLeaderChuck.png 5
+   Pokemon: 106 65 25 0 -1 70 false false null null Male [90 20 20, 73 30 30, 102 20 20, 170 15 15]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[65, 71, 36, 26, 65, 53]
+   Pokemon: 107 63 25 0 -1 70 false false null null Male [154 20 20, 5 30 30, 27 15 15]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[63, 61, 48, 26, 63, 46]
+   Pokemon: 66 76 26 0 -1 70 false false null null Female [74 40 40, 179 20 20, 103 25 25, 73 30 30]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[76, 50, 34, 26, 26, 26]
+   Pokemon: 66 76 26 0 -1 70 false false null null Female [74 40 40, 179 20 20, 103 25 25, 73 30 30]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[76, 50, 34, 26, 26, 26]
    Pokemon: 57 75 27 0 -1 70 false false null null Female [73 30 30, 78 15 15, 103 25 25, 112 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[75, 65, 41, 41, 46, 60]
-   Pokemon: 62 98 30 0 -1 70 false false null null Female [212 20 20, 49 10 10, 97 20 20, 244 25 25]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[98, 60, 66, 51, 63, 51]
-   Pokemon: 106 65 26 0 -1 70 false false null null Male [90 20 20, 73 30 30, 102 20 20, 170 15 15]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[65, 71, 36, 26, 65, 53]
+   Pokemon: 62 98 30 0 -1 70 false false null null Female [97 20 20, 125 5 5, 217 15 15, 54 5 5]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[98, 60, 66, 51, 63, 51]
+   
  End Trainer
 End Trainers
 Wild Pokemon: N/A

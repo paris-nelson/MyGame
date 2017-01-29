@@ -1,0 +1,2 @@
+Gym Leader Brock: Welcome to the Pewter City Gym, $PlayerName$!
+Gym Leader Brock: We specialize in Rock type Pokemon.

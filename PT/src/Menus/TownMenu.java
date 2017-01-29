@@ -11,6 +11,7 @@ import Engines.MapEngine;
 import Engines.MenuEngine;
 import Engines.PCEngine;
 import Engines.ShopEngine;
+import Enums.EventName;
 import Enums.LocationName;
 import Enums.Requirement;
 import Global.Constants;
@@ -59,17 +60,17 @@ public class TownMenu implements Menu{
 			MenuEngine.close();
 			if(selected.endsWith("Rival")){
 				try{
-					GlobalEngine.enterBattle(Trainer.readInTrainer(new Scanner(new File("EventData\\RivalEncounter7.txt"))));
+					GlobalEngine.triggerEvent(EventName.RivalEncounterFinal);
 				}catch(Exception e){e.printStackTrace();}
 			}
-			else if(selected.endsWith("Challenger")){
-				Pokemon[] party=new Pokemon[6];
-				Random r=GameData.getRandom();
-				for(int i=0;i<6;i++){
-					party[i]=new Pokemon(r.nextInt(251)+1,50,10);
-				}
-				GlobalEngine.enterBattle(new Trainer(Short.valueOf("0"),"Challenger",party,0,0,Constants.PATH+"Sprites\\CooltrainerF.png"));
-			}
+//			else if(selected.endsWith("Challenger")){
+//				Pokemon[] party=new Pokemon[6];
+//				Random r=GameData.getRandom();
+//				for(int i=0;i<6;i++){
+//					party[i]=new Pokemon(r.nextInt(251)+1,50,10);
+//				}
+//				GlobalEngine.enterBattle(new Trainer(Short.valueOf("0"),"Challenger",party,0,0,Constants.PATH+"Sprites\\CooltrainerF.png"));
+//			}
 			else if(selected.endsWith("Elite Four")){
 				LocationName ln=LocationName.EliteFour;
 				if(PlayerData.hasMetRequirement(GameData.getLocationRequirement(ln))){

@@ -1,0 +1,4 @@
+Gym Leader Morty: Welcome to the Ecruteak City Gym!
+Gym Leader Morty: We specialize in Ghost type Pokemon.
+Gym Leader Morty: I think I've heard of you, $PlayerName$. Come to challenge us too, huh?
+Gym Leader Morty: Our Pokemon will haunt your dreams after we're through!

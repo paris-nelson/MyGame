@@ -13,9 +13,10 @@ Trainer: 29 Boarder Brad 120 270 Sprites\Boarder.png
 EliteTrainer: 30 Gym Leader Pryce 1200 270 Sprites\GymLeaderPryce.png 7
    Pokemon: 86 97 32 0 -1 70 false false null null Male [226 20 20, 163 10 10, 9 20 20, 82 40 40]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[97, 42, 49, 42, 60, 42]
    Pokemon: 87 115 32 0 -1 70 false false null null Male [226 20 20, 163 10 10, 9 20 20, 82 40 40]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[115, 60, 67, 60, 78, 60]
-   Pokemon: 221 129 34 0 -1 70 false false null null Female [76 20 20, 226 20 20, 59 10 10, 147 25 25]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[129, 86, 71, 55, 55, 48]
-   Pokemon: 221 129 34 0 -1 70 false false null null Female [76 20 20, 226 20 20, 59 10 10, 147 25 25]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[129, 86, 71, 55, 55, 48]
    Pokemon: 124 97 33 0 -1 70 false false null null Female [115 5 5, 99 15 15, 49 10 10, 147 25 25]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[97, 46, 35, 92, 78, 78]
+   Pokemon: 124 97 33 0 -1 70 false false null null Female [115 5 5, 99 15 15, 49 10 10, 147 25 25]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[97, 46, 35, 92, 78, 78]
+   Pokemon: 221 116 34 0 0 70 false false null null Female [100 15 15, 76 20 20, 129 30 30, 18 5 5]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[116, 77, 64, 50, 50, 43]
+   Pokemon: 221 116 34 0 0 70 false false null null Female [100 15 15, 76 20 20, 129 30 30, 18 5 5]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[116, 77, 64, 50, 50, 43]
  End Trainer
 End Trainers
 Wild Pokemon: N/A

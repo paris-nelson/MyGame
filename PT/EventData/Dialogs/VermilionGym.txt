@@ -1,0 +1,2 @@
+Gym Leader Lt. Surge: Welcome to the Vermilion City Gym, $PlayerName$!
+Gym Leader Lt. Surge: We specialize in Electric type Pokemon.

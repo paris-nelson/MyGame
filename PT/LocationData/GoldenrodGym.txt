@@ -19,6 +19,8 @@ Trainer: 27 Beauty Samantha 660 270 Sprites\Beauty.png
 EliteTrainer: 28 Gym Leader Whitney 1200 270 Sprites\GymLeaderWhitney.png 3
    Pokemon: 162 61 18 0 -1 70 false false null null Female [78 15 15, 155 30 30, 40 40 40, 177 35 35]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[61, 34, 30, 23, 27, 39]
    Pokemon: 35 55 18 0 -1 70 false false null null Male [49 10 10, 183 15 15, 58 5 5, 122 10 10]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[55, 23, 24, 29, 30, 20]
+   Pokemon: 133 50 18 0 -1 70 false false null null Male [82 40 40, 174 15 15, 225 30 30, 224 35 35]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[50, 27, 25, 23, 30, 27]
+   Pokemon: 241 70 20 0 -1 70 false false null null Female [123 10 10, 207 20 20, 40 40 40, 171 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[70, 39, 49, 23, 35, 47]
  End Trainer
 End Trainers
 Wild Pokemon: N/A

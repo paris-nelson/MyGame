@@ -19,9 +19,12 @@ Trainer: 17 Sage Ping 660 270 Sprites\Sage.png
    Pokemon: 93 46 18 0 -1 70 false false null null Female [38 10 10, 115 5 5, 203 10 10, 108 30 30]__[3, 3, 3, 3, 3, 3]__[0, 0, 0, 0, 0, 0]__[46, 24, 23, 48, 26, 41]
  End Trainer
 EliteTrainer: 18 Gym Leader Morty 1200 270 Sprites\GymLeaderMorty.png 4
-   Pokemon: 92 46 21 0 -1 70 false false null null Male [133 15 15, 38 10 10, 115 5 5, 203 10 10]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[46, 22, 20, 49, 22, 41]
+   Pokemon: 92 46 20 0 -1 70 false false null null Male [133 15 15, 38 10 10, 115 5 5, 203 10 10]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[46, 22, 20, 49, 22, 41]
    Pokemon: 93 52 21 0 -1 70 false false null null Female [133 15 15, 38 10 10, 115 5 5, 203 10 10]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[52, 28, 26, 56, 31, 47]
-   Pokemon: 93 56 23 0 -1 70 false false null null Female [133 15 15, 38 10 10, 115 5 5, 203 10 10]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[56, 31, 28, 61, 33, 51]
+   Pokemon: 93 52 21 0 -1 70 false false null null Female [133 15 15, 38 10 10, 115 5 5, 203 10 10]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[52, 28, 26, 56, 31, 47]
+   Pokemon: 93 56 22 0 -1 70 false false null null Female [133 15 15, 38 10 10, 115 5 5, 203 10 10]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[56, 31, 28, 61, 33, 51]
+   Pokemon: 93 56 22 0 -1 70 false false null null Female [133 15 15, 38 10 10, 115 5 5, 203 10 10]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[56, 31, 28, 61, 33, 51]
+   Pokemon: Gengar 94 68 25 0 -1 70 false false null null Female [97 20 20, 181 15 15, 115 5 5, 52 15 15]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[68, 41, 38, 73, 46, 63] 
  End Trainer
 End Trainers
 Wild Pokemon: N/A
