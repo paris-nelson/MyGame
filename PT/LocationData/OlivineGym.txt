@@ -11,8 +11,9 @@ Trainer: 35 Lass Reina 120 270 Sprites\Lass.png
 EliteTrainer: 36 Gym Leader Jasmine 1200 270 Sprites\GymLeaderJasmine.png 6
    Pokemon: 81 59 30 0 -1 70 false false null null Genderless [232 15 15, 231 20 20, 198 20 20, 216 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[59, 30, 51, 66, 42, 36]
    Pokemon: 81 59 30 0 -1 70 false false null null Genderless [232 15 15, 231 20 20, 198 20 20, 216 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[59, 30, 51, 66, 42, 36]
-   Pokemon: 208 102 35 0 -1 70 false false null null Male [178 10 10, 214 5 5, 169 15 15, 101 15 15]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[102, 69, 149, 48, 55, 30]
+   Pokemon: 82 76 31 0 -1 70 false false null null Female [110 5 5, 231 20 20, 198 20 20, 216 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[76, 46, 68, 83, 52, 52]
    Pokemon: 212 91 32 0 -1 70 false false null null Female [121 35 35, 5 30 30, 63 40 40, 154 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[91, 92, 73, 44, 60, 51]
+   Pokemon: 208 102 35 0 0 70 false false null null Male [178 10 10, 214 5 5, 169 15 15, 101 15 15]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[102, 69, 149, 48, 55, 30]
  End Trainer
 End Trainers
 Wild Pokemon: N/A

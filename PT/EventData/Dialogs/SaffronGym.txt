@@ -1,0 +1,2 @@
+Gym Leader Sabrina: Welcome to the Saffron City Gym, $PlayerName$!
+Gym Leader Sabrina: We specialize in Psychic type Pokemon.

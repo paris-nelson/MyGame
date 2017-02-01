@@ -16,6 +16,7 @@ EliteTrainer: 41 Gym Leader Brock 1200 270 Sprites\GymLeaderBrock.png 8
    Pokemon: 139 116 42 0 -1 70 false false null null Male [201 15 15, 149 10 10, 17 25 25, 217 15 15]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[116, 61, 115, 107, 69, 57]
    Pokemon: 141 108 42 0 -1 70 false false null null Female [188 20 20, 59 10 10, 217 15 15, 80 5 5]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[108, 107, 99, 65, 69, 78]
    Pokemon: 142 125 42 0 -1 70 false false null null Female [176 10 10, 7 5 5, 216 20 20, 17 25 25]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[125, 99, 65, 61, 73, 120]
+   Pokemon: 95 87 42 0 0 70 false false null null Male [187 20 20, 175 10 10, 156 20 20, 86 30 30]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[87, 48, 145, 36, 48, 69]
  End Trainer
 End Trainers
 Wild Pokemon: N/A

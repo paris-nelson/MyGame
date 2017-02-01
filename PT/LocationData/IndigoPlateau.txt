@@ -1,6 +1,6 @@
 ID: 260
 Type: Kanto 19,3
-Event: RivalEncounter7
+Event: N/A
 Trainers: 
 End Trainers
 Wild Pokemon: N/A
@@ -9,6 +9,5 @@ PokeCenter,NONE
 PokeShop,NONE
 Use P.C.,NONE
 Battle Elite Four,RisingBadge
-Battle Rival,RivalEncountersBeaten
 Exit to Victory Road,RisingBadge,20,5
 End Menu

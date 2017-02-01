@@ -66,10 +66,11 @@ public class EventLogic {
 				if(event==EventName.RivalEncounter2Beaten)
 					PlayerData.addNewPokemon(new Pokemon(175,5));
 				else if(event==EventName.RivalEncounter6Beaten)
-					PlayerData.markRequirementMet(Requirement.RivalEncounter6);
-				else if(event==EventName.RivalEncounter7Beaten&&!PlayerData.hasMetRequirement(Requirement.RivalEncountersBeaten))
 					PlayerData.markRequirementMet(Requirement.RivalEncountersBeaten);
 				MapEngine.initialize(PlayerData.getLocation());
+			}
+			else if(event.toString().endsWith("Final")){
+				GlobalEngine.enterBattle(GlobalEngine.generateRival());
 			}
 			else{
 				File f=new File(Constants.PATH+"EventData\\Trainers\\"+event.toString()+".txt");
@@ -86,6 +87,7 @@ public class EventLogic {
 				PlayerData.addNewPokemon(new Pokemon(4,5));
 				PlayerData.addNewPokemon(new Pokemon(7,5));
 				PlayerData.markRequirementMet(Requirement.EliteFourChampion);
+				PlayerData.setName("Champion "+PlayerData.getName());
 			}
 			PlayerData.changeLocation(LocationName.IndigoPlateau);
 			IntPair coordinates=PlayerData.getLocation().getCoordinates().get(0);

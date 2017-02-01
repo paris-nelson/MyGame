@@ -16,6 +16,7 @@ EliteTrainer: 15 Gym Leader Blaine 1200 270 Sprites\GymLeaderBlaine.png 8
    Pokemon: 78 132 50 0 -1 70 false false null null Female [5 30 30, 155 30 30, 64 5 5, 66 15 15]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[132, 112, 82, 92, 92, 117]
    Pokemon: 78 132 50 0 -1 70 false false null null Male [5 30 30, 155 30 30, 64 5 5, 66 15 15]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[132, 112, 82, 92, 92, 117]
    Pokemon: 38 127 45 0 -1 70 false false null null Female [66 15 15, 28 10 10, 173 25 25, 155 30 30]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[127, 79, 78, 84, 101, 101]
+   Pokemon: 229 128 45 0 -1 70 false false null null Male [70 15 15, 62 25 25, 17 25 25, 193 20 20]__[7, 7, 7, 7, 7, 7]__[0, 0, 0, 0, 0, 0]__[128, 92, 56, 110, 83, 96]
  End Trainer
 End Trainers
 Wild Pokemon: N/A

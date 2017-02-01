@@ -86,6 +86,10 @@ public class PlayerData {
 		return name;
 	}
 	
+	public static void setName(String newname){
+		name=newname;
+	}
+	
 	public static int getMoney(){
 		return money;
 	}

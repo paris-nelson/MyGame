@@ -8,7 +8,7 @@ Menu:
 PokeCenter,NONE
 PokeShop,NONE
 Use P.C.,NONE
-Battle Rival,RivalEncounter6
+Battle Rival,RivalEncountersBeaten
 Exit to Kanto Entrance,RisingBadge,118,39
 Exit to Route 29,NONE,110,39
 End Menu

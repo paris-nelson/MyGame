@@ -1,0 +1,2 @@
+Gym Leader Blaine: Welcome to the Cinnabar Island Gym, $PlayerName$!
+Gym Leader Blaine: We specialize in Fire type Pokemon.

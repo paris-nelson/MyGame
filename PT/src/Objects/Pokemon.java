@@ -217,7 +217,7 @@ public class Pokemon {
 		for(int i=1;i<6;i++){
 			double stat1=(basestats[i]+ivs[i])*2;
 			double stat2=Math.floor(Math.ceil(Math.sqrt((double)evs[i]))/4);
-			stat1=(stat1+stat2)/((double)100);
+			stat1=(stat1+stat2)*level/((double)100);
 			newstats[i]=(int)Math.floor(stat1)+5;
 		}
 		return newstats;

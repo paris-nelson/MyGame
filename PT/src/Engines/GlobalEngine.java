@@ -2,6 +2,7 @@ package Engines;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 import Enums.EventName;
 import Enums.ItemType;
@@ -86,6 +87,21 @@ public class GlobalEngine {
 		base.evolve(evolutionnum);
 		return true;
 	}
+	
+	public static EliteTrainer generateRival(){
+		int avglvl=0;
+		ArrayList<Pokemon> party=PlayerData.getParty();
+		for(Pokemon p:party){
+			avglvl+=p.getLevel();
+		}
+		avglvl/=party.size();
+		Pokemon[] rivalparty=new Pokemon[6];
+		Random r=GameData.getRandom();
+		for(int i=0;i<6;i++){
+			rivalparty[i]=new Pokemon(r.nextInt(251)+1,avglvl,10);
+		}
+		return new EliteTrainer(Short.valueOf("132"),"Rival",rivalparty,-1,-1,null,8);
+	}
 
 	public static void triggerEvent(EventName event){
 		save();
@@ -106,7 +122,7 @@ public class GlobalEngine {
 			Location ln=PlayerData.getLocation();
 			triggerEvent(EventName.valueOf(ln.getEvent().toString()+"Beaten"));
 		}
-		else if(name.equals("Elite Four Champion Lance")){
+		else if(name.equals("Elite Four Champion Lance")&&!PlayerData.hasMetRequirement(Requirement.EliteFourChampion)){
 			BattleEngine.close();
 			triggerEvent(EventName.EliteFourBeaten);
 		}

@@ -1,0 +1,2 @@
+Gym Leader Erika: Welcome to the Celadon City Gym, $PlayerName$!
+Gym Leader Erika: We specialize in Grass type Pokemon.
