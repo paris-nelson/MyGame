@@ -10,6 +10,7 @@ import Global.Constants;
 import Global.GameData;
 import Global.PlayerData;
 import KeyListeners.InventoryKeyListener;
+import Menus.MenuWithExplanations;
 import Menus.PartyMenu;
 import acm.graphics.GCompound;
 import acm.graphics.GLabel;
@@ -25,6 +26,8 @@ public class InventoryEngine {
 	private static int focusindex;
 	private static int chosenid;
 	private static GRect button;
+	private static GLabel explanation;
+	private static GRect explanationbg;
 
 	public static void initialize(){
 		screen=new GCompound();
@@ -50,6 +53,33 @@ public class InventoryEngine {
 		label.setFont(new Font(Constants.FONT,Font.BOLD,22));
 		screen.add(button,300,225);
 		screen.add(label,300+(200-label.getWidth())/2,225+label.getHeight()+(50-label.getHeight())/2);
+		initExplanation();
+		screen.add(explanationbg,0,500);
+		screen.add(explanation,explanationbg.getX()+10,500+explanation.getHeight()-5);
+	}
+	
+	private static void initExplanation(){
+		explanation=new GLabel(explain(focusindex));
+		explanation.setColor(Color.BLACK);
+		explanation.setFont(new Font(Constants.FONT,Font.PLAIN,18));
+		explanationbg=new GRect(explanation.getWidth()+20,explanation.getHeight()+10);
+		explanationbg.setFilled(true);
+		explanationbg.setFillColor(Color.WHITE);
+	}
+	
+	private static void updateExplanation(){
+		screen.remove(explanation);
+		screen.remove(explanationbg);
+		initExplanation();
+		screen.add(explanationbg,0,500);
+		screen.add(explanation,explanationbg.getX()+10,500+explanation.getHeight()-5);
+	}
+	
+	private static String explain(int index){
+		if(index>=0&&ids!=null){
+			return GameData.getItemDescription(ids.get(focusindex+offset));
+		}
+		return "";
 	}
 
 	private static void takeInventory(){
@@ -193,6 +223,7 @@ public class InventoryEngine {
 			GObject item=inventory.get(offset+focusindex).getElement(0);
 			GRect box=(GRect)item;
 			box.setFillColor(Color.CYAN);
+			updateExplanation();
 		}
 		else if(focusindex==-1)
 			button.setFillColor(Color.CYAN);

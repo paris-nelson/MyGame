@@ -8,6 +8,7 @@ import Enums.EventName;
 import Enums.ItemType;
 import Enums.LocationName;
 import Enums.MoveMenuMode;
+import Enums.MusicTheme;
 import Enums.PermCondition;
 import Enums.Requirement;
 import Enums.Stat;
@@ -22,6 +23,7 @@ import Objects.EventLogic;
 import Objects.Location;
 import Objects.Move;
 import Objects.Pokemon;
+import Objects.Radio;
 import Objects.Trainer;
 import Objects.WildTrainer;
 
@@ -45,6 +47,8 @@ public class GlobalEngine {
 	}
 
 	public static void save(){
+		System.out.println("Saving Game Data");
+		GameData.save();
 		System.out.println("Saving Player Data");
 		PlayerData.save();
 		if(BattleEngine.isInBattle()){
@@ -62,6 +66,10 @@ public class GlobalEngine {
 
 	public static void enterBattle(Trainer opponent){
 		MapEngine.close();
+		if(opponent.getName().contains("Elite Four"))
+			GameData.getRadio().changeTheme(MusicTheme.EliteFour);
+		else
+			GameData.getRadio().changeTheme(MusicTheme.Battle);
 		BattleEngine.initialize(opponent);
 	}
 

@@ -12,7 +12,7 @@ import Global.Constants;
 import Global.ControlsConfig;
 import Global.GameData;
 import KeyListeners.ControlsKeyListener;
-import Menus.PlayerMenu;
+import Menus.OptionsMenu;
 import acm.graphics.GCompound;
 import acm.graphics.GLabel;
 import acm.graphics.GRect;
@@ -285,7 +285,6 @@ public class ControlsEngine {
 		undobutton=null;
 		defaultsbutton=null;
 		ControlsConfig.save();
-		//currently assuming controls will be called only from map player menu
-		MenuEngine.initialize(new PlayerMenu());
+		MenuEngine.initialize(new OptionsMenu());
 	}
 }

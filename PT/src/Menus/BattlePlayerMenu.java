@@ -18,6 +18,7 @@ public class BattlePlayerMenu implements Menu {
 		visibleoptions.add("Save");
 		if(BattleEngine.currOpponent() instanceof WildTrainer)
 			visibleoptions.add("Flee");
+		visibleoptions.add("Options");
 		visibleoptions.add("Exit Menu");
 	}
 
@@ -55,6 +56,10 @@ public class BattlePlayerMenu implements Menu {
 		else if(selected.equals("Opponent")){
 			MenuEngine.close();
 			MenuEngine.initialize(new OpponentPartyMenu(BattleEngine.currOpponent()));
+		}
+		else if(selected.equals("Options")){
+			MenuEngine.close();
+			MenuEngine.initialize(new OptionsMenu());
 		}
 		else if(selected.equals("Flee")){
 			MenuEngine.close();

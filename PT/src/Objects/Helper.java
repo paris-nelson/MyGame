@@ -26,16 +26,29 @@ public class Helper {
 		//Want separate tracks for normal map, gym, elite four, battle, etc. Might have playlist of songs that play on
 		//shuffle or just one track. swap logic can be handled in MapEngine.changeLocation and GlobalEngine.enterBattle
 		//and either BattleEngine.close()/BattleEngine.toMap() or MapEngine.initialize()
+		//TODO: Add move info to item descrips for tms/hms
+		//TODO: Badge dialogs
+		//TODO: Fix move descrips
 //		BasicPlayer player = new BasicPlayer();
-
+//		System.out.println(player.getStatus());
 //		try {
 //		    player.open(new URL("file:////"+Constants.PATH+"\\LR_371.mp3"));
 //		    player.play();
+//		    System.out.println(player.getStatus());
 //		} catch (Exception e) {
 //		    e.printStackTrace();
 //		}
-		
-		
+//		long start=System.nanoTime();
+//		while(System.nanoTime()-start<Long.valueOf("5000000000")){
+//			
+//		}
+//		System.out.println(player.getStatus());
+//		try{
+//		player.stop();
+//		} catch (Exception e) {
+//		    e.printStackTrace();
+//		}
+//		System.out.println(player.getStatus());
 //		DialogEngine.initialize(EventName.RocketEncounter1);
 		
 //		Pokemon p=new Pokemon(120,5);

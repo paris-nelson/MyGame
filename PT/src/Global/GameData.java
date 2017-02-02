@@ -2,6 +2,7 @@ package Global;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -13,12 +14,14 @@ import Engines.GUI;
 import Enums.ItemType;
 import Enums.LocationName;
 import Enums.MoveEffect;
+import Enums.MusicTheme;
 import Enums.Requirement;
 import Enums.Stat;
 import Enums.Time;
 import Enums.Type;
 import Objects.IntPair;
 import Objects.Move;
+import Objects.Radio;
 
 public class GameData {
 	private static Random random;
@@ -49,20 +52,21 @@ public class GameData {
 	private static double[] accevastages=null;
 	private static String[] moveeffects=null;
 	private static String[] moveranges=null;
+	private static HashMap<MusicTheme,ArrayList<String>> playlists=null;
 	private static GUI gui;
+	private static Radio radio;
 	private static Time time;
 
 	public static void initialize(){
 		random=new Random();
-		System.out.println("Initializing GUI");
-		gui=new GUI();
-		gui.start();
 		File f;
 		Scanner s;
 		try{
 			f=new File(Constants.PATH+"\\InitializeData\\gamesavefile.txt");
 			s=new Scanner(f);
 			time=Time.valueOf(s.nextLine());
+			System.out.println("Initializing Radio");
+			radio=new Radio(Boolean.valueOf(s.nextLine()));
 			s.close();
 			f=new File(Constants.PATH+"\\InitializeData\\locationreq.txt");
 			s=new Scanner(f);
@@ -103,6 +107,43 @@ public class GameData {
 			}
 		}
 		catch(Exception e){e.printStackTrace();}
+		System.out.println("Initializing GUI");
+		gui=new GUI();
+		gui.start();
+	}
+	
+	public static void save(){
+		try{
+			File f=new File(Constants.PATH+"\\InitializeData\\gamesavefile.txt");
+			PrintWriter pw=new PrintWriter(f);
+			pw.println(time);
+			pw.println(radio.isEnabled());
+			pw.close();
+		}catch(Exception e){e.printStackTrace();}
+	}
+	
+	public static ArrayList<String> getPlaylist(MusicTheme theme){
+		if(theme==null)
+			return null;
+		if(playlists==null){
+			try{
+				File f=new File(Constants.PATH+"\\InitializeData\\playlists.txt");
+				Scanner s=new Scanner(f);
+				playlists=new HashMap<MusicTheme,ArrayList<String>>();
+				while(s.hasNextLine()){
+					String line=s.nextLine();
+					int splitindex=line.indexOf("=");
+					MusicTheme linetheme=MusicTheme.valueOf(line.substring(0,splitindex));
+					ArrayList<String> songs=new ArrayList<String>();
+					String[] split=line.substring(splitindex+1).split(",");
+					for(String song:split){
+						songs.add(song);
+					}
+					playlists.put(linetheme,songs);
+				}
+			}catch(Exception e){e.printStackTrace();}
+		}
+		return playlists.get(theme);
 	}
 
 	public static double getAccEvaStageMultiplier(Stat stat,int stage){
@@ -168,6 +209,10 @@ public class GameData {
 
 	public static GUI getGUI(){
 		return gui;
+	}
+	
+	public static Radio getRadio(){
+		return radio;
 	}
 
 	public static LocationName getLocationNameByID(short id){

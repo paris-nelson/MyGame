@@ -9,6 +9,7 @@ import java.util.Scanner;
 import Enums.EventName;
 import Enums.LocationName;
 import Enums.MapType;
+import Enums.MusicTheme;
 import Enums.PermCondition;
 import Global.Constants;
 import Global.GameData;
@@ -18,6 +19,7 @@ import Menus.PlayerMenu;
 import Objects.IntPair;
 import Objects.Location;
 import Objects.Pokemon;
+import Objects.Radio;
 import Objects.Trainer;
 import Objects.WildTrainer;
 import acm.graphics.GImage;
@@ -94,11 +96,28 @@ public class MapEngine {
 		else
 			movementspeed=Constants.SUB_MAP_MOVEMENT_SPEED;
 		//initial map load, just use the gridx/gridy coming from save file
-		if(initial)
+		if(initial){
 			gui.add(playericon,gridx*10+gridxoffset-playericon.getWidth()/2,gridy*10+gridyoffset-playericon.getHeight()/2);
+			Radio radio=GameData.getRadio();
+			if(type==MapType.TeamRocket)
+				radio.changeTheme(MusicTheme.TeamRocket);
+			else if(type==MapType.Gym)
+				radio.changeTheme(MusicTheme.Gym);
+			else if(type==MapType.Kanto||type==MapType.Johto)
+				radio.changeTheme(MusicTheme.Map);
+			else
+				radio.changeTheme(MusicTheme.Cave);
+		}
 		//map has changed from johto/kanto to a cave/forest/etc type map, set gridx/gridy to be at entrance
 		else if(type==MapType.Cave||type==MapType.Forest||type==MapType.TeamRocket||type==MapType.Gym||type==MapType.OlivineTower){
 			addIconToPosition(Short.valueOf("3"),Short.valueOf("29"));
+			Radio radio=GameData.getRadio();
+			if(type==MapType.TeamRocket)
+				radio.changeTheme(MusicTheme.TeamRocket);
+			else if(type==MapType.Gym)
+				radio.changeTheme(MusicTheme.Gym);
+			else
+				radio.changeTheme(MusicTheme.Cave);
 		}
 		//map has changed from cave/forest/etc to a johto/kanto type map, set gridx/gridy based on output coordinates of prev location
 		else{
@@ -111,6 +130,7 @@ public class MapEngine {
 				coordinates=prevlocation.getCoordinates().get(1);
 			System.out.println(coordinates.toString());
 			addIconToPosition(Short.valueOf(coordinates.getX()+""),Short.valueOf(coordinates.getY()+""));
+			GameData.getRadio().changeTheme(MusicTheme.Map);
 		}
 		loadLogicalMap(location);
 		//		System.out.println(logicalmap.length);

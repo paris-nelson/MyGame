@@ -1,0 +1,3 @@
+Gym Leader Falkner: Well fought, $PlayerName$!
+Gym Leader Falkner: Here's your first badge, the Zephyr Badge. In addition, here's an HM, HM05: Flash
+Gym Leader Falkner: Good luck on the rest of your journey for badges!

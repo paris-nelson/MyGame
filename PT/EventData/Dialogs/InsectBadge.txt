@@ -1,0 +1,3 @@
+Gym Leader Bugsy: Well fought, $PlayerName$!
+Gym Leader Bugsy: Here's your second bade, the Insect Badge. In addition, here's an HM, HM01: Cut
+Gym Leader Bugsy: Good luck on the rest of your journey for badges!

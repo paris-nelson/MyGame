@@ -17,7 +17,7 @@ public class PlayerMenu implements Menu {
 		visibleoptions.add("Party");
 		visibleoptions.add("Inventory");
 		visibleoptions.add("Save");
-		visibleoptions.add("Controls");
+		visibleoptions.add("Options");
 		visibleoptions.add("Exit Menu");
 	}
 
@@ -57,9 +57,9 @@ public class PlayerMenu implements Menu {
 			//MapEngine.close();
 			InventoryEngine.initialize();
 		}
-		else if(selected.equals("Controls")){
+		else if(selected.equals("Options")){
 			MenuEngine.close();
-			ControlsEngine.initialize();
+			MenuEngine.initialize(new OptionsMenu());
 		}
 	}
 
