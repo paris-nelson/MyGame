@@ -27,7 +27,6 @@ public class OptionsMenu implements Menu {
 		return options;
 	}
 
-	@Override
 	public void select(short index) {
 		String selected=options.get(index);
 		MenuEngine.close();

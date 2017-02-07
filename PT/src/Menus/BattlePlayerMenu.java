@@ -22,21 +22,17 @@ public class BattlePlayerMenu implements Menu {
 		visibleoptions.add("Exit Menu");
 	}
 
-	@Override
 	public void refreshVisibleOptions() {
 	}
 
-	@Override
 	public int getNumOptions() {
 		return visibleoptions.size();
 	}
 
-	@Override
 	public ArrayList<String> getVisibleOptions() {
 		return visibleoptions;
 	}
 
-	@Override
 	public void select(short index) {
 		String selected=visibleoptions.get(index);
 		if(selected.equals("Save")){
@@ -66,5 +62,4 @@ public class BattlePlayerMenu implements Menu {
 			BattleEngine.flee();
 		}
 	}
-
 }

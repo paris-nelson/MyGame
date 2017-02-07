@@ -37,6 +37,7 @@ public class MenuEngine {
 	
 	public static void refreshMenu(){
 		GameData.getGUI().remove(gmenu);
+		menuindex=0;
 		showMenu();
 	}
 	
