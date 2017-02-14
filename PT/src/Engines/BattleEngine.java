@@ -9,10 +9,10 @@ import java.util.Scanner;
 import Enums.Direction;
 import Enums.EventName;
 import Enums.PermCondition;
-import Enums.Requirement;
 import Enums.Stat;
 import Enums.Tile;
 import Enums.Type;
+import Enums.Weather;
 import Global.Constants;
 import Global.GameData;
 import Global.PlayerData;
@@ -50,6 +50,7 @@ public class BattleEngine {
 	private static BattlefieldMaker bfmaker;
 	private static boolean spikesplaced;
 	private static int numpaydays;
+	private static Weather weather;
 
 	public static void initialize(Trainer newopponent){
 		System.out.println("Initializing battle with "+newopponent.getName());
@@ -58,6 +59,7 @@ public class BattleEngine {
 		bfmaker=new ProceduralBattlefieldMaker();
 		spikesplaced=false;
 		numpaydays=0;
+		weather=null;
 		initBattlefield();
 		initUnits();
 		placeNewPlayerUnits();
@@ -318,7 +320,7 @@ public class BattleEngine {
 			numpaydays=s.nextInt();
 			activeindex=s.nextInt();
 			activeunit=getUnitByID(s.nextInt());
-			s.nextLine();
+			weather=Weather.valueOf(s.nextLine().trim());
 			bfmaker=new LoadExistingBattlefieldMaker(s);
 			initBattlefield();
 			placeExistingUnits();
@@ -343,10 +345,18 @@ public class BattleEngine {
 			}
 			pw.println("End Opponent Units");
 			pw.println(priorities);
-			pw.println(spikesplaced+" "+numpaydays+" "+activeindex+" "+activeunit.getID());
+			pw.println(spikesplaced+" "+numpaydays+" "+activeindex+" "+activeunit.getID()+" "+weather);
 			pw.println(bfmaker.toString());
 			pw.close();
 		}catch(Exception e){e.printStackTrace();}
+	}
+	
+	public static Weather getWeather(){
+		return weather;
+	}
+	
+	public static void setWeather(Weather newconditions){
+		weather=newconditions;
 	}
 
 	public static int getPayDayVal(){

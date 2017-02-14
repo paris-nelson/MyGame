@@ -12,6 +12,7 @@ import Enums.ProtectionCondition;
 import Enums.Stat;
 import Enums.TempCondition;
 import Enums.Type;
+import Enums.Weather;
 import Global.Constants;
 import Global.GameData;
 
@@ -140,6 +141,11 @@ public class MoveLogic {
 			double percent=Constants.HEAL_RIGHT_TIME_PERCENTAGE;
 			if(Enums.Time.valueOf(curreffects.get("Time"))!=GameData.getTime())
 				percent=Constants.HEAL_WRONG_TIME_PERCENTAGE;
+			Weather currweather=BattleEngine.getWeather();
+			if(currweather==Weather.Rain||currweather==Weather.Sand)
+				percent/=2;
+			else if(currweather==Weather.Sun)
+				percent*=2;
 			int amount=round(target.getPokemon().getStat(Stat.HP)*percent);
 			System.out.println(target.getPokemon().getName()+" heals "+amount+" HP.");
 			target.getPokemon().incHP(amount);
@@ -183,8 +189,8 @@ public class MoveLogic {
 			options.remove(target);
 			Unit othertarget=options.get(GameData.getRandom().nextInt(options.size()));
 			if(BattleEngine.canMoveTo(target,othertarget.getCoordinates())&&BattleEngine.canMoveTo(othertarget,target.getCoordinates())){
-			System.out.println(othertarget.getPokemon().getName()+" swapping positions with "+target.getPokemon().getName());
-			swapPositions(othertarget,target);
+				System.out.println(othertarget.getPokemon().getName()+" swapping positions with "+target.getPokemon().getName());
+				swapPositions(othertarget,target);
 			}
 			else
 				System.out.println("One or more illegal destinations involved in psoition swamp between "+othertarget.getPokemon().getName()+" and "+target.getPokemon().getName());
@@ -200,6 +206,18 @@ public class MoveLogic {
 		else if(effect==MoveEffect.ChargeUp&&!user.isCharging()){
 			user.setCharging(true);
 			System.out.println(userpokemon.getName()+" charges up to attack");
+			//TODO: sunny day should make solar beam fire immediately
+		}
+		else if(effect==MoveEffect.Weather){
+			Weather newconditions=Weather.valueOf(curreffects.get("Conditions"));
+			if(newconditions==BattleEngine.getWeather()){
+				System.out.println("The weather is already in condition: "+newconditions);
+			}
+			else{
+				BattleEngine.setWeather(newconditions);
+				System.out.println("The weather changes to: "+newconditions);
+			}
+			//TODO: use data from movestrings to implement effects of sunny day, rainy day, and sandstorm
 		}
 	}
 
@@ -214,37 +232,41 @@ public class MoveLogic {
 
 	private static void implementConditionEffect(MoveEffect effect,Unit target){
 		if(!curreffects.containsKey("Chance")||(curreffects.containsKey("Chance")&&GameData.getRandom().nextInt(100)<Integer.parseInt(curreffects.get("Chance")))){
+			String condition=curreffects.get("Condition");
 			if(effect==MoveEffect.GiveTCondition){
-				if(target.addTempCondition(TempCondition.valueOf(curreffects.get("Condition"))))
-					System.out.println(target.getPokemon().getName()+" is now afflicted by "+curreffects.get("Condition"));
+				if(target.addTempCondition(TempCondition.valueOf(condition)))
+					System.out.println(target.getPokemon().getName()+" is now afflicted by "+condition);
 			}
 			else if(effect==MoveEffect.GivePCondition){
-				if(target.addPermCondition(PermCondition.valueOf(curreffects.get("Condition"))))
-					System.out.println(target.getPokemon().getName()+" is now afflicted by "+curreffects.get("Condition"));
+				PermCondition pcondition=PermCondition.valueOf(condition);
+				if(pcondition==PermCondition.Frozen&&BattleEngine.getWeather()==Weather.Sun)
+					System.out.println("Pokemon cannot be frozen due to Sunny Day");
+				else if(target.addPermCondition(pcondition))
+					System.out.println(target.getPokemon().getName()+" is now afflicted by "+condition);
 			}
 			else if(effect==MoveEffect.GiveBondCondition){
-				if(target.addBondCondition(BondCondition.valueOf(curreffects.get("Condition")),target.getID()))
-					System.out.println(target.getPokemon().getName()+" is now bound to "+userpokemon.getName()+" by "+curreffects.get("Condition"));
+				if(target.addBondCondition(BondCondition.valueOf(condition),target.getID()))
+					System.out.println(target.getPokemon().getName()+" is now bound to "+userpokemon.getName()+" by "+condition);
 			}
 			else if(effect==MoveEffect.GiveProtectionCondition){
-				if(target.addProtectionCondition(ProtectionCondition.valueOf(curreffects.get("Condition"))))
-					System.out.println(target.getPokemon().getName()+" is now protected by "+curreffects.get("Condition"));
+				if(target.addProtectionCondition(ProtectionCondition.valueOf(condition)))
+					System.out.println(target.getPokemon().getName()+" is now protected by "+condition);
 			}
 			else if(effect==MoveEffect.RemoveTCondition){
-				if(target.removeTempCondition(TempCondition.valueOf(curreffects.get("Condition"))))
-					System.out.println(target.getPokemon().getName()+" is now cured of "+curreffects.get("Condition"));
+				if(target.removeTempCondition(TempCondition.valueOf(condition)))
+					System.out.println(target.getPokemon().getName()+" is now cured of "+condition);
 			}
 			else if(effect==MoveEffect.RemovePCondition){
-				if(target.removePermCondition(PermCondition.valueOf(curreffects.get("Condition"))))
-					System.out.println(target.getPokemon().getName()+" is now cured of "+curreffects.get("Condition"));
+				if(target.removePermCondition(PermCondition.valueOf(condition)))
+					System.out.println(target.getPokemon().getName()+" is now cured of "+condition);
 			}
 			else if(effect==MoveEffect.RemoveBondCondition){
-				if(target.removeBondCondition(BondCondition.valueOf(curreffects.get("Condition"))))
-					System.out.println(target.getPokemon().getName()+" is no longer bound to "+userpokemon.getName()+" by "+curreffects.get("Condition"));
+				if(target.removeBondCondition(BondCondition.valueOf(condition)))
+					System.out.println(target.getPokemon().getName()+" is no longer bound to "+userpokemon.getName()+" by "+condition);
 			}
 			else if(effect==MoveEffect.RemoveProtectionCondition){
-				if(target.removeProtectionCondition(ProtectionCondition.valueOf(curreffects.get("Condition"))))
-					System.out.println(target.getPokemon().getName()+" is no longer protected by "+curreffects.get("Condition"));
+				if(target.removeProtectionCondition(ProtectionCondition.valueOf(condition)))
+					System.out.println(target.getPokemon().getName()+" is no longer protected by "+condition);
 			}
 		}
 	}
@@ -518,10 +540,17 @@ public class MoveLogic {
 		double burnmod=1;
 		if(attackerpokemon.getPcondition()==PermCondition.Burn&&!usesSpecial(movetype))
 			burnmod-=Constants.BURN_PHYSICAL_ATTACK_DAMAGE_REDUCTION;
-		double totalmodifier=stabmod*typemod*critmod*heldmod*randommod*burnmod;
+		//weather mod
+		double weathermod=1;
+		Weather currweather=BattleEngine.getWeather();
+		if((currweather==Weather.Sun&&movetype==Type.Fire)||(currweather==Weather.Rain&&movetype==Type.Water))
+			weathermod=1.5;
+		else if((currweather==Weather.Sun&&movetype==Type.Water)||(currweather==Weather.Rain&&movetype==Type.Fire)||(currweather==Weather.Rain&&GameData.getMoveName(move.getNum()).equals("Solar Beam")))
+			weathermod=.5;
+		double totalmodifier=stabmod*typemod*critmod*heldmod*randommod*burnmod*weathermod;
 		damage=(int)(totalbase*totalmodifier);
 		System.out.println("( "+parta+" * "+partb+" * "+power+" + 2) * "+stabmod+" * "+typemod+" * "+critmod+" * "
-				+heldmod+" * "+randommod+" * "+burnmod+" = "+damage);
+				+heldmod+" * "+randommod+" * "+burnmod+" * "+weathermod+" = "+damage);
 		return damage;
 	}
 
@@ -562,8 +591,19 @@ public class MoveLogic {
 			System.out.println(attacker.getPokemon().getName()+" is facing "+defender.getPokemon().getName()+"'s side so will take a slight accuracy penalty");
 			mod=Constants.SIDE_FACING_ACCURACY_RATE;
 		}
-		System.out.println(GameData.getMoveAccuracy(movenum)+"*"+defender.getEvasion()+"*"+attacker.getAccuracy()+"*"+mod);
-		return round(GameData.getMoveAccuracy(movenum)*defender.getEvasion()*attacker.getAccuracy()*mod);
+		double acc=GameData.getMoveAccuracy(movenum);
+		if(GameData.getMoveName(movenum).equals("Thunder")){
+			if(BattleEngine.getWeather()==Weather.Rain){
+				System.out.println("Rain Dance makes Thunder 100% accurate");
+				acc=100.0;
+			}
+			else if(BattleEngine.getWeather()==Weather.Sun){
+				System.out.println("Sunny Day makes Thunder 50% accurate");
+				acc=50.0;
+			}
+		}
+		System.out.println(acc+"*"+defender.getEvasion()+"*"+attacker.getAccuracy()+"*"+mod);
+		return round(acc*defender.getEvasion()*attacker.getAccuracy()*mod);
 	}
 
 	private static int round(double num){
@@ -820,7 +860,7 @@ public class MoveLogic {
 				activeunit.incNumTurnsAfflicted(TempCondition.Disable.toString());
 		}
 	}
-	
+
 	public static void delete(){
 		user=null;
 		userpokemon=null;

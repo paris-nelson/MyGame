@@ -7,7 +7,7 @@ Amnesia,Psychic,Raises the user's Special Defense by 2 stages
 Ancient Power,Rock,Has a 10% chance to raise all of the user's stats by 1 stage
 Attract,Normal,Infatuates Pokemon of the opposite gender causing a 50% chance for the target to be be unable to attack
 Aurora Beam,Ice,Has a 10% chance to lower the target's Attack by 1 stage
-Barrage,Normal,Attacks 2-5 times in one turn. This move has a 3/8 chance to hit twice a 3/8 chance to hit three times a 1/8 chance to hit four times and a 1/8 chance to hit five times
+Barrage,Normal,Attacks 2-5 times in one turn
 Barrier,Psychic,Raises the user's Defense by 2 stages
 Baton Pass,Normal,Swaps positions with other party member.all stat modifiers are passed between them as well as confusion Focus Energy Perish Song count Mist Leech Seed Ghost Curses Mind Reader Lock-On Mean Look Spider Web and Substitute to the replacement Pokemon. In-game Baton Pass also passes partial trapping moves (Bind Clamp Fire Spin and Wrap) Foresight Toxic if the replacement is poisoned and Nightmare if replacement is asleep.
 Beat Up,Dark,Each healthy (i.e. not fainted nor inflicted with a status condition) Pokemon in your party contributes a typeless 10 base power hit determined solely by their base Attack and Defense stats. No STAB or rand damage variation
@@ -18,13 +18,13 @@ Bite,Dark,Has a 30% chance to make the target flinch
 Blizzard,Ice,Has a 10% chance to freeze the target
 Body Slam,Normal,Has a 30% chance to paralyze the target
 Bone Club,Ground,Has a 10% chance to make the target flinch
-Bone Rush,Ground,Attacks 2-5 times in one turn; if one of these attacks breaks a target's Substitute the target will take damage for the rest of the hits. This move has a 3/8 chance to hit twice a 3/8 chance to hit three times a 1/8 chance to hit four times and a 1/8 chance to hit five times
+Bone Rush,Ground,Attacks 2-5 times in one turn
 Bonemerang,Ground,Strikes twice; if the first hit breaks the target's Substitute the real Pokemon will take damage from the second hit
 Bubble,Water,Has a 10% chance to lower the target's Speed by 1 stage
 Bubblebeam,Water,Has a 10% chance to lower the target's Speed by 1 stage
 Charm,Normal,Lowers the target's Attack by 2 stages
 Clamp,Water,Traps the target for 2-5 turns causing damage equal to 1/16 of its max HP each turn; this trapped effect can be broken by Rapid Spin. The target can still switch out if it uses Baton Pass
-Comet Punch,Normal,Attacks 2-5 times in one turn; if one of these attacks breaks a target's Substitute the target will take damage for the rest of the hits. This move has a 3/8 chance to hit twice a 3/8 chance to hit three times a 1/8 chance to hit four times and a 1/8 chance to hit five times
+Comet Punch,Normal,Attacks 2-5 times in one turn
 Confuse Ray,Ghost,Confuses the target
 Confusion,Psychic,Has a 10% chance to confuse the target
 Constrict,Normal,Has a 10% chance to lower the target's Speed by 1 stage
@@ -46,7 +46,7 @@ Dizzy Punch,Normal,Has a 20% chance to confuse the target
 Double Kick,Fighting,Strikes twice; if the first hit breaks the target's Substitute the real Pokemon will take damage from the second hit
 Double Team,Normal,Raises the user's Evasion by 1 stage
 Double-Edge,Normal,The user receives 1/4 recoil damage
-Double Slap,Normal,Attacks 2-5 times in one turn; if one of these attacks breaks a target's Substitute the target will take damage for the rest of the hits. This move has a 3/8 chance to hit twice a 3/8 chance to hit three times a 1/8 chance to hit four times and a 1/8 chance to hit five times
+Double Slap,Normal,Attacks 2-5 times in one turn
 Dragon Rage,Dragon,Always deals 40 points of damage
 Dragonbreath,Dragon,Has a 30% chance to paralyze the target
 Dream Eater,Psychic,Restores the user's HP by 1/2 of the damage inflicted on the target but only works on a sleeping target
@@ -73,9 +73,9 @@ Fly,Flying,On the first turn the user flies into the air becoming uncontrollable
 Focus Energy,Normal,Raises the user's chance for a critical hit by one stage
 Foresight,Normal,Until the target faints or switches the user's Accuracy modifiers and the target's Evasion modifiers are ignored. Ghost-type targets also lose their immunities against Normal-type and Fighting-type moves. Should this apply to only attacks between user and target?
 Frustration,Normal,Base power increases as the user's HP decreases
-Fury Attack,Normal,Attacks 2-5 times in one turn; if one of these attacks breaks a target's Substitute the target will take damage for the rest of the hits. This move has a 3/8 chance to hit twice a 3/8 chance to hit three times a 1/8 chance to hit four times and a 1/8 chance to hit five times
+Fury Attack,Normal,Attacks 2-5 times in one turn
 Fury Cutter,Bug,The base power of this move doubles with each consecutive hit; however power is capped at a maximum 160 BP and remains there for any subsequent uses. If this move misses or if the user selects another move base power will be reset to 10 BP on the next turn
-Fury Swipes,Normal,Attacks 2-5 times in one turn; if one of these attacks breaks a target's Substitute the target will take damage for the rest of the hits. This move has a 3/8 chance to hit twice a 3/8 chance to hit three times a 1/8 chance to hit four times and a 1/8 chance to hit five times
+Fury Swipes,Normal,Attacks 2-5 times in one turn
 Future Sight,Psychic,This move even if the user and/or the target switch out will strike the active target at the end of the second turn after its use. This move cannot cause a critical hit and its damage is calculated by using the original user's Special Attack and the original target's Special Defense. The move's damage is typeless so it never receives STAB and ignores weaknesses resistances and immunities against this move's type. Only one instance of Future Sight may be active at a time; because it occurs at the end of the round it also hits through Protect Detect and Endure
 Giga Drain,Grass,Restores the user's HP by 1/2 of the damage inflicted on the target
 Glare,Normal,Paralyzes the target
@@ -139,7 +139,7 @@ Pay Day,Normal,The player picks up extra money after in-game battles; the money 
 Peck,Flying,Damages the target
 Perish Song,Normal,All active Pokemon will faint in 3 turns unless they are switched out
 Petal Dance,Grass,The user attacks uncontrollably for 2-3 turns and then gets confused
-Pin Missile,Bug,Attacks 2-5 times in one turn; if one of these attacks breaks a target's Substitute the target will take damage for the rest of the hits. This move has a 3/8 chance to hit twice a 3/8 chance to hit three times a 1/8 chance to hit four times and a 1/8 chance to hit five times
+Pin Missile,Bug,Attacks 2-5 times in one turn
 Poison Gas,Poison,Poisons the target
 Poison Sting,Poison,Has a 30% chance to poison the target
 Poison Powder,Poison,Poisons the target
@@ -197,8 +197,8 @@ Softboiled,Normal,Restores 1/2 of the user's max HP
 Solar Beam,Grass,The user prepares on turn one becoming uncontrollable and then attacks on turn two. During Sunny Day this move fires immediately; during Rain Dance this move has half power
 Sonic Boom,Normal,Always deals 20 points of damage
 Spark,Electric,Has a 30% chance to paralyze the target
-Spider Web,Bug,Target unable to take movement actions for 2-5 turns??
-Spike Cannon,Normal,Attacks 2-5 times in one turn; if one of these attacks breaks a target's Substitute the target will take damage for the rest of the hits. This move has a 3/8 chance to hit twice a 3/8 chance to hit three times a 1/8 chance to hit four times and a 1/8 chance to hit five times
+Spider Web,Bug,Target unable to take movement actions for 2-5 turns
+Spike Cannon,Normal,Attacks 2-5 times in one turn
 Spikes,Ground,Damages opponents unless they are Flying-type every time they are switched in; saps 1/8 of the opponent's max HP
 Spite,Ghost,The target's most recent move is reduced by 2-5 PP; this fails if the target has not yet performed a move if the target's last move has run out of PP or if the target can only use Struggle
 Splash,Normal,Doesn't do anything (but we still love it)
