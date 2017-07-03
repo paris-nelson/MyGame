@@ -613,6 +613,7 @@ public class BattleEngine {
 		battlefieldimage=null;
 		battlefield=null;
 		bfmaker=null;
+		weather=null;
 		MoveLogic.delete();
 		CatchLogic.delete();
 		BattleAttackLogic.delete();
