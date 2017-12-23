@@ -19,7 +19,7 @@ import Global.GameData;
 public class Helper {
 	
 	public static void main(String[] args) throws IOException{
-				
+		
 		GlobalEngine.initialize();
 		
 		//TODO: make global player like GameData.getGUI() which plays/pauses tracks.

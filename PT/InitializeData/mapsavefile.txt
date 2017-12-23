@@ -1,6 +1,6 @@
 19
 27
-0
 9
-C:\Users\paris.nelson\Documents\PT\PT\\Sprites\Right\34.png
+9
+Sprites\Left\34.png
 0

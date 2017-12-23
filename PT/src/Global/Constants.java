@@ -1,6 +1,8 @@
 package Global;
 
 public class Constants {
+	public static final String PATH=System.getProperty("user.dir")+"\\";
+	
 	//Happiness variables
 	public static final int HAPPINESS_LOST_ON_FAINT=1;
 	public static final int HAPPINES_GAINED_ON_LEVEL_UP_OR_VITAMIN=5;
@@ -20,7 +22,6 @@ public class Constants {
 	public static final int NUM_TRAINERS=132;
 	public static final int SCREEN_WIDTH=1325;
 	public static final int SCREEN_HEIGHT=1000;
-	public static final String PATH=System.getProperty("user.dir")+"\\";
 	public static final int MAX_MONEY=999999;
 	public static final String FONT="Dialog";
 	

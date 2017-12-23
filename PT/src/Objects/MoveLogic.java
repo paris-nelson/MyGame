@@ -491,10 +491,18 @@ public class MoveLogic {
 		Pokemon attackerpokemon=userpokemon;
 		String param=curreffects.get("Type");
 		//BASE DAMAGE CALCULATION
-		double parta=(2*(double)attackerpokemon.getLevel()+10)/250;
+		double parta=2*(double)attackerpokemon.getLevel()/5+2;
 		double partb=0;
 		int att;
 		int def;
+		System.out.println(user.getStat(Stat.SpecialAttack));
+		System.out.println(user.getPokemon().getStat(Stat.SpecialAttack));
+		System.out.println(user.getStat(Stat.Attack));
+		System.out.println(user.getPokemon().getStat(Stat.Attack));
+		System.out.println(user.getStat(Stat.SpecialDefense));
+		System.out.println(user.getPokemon().getStat(Stat.SpecialDefense));
+		System.out.println(user.getStat(Stat.Defense));
+		System.out.println(user.getPokemon().getStat(Stat.Defense));
 		if(usesSpecial(movetype)){
 			att=user.getStat(Stat.SpecialAttack);
 			def=defender.getStat(Stat.SpecialDefense);
@@ -505,8 +513,8 @@ public class MoveLogic {
 		}
 		if(param!=null&&param.equals("SelfDestruct"))
 			def/=2;
-		partb=att/def;
-		double totalbase=(parta*partb*power)+2;
+		partb=((double)att)/def;
+		double totalbase=(parta*partb*power)/50.0+2;
 		//MODIFIERS
 		//same type attack mod
 		double stabmod=1;
@@ -549,7 +557,7 @@ public class MoveLogic {
 			weathermod=.5;
 		double totalmodifier=stabmod*typemod*critmod*heldmod*randommod*burnmod*weathermod;
 		damage=(int)(totalbase*totalmodifier);
-		System.out.println("( "+parta+" * "+partb+" * "+power+" + 2) * "+stabmod+" * "+typemod+" * "+critmod+" * "
+		System.out.println("( "+parta+" * "+att+"/"+def+" * "+power+" / 50 + 2) * "+stabmod+" * "+typemod+" * "+critmod+" * "
 				+heldmod+" * "+randommod+" * "+burnmod+" * "+weathermod+" = "+damage);
 		return damage;
 	}

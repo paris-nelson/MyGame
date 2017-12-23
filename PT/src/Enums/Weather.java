@@ -1,5 +1,5 @@
 package Enums;
 
 public enum Weather {
-	Sun,Rain,Sand
+	Sun,Rain,Sand,None
 }

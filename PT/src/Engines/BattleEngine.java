@@ -203,8 +203,14 @@ public class BattleEngine {
 				useMove(new Move(GameData.getChargeMoveNum(activeunit.getPrevMove())),false);
 			}
 		}
-		else
-			openUnitMenu();
+		else{
+			if(ounits.contains(activeunit)){
+				System.out.println(activeunit.getID());
+				endTurn();
+			}
+			else
+				openUnitMenu();
+		}
 	}
 
 	public static Unit getUnitByID(int id){
@@ -507,11 +513,11 @@ public class BattleEngine {
 	}
 
 	public static void endTurn(){
+		System.out.println("Ending turn for unit "+activeunit.getID());
 		activeunit.setHasEndedTurn(true);
 		if(!activeunit.getPokemon().isFainted())
 			MoveLogic.endOfTurnActions(activeunit);
-		else
-			nextTurn();
+		nextTurn();
 	}
 	
 	public static boolean canMoveTo(Unit u,IntPair square){

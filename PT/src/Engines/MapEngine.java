@@ -60,7 +60,7 @@ public class MapEngine {
 			gridxoffset=s.nextShort();
 			gridyoffset=s.nextShort();
 			s.nextLine();
-			playericonpath=s.nextLine();
+			playericonpath=Constants.PATH+s.nextLine();
 			playericon=new GImage(playericonpath);
 			repelstepsleft=s.nextInt();
 			s.close();
@@ -75,7 +75,7 @@ public class MapEngine {
 			pw.println(gridy);
 			pw.println(gridxoffset);
 			pw.println(gridyoffset);
-			pw.println(playericonpath);
+			pw.println(playericonpath.substring(playericonpath.indexOf("Sprites")));
 			pw.println(repelstepsleft);
 			pw.close();
 		}catch(Exception e){e.printStackTrace();}
