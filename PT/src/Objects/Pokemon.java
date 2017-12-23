@@ -498,12 +498,9 @@ public class Pokemon {
 	}
 	
 	public void evolve(int evolutionnum){
-		System.out.println(getName()+" evolved into a "+GameData.getName(evolutionnum));
-		num=evolutionnum;
+		System.out.println(getName()+" evolved into a "+GameData.getName(evolutionnum)+"!");
 		checkForMoveLearn();
-		//TODO: Might need to remove this otherwise could end up in awkward scenario where Zubat Evolves into Golbat, triggering enough happiness to immediately
-		//evolve into Crobat. 
-		incHappiness(Constants.HAPPINESS_GAINED_ON_EVOLUTION);
+		PlayerData.replacePokemonInParty(this,new Pokemon(this,evolutionnum));
 	}
 	
 	/**

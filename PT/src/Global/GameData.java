@@ -9,7 +9,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javazoom.jlgui.basicplayer.BasicPlayer;
 import Engines.GUI;
 import Enums.ItemType;
 import Enums.LocationName;
@@ -56,6 +59,7 @@ public class GameData {
 	private static GUI gui;
 	private static Radio radio;
 	private static Time time;
+	private static Object lock;
 
 	public static void initialize(){
 		random=new Random();
@@ -107,6 +111,8 @@ public class GameData {
 			}
 		}
 		catch(Exception e){e.printStackTrace();}
+		lock=new Object();
+		Logger.getLogger(BasicPlayer.class.getName()).setLevel(Level.OFF);
 		System.out.println("Initializing GUI");
 		gui=new GUI();
 		gui.start();
@@ -120,6 +126,10 @@ public class GameData {
 			pw.println(radio.isEnabled());
 			pw.close();
 		}catch(Exception e){e.printStackTrace();}
+	}
+	
+	public static Object getLock(){
+		return lock;
 	}
 	
 	public static ArrayList<String> getPlaylist(MusicTheme theme){

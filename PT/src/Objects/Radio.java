@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import javazoom.jlgui.basicplayer.BasicPlayer;
+import javazoom.jlgui.basicplayer.BasicPlayerException;
 import Enums.MusicTheme;
 import Global.Constants;
 import Global.GameData;
@@ -37,6 +38,7 @@ public class Radio {
 			theme=newtheme;
 			playlist=GameData.getPlaylist(theme);
 			songindex=0;
+			open(playlist.get(songindex));
 			if(enabled)
 				play();
 		}
@@ -48,7 +50,7 @@ public class Radio {
 			songindex--;
 			if(songindex<0)
 				songindex=playlist.size()-1;
-			player.open(new File(Constants.PATH+"\\Music\\"+playlist.get(songindex)));
+			open(playlist.get(songindex));
 			player.play();
 		}catch(Exception e){e.printStackTrace();}
 	}
@@ -59,9 +61,17 @@ public class Radio {
 			songindex++;
 			if(songindex>=playlist.size())
 				songindex=0;
-			player.open(new File(Constants.PATH+"\\Music\\"+playlist.get(songindex)));
+			open(playlist.get(songindex));
 			player.play();
 		}catch(Exception e){e.printStackTrace();}
+	}
+	
+	private void open(String songtitle){
+		try {
+			player.open(new File(Constants.PATH+"\\Music\\"+songtitle+".mp3"));
+		} catch (BasicPlayerException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public boolean isEnabled(){
