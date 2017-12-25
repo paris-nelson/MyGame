@@ -1,2 +1,0 @@
-Map=NationalPark,EcruteakCianwood,RouteSong1,RouteSong2,RouteSong3,RouteSong4,Surf,RouteSong5,AzaleaBlackthorn,KantoTowns,Pallet,NewBark
-Cave=CaveSong1,CaveSong2,CaveSong3,CaveSong4

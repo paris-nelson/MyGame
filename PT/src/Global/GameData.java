@@ -131,30 +131,6 @@ public class GameData {
 	public static Object getLock(){
 		return lock;
 	}
-	
-	public static ArrayList<String> getPlaylist(MusicTheme theme){
-		if(theme==null)
-			return null;
-		if(playlists==null){
-			try{
-				File f=new File(Constants.PATH+"\\InitializeData\\playlists.txt");
-				Scanner s=new Scanner(f);
-				playlists=new HashMap<MusicTheme,ArrayList<String>>();
-				while(s.hasNextLine()){
-					String line=s.nextLine();
-					int splitindex=line.indexOf("=");
-					MusicTheme linetheme=MusicTheme.valueOf(line.substring(0,splitindex));
-					ArrayList<String> songs=new ArrayList<String>();
-					String[] split=line.substring(splitindex+1).split(",");
-					for(String song:split){
-						songs.add(song);
-					}
-					playlists.put(linetheme,songs);
-				}
-			}catch(Exception e){e.printStackTrace();}
-		}
-		return playlists.get(theme);
-	}
 
 	public static double getAccEvaStageMultiplier(Stat stat,int stage){
 		if(accevastages==null){

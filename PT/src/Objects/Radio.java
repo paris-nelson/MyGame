@@ -1,6 +1,7 @@
 package Objects;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javazoom.jlgui.basicplayer.BasicPlayer;
@@ -12,13 +13,11 @@ import Global.GameData;
 public class Radio {
 	private BasicPlayer player;
 	private MusicTheme theme;
-	private ArrayList<String> playlist;
 	private int songindex;
 	private boolean enabled;
 	
 	public Radio(boolean enabled){
 		theme=null;
-		playlist=null;
 		songindex=-1;
 		player=new BasicPlayer();
 		this.enabled=enabled;
@@ -26,7 +25,6 @@ public class Radio {
 	
 	public Radio(MusicTheme theme){
 		this.theme=theme;
-		playlist=GameData.getPlaylist(theme);
 		songindex=0;
 		player=new BasicPlayer();
 	}
@@ -36,9 +34,8 @@ public class Radio {
 			if(enabled)
 				stop();
 			theme=newtheme;
-			playlist=GameData.getPlaylist(theme);
 			songindex=0;
-			open(playlist.get(songindex));
+			open();
 			if(enabled)
 				play();
 		}
@@ -48,9 +45,7 @@ public class Radio {
 		try{
 			player.stop();
 			songindex--;
-			if(songindex<0)
-				songindex=playlist.size()-1;
-			open(playlist.get(songindex));
+			open();
 			player.play();
 		}catch(Exception e){e.printStackTrace();}
 	}
@@ -59,17 +54,28 @@ public class Radio {
 		try{
 			player.stop();
 			songindex++;
-			if(songindex>=playlist.size())
-				songindex=0;
-			open(playlist.get(songindex));
+			open();
 			player.play();
 		}catch(Exception e){e.printStackTrace();}
 	}
 	
-	private void open(String songtitle){
+	private void open(){
 		try {
-			player.open(new File(Constants.PATH+"\\Music\\"+songtitle+".mp3"));
-		} catch (BasicPlayerException e) {
+			File song=new File(Constants.PATH+"\\Music\\"+theme+"\\"+songindex+".mp3");
+			if(!song.exists()){
+				if(songindex==0)
+					throw new FileNotFoundException("No songs found for "+theme+" theme.");
+				else if(songindex>0)
+					songindex=0;
+				else{
+					do{
+						songindex++;
+					}while(new File(Constants.PATH+"\\Music\\"+theme+"\\"+(songindex+1)+".mp3").exists());
+				}
+				song=new File(Constants.PATH+"\\Music\\"+theme+"\\"+songindex+".mp3");
+			}
+			player.open(song);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -106,9 +112,5 @@ public class Radio {
 
 	public MusicTheme getTheme() {
 		return theme;
-	}
-
-	public ArrayList<String> getPlaylist() {
-		return playlist;
 	}
 }

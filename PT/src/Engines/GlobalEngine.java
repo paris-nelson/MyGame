@@ -40,8 +40,10 @@ public class GlobalEngine {
 		ControlsConfig.load();
 		System.out.println("Initializing Complete");
 		File f=new File(Constants.PATH+"\\InitializeData\\battlesavefile.txt");
-		if(f.exists())
+		if(f.exists()){
+			GameData.getRadio().changeTheme(MusicTheme.Battle);
 			BattleEngine.load();
+		}
 		else
 			MapEngine.initialize(PlayerData.getLocation());
 	}
@@ -66,10 +68,7 @@ public class GlobalEngine {
 
 	public static void enterBattle(Trainer opponent){
 		MapEngine.close();
-		if(opponent.getName().contains("Elite Four"))
-			GameData.getRadio().changeTheme(MusicTheme.EliteFour);
-		else
-			GameData.getRadio().changeTheme(MusicTheme.Battle);
+		GameData.getRadio().changeTheme(MusicTheme.Battle);
 		BattleEngine.initialize(opponent);
 	}
 

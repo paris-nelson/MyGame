@@ -1,6 +1,6 @@
 19
 27
+6
 9
-9
-Sprites\Left\34.png
+Sprites\Right\34.png
 0

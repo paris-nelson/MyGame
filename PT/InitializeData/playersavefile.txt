@@ -12,6 +12,6 @@ SlowpokeWell
 AzaleaTown
 [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 {RocketEncounter1=true}
-{ZephyrBadge=true, NONE=true, RisingBadge=true, FogBadge=true, InsectBadge=true}
+{FogBadge=true, RisingBadge=true, ZephyrBadge=true, InsectBadge=true, NONE=true}
 20
 4

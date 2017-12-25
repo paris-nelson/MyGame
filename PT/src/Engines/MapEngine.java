@@ -103,19 +103,23 @@ public class MapEngine {
 				radio.changeTheme(MusicTheme.TeamRocket);
 			else if(type==MapType.Gym)
 				radio.changeTheme(MusicTheme.Gym);
+			else if(type==MapType.EliteFour)
+				radio.changeTheme(MusicTheme.EliteFour);
 			else if(type==MapType.Kanto||type==MapType.Johto)
 				radio.changeTheme(MusicTheme.Map);
 			else
 				radio.changeTheme(MusicTheme.Cave);
 		}
 		//map has changed from johto/kanto to a cave/forest/etc type map, set gridx/gridy to be at entrance
-		else if(type==MapType.Cave||type==MapType.Forest||type==MapType.TeamRocket||type==MapType.Gym||type==MapType.OlivineTower){
+		else if(type==MapType.Cave||type==MapType.Forest||type==MapType.TeamRocket||type==MapType.Gym||type==MapType.OlivineTower||type==MapType.EliteFour){
 			addIconToPosition(Short.valueOf("3"),Short.valueOf("29"));
 			Radio radio=GameData.getRadio();
 			if(type==MapType.TeamRocket)
 				radio.changeTheme(MusicTheme.TeamRocket);
 			else if(type==MapType.Gym)
 				radio.changeTheme(MusicTheme.Gym);
+			else if(type==MapType.EliteFour)
+				radio.changeTheme(MusicTheme.EliteFour);
 			else
 				radio.changeTheme(MusicTheme.Cave);
 		}
