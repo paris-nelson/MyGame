@@ -1,5 +1,6 @@
 Gym Leader Clair: Welcome to the Blackthorn City Gym!
 Gym Leader Clair: We specialize in Dragon type Pokemon.
-Gym Leader Clair: $PlayerName$, your reputation proceeds you; I've been looking forward to this.
+Gym Leader Clair: $PlayerName$, your reputation proceeds you;
+Gym Leader Clair: I've been looking forward to this opportunity for a real challenger.
 Gym Leader Clair: I'm the strongest gym leader in the region.
 Gym Leader Clair: Let's see if you can withstand the fury of the dragons!

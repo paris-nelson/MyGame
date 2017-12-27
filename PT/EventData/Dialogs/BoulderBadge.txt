@@ -1,0 +1,3 @@
+Gym Leader Brock: Well fought, $PlayerName$!
+Gym Leader Brock: I can see how you and your team bested the Elite Four.
+Gym Leader Brock: I award you your first Kanto badge, the Boulder Badge!

@@ -1,0 +1,10 @@
+Gym Leader Blaine: Well fought, $PlayerName$!
+Gym Leader Blaine: You've certainly earned your victory here. 
+Gym Leader Blaine: You are a truly honorable opponent, so I offer you this:
+Gym Leader Blaine: A warning.
+Gym Leader Blaine: The Viridian City gym leader is not like the rest of us.
+Gym Leader Blaine: He does not lose.
+Gym Leader Blaine: You still wish to continue? Fine.
+Gym Leader Blaine: To have made it this far is a true accomplishment;
+Gym Leader Blaine: Remember that as consolation when you are defeated.
+Gym Leader Blaine: I award you your seventh Kanto badge, the Volcano Badge!

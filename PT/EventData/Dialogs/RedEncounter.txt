@@ -1,0 +1,18 @@
+You approach the mysterious figure at the edge of the mountain ledge.
+He turns and looks at you solemnly and curiously,
+as someone who hadn't seen another person in a long time.
+Red: ...
+Red: How did you find me?
+You mention Gym Leader Blue's story.
+Red: Ah, my old rival Blue...
+Red: You must be an outstanding trainer to have beaten Blue and acquired all 16 badges.
+Red: Then you also know how to care for your Pokemon and enjoy training them.
+Red: I presume then that you came here to defeat me;
+Red: and in doing so, prove yourself the most powerful trainer.
+Red: Then I must disappoint you.
+Red: You see, I defeated the gym leaders long ago.
+Red: There was no one worth challenging and no challenger worth accepting.
+Red: Since then I've trained here alone since no one was my equal.
+Red: I've reached the absolute pinnacle of my power.
+Red: You came all the way here to prove something that cannot be proven.
+Red: I will accept your challenge, though it is clear who is the better trainer among us.

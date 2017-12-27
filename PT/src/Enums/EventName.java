@@ -11,5 +11,6 @@ public enum EventName {
 	EliteFourBeaten,
 	PokeCenter,
 	BlackOut,
-	UnleashLegends
+	UnleashLegends,
+	RedEncounter,RedBeaten
 }

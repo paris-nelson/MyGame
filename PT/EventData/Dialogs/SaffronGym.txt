@@ -1,2 +1,8 @@
 Gym Leader Sabrina: Welcome to the Saffron City Gym, $PlayerName$!
 Gym Leader Sabrina: We specialize in Psychic type Pokemon.
+Gym Leader Sabrina: My third eye senses you aim for the 8 badges of Kanto.
+Gym Leader Sabrina: A fool's errand.
+Gym Leader Sabrina: However I can also see in your mind that you deeply care for your Pokemon.
+Gym Leader Sabrina: That explains your ability to succeed thus far.
+Gym Leader Sabrina: That alone won't be enough;
+Gym Leader Sabrina: You'll also need mental fortitude to beat us, ESPecially me!

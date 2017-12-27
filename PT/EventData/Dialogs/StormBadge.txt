@@ -1,0 +1,3 @@
+Gym Leader Chuck: Well fought, $PlayerName$! Those 4 badges weren't lying.
+Gym Leader Chuck: Here's your fifth badge, the Storm Badge. In addition, here's an HM, HM02: Fly
+Gym Leader Chuck: Good luck on the rest of your journey for badges!

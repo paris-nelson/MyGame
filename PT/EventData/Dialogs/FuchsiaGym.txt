@@ -1,2 +1,3 @@
 Gym Leader Janine: Welcome to the Fuchsia City Gym, $PlayerName$!
 Gym Leader Janine: We specialize in Poison type Pokemon.
+Gym Leader Janine: Your fighting spirit is contagious, it promises a good battle!

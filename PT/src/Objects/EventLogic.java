@@ -65,8 +65,6 @@ public class EventLogic {
 			if(event.toString().endsWith("Beaten")){
 				if(event==EventName.RivalEncounter2Beaten)
 					PlayerData.addNewPokemon(new Pokemon(175,5));
-				else if(event==EventName.RivalEncounter6Beaten)
-					PlayerData.markRequirementMet(Requirement.RivalEncountersBeaten);
 				MapEngine.initialize(PlayerData.getLocation());
 			}
 			else if(event.toString().endsWith("Final")){

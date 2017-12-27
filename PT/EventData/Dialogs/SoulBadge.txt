@@ -1,0 +1,5 @@
+Gym Leader Janine: Well fought, $PlayerName$!
+Gym Leader Janine: You really are as strong as they say.
+Gym Leader Janine: That won't be enough though...
+Gym Leader Janine: Who am I kidding, I know you won't be dissuaded.
+Gym Leader Janine: I award you your sixth Kanto badge, the Soul Badge!

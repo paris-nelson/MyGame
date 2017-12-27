@@ -1,0 +1,3 @@
+Gym Leader Morty: Well fought, $PlayerName$!
+Gym Leader Morty: Here's your fourth badge, the Fog Badge. In addition, here's an HM, HM03: Surf
+Gym Leader Morty: Good luck on the rest of your journey for badges!

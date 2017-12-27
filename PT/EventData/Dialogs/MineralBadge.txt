@@ -1,0 +1,7 @@
+Gym Leader Jasmine: Well fought, $PlayerName$!
+Gym Leader Jasmine: Here's your sixth badge, the Mineral Badge.
+Gym Leader Jasmine: In addition, I present a special gift: The Rematcher!
+Gym Leader Jasmine: Use it to get a rematch with trainers that you've already defeated.
+Gym Leader Jasmine: Just stand in an area where the trainer(s) had been and use it.
+Gym Leader Jasmine: This will allow the practice you'll need to get all 8 badges.
+Gym Leader Jasmine: Good luck on the rest of your journey for badges!

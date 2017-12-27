@@ -1,3 +1,4 @@
-Gym Leader Falkner: Well fought, $PlayerName$!
+Gym Leader Falkner: Well fought, $PlayerName$, was it?
 Gym Leader Falkner: Here's your first badge, the Zephyr Badge. In addition, here's an HM, HM05: Flash
+Gym Leader Falkner: HM's can be used to teach a move to Pokemon and can be used any number of times.
 Gym Leader Falkner: Good luck on the rest of your journey for badges!

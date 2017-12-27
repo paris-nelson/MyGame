@@ -1,2 +1,7 @@
 Gym Leader Blaine: Welcome to the Cinnabar Island Gym, $PlayerName$!
 Gym Leader Blaine: We specialize in Fire type Pokemon.
+Gym Leader Blaine: Very few trainers have ever made it as far as this gym.
+Gym Leader Blaine: Fewer still make it beyond.
+Gym Leader Blaine: Something about you does seem special, however...
+Gym Leader Blaine: I admire your burning passion for your Pokemon.
+Gym Leader Blaine: Can you stand the heat of ours?

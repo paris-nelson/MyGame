@@ -1,2 +1,4 @@
 Gym Leader Erika: Welcome to the Celadon City Gym, $PlayerName$!
 Gym Leader Erika: We specialize in Grass type Pokemon.
+Gym Leader Erika: You're really growing on us here in the Kanto region.
+Gym Leader Erika: I might be green with envy if I didn't plan to defeat you here.

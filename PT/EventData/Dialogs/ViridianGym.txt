@@ -1,3 +1,11 @@
 Gym Leader Blue: Welcome to the Viridian City Gym, $PlayerName$!
 Gym Leader Blue: I don't specialize in any particular type of Pokemon.
+Gym Leader Blue: This, in part, allows me to transcend the power of my peers.
 Gym Leader Blue: I simply train my party of powerful friends to the best of my abilities!
+Gym Leader Blue: I'm the strongest gym leader there is;
+Gym Leader Blue: do you know how many badges I've awarded in my tenure?
+Gym Leader Blue: 0.
+Gym Leader Blue: I will admit that among the elite who make it to me, you stand out.
+Gym Leader Blue: You remind of me of someone I knew long ago...
+Gym Leader Blue: But that only strengthens my resolve.
+Gym Leader Blue: You're impressive for making it this far, but your winning streak ends here!

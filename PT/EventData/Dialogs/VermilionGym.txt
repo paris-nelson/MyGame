@@ -1,2 +1,3 @@
 Gym Leader Lt. Surge: Welcome to the Vermilion City Gym, $PlayerName$!
 Gym Leader Lt. Surge: We specialize in Electric type Pokemon.
+Gym Leader Lt. Surge: Don't let it come as a shock when you lose lightning fast!

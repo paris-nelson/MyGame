@@ -1,2 +1,8 @@
 Gym Leader Brock: Welcome to the Pewter City Gym, $PlayerName$!
 Gym Leader Brock: We specialize in Rock type Pokemon.
+Gym Leader Brock: I'm the first gym leader of the Kanto region.
+Gym Leader Brock: It seems you're going to continue your journey
+Gym Leader Brock: by going for the 8 Kanto badges huh?
+Gym Leader Brock: I should warn you now that no one's ever gotten through all 8 of us.
+Gym Leader Brock: But I'd never dream of stop anyone from trying, so let's start:
+Gym Leader Brock: Our Pokemon are stone cold, can yours compete?

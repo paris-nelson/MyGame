@@ -1,2 +1,4 @@
 Gym Leader Misty: Welcome to the Cerulean City Gym, $PlayerName$!
 Gym Leader Misty: We specialize in Water type Pokemon.
+Gym Leader Misty: I heard you're making a splash in the region already.
+Gym Leader Misty: Can you keep up with our Pokemon or will they swim laps around yours?

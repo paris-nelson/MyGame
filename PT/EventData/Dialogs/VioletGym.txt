@@ -1,2 +1,5 @@
 Gym Leader Falkner: Welcome to the Violet City Gym!
-Gym Leader Falkner: We specialize in Flying type Pokemon!
+Gym Leader Falkner: We specialize in Flying type Pokemon.
+Gym Leader Falkner: Looks like you don't have any gym badges yet.
+Gym Leader Falkner: You get gym badges by defeating gym leaders like me.
+Gym Leader Falkner: But it will be anything but a breeze, good luck!

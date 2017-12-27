@@ -1,0 +1,14 @@
+Gym Leader Clair: Well fought, $PlayerName$! 
+Gym Leader Clair: I'm glad I got to see the power of your Pokemon firsthand.
+Gym Leader Clair: Here's your eighth badge, the Rising Badge. In addition, here's an HM, HM07: Waterfall
+Gym Leader Clair: ...
+Gym Leader Clair: Not many trainers have what it takes to best me.
+Gym Leader Clair: You join the ranks of trainers that have proven they have what it takes
+Gym Leader Clair: What it takes to battle the Elite Four...
+Gym Leader Clair: They're incredibly powerful Pokemon trainers who reside at the Indigo Plateau.
+Gym Leader Clair: I'm not surprised you haven't heard of it, it's not in the Johto region
+Gym Leader Clair: Travel to your home of New Bark Town and travel East.
+Gym Leader Clair: With this Rising Badge, you'll be able to access the Kanto region and make your
+Gym Leader Clair: way to the Indigo Plateau. I'm warning you, $PlayerName$, it won't be easy.
+Gym Leader Clair: But your care for your Pokemon shows, I believe you have a chance.
+Gym Leader Clair: Good Luck!

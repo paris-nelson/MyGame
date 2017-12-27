@@ -1,0 +1,4 @@
+Gym Leader Pryce: Well fought, $PlayerName$! 
+Gym Leader Pryce: It's no surprise that you bested Team Rocket with that team.
+Gym Leader Pryce: Here's your seventh badge, the Glacier Badge. In addition, here's an HM, HM06: Whirlpool
+Gym Leader Pryce: Good luck on the rest of your journey for badges!

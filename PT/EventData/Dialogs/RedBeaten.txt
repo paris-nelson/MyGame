@@ -1,0 +1,31 @@
+Red recalls his last Pokemon, and to your shocked surprise, he smiles.
+Knowingly.
+Red: Thank you, $PlayerName$!
+Red: I told you I could already tell who was the better trainer between us.
+Red: I knew it the second I saw the worn Rematcher peeking out of your bag.
+Red: You see, I came here to train alone in hubris.
+Red: I had beaten all the trainers there were to beat, acquired every badge,
+Red: beaten the Elite Four, beaten Team Rocket, beaten Blue.
+Red: I came here to train my Pokemon alone because I thought I had learned
+Red: every lesson that anyone else could teach me.
+Red: But I recently hit a limit; my Pokemon stopped getting stronger.
+Red: The same with the joy I felt in training and battling.
+Red: At first I thought I had simply reached the actual limit of Pokemon power.
+Red: But I knew the truth; I had handicapped myself through my isolation.
+Red: I knew that it was possible to become stronger than what I had achieved.
+Red: And then you arrived; I could tell you were the better trainer.
+Red: Clearly your Pokemon were powerful enough: you'd accomplished everything I had.
+Red: But you understand the value of training with others.
+Red: you don't see yourself as superior to those you've defeated;
+Red: or others as stepping stones to your own greatness.
+Red: I've suffered for my selfishness, as have my Pokemon.
+Red: And with your arrival I realize, so did Blue.
+Red: And any other trainer that I might have trained with in my lost time.
+Red: We make each other better through battling and training together.
+Red: In our battle I suspect my Pokemon and I gained more than in my entire time here.
+Red: So this settles it, I'm leaving Mt. Silver.
+Red: I'll go back home and go back to travelling and training with others.
+Red: I encourage you to do the same.
+Red: Find someone you can battle, train, and grow with. Improve off one another.
+Red: And together, the Pokemon world will thrive! 
+Red: Thank you again and see you around, $PlayerName$

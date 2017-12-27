@@ -1,0 +1,3 @@
+Gym Leader Misty: Well fought, $PlayerName$!
+Gym Leader Misty: Your abilities and your Pokemon are truly impressive.
+Gym Leader Misty: I award you your second Kanto badge, the Cascade Badge!

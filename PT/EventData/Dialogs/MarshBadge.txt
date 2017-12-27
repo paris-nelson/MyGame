@@ -1,0 +1,3 @@
+Gym Leader Sabrina: Well fought, $PlayerName$!
+Gym Leader Sabrina: Even I couldn't predict the depth of your resolve.
+Gym Leader Sabrina: I award you your fourth Kanto badge, the Marsh Badge!
