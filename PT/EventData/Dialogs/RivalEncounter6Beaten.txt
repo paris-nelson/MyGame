@@ -1,0 +1,13 @@
+Silver: I thought I'd raised my Pokemon to be the best.
+Silver: But it still wasn't enough.
+Silver: You won, fair and square.
+Silver: I've realized through my time with my Pokemon
+Silver: that getting all the badges isn't my dream anymore.
+Silver: I want to collect more Pokemon and train them with care.
+Silver: Don't get me wrong, I'll still be the best trainer.
+Silver: And one day, I'll beat you, $PlayerName$.
+Silver: But, at least for now, I'm done chasing badges.
+Silver: I'm-We're headed home to New Bark Town.
+Silver: Cya around, $PlayerName$.
+Silver: And hey...
+Silver: Good Luck.

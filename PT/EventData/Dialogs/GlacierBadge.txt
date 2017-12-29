@@ -1,4 +1,9 @@
 Gym Leader Pryce: Well fought, $PlayerName$! 
 Gym Leader Pryce: It's no surprise that you bested Team Rocket with that team.
 Gym Leader Pryce: Here's your seventh badge, the Glacier Badge. In addition, here's an HM, HM06: Whirlpool
-Gym Leader Pryce: Good luck on the rest of your journey for badges!
+Gym Leader Pryce: I opened our doors to you as a favor for freeing our town of Team Rocket.
+Gym Leader Pryce: But also as a test for a favor I must ask of you:
+Gym Leader Pryce: The thugs you beat here were just an outpost of Team Rocket.
+Gym Leader Pryce: Their current headquarters hideout is in Goldenrod City.
+Gym Leader Pryce: Please go there and root them out for good!
+Gym Leader Pryce: Thank you very much, $PlayerName$

@@ -1,0 +1,10 @@
+You're suddenly approached by someone you recognize.
+It's Silver, who is your rival of sorts.
+At least, he has it in his head that you're rivals.
+You grew up together in New Bark Town and he always wants to beat you at everything.
+Everything's always a competition with him.
+Silver: Well if it isn't $PlayerName$...
+Silver: I see you got a Pokemon, you a trainer now?
+Silver: Looks like you chose the wrong starter though.
+Silver: I got the one that has type advantage over yours!
+Silver: You don't stand a chance against me, let me prove it!

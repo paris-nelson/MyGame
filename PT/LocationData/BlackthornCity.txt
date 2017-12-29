@@ -1,6 +1,6 @@
 ID: 257
 Type: Johto 107,11
-Event: N/A
+Event: RivalEncounter4
 Trainers: 
 End Trainers
 Wild Pokemon: N/A
