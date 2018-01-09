@@ -36,6 +36,7 @@ public class Constants {
 	public static final int LOGICAL_MAP_RATIO=10;
 	public static final int POISON_HP_LOSS_RATE=4;
 	public static final int POISON_HP_LOSS_AMOUNT=1;
+	public static final int TIME_INCREMENT_PER_STEP=6; //must be a factor of 60
 
 	//BattleEngine params
 	public static final int BATTLEFIELD_WIDTH=12;

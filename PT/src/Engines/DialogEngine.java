@@ -69,7 +69,7 @@ public class DialogEngine {
 	
 	private static void updateLabel(){
 		GUI gui=GameData.getGUI();
-		gui.remove(label);
+		gui.removeIfPresent(label);
 		label.setLabel(lines.get(linenum).replace("$PlayerName$",PlayerData.getName()));
 		if(label.getLabel().contains(":"))
 			label.setFont(new Font(Constants.FONT,Font.ITALIC,22));
@@ -93,8 +93,8 @@ public class DialogEngine {
 	private static void close(){
 		GlobalEngine.giveUpControl();
 		GUI gui=GameData.getGUI();
-		gui.remove(label);
-		gui.remove(bg);
+		gui.removeIfPresent(label);
+		gui.removeIfPresent(bg);
 		label=null;
 		lines=null;
 		EventLogic.continueEvent(event);

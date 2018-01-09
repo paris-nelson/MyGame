@@ -21,3 +21,9 @@ MyGame/PT/.metadata/.plugins/org.eclipse.jdt.core/nonChainingJarsCache
 MyGame/PT/.metadata/.mylyn/repositories.xml.zip
 *.class
 PT/bin/Engines/MenuEngine.class
+*.zip
+PT/.metadata/.plugins/org.eclipse.jdt.core/invalidArchivesCache
+*.dat
+PT/.metadata/.plugins/org.eclipse.jdt.core/nonChainingJarsCache
+*.class
+PT/bin/Engines/MapEngine.class

@@ -172,8 +172,8 @@ public class UnitPlacementEngine {
 			}
 		}
 		GUI gui=GameData.getGUI();
-		gui.remove(button);
-		gui.remove(buttonlabel);
+		gui.removeIfPresent(button);
+		gui.removeIfPresent(buttonlabel);
 		BattleEngine.continueInit(newpunits);
 	}
 }

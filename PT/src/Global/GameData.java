@@ -192,6 +192,10 @@ public class GameData {
 	public static Time getTime(){
 		return time;
 	}
+	
+	public static void setTime(Time newtime){
+		time=newtime;
+	}
 
 	public static GUI getGUI(){
 		return gui;

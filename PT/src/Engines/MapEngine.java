@@ -1,5 +1,6 @@
 package Engines;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import Enums.LocationName;
 import Enums.MapType;
 import Enums.MusicTheme;
 import Enums.PermCondition;
+import Enums.Time;
 import Global.Constants;
 import Global.GameData;
 import Global.PlayerData;
@@ -23,12 +25,13 @@ import Objects.Radio;
 import Objects.Trainer;
 import Objects.WildTrainer;
 import acm.graphics.GImage;
+import acm.graphics.GLabel;
 import acm.graphics.GObject;
 import acm.graphics.GPoint;
 
 public class MapEngine {
 	//turns off wild pokemon encounters for quick testing. Remove when done testing
-	private static final boolean DEBUG=false;
+	private static final boolean DEBUG=true;
 
 	private static short[][] logicalmap;
 	private static short gridx=0;
@@ -40,6 +43,10 @@ public class MapEngine {
 	private static int repelstepsleft=0;
 	private static int movementspeed;
 	private static int stepstaken=0;
+	private static int hours;
+	private static int minutes;
+	private static String timeperiod;
+	private static GLabel timelabel;
 
 	public static void initialize(Location l){
 		System.out.println("Initializing "+l.getName());
@@ -63,6 +70,10 @@ public class MapEngine {
 			playericonpath=Constants.PATH+s.nextLine();
 			playericon=new GImage(playericonpath);
 			repelstepsleft=s.nextInt();
+			hours=s.nextInt();
+			minutes=s.nextInt();
+			s.nextLine();
+			timeperiod=s.nextLine();
 			s.close();
 		}catch(Exception e){e.printStackTrace();}
 	}
@@ -77,6 +88,9 @@ public class MapEngine {
 			pw.println(gridyoffset);
 			pw.println(playericonpath.substring(playericonpath.indexOf("Sprites")));
 			pw.println(repelstepsleft);
+			pw.println(hours);
+			pw.println(minutes);
+			pw.println(timeperiod);
 			pw.close();
 		}catch(Exception e){e.printStackTrace();}
 	}
@@ -91,6 +105,9 @@ public class MapEngine {
 		GUI gui=GameData.getGUI();
 		MapType type=location.getType();
 		gui.add(new GImage(Constants.PATH+"Sprites\\"+location.getType()+".png"));
+		timelabel=new GLabel(hours+":"+minutes+" "+timeperiod+" - "+GameData.getTime(),10,10);
+		timelabel.setColor(Color.WHITE);
+		gui.add(timelabel);
 		if(type==MapType.Johto||type==MapType.Kanto)
 			movementspeed=Constants.MAIN_MAP_MOVEMENT_SPEED;
 		else
@@ -137,13 +154,13 @@ public class MapEngine {
 			GameData.getRadio().changeTheme(MusicTheme.Map);
 		}
 		loadLogicalMap(location);
-		//		System.out.println(logicalmap.length);
-		//		for(int y=0;y<logicalmap[0].length;y++){
-		//			for(int x=0;x<logicalmap.length;x++){
-		//				System.out.print(logicalmap[x][y]);
-		//			}
-		//			System.out.println();
-		//		}
+//				System.out.println(logicalmap.length);
+//				for(int y=0;y<logicalmap[0].length;y++){
+//					for(int x=0;x<logicalmap.length;x++){
+//						System.out.print(logicalmap[x][y]);
+//					}
+//					System.out.println();
+//				}
 	}
 
 	public static void incRepelSteps(int num){
@@ -172,7 +189,7 @@ public class MapEngine {
 			GUI gui=GameData.getGUI();
 			GPoint point=playericon.getLocation();
 			System.out.println(point.getX()+","+point.getY());
-			gui.remove(playericon);
+			gui.removeIfPresent(playericon);
 			playericon=new GImage(playericonpath);
 			gui.add(playericon,point);
 		}
@@ -182,6 +199,7 @@ public class MapEngine {
 
 	private static void movePlayer(int xdelta,int ydelta){
 		playericon.move(xdelta,ydelta);
+		updateTime();
 		if(repelstepsleft>0)
 			repelstepsleft--;
 		if(stepstaken<Constants.POISON_HP_LOSS_RATE)
@@ -449,10 +467,11 @@ public class MapEngine {
 		GUI gui=GameData.getGUI();
 		GObject object=gui.getElementAt(1,1);
 		while(object!=null&&object instanceof GImage){
-			gui.remove(object);
+			gui.removeIfPresent(object);
 			object=gui.getElementAt(1,1);
 		}
-		gui.remove(playericon);
+		gui.removeIfPresent(playericon);
+		gui.removeIfPresent(timelabel);
 	}
 
 	private static void loadLogicalMap(Location location){
@@ -468,7 +487,6 @@ public class MapEngine {
 		}
 		if(type==MapType.Cave||type==MapType.Forest||type==MapType.TeamRocket||type==MapType.Gym||type==MapType.OlivineTower)
 			addLogicalMapEndpoints(location);
-
 	}
 
 	private static void loadLogicalMapTemplate(MapType type){
@@ -567,5 +585,30 @@ public class MapEngine {
 		}
 		return toReturn;
 	}
-
+	
+	private static void updateTime(){
+		minutes+=Constants.TIME_INCREMENT_PER_STEP;
+		if(minutes==60){
+			minutes=0;
+			hours++;
+			if(hours==12){
+				if(timeperiod.equals("AM"))
+					timeperiod="PM";
+				else
+					timeperiod="AM";
+			}
+			else if(hours==13)
+				hours=1;
+			else if(hours==4&&timeperiod.equals("AM"))
+				GameData.setTime(Time.Morning);
+			else if(hours==10&&timeperiod.equals("AM"))
+				GameData.setTime(Time.Day);
+			else if(hours==6&&timeperiod.equals("PM"))
+				GameData.setTime(Time.Night);
+		}
+		if(minutes==0)
+			timelabel.setLabel(hours+":"+minutes+"0 "+timeperiod+" - "+GameData.getTime());
+		else
+			timelabel.setLabel(hours+":"+minutes+" "+timeperiod+" - "+GameData.getTime());
+	}
 }

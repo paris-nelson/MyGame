@@ -269,10 +269,10 @@ public class ControlsEngine {
 		GlobalEngine.giveUpControl();
 		GUI gui=GameData.getGUI();
 		if(screen!=null)
-			gui.remove(screen);
+			gui.removeIfPresent(screen);
 		if(labels!=null){
 			for(GLabel gl:labels)
-				gui.remove(gl);
+				gui.removeIfPresent(gl);
 		}
 		//send new controls to map and send to controlsconfig
 		ControlsConfig.setControls(convertControlsArray());

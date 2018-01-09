@@ -653,8 +653,8 @@ public class ShopEngine {
 	public static void close(){
 		System.out.println("Closing shop");
 		GUI gui=GameData.getGUI();
-		gui.remove(screen);
-		gui.remove(sellportion);
+		gui.removeIfPresent(screen);
+		gui.removeIfPresent(sellportion);
 		MapEngine.initialize(PlayerData.getLocation());
 	}
 }
