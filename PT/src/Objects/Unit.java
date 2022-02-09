@@ -154,6 +154,10 @@ public class Unit {
 	public void setRaging(boolean newval){
 		israging=newval;
 	}
+	
+	public String getName() {
+		return pokemon.getName();
+	}
 
 	public boolean isMinimized(){
 		return isminimized;

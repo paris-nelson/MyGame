@@ -110,15 +110,15 @@ public class BattleEngine {
 		activeunit=getUnitByID(priorities.get(0));
 		System.out.println("Player units: ");
 		for(Unit u:punits){
-			System.out.println(u.getPokemon().getName()+" Lvl "+u.getPokemon().getLevel()+" ID "+u.getID());
+			System.out.println(u.getName()+" Lvl "+u.getPokemon().getLevel()+" ID "+u.getID());
 		}
 		System.out.println("Opponent units: ");
 		for(Unit u:ounits){
-			System.out.println(u.getPokemon().getName()+" Lvl "+u.getPokemon().getLevel()+" ID "+u.getID());
+			System.out.println(u.getName()+" Lvl "+u.getPokemon().getLevel()+" ID "+u.getID());
 		}
 		System.out.println("Turn order: ");
 		for(int id:priorities){
-			System.out.println(getUnitByID(id).getPokemon().getName()+" ID "+getUnitByID(id).getID());
+			System.out.println(getUnitByID(id).getName()+" ID "+getUnitByID(id).getID());
 		}
 		takeTurn();
 	}
@@ -157,7 +157,7 @@ public class BattleEngine {
 		}
 		//inserts from temp queue into front of priorities queue, slowest pushed in first and fastest put in last
 		for(int i=clawholders.size()-1;i>=0;i--){
-			System.out.println(getUnitByID(clawholders.get(i)).getPokemon().getName()+" is currently first in queue thanks to quick claw");
+			System.out.println(getUnitByID(clawholders.get(i)).getName()+" is currently first in queue thanks to quick claw");
 			priorities.add(clawholders.get(i),0);
 		}
 	}
@@ -183,23 +183,23 @@ public class BattleEngine {
 		activeunit.setHasTakenAction(false);
 		activeunit.setHasEndedTurn(false);
 		activeunit.setHasAttacked(false);
-		System.out.println(activeunit.getPokemon().getName()+" ("+activeindex+" in order) taking turn");
+		System.out.println(activeunit.getName()+" ("+activeindex+" in order) taking turn");
 		MoveLogic.startOfTurnActions(activeunit);
 		if(activeunit.getPokemon().isFainted())
 			endTurn();
 		else if(activeunit.isDigging()||activeunit.isFlying()||activeunit.isCharging()){
 			if(activeunit.isDigging()){
-				System.out.println(activeunit.getPokemon().getName()+" surfaces to attack.");
+				System.out.println(activeunit.getName()+" surfaces to attack.");
 				activeunit.setDigging(false);
 				useMove(new Move(252),false);
 			}
 			else if(activeunit.isFlying()){
-				System.out.println(activeunit.getPokemon().getName()+" swoops down to attack.");
+				System.out.println(activeunit.getName()+" swoops down to attack.");
 				activeunit.setFlying(false);
 				useMove(new Move(253),false);
 			}
 			else if(activeunit.isCharging()){
-				System.out.println(activeunit.getPokemon().getName()+" has finished charging and unleashes their attack.");
+				System.out.println(activeunit.getName()+" has finished charging and unleashes their attack.");
 				activeunit.setCharging(false);
 				useMove(new Move(GameData.getChargeMoveNum(activeunit.getPrevMove())),false);
 			}

@@ -25,6 +25,8 @@ public class MoveLogic {
 	private static HashMap<String,String> curreffects;
 	private static int damagedone;
 
+	private static final boolean DEBUG=true;
+
 
 	public static void implementEffects(Unit thisuser,ArrayList<Unit> thistargets,Move thismove){
 		user=thisuser;
@@ -34,7 +36,12 @@ public class MoveLogic {
 		effects=GameData.getMoveEffects(move.getNum());
 		int count=0;
 		damagedone=0;
-		System.out.println("Targets: "+targets.size());
+		if(DEBUG) {
+			System.out.println("Targets: "+targets.size());
+			for(Unit u:targets) {
+				System.out.println(u.getName());
+			}
+		}
 		for(Unit u:targets){
 			if(doesMoveHit(u,user,move.getNum())){
 				if(count==0){
@@ -84,7 +91,7 @@ public class MoveLogic {
 		if(effect==MoveEffect.Damage){
 			implementDamageEffect(target);
 			if(!target.getPokemon().isFainted()&&target.isRaging()){
-				System.out.println(target.getPokemon().getName()+"'s rage grows.");
+				System.out.println(target.getName()+"'s rage grows.");
 				target.incStat(1,Stat.Attack);
 			}
 		}
@@ -134,7 +141,7 @@ public class MoveLogic {
 		}
 		else if(effect==MoveEffect.Heal){
 			int amount=target.getPokemon().getStat(Stat.HP)*round((Double.parseDouble(curreffects.get("Percentage"))/100));
-			System.out.println(target.getPokemon().getName()+" heals "+amount+" HP.");
+			System.out.println(target.getName()+" heals "+amount+" HP.");
 			target.getPokemon().incHP(amount);
 		}
 		else if(effect==MoveEffect.TimeHeal){
@@ -147,11 +154,11 @@ public class MoveLogic {
 			else if(currweather==Weather.Sun)
 				percent*=2;
 			int amount=round(target.getPokemon().getStat(Stat.HP)*percent);
-			System.out.println(target.getPokemon().getName()+" heals "+amount+" HP.");
+			System.out.println(target.getName()+" heals "+amount+" HP.");
 			target.getPokemon().incHP(amount);
 		}
 		else if(effect==MoveEffect.PsychUp){
-			System.out.println(userpokemon.getName()+" copies "+target.getPokemon().getName()+"'s stat modifications");
+			System.out.println(userpokemon.getName()+" copies "+target.getName()+"'s stat modifications");
 			user.copyStatMods(target);
 		}
 		else if(effect==MoveEffect.Spite){
@@ -164,7 +171,7 @@ public class MoveLogic {
 		else if(effect==MoveEffect.Thief){
 			if(target.getPokemon().getHeldID()!=-1&&userpokemon.getHeldID()==-1&&GameData.getRandom().nextInt(100)<Constants.THIEF_STEAL_CHANCE){
 				int id=target.getPokemon().removeHeldItem();
-				System.out.println(userpokemon.getName()+" steals "+GameData.getItemName(id)+" from "+target.getPokemon().getName());
+				System.out.println(userpokemon.getName()+" steals "+GameData.getItemName(id)+" from "+target.getName());
 				userpokemon.holdItem(id);
 			}
 		}
@@ -178,22 +185,22 @@ public class MoveLogic {
 		}
 		else if(effect==MoveEffect.BatonPass){
 			if(BattleEngine.canMoveTo(user,target.getCoordinates())&&BattleEngine.canMoveTo(target,user.getCoordinates())){
-				System.out.println(userpokemon.getName()+" swapping positions with "+target.getPokemon().getName());
+				System.out.println(userpokemon.getName()+" swapping positions with "+target.getName());
 				swapPositions(user,target);
 			}
 			else
-				System.out.println("One or more illegal destinations involved in psoition swamp between "+userpokemon.getName()+" and "+target.getPokemon().getName());
+				System.out.println("One or more illegal destinations involved in psoition swamp between "+userpokemon.getName()+" and "+target.getName());
 		}
 		else if(effect==MoveEffect.RandomSwap){
 			ArrayList<Unit> options=BattleEngine.getFriendlyUnits(target);
 			options.remove(target);
 			Unit othertarget=options.get(GameData.getRandom().nextInt(options.size()));
 			if(BattleEngine.canMoveTo(target,othertarget.getCoordinates())&&BattleEngine.canMoveTo(othertarget,target.getCoordinates())){
-				System.out.println(othertarget.getPokemon().getName()+" swapping positions with "+target.getPokemon().getName());
+				System.out.println(othertarget.getName()+" swapping positions with "+target.getName());
 				swapPositions(othertarget,target);
 			}
 			else
-				System.out.println("One or more illegal destinations involved in psoition swamp between "+othertarget.getPokemon().getName()+" and "+target.getPokemon().getName());
+				System.out.println("One or more illegal destinations involved in psoition swamp between "+othertarget.getName()+" and "+target.getName());
 		}
 		else if(effect==MoveEffect.Dig&&!user.isDigging()){
 			user.setDigging(true);
@@ -235,53 +242,53 @@ public class MoveLogic {
 			String condition=curreffects.get("Condition");
 			if(effect==MoveEffect.GiveTCondition){
 				if(target.addTempCondition(TempCondition.valueOf(condition)))
-					System.out.println(target.getPokemon().getName()+" is now afflicted by "+condition);
+					System.out.println(target.getName()+" is now afflicted by "+condition);
 			}
 			else if(effect==MoveEffect.GivePCondition){
 				PermCondition pcondition=PermCondition.valueOf(condition);
 				if(pcondition==PermCondition.Frozen&&BattleEngine.getWeather()==Weather.Sun)
 					System.out.println("Pokemon cannot be frozen due to Sunny Day");
 				else if(target.addPermCondition(pcondition))
-					System.out.println(target.getPokemon().getName()+" is now afflicted by "+condition);
+					System.out.println(target.getName()+" is now afflicted by "+condition);
 			}
 			else if(effect==MoveEffect.GiveBondCondition){
 				if(target.addBondCondition(BondCondition.valueOf(condition),target.getID()))
-					System.out.println(target.getPokemon().getName()+" is now bound to "+userpokemon.getName()+" by "+condition);
+					System.out.println(target.getName()+" is now bound to "+userpokemon.getName()+" by "+condition);
 			}
 			else if(effect==MoveEffect.GiveProtectionCondition){
 				if(target.addProtectionCondition(ProtectionCondition.valueOf(condition)))
-					System.out.println(target.getPokemon().getName()+" is now protected by "+condition);
+					System.out.println(target.getName()+" is now protected by "+condition);
 			}
 			else if(effect==MoveEffect.RemoveTCondition){
 				if(target.removeTempCondition(TempCondition.valueOf(condition)))
-					System.out.println(target.getPokemon().getName()+" is now cured of "+condition);
+					System.out.println(target.getName()+" is now cured of "+condition);
 			}
 			else if(effect==MoveEffect.RemovePCondition){
 				if(target.removePermCondition(PermCondition.valueOf(condition)))
-					System.out.println(target.getPokemon().getName()+" is now cured of "+condition);
+					System.out.println(target.getName()+" is now cured of "+condition);
 			}
 			else if(effect==MoveEffect.RemoveBondCondition){
 				if(target.removeBondCondition(BondCondition.valueOf(condition)))
-					System.out.println(target.getPokemon().getName()+" is no longer bound to "+userpokemon.getName()+" by "+condition);
+					System.out.println(target.getName()+" is no longer bound to "+userpokemon.getName()+" by "+condition);
 			}
 			else if(effect==MoveEffect.RemoveProtectionCondition){
 				if(target.removeProtectionCondition(ProtectionCondition.valueOf(condition)))
-					System.out.println(target.getPokemon().getName()+" is no longer protected by "+condition);
+					System.out.println(target.getName()+" is no longer protected by "+condition);
 			}
 		}
 	}
 
 	private static void implementBuffNerfEffect(MoveEffect effect,Unit target){
 		if(target.hasProtectionCondition(ProtectionCondition.Mist)&&!target.equals(user)){
-			System.out.println(target.getPokemon().getName()+" cannot have it's stats modified because it is protected by Mist");
+			System.out.println(target.getName()+" cannot have it's stats modified because it is protected by Mist");
 		}
 		else if(curreffects.containsKey("Chance")&&GameData.getRandom().nextInt(100)<Integer.parseInt(curreffects.get("Chance"))){
 			if(effect==MoveEffect.Buff){
-				System.out.println(target.getPokemon().getName()+"'s "+curreffects.get("Stat")+" increased "+curreffects.get("Stages")+" stages.");
+				System.out.println(target.getName()+"'s "+curreffects.get("Stat")+" increased "+curreffects.get("Stages")+" stages.");
 				target.incStat(Integer.parseInt(curreffects.get("Stages")),Stat.valueOf(curreffects.get("Stat")));
 			}
 			else{
-				System.out.println(target.getPokemon().getName()+"'s "+curreffects.get("Stat")+" decreased "+curreffects.get("Stages")+" stages.");
+				System.out.println(target.getName()+"'s "+curreffects.get("Stat")+" decreased "+curreffects.get("Stages")+" stages.");
 				target.decStat(Integer.parseInt(curreffects.get("Stages")),Stat.valueOf(curreffects.get("Stat")));
 			}
 		}
@@ -350,34 +357,34 @@ public class MoveLogic {
 		if(param!=null){
 			//post damage calculation parameters that affect ultimate damage calculation
 			if(param.equals("DigMultiplier")&&target.isDigging()){
-				System.out.println(target.getPokemon().getName()+" takes double damage from "
+				System.out.println(target.getName()+" takes double damage from "
 						+GameData.getMoveName(move.getNum())+" because it is digging");
 				damage*=2;
 			}
 			else if(param.equals("FlyMultiplier")&&target.isFlying()){
-				System.out.println(target.getPokemon().getName()+" takes double damage from "
+				System.out.println(target.getName()+" takes double damage from "
 						+GameData.getMoveName(move.getNum())+" because it is flying");
 				damage*=2;
 			}
 			else if(param.equals("MinimizeMultiplier")&&target.isMinimized()){
-				System.out.println(target.getPokemon().getName()+" takes double damage from "
+				System.out.println(target.getName()+" takes double damage from "
 						+GameData.getMoveName(move.getNum())+" because it is minimized");
 				damage*=2;
 			}
 			else if(param.equals("Flanking")&&user.isFlanking(target)){
-				System.out.println(target.getPokemon().getName()+" takes extra damage from "
+				System.out.println(target.getName()+" takes extra damage from "
 						+GameData.getMoveName(move.getNum())+" because it is being flanked");
 				damage*=2;
 			}
 			else if(param.equals("ConsecPowInc")&&user.getNumConsecUses()>0){
 				damage*=Math.pow(2,user.getNumConsecUses());
-				System.out.println(target.getPokemon().getName()+" takes "+Math.pow(2,user.getNumConsecUses())+" times damage "
+				System.out.println(target.getName()+" takes "+Math.pow(2,user.getNumConsecUses())+" times damage "
 						+" because "+GameData.getMoveName(move.getNum())+" has been used "+(user.getNumConsecUses()+1)+" turns.");
 			}
 			if((param.equals("CannotKill")||
 					(target.getPokemon().isHolding("Focus Band")&&GameData.getRandom().nextInt(100)<Constants.FOCUS_BAND_CHANCE))
 					&&damage>=target.getPokemon().getCurrHP()){
-				System.out.println(target.getPokemon().getName()+" survives the attack at one life");
+				System.out.println(target.getName()+" survives the attack at one life");
 				damage=target.getPokemon().getCurrHP()-1;
 			}
 		}
@@ -570,16 +577,16 @@ public class MoveLogic {
 		if(types.size()>1&&GameData.getTypeEffectivenessDamageMod(movetype,types.get(1))==0)
 			return false;
 		if(defender.hasProtectionCondition(ProtectionCondition.Protect)||defender.hasProtectionCondition(ProtectionCondition.Detect)){
-			System.out.println(defender.getPokemon().getName()+" cannot be hit because they are protected.");
+			System.out.println(defender.getName()+" cannot be hit because they are protected.");
 			return false;
 		}
 		String name=GameData.getMoveName(movenum);
 		if(defender.isFlying()&&!name.equals("Fly")&&!name.equals("Gust")&&!name.equals("Thunder")&&!name.equals("Twister")){
-			System.out.println(GameData.getMoveName(movenum)+" could not hit because "+defender.getPokemon().getName()+" is mid-air using Fly.");
+			System.out.println(GameData.getMoveName(movenum)+" could not hit because "+defender.getName()+" is mid-air using Fly.");
 			return false;
 		}
 		if(defender.isDigging()&&!name.equals("Dig")&&!name.equals("Earthquake")&&!name.equals("Fissure")&&!name.equals("Magnitude")){
-			System.out.println(GameData.getMoveName(movenum)+" could not hit because "+defender.getPokemon().getName()+" is underground using Dig.");
+			System.out.println(GameData.getMoveName(movenum)+" could not hit because "+defender.getName()+" is underground using Dig.");
 			return false;
 		}
 		if(name.equals("Faint Attack")||!name.equals("Swift")||!name.equals("Vital Throw"))
@@ -590,13 +597,13 @@ public class MoveLogic {
 	private static int calculateChanceOfHitting(Unit defender, Unit attacker, int movenum){
 		double mod=1;
 		if(attacker.isFlanking(defender))
-			System.out.println(attacker.getPokemon().getName()+" is flanking "+defender.getPokemon().getName()+" so will suffer no accuracy penalty");
+			System.out.println(attacker.getName()+" is flanking "+defender.getName()+" so will suffer no accuracy penalty");
 		else if(attacker.isFacing(defender)){
-			System.out.println(attacker.getPokemon().getName()+" is facing "+defender.getPokemon().getName()+" so will take an accuracy penalty");
+			System.out.println(attacker.getName()+" is facing "+defender.getName()+" so will take an accuracy penalty");
 			mod=Constants.FRONT_FACING_ACCURACY_RATE;
 		}
 		else{
-			System.out.println(attacker.getPokemon().getName()+" is facing "+defender.getPokemon().getName()+"'s side so will take a slight accuracy penalty");
+			System.out.println(attacker.getName()+" is facing "+defender.getName()+"'s side so will take a slight accuracy penalty");
 			mod=Constants.SIDE_FACING_ACCURACY_RATE;
 		}
 		double acc=GameData.getMoveAccuracy(movenum);
@@ -852,7 +859,7 @@ public class MoveLogic {
 			Unit recipient=BattleEngine.getUnitByID(recipientid);
 			int damage=(int)(recipient.getPokemon().getStat(Stat.HP)*Constants.LEECH_SEED_HP_LOSS_RATE);
 			recipient.getPokemon().decHP(damage);
-			System.out.println(recipient.getPokemon().getName()+" takes "+damage+" damage from leech seed");
+			System.out.println(recipient.getName()+" takes "+damage+" damage from leech seed");
 			activepokemon.incHP(damage);
 			System.out.println(activepokemon.getName()+" gains "+damage+" hp from leech seed");
 		}

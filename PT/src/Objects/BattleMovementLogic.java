@@ -139,7 +139,7 @@ public class BattleMovementLogic {
 			battlefield[pair.getX()][pair.getY()].markNeutral();
 		}
 		activeunit.setHasMoved(true);
-		System.out.println(activeunit.getPokemon().getName()+" has moved "+(previousmoves.size()-1)+" squares.");
+		System.out.println(activeunit.getName()+" has moved "+(previousmoves.size()-1)+" squares.");
 		if(BattleEngine.areSpikesPlaced()){
 			int spikescount=0;
 			for(IntPair pair:previousmoves){
@@ -147,7 +147,7 @@ public class BattleMovementLogic {
 					spikescount++;
 			}
 			int damage=BattleEngine.round(spikescount*activeunit.getPokemon().getStat(Stat.HP)*Constants.SPIKES_DAMAGE_RATE);
-			System.out.println(activeunit.getPokemon().getName()+" takes "+damage+" damage from spikes");
+			System.out.println(activeunit.getName()+" takes "+damage+" damage from spikes");
 			activeunit.getPokemon().decHP(damage);
 		}
 		if(!activeunit.getPokemon().isFainted())
@@ -160,7 +160,7 @@ public class BattleMovementLogic {
 		for(IntPair pair:validdestinations){
 			battlefield[pair.getX()][pair.getY()].markNeutral();
 		}
-		System.out.println(activeunit.getPokemon().getName()+" has cancelled the move option");
+		System.out.println(activeunit.getName()+" has cancelled the move option");
 		MenuEngine.initialize(new UnitMenu(activeunit));
 	}
 	

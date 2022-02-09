@@ -30,6 +30,8 @@ import Objects.WildTrainer;
 public class GlobalEngine {
 
 	private static int itemtouse;
+	private static final boolean DEBUG=true;
+	
 
 	public static void initialize(){
 		System.out.println("Initializing Game Data");

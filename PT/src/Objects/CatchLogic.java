@@ -44,7 +44,7 @@ public class CatchLogic {
 	}
 
 	private static void useBall(){
-		System.out.println(activeunit.getPokemon().getName()+" using "+ball);
+		System.out.println(activeunit.getName()+" using "+ball);
 		target=getDefaultCatchSelection();
 		displayCatchRange();
 		BattleEngine.takeControl(new CatchKeyListener());
@@ -140,7 +140,7 @@ public class CatchLogic {
 
 	public static void cancelCatchRange(){
 		removeCatchRange();
-		System.out.println(activeunit.getPokemon().getName()+" has cancelled the catch attempt");
+		System.out.println(activeunit.getName()+" has cancelled the catch attempt");
 		MenuEngine.initialize(new UnitMenu(activeunit));
 	}
 	

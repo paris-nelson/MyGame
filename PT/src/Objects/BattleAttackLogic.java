@@ -24,6 +24,8 @@ public class BattleAttackLogic {
 	private static Move currattack;
 	private static Unit activeunit;
 	private static Square[][] battlefield;
+	
+	private static final boolean DEBUG=true;
 
 	
 	public static void useMove(Square[][] thisbattlefield,Move move,boolean cancellable){
@@ -33,10 +35,10 @@ public class BattleAttackLogic {
 	
 	public static void useMove(Move move,boolean cancellable){
 		activeunit=BattleEngine.getActiveUnit();
-		System.out.println(activeunit.getPokemon().getName()+" using "+GameData.getMoveName(move.getNum()));
+		debug(activeunit.getName()+" using "+GameData.getMoveName(move.getNum()));
 		//hits self in confusion check
 		if(cancellable&&activeunit.getPokemon().getPcondition()==PermCondition.Confusion&&GameData.getRandom().nextBoolean()){
-			System.out.println(activeunit.getPokemon().getName()+" hit itself in its confusion");
+			debug(activeunit.getName()+" hit itself in its confusion");
 			activeunit.damage(calculateConfusionSelfHitDamage(activeunit));
 		}
 		else{
@@ -48,8 +50,11 @@ public class BattleAttackLogic {
 				attackrange=Integer.parseInt(map.get("Range"));
 			else
 				attackrange=-1;
-			if(activeunit.getPokemon().isHolding("Scope Lens"))
+			if(activeunit.getPokemon().isHolding("Scope Lens")) {
+				debug("Range extended by scope lens");
 				attackrange++;
+			}
+			debug("Attack Selection Type: "+attackselection+". Range: "+attackrange);
 			validtargets=getDefaultAttackSelection();
 			displayAttackRange();
 			BattleEngine.takeControl(new BattleAttackKeyListener(cancellable));
@@ -170,6 +175,10 @@ public class BattleAttackLogic {
 			IntPair curr=validtargets.get(0);
 			if(curr.getX()>0){
 				IntPair next=new IntPair(curr.getX()-1,curr.getY());
+				//TODO should be comparing activeunit distance from next instead. prob is how to jump when distance exceeded
+				//e.g. if range is one, and currently looking 1 to the right, if up is pressed, cant go through the diagonal
+				//since distance >1 so program SHOULD jump to the tile a above activeunit. should probably also be highlighting
+				//valid target tiles and diff color highlight the current consideration tile.
 				if(curr.distanceFrom(next)<=attackrange)
 					validtargets.set(0,next);
 			}
@@ -386,13 +395,13 @@ public class BattleAttackLogic {
 			if(lastname.equals("Sketch")||lastname.equals("Struggle")||lastname.equals("Transform")||lastname.equals("Snore")||lastname.equals("Sleep Talk")
 					||lastname.equals("Mimic")||lastname.equals("Mirror Move")||lastname.equals("Explosion")||lastname.equals("Self Destruct")
 					||userpokemon.knowsMove(lastmove)){
-				System.out.println(lastname+" cannot be learned with Sketch.");
+				debug(lastname+" cannot be learned with Sketch.");
 				afterAttackEffects(cancellable);
 			}
 			else{
-				System.out.println(userpokemon.getName()+" learning "+lastname);
+				debug(userpokemon.getName()+" learning "+lastname);
 				if(!userpokemon.learnMove(new Move(lastmove))){
-					System.out.println(userpokemon.getName()+" wants to learn "+lastname+". Needs to replace a move");
+					debug(userpokemon.getName()+" wants to learn "+lastname+". Needs to replace a move");
 					MoveMenu mm=new MoveMenu(userpokemon,MoveMenuMode.SKETCH);
 					MenuEngine.initialize(mm);
 				}
@@ -401,12 +410,12 @@ public class BattleAttackLogic {
 		else if(name.equals("Teleport")){
 			IntPair destination=validtargets.get(0);
 			if(BattleEngine.canMoveTo(activeunit,destination)){
-				System.out.println(activeunit.getPokemon().getName()+" uses to teleport to move to the square at "+destination.toString());
+				debug(activeunit.getName()+" uses to teleport to move to the square at "+destination.toString());
 				BattleEngine.moveOffSquare(activeunit,activeunit.getCoordinates().getX(),activeunit.getCoordinates().getY());
 				BattleEngine.moveOnSquare(activeunit,destination.getX(),destination.getY());
 			}
 			else
-				System.out.println(activeunit.getPokemon().getName()+" cannot be placed on that square");
+				debug(activeunit.getName()+" cannot be placed on that square");
 			afterAttackEffects(cancellable);
 		}
 		else if(name.equals("Spikes")){
@@ -431,14 +440,14 @@ public class BattleAttackLogic {
 			Unit target=targets.get(0);
 			int lastmove=target.getPrevMove();
 			if(lastmove==-1){
-				System.out.println(target.getPokemon().getName()+" has no used a move yet. There's nothing to copy.");
+				debug(target.getName()+" has no used a move yet. There's nothing to copy.");
 				afterAttackEffects(cancellable);
 			}
 			else{
 				String newname=GameData.getMoveName(lastmove);
 				if(newname.equals("Sketch")||newname.equals("Struggle")||newname.equals("Metronome")||newname.equals("Transform")||newname.equals("Snore")
 						||newname.equals("Sleep Talk")||newname.equals("Mimic")||newname.equals("Mirror Move")||activeunit.getPokemon().knowsMove(lastmove)){
-					System.out.println(newname+" cannot be copied with Mirror Move.");
+					debug(newname+" cannot be copied with Mirror Move.");
 					afterAttackEffects(cancellable);
 				}
 				else{
@@ -455,7 +464,7 @@ public class BattleAttackLogic {
 
 	public static void cancelAttackRange(){
 		removeAttackRange();
-		System.out.println(activeunit.getPokemon().getName()+" has cancelled the attack option");
+		debug(activeunit.getName()+" has cancelled the attack option");
 		MenuEngine.initialize(new UnitMenu(activeunit));
 	}
 
@@ -481,7 +490,7 @@ public class BattleAttackLogic {
 		damage/=activeunit.getStat(Stat.Defense);
 		damage/=50;
 		damage+=2;
-		System.out.println(activeunit.getPokemon().getName()+" hits itself for "+damage+" damage");
+		debug(activeunit.getName()+" hits itself for "+damage+" damage");
 		return damage;
 	}
 	
@@ -492,5 +501,11 @@ public class BattleAttackLogic {
 		currattack=null;
 		activeunit=null;
 		battlefield=null;
+	}
+	
+	private static void debug(String s) {
+		if(DEBUG) {
+			System.out.println(s);
+		}
 	}
 }
