@@ -27,3 +27,5 @@ PT/.metadata/.plugins/org.eclipse.jdt.core/invalidArchivesCache
 PT/.metadata/.plugins/org.eclipse.jdt.core/nonChainingJarsCache
 *.class
 PT/bin/Engines/MapEngine.class
+PT/.metadata/.log
+*.log
