@@ -1,3 +1,4 @@
+2
 WildTrainer: 
    Pokemon: Zubat 41 24 7 0 -1 70 true false null null Female [216 20 20, 105 15 15]__[12, 3, 15, 1, 11, 7]__[0, 0, 0, 0, 0, 0]__[24, 11, 12, 9, 12, 13]
    Pokemon: Zubat 41 19 5 0 -1 70 true false null null Female [105 15 15]__[2, 9, 2, 8, 4, 10]__[0, 0, 0, 0, 0, 0]__[19, 10, 8, 8, 9, 11]
@@ -72,7 +73,7 @@ Unit: 2
 []
 End Opponent Units
 [7, 3, 1, 6, 4, 2, 5]
-false 0 0 7 None
+false 0 0 7 None 0
 Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false 
 Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false 
 Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false 

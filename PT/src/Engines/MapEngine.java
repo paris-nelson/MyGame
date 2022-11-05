@@ -210,7 +210,7 @@ public class MapEngine {
 				if(!p.isFainted()){
 					PermCondition condition=p.getPcondition();
 					if(condition!=null&&(condition==PermCondition.Poison||condition==PermCondition.BadlyPoison))
-						p.decHP(Constants.POISON_HP_LOSS_AMOUNT);
+						p.decHP(Constants.POISON_HP_LOSS_AMOUNT,"poison");
 				}
 			}
 			GlobalEngine.updateLeadingPokemon();

@@ -75,6 +75,10 @@ public class Constants {
 	public static final int SPITE_MAX_PP=5;
 	public static final int THIEF_STEAL_CHANCE=100;
 	public static final int KNOCKBACK_DISTANCE=2;
+	public static final int SUNNY_DAY_DURATION=8;
+	public static final int RAIN_DANCE_DURATION=8;
+	public static final int SANDSTORM_DURATION=16;
+	public static final double SANDSTORM_HP_LOSS_RATE=.125;
 	
 	//item specific constants
 	public static final double LEFTOVERS_HP_RECOV_RATE=.0833;

@@ -175,11 +175,11 @@ public class BattleAttackLogic {
 			IntPair curr=validtargets.get(0);
 			if(curr.getX()>0){
 				IntPair next=new IntPair(curr.getX()-1,curr.getY());
-				//TODO should be comparing activeunit distance from next instead. prob is how to jump when distance exceeded
+				//TODO how to jump when distance exceeded
 				//e.g. if range is one, and currently looking 1 to the right, if up is pressed, cant go through the diagonal
 				//since distance >1 so program SHOULD jump to the tile a above activeunit. should probably also be highlighting
 				//valid target tiles and diff color highlight the current consideration tile.
-				if(curr.distanceFrom(next)<=attackrange)
+				if(activeunit.getCoordinates().distanceFrom(next)<=attackrange)
 					validtargets.set(0,next);
 			}
 		}
@@ -230,7 +230,7 @@ public class BattleAttackLogic {
 			IntPair curr=validtargets.get(0);
 			if(curr.getX()<battlefield.length-1){
 				IntPair next=new IntPair(curr.getX()+1,curr.getY());
-				if(curr.distanceFrom(next)<=attackrange)
+				if(activeunit.getCoordinates().distanceFrom(next)<=attackrange)
 					validtargets.set(0,next);
 			}
 		}
@@ -281,7 +281,7 @@ public class BattleAttackLogic {
 			IntPair curr=validtargets.get(0);
 			if(curr.getY()>0){
 				IntPair next=new IntPair(curr.getX(),curr.getY()-1);
-				if(curr.distanceFrom(next)<=attackrange)
+				if(activeunit.getCoordinates().distanceFrom(next)<=attackrange)
 					validtargets.set(0,next);
 			}
 		}
@@ -332,7 +332,7 @@ public class BattleAttackLogic {
 			IntPair curr=validtargets.get(0);
 			if(curr.getY()<battlefield.length-1){
 				IntPair next=new IntPair(curr.getX(),curr.getY()+1);
-				if(curr.distanceFrom(next)<=attackrange)
+				if(activeunit.getCoordinates().distanceFrom(next)<=attackrange)
 					validtargets.set(0,next);
 			}
 		}
@@ -409,7 +409,7 @@ public class BattleAttackLogic {
 		}
 		else if(name.equals("Teleport")){
 			IntPair destination=validtargets.get(0);
-			if(BattleEngine.canMoveTo(activeunit,destination)){
+			if(BattleEngine.canMoveTo(activeunit,destination,true)){
 				debug(activeunit.getName()+" uses to teleport to move to the square at "+destination.toString());
 				BattleEngine.moveOffSquare(activeunit,activeunit.getCoordinates().getX(),activeunit.getCoordinates().getY());
 				BattleEngine.moveOnSquare(activeunit,destination.getX(),destination.getY());

@@ -52,6 +52,8 @@ public class BattleEngine {
 	private static boolean spikesplaced;
 	private static int numpaydays;
 	private static Weather weather;
+	private static int turn;
+	private static int weatherturn;
 
 	public static void initialize(Trainer newopponent){
 		System.out.println("Initializing battle with "+newopponent.getName());
@@ -61,6 +63,7 @@ public class BattleEngine {
 		spikesplaced=false;
 		numpaydays=0;
 		weather=null;
+		turn=0;
 		initBattlefield();
 		initUnits();
 		placeNewPlayerUnits();
@@ -179,6 +182,9 @@ public class BattleEngine {
 	}
 
 	private static void takeTurn(){
+		turn++;
+		System.out.println("Beggining turn "+turn);
+		checkWeather();
 		activeunit.setHasMoved(false);
 		activeunit.setHasTakenAction(false);
 		activeunit.setHasEndedTurn(false);
@@ -211,6 +217,13 @@ public class BattleEngine {
 			}
 			else
 				openUnitMenu();
+		}
+	}
+	
+	private static void checkWeather() {
+		if(weatherturn>0&&weatherturn<turn) {
+			System.out.println("Weather condition "+weather+" subsides");
+			setWeather(Weather.None);
 		}
 	}
 
@@ -293,6 +306,8 @@ public class BattleEngine {
 		try{
 			File f=new File(Constants.PATH+"\\InitializeData\\battlesavefile.txt");
 			Scanner s=new Scanner(f);
+			turn=s.nextInt();
+			s.nextLine();
 			String curr=s.next();
 			if(curr.equals("WildTrainer:"))
 				opponent=WildTrainer.readInTrainer(s);
@@ -327,7 +342,9 @@ public class BattleEngine {
 			numpaydays=s.nextInt();
 			activeindex=s.nextInt();
 			activeunit=getUnitByID(s.nextInt());
-			weather=Weather.valueOf(s.nextLine().trim());
+			weather=Weather.valueOf(s.next());
+			weatherturn=s.nextInt();
+			s.nextLine();
 			bfmaker=new LoadExistingBattlefieldMaker(s);
 			initBattlefield();
 			placeExistingUnits();
@@ -342,6 +359,7 @@ public class BattleEngine {
 		try{
 			File f=new File(Constants.PATH+"\\InitializeData\\battlesavefile.txt");
 			PrintWriter pw=new PrintWriter(f);
+			pw.println(turn);
 			pw.println(opponent.toString());
 			for(Unit u:punits){
 				pw.println(u.toString());
@@ -352,7 +370,7 @@ public class BattleEngine {
 			}
 			pw.println("End Opponent Units");
 			pw.println(priorities);
-			pw.println(spikesplaced+" "+numpaydays+" "+activeindex+" "+activeunit.getID()+" "+weather);
+			pw.println(spikesplaced+" "+numpaydays+" "+activeindex+" "+activeunit.getID()+" "+weather+" "+weatherturn);
 			pw.println(bfmaker.toString());
 			pw.close();
 		}catch(Exception e){e.printStackTrace();}
@@ -364,6 +382,11 @@ public class BattleEngine {
 	
 	public static void setWeather(Weather newconditions){
 		weather=newconditions;
+		if(Weather.getDuration(weather)>0) {
+			weatherturn=turn+Weather.getDuration(weather);
+		}
+		else
+			weatherturn=0;
 	}
 
 	public static int getPayDayVal(){
@@ -521,22 +544,33 @@ public class BattleEngine {
 		nextTurn();
 	}
 	
-	public static boolean canMoveTo(Unit u,IntPair square){
-		return canMoveTo(u,battlefield[square.getX()][square.getY()]);
+	public static boolean canMoveTo(Unit u,IntPair square,boolean stop){
+		return canMoveTo(u,battlefield[square.getX()][square.getY()],stop);
 	}
 
-	public static boolean canMoveTo(Unit u,Square square){
-		if(square.getUnit()>-1)
+	public static boolean canMoveTo(Unit u,Square square,boolean stop){
+		if(square.getUnit()>-1) {
+			System.out.println("Already a unit on sqaure "+square);
 			return false;
-		if(square.getTileType()==Tile.Rock||square.getTileType()==Tile.Tree)
+		}
+		//Flyers can traverse any tile as long as they're not stopping on them.
+		if(u.isFlying()&&!stop) {
+			System.out.println(u+" flying over sqaure "+square);
+			return true;
+		}
+		//Nothing can stop on these tiles
+		if(square.getTileType()==Tile.Rock||square.getTileType()==Tile.Tree) {
+			System.out.println(u+" cannot traverse "+square);
 			return false;
-		if(square.getTileType()==Tile.Water&&!u.isType(Type.Water))
+		}
+		if(square.getTileType()==Tile.Water&&!u.isType(Type.Water)) {
+			System.out.println(u+" cannot traverse water because its not water type");
 			return false;
-		if(square.getTileType()==Tile.Lava&&!u.isType(Type.Fire))
+		}
+		if(square.getTileType()==Tile.Lava&&!u.isType(Type.Fire)) {
+			System.out.println(u+" cannot traverse lava because its not fire type");
 			return false;
-		//TODO: Implement logic so that flyers can move over water/lava tiles, but cannot stop on them
-		//add check in confirmMovement that either disallows movement and/or gives prompt to user that 
-		//they cannot end there.
+		}
 		return true;
 	}
 

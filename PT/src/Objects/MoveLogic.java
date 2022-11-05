@@ -113,7 +113,7 @@ public class MoveLogic {
 		}
 		else if(effect==MoveEffect.HealthSac){
 			System.out.println(userpokemon.getName()+" loses half of their max HP");
-			userpokemon.decHP(userpokemon.getStat(Stat.HP)/2);
+			userpokemon.decHP(userpokemon.getStat(Stat.HP)/2,"sacrificing their health");
 		}
 		else if(effect==MoveEffect.Conversion){
 			user.setTypes(target.getTypes());
@@ -128,7 +128,7 @@ public class MoveLogic {
 		}
 		else if(effect==MoveEffect.SelfDestruct){
 			System.out.println(userpokemon.getName()+" self destructs");
-			userpokemon.decHP(userpokemon.getCurrHP());
+			userpokemon.decHP(userpokemon.getCurrHP(),"self destruct");
 		}
 		else if(effect==MoveEffect.StatStageReset){
 			System.out.println(userpokemon.getName()+"'s stats are reset to unmodified values");
@@ -184,7 +184,7 @@ public class MoveLogic {
 			user.setRaging(true);
 		}
 		else if(effect==MoveEffect.BatonPass){
-			if(BattleEngine.canMoveTo(user,target.getCoordinates())&&BattleEngine.canMoveTo(target,user.getCoordinates())){
+			if(BattleEngine.canMoveTo(user,target.getCoordinates(),true)&&BattleEngine.canMoveTo(target,user.getCoordinates(),true)){
 				System.out.println(userpokemon.getName()+" swapping positions with "+target.getName());
 				swapPositions(user,target);
 			}
@@ -195,7 +195,7 @@ public class MoveLogic {
 			ArrayList<Unit> options=BattleEngine.getFriendlyUnits(target);
 			options.remove(target);
 			Unit othertarget=options.get(GameData.getRandom().nextInt(options.size()));
-			if(BattleEngine.canMoveTo(target,othertarget.getCoordinates())&&BattleEngine.canMoveTo(othertarget,target.getCoordinates())){
+			if(BattleEngine.canMoveTo(target,othertarget.getCoordinates(),true)&&BattleEngine.canMoveTo(othertarget,target.getCoordinates(),true)){
 				System.out.println(othertarget.getName()+" swapping positions with "+target.getName());
 				swapPositions(othertarget,target);
 			}
@@ -210,10 +210,20 @@ public class MoveLogic {
 			user.setFlying(true);
 			System.out.println(userpokemon.getName()+" flies up to attack");
 		}
-		else if(effect==MoveEffect.ChargeUp&&!user.isCharging()){
-			user.setCharging(true);
-			System.out.println(userpokemon.getName()+" charges up to attack");
-			//TODO: sunny day should make solar beam fire immediately
+		else if(effect==MoveEffect.ChargeUp){
+			//sunny day should make solar beam fire immediately
+			if(GameData.getMoveName(move.getNum()).equals("Solar Beam")&&BattleEngine.getWeather()==Weather.Sun) {
+				if(!user.isCharging())
+					System.out.println(userpokemon.getName()+" fires solarbeam immediately because of sunny day");
+				user.setCharging(false);
+			}
+			else {
+				user.setCharging(!user.isCharging());
+				if(user.isCharging())
+					System.out.println(userpokemon.getName()+" charges up to attack");
+				else
+					System.out.println(userpokemon.getName()+" is done charging");
+			}
 		}
 		else if(effect==MoveEffect.Weather){
 			Weather newconditions=Weather.valueOf(curreffects.get("Conditions"));
@@ -224,7 +234,6 @@ public class MoveLogic {
 				BattleEngine.setWeather(newconditions);
 				System.out.println("The weather changes to: "+newconditions);
 			}
-			//TODO: use data from movestrings to implement effects of sunny day, rainy day, and sandstorm
 		}
 	}
 
@@ -298,13 +307,14 @@ public class MoveLogic {
 		int damage=0;
 		String power=curreffects.get("Power");
 		String param=curreffects.get("Type");
-		//If the user is not currently dug/flying/charging then don't do the damage portion yet.
 		if(param!=null){
+			//If the user is not currently dug/flying then don't do the damage portion yet.
 			if(param.equals("Dig")&&!user.isDigging())
 				return;
 			if(param.equals("Fly")&&!user.isFlying())
 				return;
-			if(param.equals("ChargeUp")&&!user.isCharging())
+			//If user is charging we're not ready yet
+			if(param.equals("ChargeUp")&&user.isCharging())
 				return;
 		}
 		try{
@@ -635,7 +645,7 @@ public class MoveLogic {
 		if(pcondition==PermCondition.Burn||pcondition==PermCondition.Poison){
 			System.out.print(activepokemon.getName()+" loses hp from "+pcondition.toString()+": from "
 					+activepokemon.getCurrHP()+" ");
-			activepokemon.decHP(round(Constants.BURN_POISON_HP_LOSS_RATE*activepokemon.getStat(Stat.HP)));
+			activepokemon.decHP(round(Constants.BURN_POISON_HP_LOSS_RATE*activepokemon.getStat(Stat.HP)),"burns");
 			System.out.println("to "+activepokemon.getCurrHP());
 		}
 		else if(pcondition==PermCondition.BadlyPoison){
@@ -643,7 +653,7 @@ public class MoveLogic {
 			System.out.print(activepokemon.getName()+" loses hp from "+pcondition.toString()+": from "
 					+activepokemon.getCurrHP()+" ");
 			activepokemon.decHP(round(activeunit.getNumTurnsAfflicted(PermCondition.BadlyPoison.toString())*Constants.BURN_POISON_HP_LOSS_RATE
-					*activepokemon.getStat(Stat.HP)));
+					*activepokemon.getStat(Stat.HP)),"poison");
 			System.out.println("to "+activepokemon.getCurrHP());
 		}
 		else if(pcondition==PermCondition.Frozen){
@@ -838,15 +848,21 @@ public class MoveLogic {
 
 	public static void endOfTurnActions(Unit activeunit){
 		Pokemon activepokemon=activeunit.getPokemon();
+		if(BattleEngine.getWeather()==Weather.Sand) {
+			if(!activeunit.getTypes().contains(Type.Rock)&&!activeunit.getTypes().contains(Type.Steel)&&!activeunit.getTypes().contains(Type.Ground)) {
+				int damage=(int)(activepokemon.getStat(Stat.HP)*Constants.SANDSTORM_HP_LOSS_RATE);
+				activepokemon.decHP(damage,"sandstorm");
+			}
+		}
 		if(activeunit.hasTempCondition(TempCondition.Curse)){
 			int damage=(int)(activepokemon.getStat(Stat.HP)*Constants.CURSE_NIGHTMARE_HP_LOSS_RATE);
-			activepokemon.decHP(damage);
+			activepokemon.decHP(damage,"curse");
 			System.out.println(activepokemon.getName()+" takes "+damage+" damage from their curse");
 		}
 		if(activeunit.hasTempCondition(TempCondition.Nightmare)){
 			if(activepokemon.getPcondition()==PermCondition.Sleep){
 				int damage=(int)(activepokemon.getStat(Stat.HP)*Constants.CURSE_NIGHTMARE_HP_LOSS_RATE);
-				activepokemon.decHP(damage);
+				activepokemon.decHP(damage,"nightmare");
 				System.out.println(activepokemon.getName()+" takes "+damage+" damage from their nightmare");
 			}
 			else{
@@ -858,7 +874,7 @@ public class MoveLogic {
 		if(recipientid>0){
 			Unit recipient=BattleEngine.getUnitByID(recipientid);
 			int damage=(int)(recipient.getPokemon().getStat(Stat.HP)*Constants.LEECH_SEED_HP_LOSS_RATE);
-			recipient.getPokemon().decHP(damage);
+			recipient.getPokemon().decHP(damage,"leech seed");
 			System.out.println(recipient.getName()+" takes "+damage+" damage from leech seed");
 			activepokemon.incHP(damage);
 			System.out.println(activepokemon.getName()+" gains "+damage+" hp from leech seed");
@@ -867,7 +883,7 @@ public class MoveLogic {
 			activeunit.incNumTurnsAfflicted(TempCondition.PerishSong.toString());
 			System.out.println(activepokemon.getName()+" has "+(Constants.PERISH_SONG_TURNS-activeunit.getNumTurnsAfflicted(TempCondition.PerishSong.toString()))+" turns left of Perish Song".toString());
 			if(activeunit.getNumTurnsAfflicted(TempCondition.PerishSong.toString())==Constants.PERISH_SONG_TURNS){
-				activepokemon.decHP(activepokemon.getCurrHP());
+				activepokemon.decHP(activepokemon.getCurrHP(),"perish song");
 			}
 		}
 		if(activeunit.hasTempCondition(TempCondition.Disable)){

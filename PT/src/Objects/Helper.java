@@ -27,7 +27,6 @@ public class Helper {
 		//shuffle or just one track. swap logic can be handled in MapEngine.changeLocation and GlobalEngine.enterBattle
 		//and either BattleEngine.close()/BattleEngine.toMap() or MapEngine.initialize()
 		//TODO: Add move info to item descrips for tms/hms
-		//TODO: Badge dialogs
 		//TODO: Fix move descrips
 //		BasicPlayer player = new BasicPlayer();
 //		System.out.println(player.getStatus());

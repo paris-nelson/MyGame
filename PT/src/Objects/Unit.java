@@ -611,7 +611,7 @@ public class Unit {
 	}
 
 	public void damage(int damage){
-		pokemon.decHP(damage);
+		pokemon.decHP(damage,"damage");
 	}
 
 	public int getID(){

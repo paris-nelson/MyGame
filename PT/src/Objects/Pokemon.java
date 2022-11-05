@@ -349,7 +349,8 @@ public class Pokemon {
 	 * @param delta
 	 * @return: true if reduced, false if the current HP is alread at 0.
 	 */
-	public boolean decHP(int delta){
+	public boolean decHP(int delta,String cause){
+		System.out.println(getName()+" loses "+delta+" health due to "+cause);
 		if(currhp==0)
 			return false;
 		currhp-=delta;
