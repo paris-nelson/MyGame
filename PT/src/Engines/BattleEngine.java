@@ -376,6 +376,12 @@ public class BattleEngine {
 		}catch(Exception e){e.printStackTrace();}
 	}
 	
+	public static boolean isWithinBounds(IntPair point) {
+		int x=point.getX();
+		int y=point.getY();
+		return x>=0&&y>=0&&x<=Constants.BATTLEFIELD_WIDTH&&y<=Constants.BATTLEFIELD_HEIGHT;
+	}
+	
 	public static Weather getWeather(){
 		return weather;
 	}

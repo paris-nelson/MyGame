@@ -63,8 +63,8 @@ public class BattleAttackLogic {
 
 	private static ArrayList<IntPair> getDefaultAttackSelection(){
 		ArrayList<IntPair> selection=new ArrayList<IntPair>();
+		IntPair curr=activeunit.getCoordinates();
 		if(attackselection==SelectionType.Single){
-			IntPair curr=activeunit.getCoordinates();
 			if(curr.getX()>0)
 				selection.add(new IntPair(curr.getX()-1,curr.getY()));
 			else
@@ -74,20 +74,9 @@ public class BattleAttackLogic {
 			selection.add(activeunit.getCoordinates());
 		}
 		else if(attackselection==SelectionType.Nova){
-			IntPair curr=activeunit.getCoordinates();
-			for(int x=curr.getX()-attackrange;x<=curr.getX()+attackrange;x++){
-				for(int y=curr.getY()-attackrange;y<=curr.getY()+attackrange;y++){
-					if(y>=Constants.BATTLEFIELD_HEIGHT)
-						break;
-					if(x==curr.getX()&&y==curr.getY())
-						continue;
-					if(x>=0&&y>=0&&x<Constants.BATTLEFIELD_WIDTH)
-						selection.add(new IntPair(x,y));
-				}
-			}
+			selection.addAll(getSquareGrid(curr,attackrange));
 		}
 		else if(attackselection==SelectionType.Beam){
-			IntPair curr=activeunit.getCoordinates();
 			if(curr.getX()>0){
 				for(int i=Math.max(curr.getX()-attackrange,0);i<curr.getX();i++){
 					selection.add(new IntPair(i,curr.getY()));
@@ -100,23 +89,21 @@ public class BattleAttackLogic {
 			}	
 		}
 		else if(attackselection==SelectionType.Area){
-			IntPair curr=activeunit.getCoordinates();
 			if(curr.getX()>0){
 				epicenter=new IntPair(curr.getX()-1,curr.getY());
-				selection.addAll(getSquareGrid(epicenter));
+				selection.addAll(getSquareGrid(epicenter,1));
 			}
 			else{
 				epicenter=new IntPair(curr.getX()+1,curr.getY());
-				selection.addAll(getSquareGrid(epicenter));
+				selection.addAll(getSquareGrid(epicenter,1));
 			}
 		}
 		else if(attackselection==SelectionType.Cone){
-			IntPair curr=activeunit.getCoordinates();
 			if(curr.getX()>0){
 				for(int i=1;i<=attackrange;i++){
 					for(int j=1-i;j<=i-1;j++){
 						IntPair newpair=new IntPair(curr.getX()-i,curr.getY()+j);
-						if(newpair.getY()>0&&newpair.getY()<battlefield[0].length)
+						if(BattleEngine.isWithinBounds(newpair))
 							selection.add(newpair);
 					}
 				}
@@ -125,7 +112,7 @@ public class BattleAttackLogic {
 				for(int i=1;i<=attackrange;i++){
 					for(int j=1-i;j<=i-1;j++){
 						IntPair newpair=new IntPair(curr.getX()+i,curr.getY()+j);
-						if(newpair.getY()>0&&newpair.getY()<battlefield[0].length)
+						if(BattleEngine.isWithinBounds(newpair))
 							selection.add(newpair);
 					}
 				}
@@ -158,10 +145,10 @@ public class BattleAttackLogic {
 		}
 	}
 	
-	private static ArrayList<IntPair> getSquareGrid(IntPair epicenter){
+	private static ArrayList<IntPair> getSquareGrid(IntPair epicenter,int range){
 		ArrayList<IntPair> validpoints=new ArrayList<IntPair>();
-		for(int x=Math.max(epicenter.getX()-1,0);x<=Math.min(epicenter.getX()+1,Constants.BATTLEFIELD_WIDTH-1);x++) {
-			for(int y=Math.max(epicenter.getY()-1,0);y<=Math.min(epicenter.getY()+1,Constants.BATTLEFIELD_HEIGHT-1);y++) {
+		for(int x=Math.max(epicenter.getX()-range,0);x<=Math.min(epicenter.getX()+range,Constants.BATTLEFIELD_WIDTH-1);x++) {
+			for(int y=Math.max(epicenter.getY()-range,0);y<=Math.min(epicenter.getY()+range,Constants.BATTLEFIELD_HEIGHT-1);y++) {
 				validpoints.add(new IntPair(x,y));
 			}
 		}
@@ -202,7 +189,7 @@ public class BattleAttackLogic {
 				for(int i=1;i<=attackrange;i++){
 					for(int j=1-i;j<=i-1;j++){
 						IntPair newpair=new IntPair(x-i,y+j);
-						if(newpair.getY()>=00&&newpair.getY()<battlefield[0].length)
+						if(BattleEngine.isWithinBounds(newpair))
 							validtargets.add(newpair);
 					}
 				}
@@ -213,7 +200,7 @@ public class BattleAttackLogic {
 			if(epicenter.getX()>0&&next.distanceFrom(active)<=attackrange) {
 				epicenter=next;
 				validtargets.clear();
-				validtargets.addAll(getSquareGrid(epicenter));
+				validtargets.addAll(getSquareGrid(epicenter,1));
 			}
 		}
 		displayAttackRange();
@@ -249,7 +236,7 @@ public class BattleAttackLogic {
 				for(int i=1;i<=attackrange;i++){
 					for(int j=1-i;j<=i-1;j++){
 						IntPair newpair=new IntPair(x+i,y+j);
-						if(newpair.getY()>=0&&newpair.getY()<battlefield[0].length)
+						if(BattleEngine.isWithinBounds(newpair))
 							validtargets.add(newpair);
 					}
 				}
@@ -260,7 +247,7 @@ public class BattleAttackLogic {
 			if(epicenter.getX()<Constants.BATTLEFIELD_WIDTH-1&&next.distanceFrom(active)<=attackrange) {
 				epicenter=next;
 				validtargets.clear();
-				validtargets.addAll(getSquareGrid(epicenter));
+				validtargets.addAll(getSquareGrid(epicenter,1));
 			}
 		}
 		displayAttackRange();
@@ -296,7 +283,7 @@ public class BattleAttackLogic {
 				for(int i=1;i<=attackrange;i++){
 					for(int j=1-i;j<=i-1;j++){
 						IntPair newpair=new IntPair(x+j,y-i);
-						if(newpair.getX()>=0&&newpair.getX()<battlefield[0].length)
+						if(BattleEngine.isWithinBounds(newpair))
 							validtargets.add(newpair);
 					}
 				}
@@ -307,7 +294,7 @@ public class BattleAttackLogic {
 			if(epicenter.getY()>0&&next.distanceFrom(active)<=attackrange) {
 				epicenter=next;
 				validtargets.clear();
-				validtargets.addAll(getSquareGrid(epicenter));
+				validtargets.addAll(getSquareGrid(epicenter,1));
 			}
 		}
 		displayAttackRange();
@@ -343,7 +330,7 @@ public class BattleAttackLogic {
 				for(int i=1;i<=attackrange;i++){
 					for(int j=1-i;j<=i-1;j++){
 						IntPair newpair=new IntPair(x+j,y+i);
-						if(newpair.getX()>=0&&newpair.getX()<battlefield[0].length)
+						if(BattleEngine.isWithinBounds(newpair))
 							validtargets.add(newpair);
 					}
 				}
@@ -354,7 +341,7 @@ public class BattleAttackLogic {
 			if(epicenter.getY()<Constants.BATTLEFIELD_HEIGHT-1&&next.distanceFrom(active)<=attackrange) {
 				epicenter=next;
 				validtargets.clear();
-				validtargets.addAll(getSquareGrid(epicenter));
+				validtargets.addAll(getSquareGrid(epicenter,1));
 			}
 		}
 		displayAttackRange();

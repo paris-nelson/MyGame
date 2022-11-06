@@ -57,18 +57,22 @@ public class IntPair {
 	}
 	
 	public IntPair shiftLeft() {
-		return new IntPair(x-1,y);
+		return shiftBy(-1,0);
 	}
 	
 	public IntPair shiftRight() {
-		return new IntPair(x+1,y);
+		return shiftBy(1,0);
 	}
 	
 	public IntPair shiftUp() {
-		return new IntPair(x,y-1);
+		return shiftBy(0,-1);
 	}
 	
 	public IntPair shiftDown() {
-		return new IntPair(x,y+1);
+		return shiftBy(0,1);
+	}
+	
+	public IntPair shiftBy(int xdelta,int ydelta) {
+		return new IntPair(x+xdelta,y+ydelta);
 	}
 }
