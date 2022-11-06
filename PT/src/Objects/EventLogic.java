@@ -26,11 +26,7 @@ public class EventLogic {
 	public static void continueEvent(EventName event){
 		PlayerData.markEventCleared(event);
 		if(event==EventName.PokeCenter){
-			for(Pokemon p:PlayerData.getParty()){
-				p.revive();
-				p.restoreHP();
-				p.removePcondition();
-			}
+			PlayerData.healParty();
 			MapEngine.takeControl();
 		}
 		else if(event==EventName.BlackOut){

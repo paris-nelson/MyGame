@@ -114,8 +114,7 @@ public class TownMenu implements Menu{
 		}
 		else if(selected.equals("PokeCenter")){
 //			MapEngine.close();
-			//TODO: trigger event? Either way should give a prompt that something occurred.
-			PlayerData.healParty();
+			GlobalEngine.triggerEvent(EventName.PokeCenter);
 		}
 		else if(selected.equals("PokeShop")){
 			MenuEngine.close();

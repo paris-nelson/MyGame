@@ -157,7 +157,7 @@ Effect=Damage,Power=20;Effect=Rage
 Effect=Weather,Conditions=Rain
 Effect=Damage,Power=20;Effect=RemoveTCondition,Condition=Trap_DamageTrap,Target=Self;Effect=RemoveBondCondition,Condition=LeechSeed,Target=Self;Effect=RemoveSpikes,Target=Self
 Effect=Damage,Power=55,Type=HighCritRatio
-Effect=ChargeUp
+Effect=ChargeUp;Effect=Damage,Power=80,Type=HighCritRatio
 Effect=Heal,Percentage=50
 Effect=GiveProtectionCondition,Condition=Reflect
 Effect=Heal,Percentage=100;Effect=RemovePCondition,Condition=All;Effect=GivePCondition,Condition=Asleep
@@ -182,8 +182,8 @@ Effect=Damage,Power=80;Effect=Nerf,Stat=SpecialDefense,Chance=20,Stages=1
 Effect=Buff,Stat=Attack,Stages=1
 Effect=GivePCondition,Condition=Asleep
 Effect=Sketch
-Effect=Buff,Stat=Defense,Stages=1,Target=Self;Effect=ChargeUp
-Effect=ChargeUp
+Effect=Buff,Stat=Defense,Stages=1,Target=Self;Effect=ChargeUp;Effect=Damage,Power=130
+Effect=ChargeUp;Effect=Damage,Power=140
 Effect=Damage,Power=80
 Effect=Damage,Power=70,Type=HighCritRatio
 Effect=GivePCondition,Condition=Asleep
@@ -194,7 +194,7 @@ Effect=Damage,Power=20;Effect=GivePCondition,Condition=Poison,Chance=40
 Effect=Nerf,Stat=Accuracy,Stages=1
 Effect=Damage,Power=40;Effect=GiveTCondition,Condition=Flinch,Chance=30
 Effect=Heal,Percentage=50
-Effect=ChargeUp
+Effect=ChargeUp;Effect=Damage,Power=120
 Effect=Damage,Power=Invariant,Damage=20
 Effect=Damage,Power=65;Effect=GivePCondition,Condition=Paralysis,Chance=30
 Effect=GiveTCondition,Condition=Trap

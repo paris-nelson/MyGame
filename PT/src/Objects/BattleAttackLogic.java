@@ -88,42 +88,31 @@ public class BattleAttackLogic {
 		}
 		else if(attackselection==SelectionType.Beam){
 			IntPair curr=activeunit.getCoordinates();
-			if(curr.getX()-1>=0){
-				for(int i=1;i<=attackrange;i++){
-					if(curr.getX()-i>=0)
-						selection.add(new IntPair(curr.getX()-i,curr.getY()));
+			if(curr.getX()>0){
+				for(int i=Math.max(curr.getX()-attackrange,0);i<curr.getX();i++){
+					selection.add(new IntPair(i,curr.getY()));
 				}
 			}
 			else{
-				for(int i=1;i<=attackrange;i++){
-					selection.add(new IntPair(curr.getX()+i,curr.getY()));
+				for(int i=curr.getX()+1;i<=Math.min(Constants.BATTLEFIELD_WIDTH,curr.getX()+attackrange);i++){
+					selection.add(new IntPair(i,curr.getY()));
 				}
 			}	
 		}
 		else if(attackselection==SelectionType.Area){
 			IntPair curr=activeunit.getCoordinates();
-			if(curr.getX()>3){
-				epicenter=new IntPair(curr.getX()-2,curr.getY());
-				for(int x=curr.getX()-3;x<curr.getX();x++){
-					for(int y=curr.getY()-1;y<=curr.getY()+1;y++){
-						if(y>=0)
-							selection.add(new IntPair(x,y));
-					}
-				}
+			if(curr.getX()>0){
+				epicenter=new IntPair(curr.getX()-1,curr.getY());
+				selection.addAll(getSquareGrid(epicenter));
 			}
 			else{
-				epicenter=new IntPair(curr.getX()+2,curr.getY());
-				for(int x=curr.getX()+1;x<curr.getX()+4;x++){
-					for(int y=curr.getY()-1;y<=curr.getY()+1;y++){
-						if(y>=0)
-							selection.add(new IntPair(x,y));
-					}
-				}
+				epicenter=new IntPair(curr.getX()+1,curr.getY());
+				selection.addAll(getSquareGrid(epicenter));
 			}
 		}
 		else if(attackselection==SelectionType.Cone){
 			IntPair curr=activeunit.getCoordinates();
-			if(curr.getX()>=attackrange){
+			if(curr.getX()>0){
 				for(int i=1;i<=attackrange;i++){
 					for(int j=1-i;j<=i-1;j++){
 						IntPair newpair=new IntPair(curr.getX()-i,curr.getY()+j);
@@ -168,9 +157,22 @@ public class BattleAttackLogic {
 			battlefield[pair.getX()][pair.getY()].markValid();
 		}
 	}
+	
+	private static ArrayList<IntPair> getSquareGrid(IntPair epicenter){
+		ArrayList<IntPair> validpoints=new ArrayList<IntPair>();
+		for(int x=Math.max(epicenter.getX()-1,0);x<=Math.min(epicenter.getX()+1,Constants.BATTLEFIELD_WIDTH-1);x++) {
+			for(int y=Math.max(epicenter.getY()-1,0);y<=Math.min(epicenter.getY()+1,Constants.BATTLEFIELD_HEIGHT-1);y++) {
+				validpoints.add(new IntPair(x,y));
+			}
+		}
+		return validpoints;
+	}
 
 	public static void moveAttackRangeLeft(){
 		removeAttackRange();
+		IntPair active=activeunit.getCoordinates();
+		int x=active.getX();
+		int y=active.getY();
 		if(attackselection==SelectionType.Single){
 			IntPair curr=validtargets.get(0);
 			if(curr.getX()>0){
@@ -179,29 +181,27 @@ public class BattleAttackLogic {
 				//e.g. if range is one, and currently looking 1 to the right, if up is pressed, cant go through the diagonal
 				//since distance >1 so program SHOULD jump to the tile a above activeunit. should probably also be highlighting
 				//valid target tiles and diff color highlight the current consideration tile.
-				if(activeunit.getCoordinates().distanceFrom(next)<=attackrange)
+				if(active.distanceFrom(next)<=attackrange)
 					validtargets.set(0,next);
 			}
 		}
 		else if(attackselection==SelectionType.Beam){
 			IntPair curr=validtargets.get(0);
-			int x=activeunit.getCoordinates().getX();
-			if(curr.getX()>=x&&x>0){
+			//Only need to redraw if the beam isn't already pointing left
+			if(curr.getX()>=x){
 				validtargets.clear();
-				for(int i=1;i<=attackrange;i++){
-					if(x-i>=0)
-						validtargets.add(new IntPair(x-i,curr.getY()));
+				for(int i=Math.max(x-attackrange,0);i<x;i++){
+					validtargets.add(new IntPair(i,y));
 				}
 			}
 		}
 		else if(attackselection==SelectionType.Cone){
 			IntPair curr=validtargets.get(0);
-			IntPair active=activeunit.getCoordinates();
-			if(curr.getX()>=active.getX()){
+			if(curr.getX()>=x){
 				validtargets.clear();
 				for(int i=1;i<=attackrange;i++){
 					for(int j=1-i;j<=i-1;j++){
-						IntPair newpair=new IntPair(active.getX()-i,active.getY()+j);
+						IntPair newpair=new IntPair(x-i,y+j);
 						if(newpair.getY()>=00&&newpair.getY()<battlefield[0].length)
 							validtargets.add(newpair);
 					}
@@ -209,16 +209,11 @@ public class BattleAttackLogic {
 			}
 		}
 		else if(attackselection==SelectionType.Area){
-			if(epicenter.getX()>0&&activeunit.getCoordinates().distanceFrom(new IntPair(epicenter.getX()-1,epicenter.getY()))<=attackrange){
-				for(int i=0;i<validtargets.size();i++){
-					IntPair pair=validtargets.get(i);
-					if(pair.getX()-1>=0)
-						validtargets.set(i,new IntPair(pair.getX()-1,pair.getY()));
-					else{
-						validtargets.remove(i);
-						i--;
-					}
-				}
+			IntPair next=epicenter.shiftLeft();
+			if(epicenter.getX()>0&&next.distanceFrom(active)<=attackrange) {
+				epicenter=next;
+				validtargets.clear();
+				validtargets.addAll(getSquareGrid(epicenter));
 			}
 		}
 		displayAttackRange();
@@ -226,33 +221,34 @@ public class BattleAttackLogic {
 
 	public static void moveAttackRangeRight(){
 		removeAttackRange();
+		IntPair active=activeunit.getCoordinates();
+		int x=activeunit.getCoordinates().getX();
+		int y=activeunit.getCoordinates().getY();
 		if(attackselection==SelectionType.Single){
 			IntPair curr=validtargets.get(0);
 			if(curr.getX()<battlefield.length-1){
 				IntPair next=new IntPair(curr.getX()+1,curr.getY());
-				if(activeunit.getCoordinates().distanceFrom(next)<=attackrange)
+				if(active.distanceFrom(next)<=attackrange)
 					validtargets.set(0,next);
 			}
 		}
 		else if(attackselection==SelectionType.Beam){
 			IntPair curr=validtargets.get(0);
-			int x=activeunit.getCoordinates().getX();
-			if(curr.getX()<=x&&x<battlefield.length-1){
+			//Only need to redraw if the beam isn't already pointing right
+			if(curr.getX()<=x){
 				validtargets.clear();
-				for(int i=1;i<=attackrange;i++){
-					if(x+i<=battlefield.length-1)
-						validtargets.add(new IntPair(x+i,curr.getY()));
+				for(int i=x+1;i<=Math.min(x+attackrange,Constants.BATTLEFIELD_WIDTH-1);i++){
+					validtargets.add(new IntPair(i,y));
 				}
 			}
 		}
 		else if(attackselection==SelectionType.Cone){
 			IntPair curr=validtargets.get(0);
-			IntPair active=activeunit.getCoordinates();
-			if(curr.getX()<=active.getX()){
+			if(curr.getX()<=x){
 				validtargets.clear();
 				for(int i=1;i<=attackrange;i++){
 					for(int j=1-i;j<=i-1;j++){
-						IntPair newpair=new IntPair(active.getX()+i,active.getY()+j);
+						IntPair newpair=new IntPair(x+i,y+j);
 						if(newpair.getY()>=0&&newpair.getY()<battlefield[0].length)
 							validtargets.add(newpair);
 					}
@@ -260,16 +256,11 @@ public class BattleAttackLogic {
 			}
 		}
 		else if(attackselection==SelectionType.Area){
-			if(epicenter.getX()<battlefield.length-1&&activeunit.getCoordinates().distanceFrom(new IntPair(epicenter.getX()+1,epicenter.getY()))<=attackrange){
-				for(int i=0;i<validtargets.size();i++){
-					IntPair pair=validtargets.get(i);
-					if(pair.getX()+1<=battlefield.length-1)
-						validtargets.set(i,new IntPair(pair.getX()+1,pair.getY()));
-					else{
-						validtargets.remove(i);
-						i--;
-					}
-				}
+			IntPair next=epicenter.shiftRight();
+			if(epicenter.getX()<Constants.BATTLEFIELD_WIDTH-1&&next.distanceFrom(active)<=attackrange) {
+				epicenter=next;
+				validtargets.clear();
+				validtargets.addAll(getSquareGrid(epicenter));
 			}
 		}
 		displayAttackRange();
@@ -277,33 +268,34 @@ public class BattleAttackLogic {
 
 	public static void moveAttackRangeUp(){
 		removeAttackRange();
+		IntPair active=activeunit.getCoordinates();
+		int x=activeunit.getCoordinates().getX();
+		int y=activeunit.getCoordinates().getY();
 		if(attackselection==SelectionType.Single){
 			IntPair curr=validtargets.get(0);
 			if(curr.getY()>0){
 				IntPair next=new IntPair(curr.getX(),curr.getY()-1);
-				if(activeunit.getCoordinates().distanceFrom(next)<=attackrange)
+				if(active.distanceFrom(next)<=attackrange)
 					validtargets.set(0,next);
 			}
 		}
 		else if(attackselection==SelectionType.Beam){
 			IntPair curr=validtargets.get(0);
-			int y=activeunit.getCoordinates().getY();
-			if(curr.getY()>=y&&y>0){
+			//Only need to redraw if the beam isn't already pointing up
+			if(curr.getY()>=y){
 				validtargets.clear();
-				for(int i=1;i<=attackrange;i++){
-					if(y-i>=0)
-						validtargets.add(new IntPair(curr.getX(),y-i));
+				for(int i=Math.max(y-attackrange,0);i<y;i++){
+					validtargets.add(new IntPair(x,i));
 				}
 			}
 		}
 		else if(attackselection==SelectionType.Cone){
 			IntPair curr=validtargets.get(0);
-			IntPair active=activeunit.getCoordinates();
-			if(curr.getY()>=active.getY()){
+			if(curr.getY()>=y){
 				validtargets.clear();
 				for(int i=1;i<=attackrange;i++){
 					for(int j=1-i;j<=i-1;j++){
-						IntPair newpair=new IntPair(active.getX()+j,active.getY()-i);
+						IntPair newpair=new IntPair(x+j,y-i);
 						if(newpair.getX()>=0&&newpair.getX()<battlefield[0].length)
 							validtargets.add(newpair);
 					}
@@ -311,16 +303,11 @@ public class BattleAttackLogic {
 			}
 		}
 		else if(attackselection==SelectionType.Area){
-			if(epicenter.getY()>0&&activeunit.getCoordinates().distanceFrom(new IntPair(epicenter.getX(),epicenter.getY()-1))<=attackrange){
-				for(int i=0;i<validtargets.size();i++){
-					IntPair pair=validtargets.get(i);
-					if(pair.getY()-1>=0)
-						validtargets.set(i,new IntPair(pair.getX(),pair.getY()-1));
-					else{
-						validtargets.remove(i);
-						i--;
-					}
-				}
+			IntPair next=epicenter.shiftUp();
+			if(epicenter.getY()>0&&next.distanceFrom(active)<=attackrange) {
+				epicenter=next;
+				validtargets.clear();
+				validtargets.addAll(getSquareGrid(epicenter));
 			}
 		}
 		displayAttackRange();
@@ -328,33 +315,34 @@ public class BattleAttackLogic {
 
 	public static void moveAttackRangeDown(){
 		removeAttackRange();
+		IntPair active=activeunit.getCoordinates();
+		int x=activeunit.getCoordinates().getX();
+		int y=activeunit.getCoordinates().getY();
 		if(attackselection==SelectionType.Single){
 			IntPair curr=validtargets.get(0);
 			if(curr.getY()<battlefield.length-1){
 				IntPair next=new IntPair(curr.getX(),curr.getY()+1);
-				if(activeunit.getCoordinates().distanceFrom(next)<=attackrange)
+				if(active.distanceFrom(next)<=attackrange)
 					validtargets.set(0,next);
 			}
 		}
 		else if(attackselection==SelectionType.Beam){
 			IntPair curr=validtargets.get(0);
-			int y=activeunit.getCoordinates().getY();
-			if(curr.getY()<=y&&y<battlefield.length-1){
+			//Only need to redraw if the beam isn't already pointing down
+			if(curr.getY()<=y){
 				validtargets.clear();
-				for(int i=1;i<=attackrange;i++){
-					if(y+i<=battlefield.length-1)
-						validtargets.add(new IntPair(curr.getX(),y+i));
+				for(int i=y+1;i<=Math.min(y+attackrange,Constants.BATTLEFIELD_HEIGHT-1);i++){
+					validtargets.add(new IntPair(x,i));
 				}
 			}
 		}
 		else if(attackselection==SelectionType.Cone){
 			IntPair curr=validtargets.get(0);
-			IntPair active=activeunit.getCoordinates();
-			if(curr.getY()<=active.getY()){
+			if(curr.getY()<=y){
 				validtargets.clear();
 				for(int i=1;i<=attackrange;i++){
 					for(int j=1-i;j<=i-1;j++){
-						IntPair newpair=new IntPair(active.getX()+j,active.getY()+i);
+						IntPair newpair=new IntPair(x+j,y+i);
 						if(newpair.getX()>=0&&newpair.getX()<battlefield[0].length)
 							validtargets.add(newpair);
 					}
@@ -362,16 +350,11 @@ public class BattleAttackLogic {
 			}
 		}
 		else if(attackselection==SelectionType.Area){
-			if(epicenter.getY()<battlefield.length-1&&activeunit.getCoordinates().distanceFrom(new IntPair(epicenter.getX(),epicenter.getY()+1))<=attackrange){
-				for(int i=0;i<validtargets.size();i++){
-					IntPair pair=validtargets.get(i);
-					if(pair.getY()+1<=battlefield.length-1)
-						validtargets.set(i,new IntPair(pair.getX(),pair.getY()+1));
-					else{
-						validtargets.remove(i);
-						i--;
-					}
-				}
+			IntPair next=epicenter.shiftDown();
+			if(epicenter.getY()<Constants.BATTLEFIELD_HEIGHT-1&&next.distanceFrom(active)<=attackrange) {
+				epicenter=next;
+				validtargets.clear();
+				validtargets.addAll(getSquareGrid(epicenter));
 			}
 		}
 		displayAttackRange();

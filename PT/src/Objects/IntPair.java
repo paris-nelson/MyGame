@@ -55,4 +55,20 @@ public class IntPair {
 	public boolean equals(IntPair other){
 		return (x==other.x&&y==other.y);
 	}
+	
+	public IntPair shiftLeft() {
+		return new IntPair(x-1,y);
+	}
+	
+	public IntPair shiftRight() {
+		return new IntPair(x+1,y);
+	}
+	
+	public IntPair shiftUp() {
+		return new IntPair(x,y-1);
+	}
+	
+	public IntPair shiftDown() {
+		return new IntPair(x,y+1);
+	}
 }
