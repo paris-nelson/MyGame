@@ -1,6 +1,6 @@
 package Enums;
 
-public enum MoveEffect {
+public enum EffectType {
 	Damage,Buff,Nerf,GiveTCondition,GivePCondition,HealthSteal,HealthSac,Conversion,Conversion2,
 	Recoil,SelfDestruct,RemovePCondition,RemoveTCondition,StatStageReset,MissRecoil,Recharge,ChargeUp,
 	Metronome,Heal,Mimic,MirrorMove,TimeHeal,Outrage,PayDay,PsychUp,Weather,Sketch,

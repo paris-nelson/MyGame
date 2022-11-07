@@ -87,12 +87,12 @@ public class BattleEngine {
 		Pokemon[] party=opponent.getParty();
 		int idcounter=1;
 		for(int i=0;i<party.length;i++){ 
-			ounits.add(new Unit(party[i],i,idcounter));
+			ounits.add(new Unit(party[i],i,idcounter,false));
 			idcounter++;
 		}
 		ArrayList<Pokemon> party2=PlayerData.getParty();
 		for(int i=0;i<party2.size();i++){
-			punits.add(new Unit(party2.get(i),i,idcounter));
+			punits.add(new Unit(party2.get(i),i,idcounter,true));
 			idcounter++;
 		}
 		//insertion sort opp units by desc level
@@ -508,14 +508,13 @@ public class BattleEngine {
 	 * @param unit
 	 * @return
 	 */
-	//TODO: add 'owner' field to units to more easily indicate friend from foe. check callers of this for improvements once thats done
 	public static ArrayList<Unit> getFriendlyUnits(Unit unit){
 		ArrayList<Unit> friends=new ArrayList<Unit>();
-		if(ounits.contains(unit)){
-			friends.addAll(ounits);
+		if(unit.isPlayerOwned()){
+			friends.addAll(punits);
 		}
 		else{
-			friends.addAll(punits);
+			friends.addAll(ounits);
 		}
 		return friends;
 	}

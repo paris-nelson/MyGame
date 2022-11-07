@@ -23,6 +23,7 @@ import acm.graphics.GImage;
 //TODO: Unit should be an extension of Pokemon as far as I can tell, look into making this happen
 public class Unit {
 	private int id;
+	private final boolean playerowned;
 	private Pokemon pokemon;
 	private int pokemonpartyindex;
 	private int[] modstages;
@@ -55,7 +56,8 @@ public class Unit {
 	private boolean ischarging;
 
 
-	public Unit(Pokemon pokemon,int partyindex,int id){
+	public Unit(Pokemon pokemon,int partyindex,int id,boolean playerowned){
+		this.playerowned=playerowned;
 		this.pokemon=pokemon;
 		this.id=id;
 		pokemonpartyindex=partyindex;
@@ -88,10 +90,11 @@ public class Unit {
 		image=new GImage(Constants.PATH+"\\Sprites\\Left\\"+pokemon.getNum()+".png");
 	}
 
-	public Unit(Pokemon p,int[] modstag,int moverange,HashMap<String,Integer> conds,HashMap<BondCondition,Integer> bondconds,int id,
+	public Unit(boolean po,Pokemon p,int[] modstag,int moverange,HashMap<String,Integer> conds,HashMap<BondCondition,Integer> bondconds,int id,
 			HashMap<ProtectionCondition,Integer> proconds,boolean control,Direction dir,boolean moved,boolean acted,ArrayList<Type> types,
 			boolean ended,boolean move,boolean attack,int prev,Set<Integer> attby,boolean dig,boolean fly,boolean attacked,int dis,
 			IntPair coord,boolean min,boolean raging,int consec,boolean charging){
+		playerowned=po;
 		pokemon=p;
 		this.id=id;
 		modstages=modstag;
@@ -127,6 +130,10 @@ public class Unit {
 		for(int i=0;i<modstages.length;i++){
 			modstages[i]=other.modstages[i];
 		}
+	}
+	
+	public boolean isPlayerOwned() {
+		return playerowned;
 	}
 
 	public boolean isCharging(){
@@ -293,6 +300,10 @@ public class Unit {
 
 	public void setPrevMove(int movenum){
 		prevmove=movenum;
+	}
+	
+	public boolean isFriendlyWith(Unit other) {
+		return playerowned==other.playerowned;
 	}
 
 	public boolean canAttack(){
@@ -677,6 +688,7 @@ public class Unit {
 	public static Unit readInUnit(Trainer owner, Scanner reader){
 		int id=reader.nextInt();
 		reader.nextLine();
+		boolean playerowned=reader.nextBoolean();
 		int partyindex=reader.nextInt();
 		Pokemon p;
 		if(owner==null)
@@ -745,7 +757,7 @@ public class Unit {
 			for(int x:attackbylist)
 				attby.add(x);
 		}
-		return new Unit(p, modstag, moverange, conds, bondconds, id, proconds, control, dir, moved, acted, types, ended,
+		return new Unit(playerowned, p, modstag, moverange, conds, bondconds, id, proconds, control, dir, moved, acted, types, ended,
 				move, attack, prev, attby, dig, fly, attacked, dis, coord,ismin,raging,consec,charging);
 	}
 

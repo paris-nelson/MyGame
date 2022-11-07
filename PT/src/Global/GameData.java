@@ -5,18 +5,17 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javazoom.jlgui.basicplayer.BasicPlayer;
 import Engines.GUI;
 import Enums.ItemType;
 import Enums.LocationName;
-import Enums.MoveEffect;
 import Enums.MusicTheme;
 import Enums.Requirement;
 import Enums.Stat;
@@ -24,7 +23,9 @@ import Enums.Time;
 import Enums.Type;
 import Objects.IntPair;
 import Objects.Move;
+import Objects.MoveEffect;
 import Objects.Radio;
+import javazoom.jlgui.basicplayer.BasicPlayer;
 
 public class GameData {
 	private static Random random;
@@ -53,7 +54,7 @@ public class GameData {
 	private static Map<Type,HashMap<Type,Double>> typechart=null;
 	private static int[] critstages=null;
 	private static double[] accevastages=null;
-	private static String[] moveeffects=null;
+	private static List<MoveEffect>[] moveeffects=null;
 	private static String[] moveranges=null;
 	private static HashMap<MusicTheme,ArrayList<String>> playlists=null;
 	private static GUI gui;
@@ -741,45 +742,24 @@ public class GameData {
 		return map;
 	}
 
-	public static LinkedHashMap<MoveEffect,LinkedHashMap<String,String>> getMoveEffects(int movenum){
+	@SuppressWarnings("unchecked")
+	public static List<MoveEffect> getMoveEffects(int movenum){
 		if(moveeffects==null){
 			try{
 				File f=new File(Constants.PATH+"\\InitializeData\\moveeffects.txt");
 				Scanner s=new Scanner(f);
-				moveeffects=new String[Constants.NUM_MOVES+1];
+				moveeffects=(List<MoveEffect>[]) new List[Constants.NUM_MOVES+1];
 				for(int i=1;i<moveeffects.length;i++){
-					moveeffects[i]=s.nextLine();
+					moveeffects[i]=MoveEffect.parse(s.nextLine());
 				}
 				s.close();
 			}catch(Exception e){
 				e.printStackTrace();
 			}
 		}
-		return getMoveEffectsMap(moveeffects[movenum]);
+		return moveeffects[movenum];
 	}
-
-	private static LinkedHashMap<MoveEffect,LinkedHashMap<String,String>> getMoveEffectsMap(String effectstring){
-		LinkedHashMap<MoveEffect,LinkedHashMap<String,String>> effectsmap=new LinkedHashMap<MoveEffect,LinkedHashMap<String,String>>();
-		String[] spliteffects=effectstring.split(";");
-		for(String spliteffect:spliteffects){
-			String[] components=spliteffect.split(",");
-			try{
-				MoveEffect effectname=MoveEffect.valueOf(components[0].substring(7));
-				if(components.length>1){
-					LinkedHashMap<String,String> componentsmap=new LinkedHashMap<String,String>();
-					for(int i=1;i<components.length;i++){
-						String[] component=components[i].split("=");
-						componentsmap.put(component[0],component[1]);
-					}
-					effectsmap.put(effectname,componentsmap);
-				}
-				else
-					effectsmap.put(effectname,null);
-			}catch(Exception e){System.out.println("No move effect enum for "+components[0]);};
-		}
-		return effectsmap;
-	}
-
+	
 	public static int[] readIntArray(String s){
 		if(s.length()<=2)
 			return null;

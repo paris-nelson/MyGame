@@ -2,11 +2,14 @@ package Objects;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import Engines.BattleEngine;
 import Enums.BondCondition;
-import Enums.MoveEffect;
+import Enums.EffectType;
+import Enums.MoveImpact;
 import Enums.PermCondition;
 import Enums.ProtectionCondition;
 import Enums.Stat;
@@ -21,8 +24,8 @@ public class MoveLogic {
 	private static Pokemon userpokemon;
 	private static ArrayList<Unit> targets;
 	private static Move move;
-	private static LinkedHashMap<MoveEffect,LinkedHashMap<String,String>> effects;
-	private static HashMap<String,String> curreffects;
+	private static List<MoveEffect> effects;
+//	private static HashMap<String,String> curreffects;
 	private static int damagedone;
 
 	private static final boolean DEBUG=false;
@@ -51,16 +54,15 @@ public class MoveLogic {
 						user.resetConsecUses();
 				}
 				count++;
-				for(MoveEffect effect:effects.keySet()){
+				for(MoveEffect effect:effects){
 					System.out.println("Effect: "+effect.toString());
-					implement(effect,effects.get(effect),u);
+					implement(effect,u);
 				}
-				//TODO: how to determine targets properly for each effect
 				if(userpokemon.isHolding("King's Rock")&&effects.size()==1
-						&&effects.containsKey(MoveEffect.Damage)&&GameData.getRandom().nextInt(100)<Constants.KINGS_ROCK_FLINCH_CHANCE){
+						&&effects.get(0).getType()==EffectType.Damage&&GameData.getRandom().nextInt(100)<Constants.KINGS_ROCK_FLINCH_CHANCE){
 					HashMap<String,String> map=new HashMap<String,String>();
 					map.put("Condition","Flinch");
-					implement(MoveEffect.GiveTCondition,map,u);
+					implement(new MoveEffect(EffectType.GiveTCondition,MoveImpact.EnemyOnly,map),u);
 				}
 			}
 			else{
@@ -74,82 +76,84 @@ public class MoveLogic {
 	 * Returns the map of effects that target the move user and pulls them out of the original effects map
 	 * @return
 	 */
-	private static HashMap<MoveEffect,HashMap<String,String>> getSelfTargettingEffects(){
-		HashMap<MoveEffect,HashMap<String,String>> selftargetting=new HashMap<MoveEffect,HashMap<String,String>>();
-		for(MoveEffect effect:effects.keySet()){
-			HashMap<String,String> params=effects.get(effect);
-			String target=params.get("Target");
+	//TODO: are these not being considered? 
+	private static Set<MoveEffect> getSelfTargettingEffects(){
+		Set<MoveEffect> selftargetting=new HashSet<MoveEffect>();
+		for(MoveEffect effect:effects){
+			String target=effect.getParam("Target");
 			if(target!=null&&target.equals("Self")){
-				selftargetting.put(effect,params);
+				selftargetting.add(effect);
 				effects.remove(effect);
 			}
 		}
 		return selftargetting;
 	}
 
-	private static void implement(MoveEffect effect,HashMap<String,String> params,Unit target){
-		curreffects=params;
-		//TODO: need to prevent more than just damage effects to friendlies. e.g. a move with a chance to paralyze.
-		//only buffs should be applied
-		if(effect==MoveEffect.Damage&&!BattleEngine.getFriendlyUnits(user).contains(target)){
-			implementDamageEffect(target);
+	private static void implement(MoveEffect effect,Unit target){
+		if(effect.getImpact()==MoveImpact.EnemyOnly&&user.isFriendlyWith(target))
+			return;
+		if(effect.getImpact()==MoveImpact.FriendOnly&&!user.isFriendlyWith(target))
+			return;
+		EffectType effectType=effect.getType();
+		if(effectType==EffectType.Damage){
+			implementDamageEffect(effect,target);
 			if(!target.getPokemon().isFainted()&&target.isRaging()){
 				System.out.println(target.getName()+"'s rage grows.");
 				target.incStat(1,Stat.Attack);
 			}
 		}
-		else if(effect==MoveEffect.Buff||effect==MoveEffect.Nerf)
+		else if(effectType==EffectType.Buff||effectType==EffectType.Nerf)
 			implementBuffNerfEffect(effect,target);
-		else if(effect==MoveEffect.PayDay)
+		else if(effectType==EffectType.PayDay)
 			BattleEngine.incPayDayVal(userpokemon.getLevel());
 		else if(effect.toString().contains("Condition"))
 			implementConditionEffect(effect,target);
-		else if(effect==MoveEffect.HealthSteal){
+		else if(effectType==EffectType.HealthSteal){
 			int percentage=damagedone/2;
 			userpokemon.incHP(percentage);
 			System.out.println(userpokemon.getName()+" heals "+percentage+" HP.");
 		}
-		else if(effect==MoveEffect.Recoil){
-			int percentage=damagedone*round((Double.parseDouble(curreffects.get("Percentage"))/100));
+		else if(effectType==EffectType.Recoil){
+			int percentage=damagedone*round((Double.parseDouble(effect.getParam("Percentage"))/100));
 			user.damage(percentage);
 			System.out.println(userpokemon.getName()+" takes "+percentage+" recoil damage.");
 		}
-		else if(effect==MoveEffect.HealthSac){
+		else if(effectType==EffectType.HealthSac){
 			System.out.println(userpokemon.getName()+" loses half of their max HP");
 			userpokemon.decHP(userpokemon.getStat(Stat.HP)/2,"sacrificing their health");
 		}
-		else if(effect==MoveEffect.Conversion){
+		else if(effectType==EffectType.Conversion){
 			user.setTypes(target.getTypes());
 			System.out.println(userpokemon.getName()+"'s types have been changed to "+user.getTypes());
 		}
-		else if(effect==MoveEffect.Conversion2){
+		else if(effectType==EffectType.Conversion2){
 			Type lastmovetype=GameData.getMoveType(target.getPrevMove());
 			ArrayList<Type> newtype=new ArrayList<Type>();
 			newtype.add(GameData.getResistantType(lastmovetype));
 			user.setTypes(newtype);
 			System.out.println(userpokemon.getName()+"'s types have been changed to "+user.getTypes().get(0));
 		}
-		else if(effect==MoveEffect.SelfDestruct){
+		else if(effectType==EffectType.SelfDestruct){
 			System.out.println(userpokemon.getName()+" self destructs");
 			userpokemon.decHP(userpokemon.getCurrHP(),"self destruct");
 		}
-		else if(effect==MoveEffect.StatStageReset){
+		else if(effectType==EffectType.StatStageReset){
 			System.out.println(userpokemon.getName()+"'s stats are reset to unmodified values");
 			user.clearStatMods();
 		}
-		else if(effect==MoveEffect.Recharge){
+		else if(effectType==EffectType.Recharge){
 			System.out.println(userpokemon.getName()+" must recharge next turn");
 			user.isCharging();
 			user.setCanMove(false);
 		}
-		else if(effect==MoveEffect.Heal){
-			int amount=target.getPokemon().getStat(Stat.HP)*round((Double.parseDouble(curreffects.get("Percentage"))/100));
+		else if(effectType==EffectType.Heal){
+			int amount=target.getPokemon().getStat(Stat.HP)*round((Double.parseDouble(effect.getParam("Percentage"))/100));
 			System.out.println(target.getName()+" heals "+amount+" HP.");
 			target.getPokemon().incHP(amount);
 		}
-		else if(effect==MoveEffect.TimeHeal){
+		else if(effectType==EffectType.TimeHeal){
 			double percent=Constants.HEAL_RIGHT_TIME_PERCENTAGE;
-			if(Enums.Time.valueOf(curreffects.get("Time"))!=GameData.getTime())
+			if(Enums.Time.valueOf(effect.getParam("Time"))!=GameData.getTime())
 				percent=Constants.HEAL_WRONG_TIME_PERCENTAGE;
 			Weather currweather=BattleEngine.getWeather();
 			if(currweather==Weather.Rain||currweather==Weather.Sand)
@@ -160,33 +164,33 @@ public class MoveLogic {
 			System.out.println(target.getName()+" heals "+amount+" HP.");
 			target.getPokemon().incHP(amount);
 		}
-		else if(effect==MoveEffect.PsychUp){
+		else if(effectType==EffectType.PsychUp){
 			System.out.println(userpokemon.getName()+" copies "+target.getName()+"'s stat modifications");
 			user.copyStatMods(target);
 		}
-		else if(effect==MoveEffect.Spite){
+		else if(effectType==EffectType.Spite){
 			Move move=userpokemon.getMove(user.getPrevMove());
 			move.decCurrPP(GameData.getRandom().nextInt(Constants.SPITE_MAX_PP-Constants.SPITE_MIN_PP+1)+Constants.SPITE_MIN_PP);
 			System.out.println(userpokemon.getName()+"'s move "+GameData.getMoveName(move.getNum())+" PP reduced to "+move.getCurrPP());
 		}
-		else if(effect==MoveEffect.Splash)
+		else if(effectType==EffectType.Splash)
 			System.out.println(userpokemon.getName()+" splashes around, doing nothing.");
-		else if(effect==MoveEffect.Thief){
+		else if(effectType==EffectType.Thief){
 			if(target.getPokemon().getHeldID()!=-1&&userpokemon.getHeldID()==-1&&GameData.getRandom().nextInt(100)<Constants.THIEF_STEAL_CHANCE){
 				int id=target.getPokemon().removeHeldItem();
 				System.out.println(userpokemon.getName()+" steals "+GameData.getItemName(id)+" from "+target.getName());
 				userpokemon.holdItem(id);
 			}
 		}
-		else if(effect==MoveEffect.RemoveSpikes){
+		else if(effectType==EffectType.RemoveSpikes){
 			System.out.println("Spikes are removed from the battlefield");
 			BattleEngine.removeSpikes();
 		}
-		else if(effect==MoveEffect.Rage){
+		else if(effectType==EffectType.Rage){
 			System.out.println(userpokemon.getName()+" has become enraged");
 			user.setRaging(true);
 		}
-		else if(effect==MoveEffect.BatonPass){
+		else if(effectType==EffectType.BatonPass){
 			if(BattleEngine.canMoveTo(user,target.getCoordinates(),true)&&BattleEngine.canMoveTo(target,user.getCoordinates(),true)){
 				System.out.println(userpokemon.getName()+" swapping positions with "+target.getName());
 				swapPositions(user,target);
@@ -194,7 +198,7 @@ public class MoveLogic {
 			else
 				System.out.println("One or more illegal destinations involved in psoition swamp between "+userpokemon.getName()+" and "+target.getName());
 		}
-		else if(effect==MoveEffect.RandomSwap){
+		else if(effectType==EffectType.RandomSwap){
 			ArrayList<Unit> options=BattleEngine.getFriendlyUnits(target);
 			options.remove(target);
 			Unit othertarget=options.get(GameData.getRandom().nextInt(options.size()));
@@ -205,15 +209,15 @@ public class MoveLogic {
 			else
 				System.out.println("One or more illegal destinations involved in psoition swamp between "+othertarget.getName()+" and "+target.getName());
 		}
-		else if(effect==MoveEffect.Dig&&!user.isDigging()){
+		else if(effectType==EffectType.Dig&&!user.isDigging()){
 			user.setDigging(true);
 			System.out.println(userpokemon.getName()+" digs down to attack");
 		}
-		else if(effect==MoveEffect.Fly&&!user.isFlying()){
+		else if(effectType==EffectType.Fly&&!user.isFlying()){
 			user.setFlying(true);
 			System.out.println(userpokemon.getName()+" flies up to attack");
 		}
-		else if(effect==MoveEffect.ChargeUp){
+		else if(effectType==EffectType.ChargeUp){
 			//sunny day should make solar beam fire immediately
 			if(GameData.getMoveName(move.getNum()).equals("Solar Beam")&&BattleEngine.getWeather()==Weather.Sun) {
 				if(!user.isCharging())
@@ -228,8 +232,8 @@ public class MoveLogic {
 					System.out.println(userpokemon.getName()+" is done charging");
 			}
 		}
-		else if(effect==MoveEffect.Weather){
-			Weather newconditions=Weather.valueOf(curreffects.get("Conditions"));
+		else if(effectType==EffectType.Weather){
+			Weather newconditions=Weather.valueOf(effect.getParam("Conditions"));
 			if(newconditions==BattleEngine.getWeather()){
 				System.out.println("The weather is already in condition: "+newconditions);
 			}
@@ -250,40 +254,41 @@ public class MoveLogic {
 	}
 
 	private static void implementConditionEffect(MoveEffect effect,Unit target){
-		if(!curreffects.containsKey("Chance")||(curreffects.containsKey("Chance")&&GameData.getRandom().nextInt(100)<Integer.parseInt(curreffects.get("Chance")))){
-			String condition=curreffects.get("Condition");
-			if(effect==MoveEffect.GiveTCondition){
+		String chance=effect.getParam("Chance");
+		if(chance==null||GameData.getRandom().nextInt(100)<Integer.parseInt(chance)){
+			String condition=effect.getParam("Condition");
+			if(effect.getType()==EffectType.GiveTCondition){
 				if(target.addTempCondition(TempCondition.valueOf(condition)))
 					System.out.println(target.getName()+" is now afflicted by "+condition);
 			}
-			else if(effect==MoveEffect.GivePCondition){
+			else if(effect.getType()==EffectType.GivePCondition){
 				PermCondition pcondition=PermCondition.valueOf(condition);
 				if(pcondition==PermCondition.Frozen&&BattleEngine.getWeather()==Weather.Sun)
 					System.out.println("Pokemon cannot be frozen due to Sunny Day");
 				else if(target.addPermCondition(pcondition))
 					System.out.println(target.getName()+" is now afflicted by "+condition);
 			}
-			else if(effect==MoveEffect.GiveBondCondition){
+			else if(effect.getType()==EffectType.GiveBondCondition){
 				if(target.addBondCondition(BondCondition.valueOf(condition),target.getID()))
 					System.out.println(target.getName()+" is now bound to "+userpokemon.getName()+" by "+condition);
 			}
-			else if(effect==MoveEffect.GiveProtectionCondition){
+			else if(effect.getType()==EffectType.GiveProtectionCondition){
 				if(target.addProtectionCondition(ProtectionCondition.valueOf(condition)))
 					System.out.println(target.getName()+" is now protected by "+condition);
 			}
-			else if(effect==MoveEffect.RemoveTCondition){
+			else if(effect.getType()==EffectType.RemoveTCondition){
 				if(target.removeTempCondition(TempCondition.valueOf(condition)))
 					System.out.println(target.getName()+" is now cured of "+condition);
 			}
-			else if(effect==MoveEffect.RemovePCondition){
+			else if(effect.getType()==EffectType.RemovePCondition){
 				if(target.removePermCondition(PermCondition.valueOf(condition)))
 					System.out.println(target.getName()+" is now cured of "+condition);
 			}
-			else if(effect==MoveEffect.RemoveBondCondition){
+			else if(effect.getType()==EffectType.RemoveBondCondition){
 				if(target.removeBondCondition(BondCondition.valueOf(condition)))
 					System.out.println(target.getName()+" is no longer bound to "+userpokemon.getName()+" by "+condition);
 			}
-			else if(effect==MoveEffect.RemoveProtectionCondition){
+			else if(effect.getType()==EffectType.RemoveProtectionCondition){
 				if(target.removeProtectionCondition(ProtectionCondition.valueOf(condition)))
 					System.out.println(target.getName()+" is no longer protected by "+condition);
 			}
@@ -294,22 +299,24 @@ public class MoveLogic {
 		if(target.hasProtectionCondition(ProtectionCondition.Mist)&&!target.equals(user)){
 			System.out.println(target.getName()+" cannot have it's stats modified because it is protected by Mist");
 		}//TODO: looks like only buffs/nerfs with a chance of success go through, but guaranteed buffs/nerfs dont
-		else if(curreffects.containsKey("Chance")&&GameData.getRandom().nextInt(100)<Integer.parseInt(curreffects.get("Chance"))){
-			if(effect==MoveEffect.Buff){
-				System.out.println(target.getName()+"'s "+curreffects.get("Stat")+" increased "+curreffects.get("Stages")+" stages.");
-				target.incStat(Integer.parseInt(curreffects.get("Stages")),Stat.valueOf(curreffects.get("Stat")));
+		else if(effect.getParam("Chance")!=null&&GameData.getRandom().nextInt(100)<Integer.parseInt(effect.getParam("Chance"))){
+			String stages=effect.getParam("Stages");
+			String stat=effect.getParam("Stat");
+			if(effect.getType()==EffectType.Buff){
+				System.out.println(target.getName()+"'s "+stat+" increased "+stages+" stages.");
+				target.incStat(Integer.parseInt(stages),Stat.valueOf(stat));
 			}
-			else if (effect==MoveEffect.Nerf){
-				System.out.println(target.getName()+"'s "+curreffects.get("Stat")+" decreased "+curreffects.get("Stages")+" stages.");
-				target.decStat(Integer.parseInt(curreffects.get("Stages")),Stat.valueOf(curreffects.get("Stat")));
+			else if (effect.getType()==EffectType.Nerf){
+				System.out.println(target.getName()+"'s "+stat+" decreased "+stages+" stages.");
+				target.decStat(Integer.parseInt(stages),Stat.valueOf(stat));
 			}
 		}
 	}
 
-	private static void implementDamageEffect(Unit target){
+	private static void implementDamageEffect(MoveEffect effect,Unit target){
 		int damage=0;
-		String power=curreffects.get("Power");
-		String param=curreffects.get("Type");
+		String power=effect.getParam("Power");
+		String param=effect.getParam("Type");
 		if(param!=null){
 			//If the user is not currently dug/flying then don't do the damage portion yet.
 			if(param.equals("Dig")&&!user.isDigging())
@@ -335,35 +342,35 @@ public class MoveLogic {
 					for(Unit u:BattleEngine.getFriendlyUnits(user)){
 						if(u.equals(user))
 							continue;
-						damage+=calculateDamage(u,target,null,10);
+						damage+=calculateDamage(effect,u,target,null,10);
 					}
 				}
 			}
 			System.out.println("Attacking "+numtimes+" times.");
 			for(int i=0;i<numtimes;i++){
-				damage+=calculateDamage(user,target,GameData.getMoveType(move.getNum()),powernum);
+				damage+=calculateDamage(effect,user,target,GameData.getMoveType(move.getNum()),powernum);
 			}
 		}
 		catch(Exception e){
 			//parameters that determine base power or damage calculations
 			if(power.equals("Invariant"))
-				damage=Integer.parseInt(curreffects.get("Damage"));
+				damage=Integer.parseInt(effect.getParam("Damage"));
 			else if(power.equals("OneHitKO"))
 				damage=target.getPokemon().getCurrHP();
 			else if(power.equals("Flail"))
-				damage=calculateDamage(user,target,GameData.getMoveType(move.getNum()),calculateFlailPower());
+				damage=calculateDamage(effect,user,target,GameData.getMoveType(move.getNum()),calculateFlailPower());
 			else if(power.equals("Hidden Power"))
-				damage=calculateDamage(user,target,calculateHiddenType(),calculateHiddenPower());
+				damage=calculateDamage(effect,user,target,calculateHiddenType(),calculateHiddenPower());
 			else if(power.equals("Magnitude"))
-				damage=calculateDamage(user,target,GameData.getMoveType(move.getNum()),calculateMagnitudePower());
+				damage=calculateDamage(effect,user,target,GameData.getMoveType(move.getNum()),calculateMagnitudePower());
 			else if(power.equals("Level"))
 				damage=userpokemon.getLevel();
 			else if(power.equals("Present"))
-				damage=calculatePresentDamage(target);
+				damage=calculatePresentDamage(effect,target);
 			else if(power.equals("Psywave"))
 				damage=calculatePsywaveDamage();
 			else if(power.equals("HappinessBased"))
-				damage=calculateDamage(user,target,GameData.getMoveType(move.getNum()),calculateHappinessBasedPower());
+				damage=calculateDamage(effect,user,target,GameData.getMoveType(move.getNum()),calculateHappinessBasedPower());
 			else if(power.equals("HalveHP"))
 				damage=target.getPokemon().getCurrHP()/2;
 		}
@@ -418,19 +425,20 @@ public class MoveLogic {
 		return GameData.getRandom().nextInt((int)(userpokemon.getLevel()*1.5))+1;
 	}
 
-	private static int calculatePresentDamage(Unit target){
+	private static int calculatePresentDamage(MoveEffect effect,Unit target){
 		int rand=GameData.getRandom().nextInt(10);
 		if(rand<2){
 			HashMap<String,String> map=new HashMap<String,String>();
 			map.put("Percentage","25");
+			//TODO: this doesn't line up with what movestrings says should happen (flat 80 heal)
 			implement(MoveEffect.Heal,map,target);
 			return -1;
 		}
 		if(rand<6)
-			return calculateDamage(user,target,GameData.getMoveType(move.getNum()),40);
+			return calculateDamage(effect,user,target,GameData.getMoveType(move.getNum()),40);
 		if(rand<9)
-			return calculateDamage(user,target,GameData.getMoveType(move.getNum()),80);
-		return calculateDamage(user,target,GameData.getMoveType(move.getNum()),120);
+			return calculateDamage(effect,user,target,GameData.getMoveType(move.getNum()),80);
+		return calculateDamage(effect,user,target,GameData.getMoveType(move.getNum()),120);
 
 	}
 
@@ -506,10 +514,10 @@ public class MoveLogic {
 		return (type==Type.Water||type==Type.Grass||type==Type.Fire||type==Type.Ice||type==Type.Electric||type==Type.Psychic||type==Type.Dragon||type==Type.Dark);
 	}
 
-	private static int calculateDamage(Unit user, Unit defender, Type movetype,int power){
+	private static int calculateDamage(MoveEffect effect,Unit user, Unit defender, Type movetype,int power){
 		int damage=0;
 		Pokemon attackerpokemon=userpokemon;
-		String param=curreffects.get("Type");
+		String param=effect.getParam("Type");
 		//BASE DAMAGE CALCULATION
 		double parta=2*(double)attackerpokemon.getLevel()/5+2;
 		double partb=0;
@@ -903,6 +911,5 @@ public class MoveLogic {
 		targets=null;
 		move=null;
 		effects=null;
-		curreffects=null;
 	}
 }
