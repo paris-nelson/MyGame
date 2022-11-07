@@ -29,7 +29,6 @@ public class PCEngine {
 		showAllPokemonList();
 		setFocus(0);
 		takeControl();
-		//TODO: handle logic for adding pokemon to pc
 	}
 	
 	public static void takeControl(){

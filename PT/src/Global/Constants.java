@@ -47,6 +47,7 @@ public class Constants {
 	public static final int TILE_SIZE=56;
 	public static final double SIDE_FACING_ACCURACY_RATE=.9;
 	public static final double FRONT_FACING_ACCURACY_RATE=.8;
+	public static final double DMG_SCALING_RATE=.5;
 	
 	//Move specific constants
 	public static final double BURN_PHYSICAL_ATTACK_DAMAGE_REDUCTION=.33;

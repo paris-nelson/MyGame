@@ -85,7 +85,9 @@ public class Square {
 	public void removeSpikes(){
 		spikes=false;
 	}
-	
+	//TODO: Should only one set of spikes be allowed? One per team? if multiple
+	// are allowed, what about overlap? also if multiple, each spike needs to track
+	// who laid it
 	public void setSpikes(){
 		spikes=true;
 	}

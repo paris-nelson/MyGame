@@ -3,8 +3,10 @@ package Objects;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 import Engines.BattleEngine;
 import Enums.BondCondition;
@@ -18,7 +20,7 @@ import Global.Constants;
 import Global.GameData;
 import Global.PlayerData;
 import acm.graphics.GImage;
-
+//TODO: Unit should be an extension of Pokemon as far as I can tell, look into making this happen
 public class Unit {
 	private int id;
 	private Pokemon pokemon;
@@ -40,7 +42,7 @@ public class Unit {
 	private boolean canmove;
 	private boolean canattack;
 	private int prevmove;
-	private ArrayList<Integer> attackedby;
+	private Set<Integer> attackedby;
 	private boolean isdigging;
 	private boolean isflying;
 	private boolean hasattacked;
@@ -73,7 +75,7 @@ public class Unit {
 		canmove=true;
 		canattack=true;
 		prevmove=-1;
-		attackedby=new ArrayList<Integer>();
+		attackedby=new HashSet<Integer>();
 		isdigging=false;
 		isflying=false;
 		hasattacked=false;
@@ -88,7 +90,7 @@ public class Unit {
 
 	public Unit(Pokemon p,int[] modstag,int moverange,HashMap<String,Integer> conds,HashMap<BondCondition,Integer> bondconds,int id,
 			HashMap<ProtectionCondition,Integer> proconds,boolean control,Direction dir,boolean moved,boolean acted,ArrayList<Type> types,
-			boolean ended,boolean move,boolean attack,int prev,ArrayList<Integer> attby,boolean dig,boolean fly,boolean attacked,int dis,
+			boolean ended,boolean move,boolean attack,int prev,Set<Integer> attby,boolean dig,boolean fly,boolean attacked,int dis,
 			IntPair coord,boolean min,boolean raging,int consec,boolean charging){
 		pokemon=p;
 		this.id=id;
@@ -282,8 +284,7 @@ public class Unit {
 	}
 
 	public void wasAttackedBy(int unitid){
-		if(!attackedBy(unitid))
-			attackedby.add(unitid);
+		attackedby.add(unitid);
 	}
 
 	public int getPrevMove(){
@@ -354,6 +355,10 @@ public class Unit {
 
 	public int getCritRatio(){
 		return GameData.getCritRatio(modstages[7]);
+	}
+	
+	public boolean isHolding(String itemname) {
+		return pokemon.isHolding(itemname);
 	}
 
 	/**
@@ -734,7 +739,7 @@ public class Unit {
 				types.add(Type.valueOf(split[i].trim()));
 		}
 		//line=reader.nextLine();
-		ArrayList<Integer> attby=new ArrayList<Integer>();
+		HashSet<Integer> attby=new HashSet<Integer>();
 		int[] attackbylist=GameData.readIntArray(reader.nextLine());
 		if(attackbylist!=null){
 			for(int x:attackbylist)

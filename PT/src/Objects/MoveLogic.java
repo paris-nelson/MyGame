@@ -25,7 +25,7 @@ public class MoveLogic {
 	private static HashMap<String,String> curreffects;
 	private static int damagedone;
 
-	private static final boolean DEBUG=true;
+	private static final boolean DEBUG=false;
 
 
 	public static void implementEffects(Unit thisuser,ArrayList<Unit> thistargets,Move thismove){
@@ -55,6 +55,7 @@ public class MoveLogic {
 					System.out.println("Effect: "+effect.toString());
 					implement(effect,effects.get(effect),u);
 				}
+				//TODO: how to determine targets properly for each effect
 				if(userpokemon.isHolding("King's Rock")&&effects.size()==1
 						&&effects.containsKey(MoveEffect.Damage)&&GameData.getRandom().nextInt(100)<Constants.KINGS_ROCK_FLINCH_CHANCE){
 					HashMap<String,String> map=new HashMap<String,String>();
@@ -88,7 +89,9 @@ public class MoveLogic {
 
 	private static void implement(MoveEffect effect,HashMap<String,String> params,Unit target){
 		curreffects=params;
-		if(effect==MoveEffect.Damage){
+		//TODO: need to prevent more than just damage effects to friendlies. e.g. a move with a chance to paralyze.
+		//only buffs should be applied
+		if(effect==MoveEffect.Damage&&!BattleEngine.getFriendlyUnits(user).contains(target)){
 			implementDamageEffect(target);
 			if(!target.getPokemon().isFainted()&&target.isRaging()){
 				System.out.println(target.getName()+"'s rage grows.");
@@ -290,13 +293,13 @@ public class MoveLogic {
 	private static void implementBuffNerfEffect(MoveEffect effect,Unit target){
 		if(target.hasProtectionCondition(ProtectionCondition.Mist)&&!target.equals(user)){
 			System.out.println(target.getName()+" cannot have it's stats modified because it is protected by Mist");
-		}
+		}//TODO: looks like only buffs/nerfs with a chance of success go through, but guaranteed buffs/nerfs dont
 		else if(curreffects.containsKey("Chance")&&GameData.getRandom().nextInt(100)<Integer.parseInt(curreffects.get("Chance"))){
 			if(effect==MoveEffect.Buff){
 				System.out.println(target.getName()+"'s "+curreffects.get("Stat")+" increased "+curreffects.get("Stages")+" stages.");
 				target.incStat(Integer.parseInt(curreffects.get("Stages")),Stat.valueOf(curreffects.get("Stat")));
 			}
-			else{
+			else if (effect==MoveEffect.Nerf){
 				System.out.println(target.getName()+"'s "+curreffects.get("Stat")+" decreased "+curreffects.get("Stages")+" stages.");
 				target.decStat(Integer.parseInt(curreffects.get("Stages")),Stat.valueOf(curreffects.get("Stat")));
 			}
@@ -512,14 +515,16 @@ public class MoveLogic {
 		double partb=0;
 		int att;
 		int def;
-		System.out.println(user.getStat(Stat.SpecialAttack));
-		System.out.println(user.getPokemon().getStat(Stat.SpecialAttack));
-		System.out.println(user.getStat(Stat.Attack));
-		System.out.println(user.getPokemon().getStat(Stat.Attack));
-		System.out.println(user.getStat(Stat.SpecialDefense));
-		System.out.println(user.getPokemon().getStat(Stat.SpecialDefense));
-		System.out.println(user.getStat(Stat.Defense));
-		System.out.println(user.getPokemon().getStat(Stat.Defense));
+		if(DEBUG) {
+			System.out.println("Special Attack: "+user.getStat(Stat.SpecialAttack));
+			System.out.println("Special Attack: "+user.getPokemon().getStat(Stat.SpecialAttack));
+			System.out.println("Attack: "+user.getStat(Stat.Attack));
+			System.out.println("Attack: "+user.getPokemon().getStat(Stat.Attack));
+			System.out.println("Special Defense: "+user.getStat(Stat.SpecialDefense));
+			System.out.println("Special Defense: "+user.getPokemon().getStat(Stat.SpecialDefense));
+			System.out.println("Defense: "+user.getStat(Stat.Defense));
+			System.out.println("Defense: "+user.getPokemon().getStat(Stat.Defense));
+		}
 		if(usesSpecial(movetype)){
 			att=user.getStat(Stat.SpecialAttack);
 			def=defender.getStat(Stat.SpecialDefense);
@@ -572,10 +577,10 @@ public class MoveLogic {
 			weathermod=1.5;
 		else if((currweather==Weather.Sun&&movetype==Type.Water)||(currweather==Weather.Rain&&movetype==Type.Fire)||(currweather==Weather.Rain&&GameData.getMoveName(move.getNum()).equals("Solar Beam")))
 			weathermod=.5;
-		double totalmodifier=stabmod*typemod*critmod*heldmod*randommod*burnmod*weathermod;
+		double totalmodifier=stabmod*typemod*critmod*heldmod*randommod*burnmod*weathermod*Constants.DMG_SCALING_RATE;
 		damage=(int)(totalbase*totalmodifier);
 		System.out.println("( "+parta+" * "+att+"/"+def+" * "+power+" / 50 + 2) * "+stabmod+" * "+typemod+" * "+critmod+" * "
-				+heldmod+" * "+randommod+" * "+burnmod+" * "+weathermod+" = "+damage);
+				+heldmod+" * "+randommod+" * "+burnmod+" * "+weathermod+" * "+Constants.DMG_SCALING_RATE+" = "+damage);
 		return damage;
 	}
 

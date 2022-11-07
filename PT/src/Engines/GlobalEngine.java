@@ -2,6 +2,8 @@ package Engines;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import Enums.EventName;
@@ -23,7 +25,6 @@ import Objects.EventLogic;
 import Objects.Location;
 import Objects.Move;
 import Objects.Pokemon;
-import Objects.Radio;
 import Objects.Trainer;
 import Objects.WildTrainer;
 
@@ -117,7 +118,7 @@ public class GlobalEngine {
 		EventLogic.triggerEvent(event);
 	}
 
-	public static void defeatedTrainer(Trainer defeated){
+	public static void defeatedTrainer(Trainer defeated, Map<Pokemon,Integer> xpgains){
 		if(!defeated.getName().equals("Challenger")){
 			PlayerData.markTrainerBeaten(defeated.getID());
 			MapEngine.removeTrainerFromMap(defeated,PlayerData.getLocation().getID());
@@ -125,6 +126,7 @@ public class GlobalEngine {
 		rewardLoot(defeated);
 		if(!(defeated instanceof WildTrainer))
 			rewardMoney(defeated);
+		rewardExperience(xpgains);
 		String name=defeated.getName();
 		if(name.equals("Rival")){
 			BattleEngine.close();
@@ -204,6 +206,13 @@ public class GlobalEngine {
 		System.out.println("Player receives a bonus of "+paydaybonus+" from uses of Pay Day.");
 		System.out.println("Player gains "+(highestlevel*base*mod+paydaybonus)+" money for beating "+defeated.getName());
 		PlayerData.gainMoney(highestlevel*base*mod+paydaybonus);
+	}
+	
+	private static void rewardExperience(Map<Pokemon,Integer> xpgains) {
+		for(Entry<Pokemon,Integer> entry:xpgains.entrySet()) {
+			System.out.println(entry.getKey().getName()+" gains "+entry.getValue()+" experience from the battle.");
+			entry.getKey().gainExp(entry.getValue());
+		}
 	}
 	
 	public static void loseMoney(){

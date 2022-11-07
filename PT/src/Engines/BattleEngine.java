@@ -4,11 +4,12 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import Enums.Direction;
 import Enums.EventName;
-import Enums.MusicTheme;
 import Enums.PermCondition;
 import Enums.Stat;
 import Enums.Tile;
@@ -51,6 +52,7 @@ public class BattleEngine {
 	private static BattlefieldMaker bfmaker;
 	private static boolean spikesplaced;
 	private static int numpaydays;
+	private static int[] xpgains;
 	private static Weather weather;
 	private static int turn;
 	private static int weatherturn;
@@ -63,9 +65,11 @@ public class BattleEngine {
 		spikesplaced=false;
 		numpaydays=0;
 		weather=null;
+		weatherturn=0;
 		turn=0;
 		initBattlefield();
 		initUnits();
+		xpgains=new int[punits.size()];
 		placeNewPlayerUnits();
 	}
 
@@ -338,6 +342,7 @@ public class BattleEngine {
 			for(int i:temp){
 				priorities.add(i);
 			}
+			xpgains=GameData.readIntArray(s.nextLine());
 			spikesplaced=s.nextBoolean();
 			numpaydays=s.nextInt();
 			activeindex=s.nextInt();
@@ -370,6 +375,7 @@ public class BattleEngine {
 			}
 			pw.println("End Opponent Units");
 			pw.println(priorities);
+			pw.println(Arrays.asList(xpgains));
 			pw.println(spikesplaced+" "+numpaydays+" "+activeindex+" "+activeunit.getID()+" "+weather+" "+weatherturn);
 			pw.println(bfmaker.toString());
 			pw.close();
@@ -502,6 +508,7 @@ public class BattleEngine {
 	 * @param unit
 	 * @return
 	 */
+	//TODO: add 'owner' field to units to more easily indicate friend from foe. check callers of this for improvements once thats done
 	public static ArrayList<Unit> getFriendlyUnits(Unit unit){
 		ArrayList<Unit> friends=new ArrayList<Unit>();
 		if(ounits.contains(unit)){
@@ -513,17 +520,17 @@ public class BattleEngine {
 		return friends;
 	}
 
-	public static void experienceGainLogic(ArrayList<IntPair> validtargets){
-		for(IntPair valid:validtargets){
-			Unit target=BattleEngine.getUnitByID(battlefield[valid.getX()][valid.getY()].getUnit());
+	public static void experienceGainLogic(ArrayList<Unit> targetunits){
+		for(Unit target:targetunits){
 			Pokemon targetpokemon=target.getPokemon();
 			//XP gain if target fainted (note xp is not given to opp units on defeating players units)
 			if(ounits.contains(target)&&targetpokemon.isFainted()){
-				ArrayList<Pokemon> xprecipients=new ArrayList<Pokemon>();
-				for(Unit unit:getLiveUnits(punits)){
-					Pokemon pokemon=unit.getPokemon();
-					if(pokemon.isHolding("Exp Share")||target.attackedBy(unit.getID()))
-						xprecipients.add(pokemon);
+				ArrayList<Unit> xprecipients=new ArrayList<Unit>();
+				for(Unit unit:punits){
+					//TODO: attackedby not currently being set. need logic in unit to rule out
+					//friendlies and then call into that when certain moves used on a unit
+					if(unit.isHolding("Exp Share")||target.attackedBy(unit.getID()))
+						xprecipients.add(unit);
 				}
 				awardExperience(xprecipients,targetpokemon);
 			}
@@ -531,14 +538,14 @@ public class BattleEngine {
 	}
 
 
-	private static void awardExperience(ArrayList<Pokemon> recipients,Pokemon giver){
+	private static void awardExperience(ArrayList<Unit> recipients,Pokemon giver){
 		double xpshare=GameData.getBaseExp(giver.getNum())*giver.getLevel();
 		if(!giver.isWild())
 			xpshare*=1.5;
 		xpshare/=recipients.size();
-		for(Pokemon p:recipients){
-			p.gainExp(round(xpshare));
-			System.out.println(p.getName()+" gains "+xpshare+" experience");
+		for(Unit recipient:recipients){
+			xpgains[punits.indexOf(recipient)]+=(round(xpshare));
+			System.out.println(recipient.getName()+" will gain "+xpshare+" experience for taking down"+giver.getName()+"after battle");
 		}
 	}
 
@@ -615,7 +622,11 @@ public class BattleEngine {
 
 	public static void win(){
 		System.out.println("Player won the battle against "+opponent.getName());
-		GlobalEngine.defeatedTrainer(opponent);
+		HashMap<Pokemon,Integer> pokemonToXP=new HashMap<Pokemon,Integer>();
+		for(int i=0;i<punits.size();i++) {
+			pokemonToXP.put(punits.get(i).getPokemon(),xpgains[i]);
+		}
+		GlobalEngine.defeatedTrainer(opponent,pokemonToXP);
 	}
 
 	public static void lose(){

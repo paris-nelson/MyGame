@@ -673,6 +673,7 @@ public class Helper {
 		//System.out.println(Arrays.toString(lootlvls));
 		System.out.println(changeindices);
 		System.out.println(changeindices.size());
+		s.close();
 	}
 	
 	private static void getPokemonThatLearnMove(int movenum) throws IOException{
@@ -695,6 +696,7 @@ public class Helper {
 				}
 			}
 		}
+		s.close();
 	}
 	
 	public static void test(ArrayList<Unit> input){

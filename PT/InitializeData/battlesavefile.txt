@@ -1,11 +1,11 @@
 2
 WildTrainer: 
-   Pokemon: Zubat 41 24 7 0 -1 70 true false null null Female [216 20 20, 105 15 15]__[12, 3, 15, 1, 11, 7]__[0, 0, 0, 0, 0, 0]__[24, 11, 12, 9, 12, 13]
+   Pokemon: Ninetales 38 75 20 0 -1 70 true false null null Female [216 20 20, 105 15 15]__[12, 3, 15, 1, 11, 7]__[0, 0, 0, 0, 0, 0]__[24, 11, 12, 9, 45, 13]
    Pokemon: Zubat 41 19 5 0 -1 70 true false null null Female [105 15 15]__[2, 9, 2, 8, 4, 10]__[0, 0, 0, 0, 0, 0]__[19, 10, 8, 8, 9, 11]
-   Pokemon: Zubat 41 22 7 0 -1 70 true false null null Male [216 20 20, 105 15 15]__[2, 6, 8, 12, 2, 11]__[0, 0, 0, 0, 0, 0]__[22, 12, 11, 10, 10, 14]
-   Pokemon: Zubat 41 22 6 0 -1 70 true false null null Female [216 20 20, 105 15 15]__[12, 1, 8, 6, 13, 13]__[0, 0, 0, 0, 0, 0]__[22, 10, 10, 9, 11, 13]
+   Pokemon: Persion 53 60 18 0 -1 70 true false null null Male [216 20 20, 105 15 15]__[2, 6, 8, 12, 2, 11]__[0, 0, 0, 0, 0, 0]__[22, 12, 11, 10, 40, 14]
+   Pokemon: Steelix 208 250 88 0 -1 70 true false null null Female [216 20 20, 105 15 15]__[12, 1, 8, 6, 13, 13]__[0, 0, 0, 0, 0, 0]__[22, 10, 10, 9, 200, 13]
    Pokemon: Slowpoke 79 27 6 0 -1 70 true false null null Female [82 40 40, 224 35 35, 38 10 10]__[2, 1, 11, 4, 15, 8]__[0, 0, 0, 0, 0, 0]__[27, 12, 14, 10, 11, 7]
-   Pokemon: Zubat 41 24 7 0 -1 70 true false null null Male [216 20 20, 105 15 15]__[14, 14, 15, 2, 1, 7]__[0, 0, 0, 0, 0, 0]__[24, 13, 12, 9, 10, 13]
+   Pokemon: Jolteon 135 120 100 0 -1 70 true false null null Male [216 20 20, 105 15 15]__[14, 14, 15, 2, 1, 7]__[0, 0, 0, 0, 0, 0]__[24, 13, 12, 9, 140, 13]
  End Trainer
 Unit: 7
 0 3 true Left true false false true true false false false false false 0 -1 -1 false
@@ -73,6 +73,7 @@ Unit: 2
 []
 End Opponent Units
 [7, 3, 1, 6, 4, 2, 5]
+[0]
 false 0 0 7 None 0
 Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false 
 Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false Grass,-1,false 

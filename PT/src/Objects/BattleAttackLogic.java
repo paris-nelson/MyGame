@@ -21,6 +21,7 @@ public class BattleAttackLogic {
 	private static int attackrange;
 	private static IntPair epicenter;
 	private static ArrayList<IntPair> validtargets;
+	private static ArrayList<Unit> targetunits;
 	private static Move currattack;
 	private static Unit activeunit;
 	private static Square[][] battlefield;
@@ -164,10 +165,6 @@ public class BattleAttackLogic {
 			IntPair curr=validtargets.get(0);
 			if(curr.getX()>0){
 				IntPair next=new IntPair(curr.getX()-1,curr.getY());
-				//TODO how to jump when distance exceeded
-				//e.g. if range is one, and currently looking 1 to the right, if up is pressed, cant go through the diagonal
-				//since distance >1 so program SHOULD jump to the tile a above activeunit. should probably also be highlighting
-				//valid target tiles and diff color highlight the current consideration tile.
 				if(active.distanceFrom(next)<=attackrange)
 					validtargets.set(0,next);
 			}
@@ -349,18 +346,12 @@ public class BattleAttackLogic {
 
 	public static void confirmAttackRange(boolean cancellable){
 		GlobalEngine.giveUpControl();
-		ArrayList<Unit> targets=new ArrayList<Unit>();
-		for(IntPair pair:validtargets){
-			Square s=battlefield[pair.getX()][pair.getY()];
-			Unit u=BattleEngine.getUnitByID(s.getUnit());
-			if(u!=null)
-				targets.add(u);
-		}
+		setTargetUnits();
 		removeAttackRange();
 		String name=GameData.getMoveName(currattack.getNum());
 		if(name.equals("Sketch")){
 			Pokemon userpokemon=activeunit.getPokemon();
-			int lastmove=targets.get(0).getPrevMove();
+			int lastmove=targetunits.get(0).getPrevMove();
 			String lastname=GameData.getMoveName(lastmove);
 			if(lastname.equals("Sketch")||lastname.equals("Struggle")||lastname.equals("Transform")||lastname.equals("Snore")||lastname.equals("Sleep Talk")
 					||lastname.equals("Mimic")||lastname.equals("Mirror Move")||lastname.equals("Explosion")||lastname.equals("Self Destruct")
@@ -407,7 +398,7 @@ public class BattleAttackLogic {
 			useMove(new Move(newmove),false);
 		}
 		else if(name.equals("Mirror Move")){
-			Unit target=targets.get(0);
+			Unit target=targetunits.get(0);
 			int lastmove=target.getPrevMove();
 			if(lastmove==-1){
 				debug(target.getName()+" has no used a move yet. There's nothing to copy.");
@@ -427,8 +418,18 @@ public class BattleAttackLogic {
 			}
 		}
 		else{
-			MoveLogic.implementEffects(activeunit,targets,currattack);
+			MoveLogic.implementEffects(activeunit,targetunits,currattack);
 			afterAttackEffects(cancellable);
+		}
+	}
+	
+	private static void setTargetUnits() {
+		targetunits=new ArrayList<Unit>();
+		for(IntPair pair:validtargets){
+			Square s=battlefield[pair.getX()][pair.getY()];
+			Unit u=BattleEngine.getUnitByID(s.getUnit());
+			if(u!=null)
+				targetunits.add(u);
 		}
 	}
 
@@ -446,7 +447,7 @@ public class BattleAttackLogic {
 		//confusion turn count is only lowered by attacking turns. Pokemon can't avoid confusion by refusing to attack until it's over
 		if(activeunit.getPokemon().getPcondition()==PermCondition.Confusion)
 			activeunit.incNumTurnsAfflicted(PermCondition.Confusion.toString());
-		BattleEngine.experienceGainLogic(validtargets);
+		BattleEngine.experienceGainLogic(targetunits);
 		BattleEngine.openUnitMenu();
 	}
 	
