@@ -72,27 +72,12 @@ public class MoveLogic {
 		}
 	}
 
-	/**
-	 * Returns the map of effects that target the move user and pulls them out of the original effects map
-	 * @return
-	 */
-	//TODO: are these not being considered? 
-	private static Set<MoveEffect> getSelfTargettingEffects(){
-		Set<MoveEffect> selftargetting=new HashSet<MoveEffect>();
-		for(MoveEffect effect:effects){
-			String target=effect.getParam("Target");
-			if(target!=null&&target.equals("Self")){
-				selftargetting.add(effect);
-				effects.remove(effect);
-			}
-		}
-		return selftargetting;
-	}
-
 	private static void implement(MoveEffect effect,Unit target){
 		if(effect.getImpact()==MoveImpact.EnemyOnly&&user.isFriendlyWith(target))
 			return;
 		if(effect.getImpact()==MoveImpact.FriendOnly&&!user.isFriendlyWith(target))
+			return;
+		if(effect.getImpact()==MoveImpact.Self&&!user.equals(target))
 			return;
 		EffectType effectType=effect.getType();
 		if(effectType==EffectType.Damage){
@@ -430,8 +415,7 @@ public class MoveLogic {
 		if(rand<2){
 			HashMap<String,String> map=new HashMap<String,String>();
 			map.put("Percentage","25");
-			//TODO: this doesn't line up with what movestrings says should happen (flat 80 heal)
-			implement(MoveEffect.Heal,map,target);
+			implement(new MoveEffect(EffectType.Heal,effect.getImpact(), map),target);
 			return -1;
 		}
 		if(rand<6)

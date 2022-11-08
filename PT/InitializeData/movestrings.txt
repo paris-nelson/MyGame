@@ -145,7 +145,7 @@ Poison Sting,Poison,Has a 30% chance to poison the target
 Poison Powder,Poison,Poisons the target
 Pound,Normal,Damages the target
 Powder Snow,Ice,Has a 10% chance to freeze the target
-Present,Normal,Randomly either attacks with a variable power between 40 base power and 120 base power or heals the target by 80 HP
+Present,Normal,Randomly either attacks with a variable power between 40 base power and 120 base power or heals the target by 25% HP
 Protect,Normal,Almost always goes first. The user is protected from all attacks for one turn but the move's success rate halves with each consecutive use of Protect Detect or Endure
 Psybeam,Psychic,Has a 10% chance to confuse the target
 Psych Up,Normal,The user copies all eight of the target's current stat modifiers

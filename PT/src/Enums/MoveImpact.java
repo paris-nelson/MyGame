@@ -1,5 +1,5 @@
 package Enums;
 
 public enum MoveImpact {
-	EnemyOnly,FriendOnly,Any
+	EnemyOnly,FriendOnly,Self,Any
 }
