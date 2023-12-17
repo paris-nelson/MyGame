@@ -126,7 +126,7 @@ Selection=Single,Range=2
 Selection=Single,Range=1
 Selection=Single,Range=2
 Selection=Single,Range=2
-Selection=Single,Range=1
+Selection=Nova,Range=1
 Selection=Single,Range=1
 Selection=Single,Range=1
 Selection=Single,Range=1

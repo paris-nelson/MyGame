@@ -46,7 +46,13 @@ public class MoveEffect{
 			String[] components=spliteffect.split(",");
 			try{
 				EffectType type=EffectType.valueOf(components[0].substring(7));
-				MoveImpact impact=MoveImpact.valueOf(components[1].substring(7));
+				// inherit impact from first effect if one isn't presented
+				// this way it doesn't have to be redundantly provided for most moves
+				MoveImpact impact;
+				if(effects.size()>0&&!components[1].startsWith("Impact="))
+					impact=effects.get(0).getImpact();
+				else
+					impact=MoveImpact.valueOf(components[1].substring(7));
 				Map<String,String> params=null;
 				if(components.length>2){
 					params=new HashMap<String,String>();

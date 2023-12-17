@@ -1,5 +1,5 @@
 package Enums;
 
 public enum BondCondition {
-	DestinyBond,LockOn,FutureSight,Foresight,LeechSeed,MindReader
+	DestinyBond,LockOn,FutureSight,Foresight,LeechSeed
 }

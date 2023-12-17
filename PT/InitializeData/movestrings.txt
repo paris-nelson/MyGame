@@ -1,9 +1,9 @@
 Absorb,Grass,Restores the user's HP by 1/2 of the damage inflicted on the target
 Acid,Poison,Has a 10% chance to lower the target's Defense by 1 stage
-Acid Armor,Poison,Raises the user's Defense by 2 stages
+Acid Armor,Poison,Raises an ally's Defense by 2 stages
 Aeroblast,Flying,Has a high critical hit ratio
-Agility,Psychic,Raises the user's Speed by 2 stages
-Amnesia,Psychic,Raises the user's Special Defense by 2 stages
+Agility,Psychic,Raises an ally's Speed by 2 stages
+Amnesia,Psychic,Raises an ally's Special Defense by 2 stages
 Ancient Power,Rock,Has a 10% chance to raise all of the user's stats by 1 stage
 Attract,Normal,Infatuates Pokemon of the opposite gender causing a 50% chance for the target to be be unable to attack
 Aurora Beam,Ice,Has a 10% chance to lower the target's Attack by 1 stage
@@ -13,7 +13,7 @@ Baton Pass,Normal,Swaps positions with other party member.all stat modifiers are
 Beat Up,Dark,Each healthy (i.e. not fainted nor inflicted with a status condition) Pokemon in your party contributes a typeless 10 base power hit determined solely by their base Attack and Defense stats. No STAB or rand damage variation
 Belly Drum,Normal,The user maximizes its Attack but sacrifices 50% of its max HP
 Brick Break,Fighting,Removes light screen and reflect from the target before dealing damage
-Bind,Normal,Traps the target for 2-5 turns causing damage equal to 1/12 of its max HP each turn; this trapped effect can be broken by Rapid Spin. The target can still switch out if it uses Baton Pass.
+Bind,Normal,Traps the target for 2-5 turns causing damage equal to 1/16 of its max HP each turn; this trapped effect can be broken by Rapid Spin. The target can still switch out if it uses Baton Pass.
 Bite,Dark,Has a 30% chance to make the target flinch
 Blizzard,Ice,Has a 10% chance to freeze the target
 Body Slam,Normal,Has a 30% chance to paralyze the target
@@ -39,7 +39,7 @@ Curse,Ghost,When used by a Ghost-type the user sacrifices half of its max HP to 
 Cut,Normal,Damages the target
 Defense Curl,Normal,Raises the user's Defense by 1 stage; after one use of this move the user's starting base power is doubled for every use of Rollout
 Destiny Bond,Ghost,Causes an opponent to faint if its next attack KOs the user
-Detect,Fighting,Almost always goes first. The user is protected from all attacks for one turn but the move's success rate halves with each consecutive use of Protect Detect or Endure
+Detect,Fighting,The user is protected from all attacks for one turn but the move's success rate halves with each consecutive use of Protect Detect or Endure
 Dig,Ground,On the first turn the user digs underground becoming uncontrollable and evades all attacks. Earthquake Magnitude and Fissure can hit underground with Earthquake and Magnitude having doubled power; the user may also be hit underground if it was previously targeted by Lock-On or Mind Reader. On the second turn the user attacks
 Disable,Normal,The target cannot choose its last move for 2-5 turns. Disable only works on one move at a time and fails if the target has not yet used a move or if its move has run out of PP. The target does nothing if it is about to use a move that becomes disabled
 Dizzy Punch,Normal,Has a 20% chance to confuse the target
@@ -64,7 +64,7 @@ False Swipe,Normal,Leaves the target with at least 1 HP
 Fire Blast,Fire,Has a 10% chance to burn the target
 Fire Punch,Fire,Has a 10% chance to burn the target
 Fire Spin,Fire,Traps the target for 2-5 turns causing damage equal to 1/16 of its max HP each turn; this trapped effect can be broken by Rapid Spin. The target can still switch out if it uses Baton Pass
-Fissure,Ground,The target faints; doesn't work on higher-leveled Pokemon. However this move will hit Digging Pokemon. Accuracy determined by (userlvl-targetlvl+30)%. Does not factor in acc/eva changes
+Fissure,Ground,The target faints; doesn't work on higher-leveled Pokemon. However this move will hit Digging Pokemon. Accuracy determined by (userlvl-targetlvl+30)%.
 Flail,Normal,Base power increases as the user's HP decreases
 Flame Wheel,Fire,Has a 10% chance to burn the target; can be used while frozen which both attacks the target normally and thaws the user
 Flamethrower,Fire,Has a 10% chance to burn the target
@@ -81,7 +81,7 @@ Giga Drain,Grass,Restores the user's HP by 1/2 of the damage inflicted on the ta
 Glare,Normal,Paralyzes the target
 Growl,Normal,Lowers the target's Attack by 1 stage
 Growth,Normal,Raises the user's Special Attack by 1 stage
-Guillotine,Normal,Same mechanics as Fissure
+Guillotine,Normal,The target faints; doesn't work on higher-leveled Pokemon.
 Gust,Flying,Power doubles if the target is in mid-air via Fly
 Harden,Normal,Raises the user's Defense by 1 stage
 Haze,Ice,Eliminates any stat modifiers from all active Pokemon
@@ -90,7 +90,7 @@ Heal Bell,Normal,Every Pokemon in the user's party is cured of status conditions
 Hi Jump Kick,Fighting,If this attack misses the target the user receives 1/8 recoil damage of what it would have inflicted
 Hidden Power,Normal,Varies in power and type depending on the user's IVs; maximum 70 BP. Will run off the user's Attack or Special Attack depending on type. Calculations here http://bulbapedia.bulbagarden.net/wiki/Hidden_Power_(move)/Calculation
 Horn Attack,Normal,Damages the target
-Horn Drill,Normal,Same mechanics as Fissure
+Horn Drill,Normal,The target faints; doesn't work on higher-leveled Pokemon.
 Hydro Pump,Water,Damages the target
 Hyper Beam,Normal,The user recharges during its next turn; as a result until the end of the next turn the user becomes uncontrollable
 Hyper Fang,Normal,Has a 10% chance to make the target flinch

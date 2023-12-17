@@ -57,6 +57,46 @@ public class MoveLogic {
 				for(MoveEffect effect:effects){
 					System.out.println("Effect: "+effect.toString());
 					implement(effect,u);
+					//TODO: self effects should only be done once per move not
+					//pertarget. but still need to preserve order of effetcs...
+					
+					//TODO: unimplemented effects: 
+					// defense curl rollout buff,
+					// destiny bond
+					// detect, protect, endure effects as well as diminishing returns
+					// dig and fly damage effects? might rethink how these work.
+					// disable?
+					// dream eater?
+					// encore?
+					// selfdestruct should be after damage
+					 //faint attack not missing
+					// flame wheel being usable while frozen and thawing
+					//foresight? implementation is probably ok but need to enforce condition
+					//future sight has lots of factors are all implemented?
+					//fury cutter max power and reset
+					//fissure and guillotine accuracy. fissure can hit dig targets
+					//haze seems to mistakenly remove p conditions?
+					//check hidden power
+					//check hyper beam
+					//check light screen
+					//lockon/mindreader
+					//magnitude
+					//metronome
+					//mimic, mirror move, etc
+					//minimize
+					//mirror coat
+					//mist
+					//outrage/petal dance
+					//payday
+					//how to handle perish song?
+					//psych up
+					//psywave dmg
+					//pursuit flanking dmg
+					//rage attackreaction
+					//rapid spin all effects
+					
+					
+					
 				}
 				if(userpokemon.isHolding("King's Rock")&&effects.size()==1
 						&&effects.get(0).getType()==EffectType.Damage&&GameData.getRandom().nextInt(100)<Constants.KINGS_ROCK_FLINCH_CHANCE){
@@ -75,7 +115,7 @@ public class MoveLogic {
 	private static void implement(MoveEffect effect,Unit target){
 		if(effect.getImpact()==MoveImpact.EnemyOnly&&user.isFriendlyWith(target))
 			return;
-		if(effect.getImpact()==MoveImpact.FriendOnly&&!user.isFriendlyWith(target))
+		if(effect.getImpact()==MoveImpact.AllyOnly&&!user.isFriendlyWith(target))
 			return;
 		if(effect.getImpact()==MoveImpact.Self&&!user.equals(target))
 			return;
@@ -325,6 +365,7 @@ public class MoveLogic {
 					numtimes=GameData.getRandom().nextInt(4)+2;
 				else if(param.equals("BeatUp")){
 					for(Unit u:BattleEngine.getFriendlyUnits(user)){
+						//TODO: ally must be not fainted and not affected by a status condition?
 						if(u.equals(user))
 							continue;
 						damage+=calculateDamage(effect,u,target,null,10);
@@ -613,6 +654,7 @@ public class MoveLogic {
 			System.out.println(attacker.getName()+" is facing "+defender.getName()+"'s side so will take a slight accuracy penalty");
 			mod=Constants.SIDE_FACING_ACCURACY_RATE;
 		}
+		//TODO:some moves like buffs report -1% chance of hitting because they cant miss. account for this
 		double acc=GameData.getMoveAccuracy(movenum);
 		if(GameData.getMoveName(movenum).equals("Thunder")){
 			if(BattleEngine.getWeather()==Weather.Rain){
@@ -821,7 +863,7 @@ public class MoveLogic {
 		if(activeunit.hasProtectionCondition(ProtectionCondition.Endure)){
 			activeunit.removeProtectionCondition(ProtectionCondition.Endure);
 			System.out.println(activepokemon.getName()+"'s Endure wears off.");
-		}
+		}//TODO: is this implemented?
 		if(activeunit.hasProtectionCondition(ProtectionCondition.Counter)){
 			activeunit.removeProtectionCondition(ProtectionCondition.Counter);
 			System.out.println(activepokemon.getName()+"'s Counter wears off.");
